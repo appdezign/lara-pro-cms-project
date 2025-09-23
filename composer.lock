@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0c3b0c4964088318ac7125df193fb320",
+    "content-hash": "ac63792aa7d36899d1e4387899e209f7",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -74,21 +74,22 @@
         },
         {
             "name": "appdezign/lara-pro-base-theme",
-            "version": "10.0.1",
+            "version": "10.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-base-theme.git",
-                "reference": "2e03f238e6f262effbe65440883cca0a609cdede"
+                "reference": "437a808e306335a1c8bed79b7b19918aa670394d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/2e03f238e6f262effbe65440883cca0a609cdede",
-                "reference": "2e03f238e6f262effbe65440883cca0a609cdede",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/437a808e306335a1c8bed79b7b19918aa670394d",
+                "reference": "437a808e306335a1c8bed79b7b19918aa670394d",
                 "shasum": ""
             },
             "require": {
                 "appdezign/lara-pro-cms": "^10.0",
                 "appdezign/lara-pro-demo-theme": "^10.0",
+                "composer/installers": "~1.0",
                 "laravel/framework": "^11.0",
                 "php": "^8.0"
             },
@@ -131,31 +132,34 @@
             ],
             "support": {
                 "issues": "https://github.com/appdezign/lara-pro-base-theme/issues",
-                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.0.1"
+                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.0.7"
             },
-            "time": "2025-09-22T19:30:32+00:00"
+            "time": "2025-09-23T12:23:40+00:00"
         },
         {
             "name": "appdezign/lara-pro-cms",
-            "version": "10.0.5",
+            "version": "10.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-cms.git",
-                "reference": "09e66a7b7951a7f5b9dbc907543df7c772c889e2"
+                "reference": "80e45ed585500a79c9c2b2d7da57b7f270e71b06"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/09e66a7b7951a7f5b9dbc907543df7c772c889e2",
-                "reference": "09e66a7b7951a7f5b9dbc907543df7c772c889e2",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/80e45ed585500a79c9c2b2d7da57b7f270e71b06",
+                "reference": "80e45ed585500a79c9c2b2d7da57b7f270e71b06",
                 "shasum": ""
             },
             "require": {
+                "appdezign/lara-pro-base-theme": "^10.0",
+                "appdezign/lara-pro-demo-theme": "^10.0",
                 "arrilot/laravel-widgets": "^3.14",
                 "barryvdh/laravel-httpcache": "^1.0",
                 "bezhansalleh/filament-google-analytics": "3.0.0",
                 "binafy/laravel-stub": "^1.1",
+                "composer/installers": "~1.0",
                 "cviebrock/eloquent-sluggable": "^11.0",
-                "filament/filament": "4.0.19",
+                "filament/filament": "^4.0",
                 "intervention/image-laravel": "^1.5",
                 "jeffgreco13/filament-breezy": "^3.0",
                 "jenssegers/agent": "^2.6",
@@ -223,27 +227,28 @@
             ],
             "support": {
                 "issues": "https://github.com/appdezign/lara-pro-cms/issues",
-                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.0.5"
+                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.0.7"
             },
-            "time": "2025-09-23T09:59:41+00:00"
+            "time": "2025-09-23T12:22:37+00:00"
         },
         {
             "name": "appdezign/lara-pro-demo-theme",
-            "version": "10.0.1",
+            "version": "10.0.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-demo-theme.git",
-                "reference": "d57d28ec5486240786f0469a937f9f1194404bb1"
+                "reference": "607057852399a69b7b77f5a99ec82c9bdb8ef63d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/d57d28ec5486240786f0469a937f9f1194404bb1",
-                "reference": "d57d28ec5486240786f0469a937f9f1194404bb1",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/607057852399a69b7b77f5a99ec82c9bdb8ef63d",
+                "reference": "607057852399a69b7b77f5a99ec82c9bdb8ef63d",
                 "shasum": ""
             },
             "require": {
                 "appdezign/lara-pro-base-theme": "^10.0",
                 "appdezign/lara-pro-cms": "^10.0",
+                "composer/installers": "~1.0",
                 "laravel/framework": "^11.0",
                 "php": "^8.0"
             },
@@ -286,9 +291,9 @@
             ],
             "support": {
                 "issues": "https://github.com/appdezign/lara-pro-demo-theme/issues",
-                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.0.1"
+                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.0.7"
             },
-            "time": "2025-09-23T09:10:33+00:00"
+            "time": "2025-09-23T12:24:20+00:00"
         },
         {
             "name": "arrilot/laravel-widgets",
