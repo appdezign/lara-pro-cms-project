@@ -13,9 +13,10 @@
 	],
     "require": {
         "php": "^8.2",
-		"appdezign/lara-pro-base-theme": "10.0.1",
-		"appdezign/lara-pro-cms": "10.0.4",
-		"appdezign/lara-pro-demo-theme": "10.0.1",
+		"appdezign/lara-pro-base-theme": "10.0.6",
+		"appdezign/lara-pro-cms": "10.0.6",
+		"appdezign/lara-pro-demo-theme": "10.0.6",
+		"composer/installers": "~1.0",
         "laravel/framework": "^11.31",
         "laravel/helpers": "^1.7",
         "laravel/tinker": "^2.9",
@@ -41,12 +42,7 @@
             "Lara\\App\\": "laracms/app",
             "Laratheme\\Base\\": "laracms/themes/base/src/",
             "Laratheme\\Demo\\": "laracms/themes/demo/src/"
-        },
-        "files": [
-            "laracms/core/src/admin/Helpers/helpers.php",
-            "laracms/core/src/common/Helpers/helpers.php",
-            "laracms/core/src/front/Helpers/helpers.php"
-        ]
+        }
     },
     "autoload-dev": {
         "psr-4": {
@@ -56,21 +52,21 @@
     "extra": {
 		"laravel": {
 			"dont-discover": [
-				"appdezign/lara-cms",
-				"appdezign/lara-base-theme",
-				"appdezign/lara-demo-theme"
+				"appdezign/lara-pro-cms",
+				"appdezign/lara-pro-base-theme",
+				"appdezign/lara-pro-demo-theme"
 
 			]
 		},
 		"installer-paths": {
 			"laracms/core": [
-				"appdezign/lara-cms"
+				"appdezign/lara-pro-cms"
 			],
 			"laracms/themes/base": [
-				"appdezign/lara-base-theme"
+				"appdezign/lara-pro-base-theme"
 			],
 			"laracms/themes/demo": [
-				"appdezign/lara-demo-theme"
+				"appdezign/lara-pro-demo-theme"
 			]
 		}
     },
