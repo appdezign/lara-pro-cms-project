@@ -1,5 +1,5 @@
 
-# Welcome to Lara CMS 8
+# Welcome to Lara Prop CMS 10
 
 ## Built on Laravel, the best framework in the world
 
