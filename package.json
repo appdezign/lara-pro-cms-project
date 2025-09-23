@@ -1,0 +1,34 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build ADMIN": "vite build --config vite.admin.config.js",
+        "dev ADMIN": "vite --config vite.admin.config.js",
+        "build front BASE": "vite build --config vite.front.base.config.js",
+        "dev front BASE": "vite --config vite.front.base.config.js",
+        "build front DEMO": "vite build --config vite.front.demo.config.js",
+        "dev front DEMO": "vite --config vite.front.demo.config.js"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "aos": "^2.3.4",
+        "autoprefixer": "^10.4.20",
+        "axios": "^1.7.4",
+        "bootstrap": "^5.2.3",
+        "concurrently": "^9.0.1",
+        "jarallax": "^2.0.4",
+        "laravel-vite-plugin": "^1.2.0",
+        "lazysizes": "^5.3.2",
+        "lightgallery": "^2.7.1",
+        "sass": "^1.56.1",
+        "sass-embedded": "^1.89.2",
+        "smooth-scroll": "^16.1.3",
+        "swiper": "8.4.5",
+        "vite": "^6.0.11",
+        "vite-plugin-static-copy": "^3.1.2"
+    },
+    "dependencies": {
+        "@tailwindcss/vite": "^4.1.9",
+        "tailwindcss": "^4.1.9"
+    }
+}

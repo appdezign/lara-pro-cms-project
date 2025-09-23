@@ -1,0 +1,27 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+
+.fi-fo-field.fi-fo-field-has-inline-label {
+    @apply xl:grid-cols-4;
+}
+
+@media (min-width: 40rem) {
+    .fi-fo-field.fi-fo-field-has-inline-label .fi-fo-field-content-col {
+        grid-column: span 3/span 3
+    }
+}
+
+
+@media (min-width: 786px) {
+    .filepond--item {
+        width: calc(33% - 0.5em);
+    }
+}
+
+@media (min-width: 1200px) {
+    .filepond--item {
+        width: calc(25% - 0.5em);
+    }
+}

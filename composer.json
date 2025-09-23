@@ -1,0 +1,93 @@
+{
+	"name": "appdezign/lara-pro-cms-project",
+	"description": "Lara CMS Project 10",
+	"version": "10.0.2",
+	"keywords": ["Lara", "CMS"],
+	"license": "proprietary",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Sybrand Hoeksma",
+			"email": "s.hoeksma@firmaq.nl"
+		}
+	],
+    "require": {
+        "php": "^8.2",
+		"appdezign/lara-pro-base-theme": "10.0.1",
+		"appdezign/lara-pro-cms": "10.0.4",
+		"appdezign/lara-pro-demo-theme": "10.0.1",
+        "laravel/framework": "^11.31",
+        "laravel/helpers": "^1.7",
+        "laravel/tinker": "^2.9",
+        "laravel/ui": "^4.6"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.1",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.26",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.1",
+        "phpunit/phpunit": "^11.0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/",
+            "Lara\\Admin\\": "laracms/core/src/admin",
+            "Lara\\Common\\": "laracms/core/src/common",
+            "Lara\\Front\\": "laracms/core/src/front",
+            "Lara\\App\\": "laracms/app",
+            "Laratheme\\Base\\": "laracms/themes/base/src/",
+            "Laratheme\\Demo\\": "laracms/themes/demo/src/"
+        },
+        "files": [
+            "laracms/core/src/admin/Helpers/helpers.php",
+            "laracms/core/src/common/Helpers/helpers.php",
+            "laracms/core/src/front/Helpers/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+		"laravel": {
+			"dont-discover": [
+				"appdezign/lara-cms",
+				"appdezign/lara-base-theme",
+				"appdezign/lara-demo-theme"
+
+			]
+		},
+		"installer-paths": {
+			"laracms/core": [
+				"appdezign/lara-cms"
+			],
+			"laracms/themes/base": [
+				"appdezign/lara-base-theme"
+			],
+			"laracms/themes/demo": [
+				"appdezign/lara-demo-theme"
+			]
+		}
+    },
+	"scripts": {
+		"post-autoload-dump": [
+			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+			"@php artisan package:discover"
+		]
+	},
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true,
+		"optimize-autoloader": true,
+        "allow-plugins": {
+			"composer/installers": true
+        }
+    },
+	"minimum-stability": "dev",
+    "prefer-stable": true
+}

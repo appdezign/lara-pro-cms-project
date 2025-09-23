@@ -1,0 +1,23 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Lara\Front\Http\Controllers\Api\Base\BaseApiController;
+
+use Illuminate\Http\Request;
+
+use Lara\App\Models\$MODEL$;
+
+class $CLASS$ extends BaseApiController
+{
+
+	public function __construct(Request $request) {
+		parent::__construct($request);
+	}
+
+	protected function make(): $MODEL$
+	{
+		return $MODEL$::create();
+	}
+
+}
