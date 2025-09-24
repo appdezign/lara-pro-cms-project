@@ -13,6 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
 		//
     })
+	->withCommands([
+		// make sure we can use migrate:generate from controller
+		KitLoong\MigrationsGenerator\MigrateGenerateCommand::class,
+	])
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
