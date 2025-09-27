@@ -1,9 +1,20 @@
 import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+
 
 export default defineConfig({
     plugins: [
+	    viteStaticCopy({
+		    targets: [
+			    {
+				    src: 'laracms/core/resources/_filament/*',
+				    dest: './../../filament/',
+			    },
+		    ],
+	    }),
+
         laravel({
 	        buildDirectory: 'assets/admin/build',
             input: [
