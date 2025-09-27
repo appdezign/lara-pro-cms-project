@@ -2,13 +2,18 @@
 
 namespace Lara\App\Providers;
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 use Lara\Common\Models\Entity;
 
+use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
+
 class LaraAppServiceProvider extends ServiceProvider
 {
+
+	use HasSetup;
 	/**
 	 * Bootstrap the module services.
 	 *
@@ -25,11 +30,13 @@ class LaraAppServiceProvider extends ServiceProvider
 
 
 		// Load policies
-		$entities = Entity::whereNotNull('policy')->get();
-		foreach ($entities as $entity) {
-			Gate::policy($entity->model_class, $entity->policy);
+		if (!$this->laraNeedsSetup() && !App::runningInConsole()) {
+			$entities = Entity::whereNotNull('policy')->get();
+			foreach ($entities as $entity) {
+				Gate::policy($entity->model_class, $entity->policy);
+			}
+			// dd(Gate::policies());
 		}
-		// dd(Gate::policies());
 	}
 
 	/**

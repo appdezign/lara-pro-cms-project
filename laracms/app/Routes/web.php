@@ -14,7 +14,10 @@ use Lara\Common\Models\Tag;
 |--------------------------------------------------------------------------
 */
 
-if (!App::runningInConsole() && !config('lara.needs_setup')) {
+$tablename = config('lara-common.database.ent.entities');
+$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+
+if (!App::runningInConsole() && !$laraNeedsSetup) {
 
 	// FRONT Entity Routes
 
