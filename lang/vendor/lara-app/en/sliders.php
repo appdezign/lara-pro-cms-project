@@ -15,6 +15,9 @@ return [
 		'urltext' => 'url text',
 		'urltitle' => 'url title',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'filter' => [
 		'categories' => 'categories',
 		'tags' => 'tags',

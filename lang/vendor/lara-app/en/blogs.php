@@ -4,6 +4,7 @@ return [
 	'column' => [
 		'rich_test' => '_rich_test',
 		'source' => 'source',
+		'sticky' => '_sticky',
 		'title' => 'title',
 	],
 	'entity' => [

@@ -15,6 +15,9 @@ return [
 		'urltext' => 'url tekst',
 		'urltitle' => 'url titel',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'filter' => [
 		'categories' => 'categorieën',
 		'tags' => 'tags',
