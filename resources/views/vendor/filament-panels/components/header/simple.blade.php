@@ -5,5 +5,5 @@
 ])
 
 <header class="fi-simple-header">
-	<img alt="Lara 10" src="/assets/admin/img/lara10-logo.svg" style="height: 3rem;" class="fi-logo">
+	<img alt="Lara 10" src="/assets/filament/img/lara10-logo.svg" style="height: 3rem;" class="fi-logo">
 </header>

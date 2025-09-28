@@ -1,6 +1,9 @@
 <?php
 
 return [
+	'button' => [
+		'export_db' => '_export_db',
+	],
 	'column' => [
 		'cgroup' => 'group',
 		'col_extra_body_fields' => 'extra body fields',
@@ -72,6 +75,9 @@ return [
 	],
 	'tabs' => [
 		'columns' => 'columns',
+		'custom_fields' => 'custom fields',
+		'entity_relations' => 'relations',
+		'entity_views' => 'views',
 		'filters' => 'filters',
 		'info' => 'info',
 		'manager' => 'manager',

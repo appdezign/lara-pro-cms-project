@@ -1,6 +1,9 @@
 <?php
 
 return [
+	'button' => [
+		'export_db' => '_export_db',
+	],
 	'column' => [
 		'cgroup' => 'groep',
 		'col_extra_body_fields' => 'extra body velden',
@@ -72,6 +75,9 @@ return [
 	],
 	'tabs' => [
 		'columns' => 'kolommen',
+		'custom_fields' => 'custom velden',
+		'entity_relations' => 'relaties',
+		'entity_views' => 'views',
 		'filters' => 'filters',
 		'info' => 'info',
 		'manager' => 'manager',
