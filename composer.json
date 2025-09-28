@@ -1,7 +1,7 @@
 {
 	"name": "appdezign/lara-pro-cms-project",
 	"description": "Lara CMS Project 10",
-	"version": "10.0.15",
+	"version": "10.0.14",
 	"keywords": ["Lara", "CMS"],
 	"license": "proprietary",
 	"type": "project",
@@ -12,18 +12,16 @@
 		}
 	],
     "require": {
-		"php": "^8.2",
-		"appdezign/lara-pro-base-theme": "10.0.15",
-		"appdezign/lara-pro-cms": "10.0.15",
-		"appdezign/lara-pro-demo-theme": "10.0.15",
+		"php": "^8.3",
+		"appdezign/lara-pro-base-theme": "10.1.0",
+		"appdezign/lara-pro-cms": "10.1.0",
+		"appdezign/lara-pro-demo-theme": "10.1.0",
 		"composer/installers": "~1.0",
 		"filament/filament": "4.0.20",
-		"kitloong/laravel-migrations-generator": "^7.2",
-		"laravel/framework": "^11.31",
+		"laravel/framework": "^12.31",
 		"laravel/helpers": "^1.7",
 		"laravel/tinker": "^2.9",
-		"laravel/ui": "^4.6",
-		"orangehill/iseed": "^3.1"
+		"laravel/ui": "^4.6"
 	},
     "require-dev": {
 		"fakerphp/faker": "^1.23",
