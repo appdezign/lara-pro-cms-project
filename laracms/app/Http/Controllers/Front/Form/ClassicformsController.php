@@ -25,7 +25,7 @@ use Lara\Front\Http\Concerns\HasFrontMenu;
 use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
-use Lara\Front\Http\Concerns\HasFrontTags;
+use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\FrontThemeTrait;
 use Lara\Front\Http\Concerns\HasFrontView;
 
@@ -49,7 +49,7 @@ class ClassicformsController extends Controller
 	use HasFrontObject;
 	use HasFrontRoutes;
 	use HasFrontSecurity;
-	use HasFrontTags;
+	use HasFrontTerms;
 	use FrontThemeTrait;
 	use HasFrontView;
 
