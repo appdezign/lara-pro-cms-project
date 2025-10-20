@@ -23,9 +23,10 @@ class Event extends BaseModel
 		'end_time' => TimeCast::class,
 	];
 
-	public function __construct($attributes = []) {
+	public function __construct($attributes = [])
+	{
+		$this->mergeCasts($this->appendCasts);
 		parent::__construct($attributes);
-		$this->casts = array_merge(parent::getCasts(), $this->appendCasts);
 	}
 
 	/**

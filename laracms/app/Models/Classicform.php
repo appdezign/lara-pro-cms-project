@@ -10,7 +10,15 @@ class Classicform extends BaseModel
 {
     protected $table = 'lara_form_classicforms';
 
-    public function languageParent(): BelongsTo
+	protected array $appendCasts = [];
+
+	public function __construct($attributes = [])
+	{
+		$this->mergeCasts($this->appendCasts);
+		parent::__construct($attributes);
+	}
+
+	public function languageParent(): BelongsTo
 	{
 		return $this->belongsTo(self::class, 'language_parent');
 	}

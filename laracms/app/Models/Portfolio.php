@@ -10,7 +10,15 @@ class Portfolio extends BaseModel
 {
     protected $table = 'lara_content_portfolios';
 
-    public function languageParent(): BelongsTo
+	protected array $appendCasts = [];
+
+	public function __construct($attributes = [])
+	{
+		$this->mergeCasts($this->appendCasts);
+		parent::__construct($attributes);
+	}
+
+	public function languageParent(): BelongsTo
 	{
 		return $this->belongsTo(self::class, 'language_parent');
 	}
