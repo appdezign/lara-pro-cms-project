@@ -19,6 +19,13 @@ return [
 		'cgroup' => 'groep',
 		'created_at' => 'datum',
 		'expire' => 'verlopen',
+		'geo_address' => 'adres',
+		'geo_city' => 'stad',
+		'geo_country' => 'land',
+		'geo_latitude' => 'latitude',
+		'geo_location' => 'geo locatie',
+		'geo_longitude' => 'longitude',
+		'geo_pcode' => 'postcode',
 		'hide-in-list' => 'verberg in lijst',
 		'html' => '_html',
 		'html' => '_html',
@@ -67,6 +74,7 @@ return [
 		'seo_title' => 'seo title',
 	],
 	'group' => [
+		'geolocation' => 'geo locatie',
 		'slug_edit' => 'slug bewerken',
 	],
 	'repeater' => [

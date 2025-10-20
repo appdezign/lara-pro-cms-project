@@ -6,6 +6,9 @@ return [
 		'title' => 'title',
 		'type' => 'type',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'filter' => [
 		'type' => 'type',
 	],

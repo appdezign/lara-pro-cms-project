@@ -12,6 +12,10 @@ export default defineConfig({
 				    src: 'laracms/core/resources/_filament/*',
 				    dest: './../../filament/',
 			    },
+			    {
+				    src: 'laracms/core/resources/js/google-maps.js',
+				    dest: './../../filament/js/app',
+			    },
 		    ],
 	    }),
 

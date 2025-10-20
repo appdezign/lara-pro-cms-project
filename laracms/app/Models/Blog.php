@@ -10,6 +10,14 @@ class Blog extends BaseModel
 {
     protected $table = 'lara_content_blogs';
 
+	protected array $appendCasts = [];
+
+	public function __construct($attributes = [])
+	{
+		$this->mergeCasts($this->appendCasts);
+		parent::__construct($attributes);
+	}
+
 	public function languageParent(): BelongsTo
 	{
 		return $this->belongsTo(self::class, 'language_parent');
