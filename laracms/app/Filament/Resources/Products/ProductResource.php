@@ -9,7 +9,7 @@ class ProductResource extends BaseResource
 {
 	protected static ?string $model = Product::class;
 
-	protected static bool $shouldRegisterNavigation = false;
+	protected static bool $shouldRegisterNavigation = true;
 
 	public static function getPages(): array
 	{
