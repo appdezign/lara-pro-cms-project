@@ -6,11 +6,12 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Artisan;
-
+use Lara\Admin\Traits\HasCache;
 
 class CacheController extends Controller
 {
+
+	use HasCache;
 
 	protected $redirectRoute;
 	protected $redirectSlug;
@@ -37,11 +38,7 @@ class CacheController extends Controller
 			$this->redirectSlug = null;
 		}
 
-		Artisan::call('cache:clear');
-		Artisan::call('config:clear');
-		Artisan::call('view:clear');
-		Artisan::call('httpcache:clear');
-		$request->session()->put('routecacheclear', true);
+		static::clearCache();
 
 		if(!empty($this->redirectSlug)) {
 			return redirect()->route($this->redirectRoute, ['slug' => $this->redirectSlug]);
