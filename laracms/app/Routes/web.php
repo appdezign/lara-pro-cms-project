@@ -19,6 +19,9 @@ $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count(
 
 if (!App::runningInConsole() && !$laraNeedsSetup) {
 
+	// quick cache clear
+	Route::get('cc', 'Front\Special\CacheController@process')->name('special.cache.clear');
+
 	// FRONT Entity Routes
 
 	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
