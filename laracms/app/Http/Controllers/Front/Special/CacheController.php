@@ -38,7 +38,7 @@ class CacheController extends Controller
 			$this->redirectSlug = null;
 		}
 
-		static::clearCache();
+		static::clearCacheTypes();
 
 		if(!empty($this->redirectSlug)) {
 			return redirect()->route($this->redirectRoute, ['slug' => $this->redirectSlug]);

@@ -9,7 +9,7 @@ class CityResource extends BaseResource
 {
 	protected static ?string $model = City::class;
 
-	protected static bool $shouldRegisterNavigation = true;
+	protected static bool $shouldRegisterNavigation = false;
 
 	public static function getPages(): array
 	{
