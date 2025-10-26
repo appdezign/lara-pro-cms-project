@@ -4,7 +4,7 @@ namespace Lara\App\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraFormContactformsTableSeeder extends Seeder
+class DemoLaraFormContactformsTableSeeder extends Seeder
 {
 
     /**

@@ -4,7 +4,7 @@ namespace Lara\App\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraContentDocsTableSeeder extends Seeder
+class DemoLaraContentDocsTableSeeder extends Seeder
 {
 
     /**

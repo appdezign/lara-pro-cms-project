@@ -4,7 +4,7 @@ namespace Lara\App\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LaraFormClassicformsTableSeeder extends Seeder
+class DemoLaraSysBlacklistTableSeeder extends Seeder
 {
 
     /**
@@ -16,7 +16,7 @@ class LaraFormClassicformsTableSeeder extends Seeder
     {
         
 
-        \DB::table('lara_form_classicforms')->delete();
+        \DB::table('lara_sys_blacklist')->delete();
         
         
         
