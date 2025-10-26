@@ -6,6 +6,9 @@ return [
 		'myname' => 'myname',
 		'title' => 'title',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'model' => [
 		'label_plural' => 'label plural',
 	],

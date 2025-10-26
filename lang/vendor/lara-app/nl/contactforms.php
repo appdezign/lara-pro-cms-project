@@ -11,6 +11,9 @@ return [
 		'telephone' => 'telefoon',
 		'title' => 'titel',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'model' => [
 		'label_plural' => 'contactformulieren',
 		'label_single' => 'contactformulier',

@@ -10,6 +10,9 @@ return [
 		'title' => 'titel',
 		'type' => 'type',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'model' => [
 		'label_plural' => 'call-to-actions',
 		'label_single' => 'call-to-action',

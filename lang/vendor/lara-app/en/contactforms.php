@@ -11,6 +11,9 @@ return [
 		'telephone' => 'telephone',
 		'title' => 'title',
 	],
+	'entity' => [
+		'title' => '_title',
+	],
 	'model' => [
 		'label_plural' => 'contactforms',
 		'label_single' => 'contactform',
