@@ -26,6 +26,7 @@ return [
 		'geo_location' => 'geo locatie',
 		'geo_longitude' => 'longitude',
 		'geo_pcode' => 'postcode',
+		'has_panel_access' => '_has_panel_access',
 		'hide-in-list' => 'verberg in lijst',
 		'html' => '_html',
 		'html' => '_html',

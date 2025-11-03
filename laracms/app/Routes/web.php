@@ -19,8 +19,18 @@ $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count(
 
 if (!App::runningInConsole() && !$laraNeedsSetup) {
 
-	// FRONT Entity Routes
+	// quick cache clear
+	Route::get('cc', 'Front\Special\CacheController@process')->name('special.cache.clear');
 
+	// external uptime monitoring
+	Route::get('uptime', 'Front\Special\UptimeController@show')
+		->name('special.uptime.show');
+
+	// Front Profile
+	Route::get('user/profile', 'Front\Auth\ProfileController@form')->name('special.user.profile')->middleware('auth');
+	Route::patch('user/profile', 'Front\Auth\ProfileController@process')->name('special.user.saveprofile')->middleware('auth');
+
+	// FRONT Entity Routes
 	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
 
 		$entity_prefix = 'entity';
