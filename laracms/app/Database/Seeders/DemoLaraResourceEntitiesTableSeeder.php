@@ -14,12 +14,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_resource_entities')->delete();
-        
+
         \DB::table('lara_resource_entities')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'title' => 'Page',
@@ -85,7 +85,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'title' => 'Blog',
@@ -151,7 +151,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'title' => 'Teams',
@@ -217,7 +217,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 5,
                 'title' => 'Tag',
@@ -283,7 +283,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 6,
                 'title' => 'Base',
@@ -349,7 +349,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 41,
                 'title' => 'Locations',
@@ -415,7 +415,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 42,
                 'title' => 'Sliders',
@@ -481,7 +481,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 43,
                 'title' => 'Contactforms',
@@ -547,7 +547,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 44,
                 'title' => 'Events',
@@ -613,7 +613,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 52,
                 'title' => 'Widgets',
@@ -679,7 +679,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 59,
                 'title' => 'Call-to-action',
@@ -745,7 +745,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 61,
                 'title' => 'Services',
@@ -811,7 +811,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 62,
                 'title' => 'Testimonials',
@@ -877,7 +877,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 63,
                 'title' => 'Portfolios',
@@ -943,7 +943,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 64,
                 'title' => 'Galleries',
@@ -1009,7 +1009,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 65,
                 'title' => 'Docs',
@@ -1075,7 +1075,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 1,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 66,
                 'title' => 'Videos',
@@ -1141,7 +1141,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 69,
                 'title' => 'Classicforms',
@@ -1207,7 +1207,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 70,
                 'title' => 'Products',
@@ -1273,7 +1273,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 73,
                 'title' => 'Cities',
@@ -1340,7 +1340,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_is_relatable' => 1,
             ),
         ));
-        
-        
+
+
     }
 }

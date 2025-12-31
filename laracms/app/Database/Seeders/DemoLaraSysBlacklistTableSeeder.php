@@ -14,11 +14,11 @@ class DemoLaraSysBlacklistTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_sys_blacklist')->delete();
-        
-        
-        
+
+
+
     }
 }

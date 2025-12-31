@@ -14,12 +14,12 @@ class DemoLaraBlocksCtasTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_blocks_ctas')->delete();
-        
+
         \DB::table('lara_blocks_ctas')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -46,7 +46,7 @@ class DemoLaraBlocksCtasTableSeeder extends Seeder
                 'position' => NULL,
                 'cgroup' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -74,7 +74,7 @@ class DemoLaraBlocksCtasTableSeeder extends Seeder
                 'cgroup' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

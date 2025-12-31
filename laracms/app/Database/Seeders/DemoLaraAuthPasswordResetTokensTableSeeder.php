@@ -14,11 +14,11 @@ class DemoLaraAuthPasswordResetTokensTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_auth_password_reset_tokens')->delete();
-        
-        
-        
+
+
+
     }
 }

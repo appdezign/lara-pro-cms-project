@@ -14,12 +14,12 @@ class DemoLaraResourceEntityRelationsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_resource_entity_relations')->delete();
-        
+
         \DB::table('lara_resource_entity_relations')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 17,
                 'entity_id' => 41,
@@ -28,7 +28,7 @@ class DemoLaraResourceEntityRelationsTableSeeder extends Seeder
                 'foreign_key' => 'location_id',
                 'is_filter' => 0,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 18,
                 'entity_id' => 3,
@@ -37,7 +37,7 @@ class DemoLaraResourceEntityRelationsTableSeeder extends Seeder
                 'foreign_key' => 'location_id',
                 'is_filter' => 0,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 19,
                 'entity_id' => 41,
@@ -46,7 +46,7 @@ class DemoLaraResourceEntityRelationsTableSeeder extends Seeder
                 'foreign_key' => 'location_id',
                 'is_filter' => 0,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 20,
                 'entity_id' => 44,
@@ -56,7 +56,7 @@ class DemoLaraResourceEntityRelationsTableSeeder extends Seeder
                 'is_filter' => 0,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -14,12 +14,12 @@ class DemoLaraContentCitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_cities')->delete();
-        
+
         \DB::table('lara_content_cities')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -49,7 +49,7 @@ class DemoLaraContentCitiesTableSeeder extends Seeder
                 'cgroup' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

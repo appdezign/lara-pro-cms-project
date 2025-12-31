@@ -14,11 +14,11 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_form_classicforms')->delete();
-        
-        
-        
+
+
+
     }
 }

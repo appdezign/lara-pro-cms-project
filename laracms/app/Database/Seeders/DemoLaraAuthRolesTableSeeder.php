@@ -14,12 +14,12 @@ class DemoLaraAuthRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_auth_roles')->delete();
-        
+
         \DB::table('lara_auth_roles')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'superadmin',
@@ -28,7 +28,7 @@ class DemoLaraAuthRolesTableSeeder extends Seeder
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-06-17 19:21:45',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'administrator',
@@ -37,7 +37,7 @@ class DemoLaraAuthRolesTableSeeder extends Seeder
                 'created_at' => '2025-06-17 19:21:45',
                 'updated_at' => '2025-06-17 19:21:45',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'webmaster',
@@ -47,7 +47,7 @@ class DemoLaraAuthRolesTableSeeder extends Seeder
                 'updated_at' => '2025-10-23 07:21:53',
             ),
         ));
-        
-        
+
+
     }
 }
