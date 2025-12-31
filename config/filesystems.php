@@ -38,7 +38,6 @@ return [
 			'report' => false,
 		],
 
-		/*
 		'public' => [
 			'driver' => 'local',
 			'root' => storage_path('app/public'),
@@ -47,9 +46,8 @@ return [
 			'throw' => false,
 			'report' => false,
 		],
-		*/
 
-		'public' => [
+		'larapublic' => [
 			'driver'     => 'local',
 			'root'       => public_path('assets/media'),
 			'url'        => env('APP_URL') . '/assets/media',

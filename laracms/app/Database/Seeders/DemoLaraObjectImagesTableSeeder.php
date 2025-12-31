@@ -14,12 +14,12 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_object_images')->delete();
-        
+
         \DB::table('lara_object_images')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 92,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -32,7 +32,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 93,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -45,7 +45,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 94,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -58,7 +58,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 95,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -71,7 +71,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 96,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -84,7 +84,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 97,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -97,7 +97,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 11,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 98,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -110,7 +110,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 99,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -123,7 +123,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 100,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -136,7 +136,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 101,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -149,7 +149,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 102,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -162,7 +162,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 103,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -175,7 +175,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 104,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -188,7 +188,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 105,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -201,7 +201,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 106,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -214,7 +214,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 107,
                 'entity_type' => 'Lara\\App\\Models\\Team',
@@ -227,7 +227,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 108,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -240,7 +240,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 110,
                 'entity_type' => 'Lara\\App\\Models\\Event',
@@ -253,7 +253,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 111,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -266,7 +266,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 112,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -279,7 +279,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 113,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -292,7 +292,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 114,
                 'entity_type' => 'Lara\\App\\Models\\Event',
@@ -305,7 +305,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 115,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -318,7 +318,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 116,
                 'entity_type' => 'Lara\\Common\\Models\\Widget',
@@ -331,7 +331,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 117,
                 'entity_type' => 'Lara\\Common\\Models\\Widget',
@@ -344,7 +344,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 118,
                 'entity_type' => 'Lara\\App\\Models\\Cta',
@@ -357,7 +357,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 120,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -370,7 +370,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 2,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 121,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -383,7 +383,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 122,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -396,7 +396,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 123,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -409,7 +409,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 124,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -422,7 +422,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 125,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -435,7 +435,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 126,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -448,7 +448,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 127,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -461,7 +461,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 128,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -474,7 +474,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 129,
                 'entity_type' => 'Lara\\App\\Models\\Service',
@@ -487,7 +487,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 130,
                 'entity_type' => 'Lara\\App\\Models\\Service',
@@ -500,7 +500,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 131,
                 'entity_type' => 'Lara\\App\\Models\\Service',
@@ -513,7 +513,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 132,
                 'entity_type' => 'Lara\\App\\Models\\Testimonial',
@@ -526,7 +526,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 133,
                 'entity_type' => 'Lara\\App\\Models\\Testimonial',
@@ -539,7 +539,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 134,
                 'entity_type' => 'Lara\\App\\Models\\Testimonial',
@@ -552,7 +552,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 135,
                 'entity_type' => 'Lara\\App\\Models\\Testimonial',
@@ -565,7 +565,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 136,
                 'entity_type' => 'Lara\\App\\Models\\Testimonial',
@@ -578,7 +578,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 137,
                 'entity_type' => 'Lara\\App\\Models\\Testimonial',
@@ -591,7 +591,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 138,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -604,7 +604,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 139,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -617,7 +617,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 140,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -630,7 +630,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 141,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -643,7 +643,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 142,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -656,7 +656,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 143,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -669,7 +669,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 144,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -682,7 +682,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 145,
                 'entity_type' => 'Lara\\App\\Models\\Portfolio',
@@ -695,7 +695,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 146,
                 'entity_type' => 'Lara\\Common\\Models\\Slider',
@@ -708,7 +708,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 147,
                 'entity_type' => 'Lara\\Common\\Models\\Slider',
@@ -721,7 +721,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 148,
                 'entity_type' => 'Lara\\Common\\Models\\Slider',
@@ -734,7 +734,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 149,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -747,7 +747,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 150,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -760,7 +760,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 151,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -773,7 +773,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 152,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -786,7 +786,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 153,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -799,7 +799,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 154,
                 'entity_type' => 'Lara\\Common\\Models\\Slider',
@@ -812,7 +812,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 155,
                 'entity_type' => 'Lara\\Common\\Models\\Slider',
@@ -825,7 +825,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 156,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -838,7 +838,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 1,
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 157,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -851,7 +851,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 158,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -864,7 +864,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 159,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -877,7 +877,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 160,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -890,7 +890,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 161,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -903,7 +903,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 162,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
@@ -916,7 +916,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 163,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -929,7 +929,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 164,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -942,7 +942,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 165,
                 'entity_type' => 'Lara\\App\\Models\\Gallery',
@@ -955,7 +955,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 10,
             ),
-            72 => 
+            72 =>
             array (
                 'id' => 166,
                 'entity_type' => 'Lara\\App\\Models\\Gallery',
@@ -968,7 +968,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 9,
             ),
-            73 => 
+            73 =>
             array (
                 'id' => 167,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -981,7 +981,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            74 => 
+            74 =>
             array (
                 'id' => 168,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -994,7 +994,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            75 => 
+            75 =>
             array (
                 'id' => 169,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1007,7 +1007,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 1,
             ),
-            76 => 
+            76 =>
             array (
                 'id' => 170,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1020,7 +1020,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            77 => 
+            77 =>
             array (
                 'id' => 171,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1033,7 +1033,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            78 => 
+            78 =>
             array (
                 'id' => 172,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1046,7 +1046,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            79 => 
+            79 =>
             array (
                 'id' => 173,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -1059,7 +1059,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => NULL,
             ),
-            80 => 
+            80 =>
             array (
                 'id' => 174,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1072,7 +1072,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            81 => 
+            81 =>
             array (
                 'id' => 175,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -1085,7 +1085,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            82 => 
+            82 =>
             array (
                 'id' => 176,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -1098,7 +1098,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            83 => 
+            83 =>
             array (
                 'id' => 177,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1111,7 +1111,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            84 => 
+            84 =>
             array (
                 'id' => 178,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1124,7 +1124,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            85 => 
+            85 =>
             array (
                 'id' => 179,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1137,7 +1137,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            86 => 
+            86 =>
             array (
                 'id' => 180,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -1150,7 +1150,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            87 => 
+            87 =>
             array (
                 'id' => 181,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -1163,7 +1163,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            88 => 
+            88 =>
             array (
                 'id' => 182,
                 'entity_type' => 'Lara\\Common\\Models\\LaraWidget',
@@ -1176,7 +1176,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => 0,
             ),
-            89 => 
+            89 =>
             array (
                 'id' => 183,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -1189,7 +1189,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            90 => 
+            90 =>
             array (
                 'id' => 184,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1202,7 +1202,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            91 => 
+            91 =>
             array (
                 'id' => 185,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1215,7 +1215,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            92 => 
+            92 =>
             array (
                 'id' => 186,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1228,7 +1228,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            93 => 
+            93 =>
             array (
                 'id' => 187,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1241,7 +1241,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            94 => 
+            94 =>
             array (
                 'id' => 188,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1254,7 +1254,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            95 => 
+            95 =>
             array (
                 'id' => 189,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1267,7 +1267,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            96 => 
+            96 =>
             array (
                 'id' => 190,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1280,7 +1280,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            97 => 
+            97 =>
             array (
                 'id' => 191,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1293,7 +1293,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            98 => 
+            98 =>
             array (
                 'id' => 192,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -1306,7 +1306,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => '[]',
                 'image_count' => 0,
             ),
-            99 => 
+            99 =>
             array (
                 'id' => 193,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -1319,7 +1319,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            100 => 
+            100 =>
             array (
                 'id' => 194,
                 'entity_type' => 'Lara\\Common\\Models\\Tag',
@@ -1332,7 +1332,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'gallery_upload' => NULL,
                 'image_count' => NULL,
             ),
-            101 => 
+            101 =>
             array (
                 'id' => 195,
                 'entity_type' => 'Lara\\App\\Models\\City',
@@ -1346,7 +1346,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'image_count' => 3,
             ),
         ));
-        
-        
+
+
     }
 }

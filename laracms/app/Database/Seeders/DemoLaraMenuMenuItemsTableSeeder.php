@@ -14,12 +14,12 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_menu_menu_items')->delete();
-        
+
         \DB::table('lara_menu_menu_items')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'language' => 'nl',
@@ -48,7 +48,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1001,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'language' => 'nl',
@@ -77,7 +77,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1002,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 7,
                 'language' => 'nl',
@@ -106,7 +106,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 2001,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 13,
                 'language' => 'nl',
@@ -135,7 +135,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1012,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 16,
                 'language' => 'nl',
@@ -164,7 +164,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1005,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 20,
                 'language' => 'nl',
@@ -193,7 +193,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1003,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 21,
                 'language' => 'nl',
@@ -222,7 +222,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1004,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 22,
                 'language' => 'nl',
@@ -251,7 +251,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1007,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 23,
                 'language' => 'nl',
@@ -280,7 +280,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1008,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 24,
                 'language' => 'nl',
@@ -309,7 +309,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 1009,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 25,
                 'language' => 'nl',
@@ -338,7 +338,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 1010,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 26,
                 'language' => 'nl',
@@ -367,7 +367,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 1011,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 27,
                 'language' => 'nl',
@@ -396,7 +396,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1016,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 28,
                 'language' => 'nl',
@@ -425,7 +425,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1013,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 29,
                 'language' => 'nl',
@@ -454,7 +454,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1014,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 30,
                 'language' => 'nl',
@@ -483,7 +483,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 1015,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 31,
                 'language' => 'nl',
@@ -512,7 +512,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 1006,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 32,
                 'language' => 'nl',
@@ -542,7 +542,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'position' => 2002,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -14,20 +14,20 @@ class DemoLaraMenuMenusTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_menu_menus')->delete();
-        
+
         \DB::table('lara_menu_menus')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'title' => 'Main',
                 'slug' => 'main',
                 'created_at' => '2025-04-22 14:57:57',
-                'updated_at' => '2025-10-25 17:11:48',
+                'updated_at' => '2025-09-28 09:29:19',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'title' => 'Top',
@@ -36,7 +36,7 @@ class DemoLaraMenuMenusTableSeeder extends Seeder
                 'updated_at' => '2025-09-12 19:09:14',
             ),
         ));
-        
-        
+
+
     }
 }

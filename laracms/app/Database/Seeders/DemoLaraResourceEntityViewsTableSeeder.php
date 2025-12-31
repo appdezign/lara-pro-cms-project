@@ -14,12 +14,12 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_resource_entity_views')->delete();
-        
+
         \DB::table('lara_resource_entity_views')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 101,
                 'entity_id' => 1,
@@ -37,7 +37,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 102,
                 'entity_id' => 1,
@@ -55,7 +55,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 103,
                 'entity_id' => 3,
@@ -73,7 +73,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 104,
                 'entity_id' => 3,
@@ -91,7 +91,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 105,
                 'entity_id' => 43,
@@ -109,7 +109,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 106,
                 'entity_id' => 44,
@@ -127,7 +127,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 107,
                 'entity_id' => 44,
@@ -145,7 +145,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 201,
                 'entity_id' => 2,
@@ -163,7 +163,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 202,
                 'entity_id' => 2,
@@ -181,7 +181,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 1,
                 'publish' => 1,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 203,
                 'entity_id' => 61,
@@ -199,7 +199,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 204,
                 'entity_id' => 61,
@@ -217,7 +217,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 205,
                 'entity_id' => 62,
@@ -235,7 +235,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 206,
                 'entity_id' => 62,
@@ -253,7 +253,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 207,
                 'entity_id' => 64,
@@ -271,7 +271,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 208,
                 'entity_id' => 64,
@@ -289,7 +289,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 209,
                 'entity_id' => 65,
@@ -307,7 +307,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 210,
                 'entity_id' => 65,
@@ -325,7 +325,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 211,
                 'entity_id' => 66,
@@ -343,7 +343,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 212,
                 'entity_id' => 66,
@@ -361,7 +361,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 213,
                 'entity_id' => 69,
@@ -379,7 +379,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 214,
                 'entity_id' => 70,
@@ -397,7 +397,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 215,
                 'entity_id' => 70,
@@ -415,7 +415,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 1,
                 'publish' => 1,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 216,
                 'entity_id' => 73,
@@ -433,7 +433,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 217,
                 'entity_id' => 73,
@@ -452,7 +452,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'publish' => 1,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -14,12 +14,12 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_locations')->delete();
-        
+
         \DB::table('lara_content_locations')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -48,7 +48,7 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'position' => 0,
                 'cgroup' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -77,7 +77,7 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'position' => 0,
                 'cgroup' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -106,7 +106,7 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'position' => 0,
                 'cgroup' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -136,7 +136,7 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'cgroup' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

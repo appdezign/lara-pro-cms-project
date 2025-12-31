@@ -14,12 +14,12 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_object_sync')->delete();
-        
+
         \DB::table('lara_object_sync')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 6,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -31,7 +31,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-07-09 12:44:24',
                 'updated_at' => '2025-07-13 13:01:03',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 7,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -43,7 +43,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-07-10 18:28:21',
                 'updated_at' => '2025-07-10 18:28:26',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 8,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -55,7 +55,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-07-13 12:51:56',
                 'updated_at' => '2025-07-13 13:21:19',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 9,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -67,7 +67,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-08-25 07:55:01',
                 'updated_at' => '2025-08-25 08:56:56',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 10,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -79,7 +79,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-08-29 14:27:27',
                 'updated_at' => '2025-09-08 12:14:27',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 11,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -91,7 +91,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-03 13:59:29',
                 'updated_at' => '2025-09-03 13:59:48',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 12,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -103,7 +103,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-03 14:06:47',
                 'updated_at' => '2025-09-03 14:06:47',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 13,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -115,7 +115,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-03 14:53:05',
                 'updated_at' => '2025-09-03 14:53:05',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 14,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -127,7 +127,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-03 15:40:02',
                 'updated_at' => '2025-09-03 15:40:02',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 15,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -139,7 +139,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-03 18:48:47',
                 'updated_at' => '2025-09-06 18:03:04',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 16,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -151,7 +151,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-05 08:41:03',
                 'updated_at' => '2025-09-05 08:41:03',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 17,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -163,7 +163,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-06 17:41:54',
                 'updated_at' => '2025-09-06 18:03:36',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 18,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -175,7 +175,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-06 17:45:19',
                 'updated_at' => '2025-09-06 17:45:19',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 19,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -187,7 +187,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-09-08 15:45:02',
                 'updated_at' => '2025-09-08 15:45:05',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 20,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -199,7 +199,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-06 18:52:38',
                 'updated_at' => '2025-10-06 18:52:45',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 21,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -211,7 +211,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 07:21:59',
                 'updated_at' => '2025-10-07 07:22:04',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 22,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -223,7 +223,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 07:22:54',
                 'updated_at' => '2025-10-07 07:22:54',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 23,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -235,7 +235,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 07:58:27',
                 'updated_at' => '2025-10-07 07:58:27',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 24,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -247,7 +247,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 08:18:04',
                 'updated_at' => '2025-10-07 08:18:07',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 25,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -259,7 +259,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 08:48:25',
                 'updated_at' => '2025-10-07 08:48:29',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 26,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -271,7 +271,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 08:57:22',
                 'updated_at' => '2025-10-07 08:57:24',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 27,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -283,7 +283,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-07 08:58:39',
                 'updated_at' => '2025-10-07 08:58:44',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 28,
                 'entity_type' => 'Lara\\App\\Models\\Product',
@@ -295,7 +295,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2025-10-09 17:59:22',
                 'updated_at' => '2025-10-09 17:59:26',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 29,
                 'entity_type' => 'Lara\\App\\Models\\City',
@@ -308,7 +308,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'updated_at' => '2025-10-21 13:11:55',
             ),
         ));
-        
-        
+
+
     }
 }

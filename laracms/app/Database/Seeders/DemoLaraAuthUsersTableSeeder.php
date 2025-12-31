@@ -29,7 +29,7 @@ class DemoLaraAuthUsersTableSeeder extends Seeder
                 'middlename' => 'Admin',
                 'lastname' => 'Firmaq',
                 'locale' => 'nl',
-                'password' => '',
+                'password' => '$2y$12$M5VlPPZUdbxUdmoLm2KPcuigoZ1PppkPJ8kNyAORXWN4q41BVPWAu',
                 'remember_token' => NULL,
                 'created_at' => '2025-06-18 09:07:53',
                 'deleted_at' => NULL,

@@ -14,12 +14,12 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_blogs')->delete();
-        
+
         \DB::table('lara_content_blogs')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 22,
                 'user_id' => 1,
@@ -44,7 +44,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => 'two',
                 'position' => 0,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 23,
                 'user_id' => 1,
@@ -69,7 +69,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 24,
                 'user_id' => 1,
@@ -94,7 +94,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 25,
                 'user_id' => 1,
@@ -119,7 +119,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 26,
                 'user_id' => 1,
@@ -144,7 +144,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 27,
                 'user_id' => 1,
@@ -169,7 +169,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 28,
                 'user_id' => 1,
@@ -194,7 +194,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 29,
                 'user_id' => 1,
@@ -219,7 +219,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 30,
                 'user_id' => 1,
@@ -244,7 +244,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 31,
                 'user_id' => 1,
@@ -269,7 +269,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 32,
                 'user_id' => 1,
@@ -294,7 +294,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'cgroup' => NULL,
                 'position' => 0,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 33,
                 'user_id' => 3,
@@ -320,7 +320,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'position' => 0,
             ),
         ));
-        
-        
+
+
     }
 }

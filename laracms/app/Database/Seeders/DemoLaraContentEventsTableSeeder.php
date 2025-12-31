@@ -14,12 +14,12 @@ class DemoLaraContentEventsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_events')->delete();
-        
+
         \DB::table('lara_content_events')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'location_id' => 1,
@@ -46,7 +46,7 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'position' => 0,
                 'cgroup' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'location_id' => 2,
@@ -74,7 +74,7 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'cgroup' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

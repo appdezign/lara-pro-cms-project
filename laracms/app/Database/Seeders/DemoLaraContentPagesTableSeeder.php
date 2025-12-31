@@ -14,12 +14,12 @@ class DemoLaraContentPagesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_pages')->delete();
-        
+
         \DB::table('lara_content_pages')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 2,
                 'user_id' => 1,
@@ -32,10 +32,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => '<p></p>',
                 'body2' => '<p></p>',
                 'menuroute' => '/about',
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'landing',
                 'created_at' => '2025-04-21 18:47:38',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-04-21 18:47:00',
@@ -45,7 +45,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 1002,
                 'cgroup' => 'page',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 3,
                 'user_id' => 1,
@@ -58,7 +58,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-04-24 15:36:18',
                 'updated_at' => '2025-08-29 14:26:12',
@@ -71,7 +71,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 0,
                 'cgroup' => 'page',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 4,
                 'user_id' => 1,
@@ -84,7 +84,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-04-24 15:36:58',
                 'updated_at' => '2025-08-29 14:26:09',
@@ -97,7 +97,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 0,
                 'cgroup' => 'page',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 5,
                 'user_id' => 1,
@@ -110,10 +110,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => '<p></p>',
                 'menuroute' => '/',
-                'is_home' => 1,
+                'ishome' => 1,
                 'template' => 'standard',
                 'created_at' => '2025-04-24 16:04:06',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-04-24 16:04:00',
@@ -123,7 +123,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 1001,
                 'cgroup' => 'page',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 14,
                 'user_id' => 1,
@@ -136,10 +136,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-05-30 15:50:05',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-30 15:50:00',
@@ -149,7 +149,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8009,
                 'cgroup' => 'module',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 19,
                 'user_id' => 3,
@@ -162,7 +162,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-07-13 12:51:47',
                 'updated_at' => '2025-07-13 13:21:19',
@@ -175,7 +175,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 9001,
                 'cgroup' => 'page',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 25,
                 'user_id' => 3,
@@ -188,10 +188,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => '<p></p>',
                 'menuroute' => '/privacy-2',
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-08-29 14:26:47',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 14:26:00',
@@ -201,7 +201,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 2002,
                 'cgroup' => 'page',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 26,
                 'user_id' => 3,
@@ -214,10 +214,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => '/classicform/thank-you',
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-08-29 18:11:25',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 18:11:25',
@@ -227,7 +227,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 1015,
                 'cgroup' => 'page',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 34,
                 'user_id' => 3,
@@ -240,10 +240,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-08-31 14:53:47',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-31 14:53:00',
@@ -253,7 +253,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8001,
                 'cgroup' => 'module',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 35,
                 'user_id' => 3,
@@ -266,10 +266,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-03 14:45:46',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-03 14:45:00',
@@ -279,7 +279,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8008,
                 'cgroup' => 'module',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 36,
                 'user_id' => 3,
@@ -292,10 +292,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-03 15:28:34',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-03 15:28:00',
@@ -305,7 +305,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8004,
                 'cgroup' => 'module',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 37,
                 'user_id' => 3,
@@ -318,10 +318,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-03 15:28:39',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-03 15:28:00',
@@ -331,7 +331,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8005,
                 'cgroup' => 'module',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 38,
                 'user_id' => 3,
@@ -344,10 +344,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-05 08:32:55',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-05 08:32:00',
@@ -357,7 +357,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8002,
                 'cgroup' => 'module',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 39,
                 'user_id' => 1,
@@ -370,10 +370,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => NULL,
                 'created_at' => '2025-09-05 09:14:15',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-05 09:14:15',
@@ -383,7 +383,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 9001,
                 'cgroup' => 'email',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 40,
                 'user_id' => 3,
@@ -396,10 +396,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-06 15:22:02',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-06 15:22:00',
@@ -409,7 +409,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8011,
                 'cgroup' => 'module',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 41,
                 'user_id' => 3,
@@ -422,10 +422,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-06 17:44:38',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-06 17:44:00',
@@ -435,7 +435,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8003,
                 'cgroup' => 'module',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 42,
                 'user_id' => 3,
@@ -448,10 +448,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => '<p></p>',
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => 'standard',
                 'created_at' => '2025-09-08 15:44:52',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-08 15:44:00',
@@ -461,7 +461,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 9002,
                 'cgroup' => 'page',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 43,
                 'user_id' => 3,
@@ -474,10 +474,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => NULL,
                 'created_at' => '2025-10-06 15:56:36',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-06 15:56:36',
@@ -487,7 +487,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8006,
                 'cgroup' => 'module',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 44,
                 'user_id' => 3,
@@ -500,10 +500,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => NULL,
                 'created_at' => '2025-10-21 08:06:20',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-21 08:06:20',
@@ -513,7 +513,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'position' => 8007,
                 'cgroup' => 'module',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 45,
                 'user_id' => 1,
@@ -526,10 +526,10 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'body3' => NULL,
                 'body2' => NULL,
                 'menuroute' => NULL,
-                'is_home' => 0,
+                'ishome' => 0,
                 'template' => NULL,
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2025-10-25 17:13:10',
+                'updated_at' => '2025-11-17 10:42:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-24 08:54:28',
@@ -540,7 +540,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'cgroup' => 'module',
             ),
         ));
-        
-        
+
+
     }
 }

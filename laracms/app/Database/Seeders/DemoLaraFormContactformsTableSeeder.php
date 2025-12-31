@@ -14,12 +14,12 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_form_contactforms')->delete();
-        
+
         \DB::table('lara_form_contactforms')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 7,
                 'comment' => 'Lorem ipsum',
@@ -31,7 +31,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 8,
                 'comment' => 'test',
@@ -43,7 +43,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 9,
                 'comment' => NULL,
@@ -55,7 +55,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 10,
                 'comment' => NULL,
@@ -67,7 +67,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 11,
                 'comment' => NULL,
@@ -79,7 +79,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => '2025-09-05 08:55:34',
                 'ipaddress' => '127.0.0.1',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 12,
                 'comment' => 'test',
@@ -91,7 +91,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => '2025-09-05 08:58:08',
                 'ipaddress' => '127.0.0.1',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 13,
                 'comment' => 'test',
@@ -103,7 +103,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 14,
                 'comment' => 'test',
@@ -115,7 +115,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 15,
                 'comment' => 'test',
@@ -127,7 +127,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 16,
                 'comment' => 'test',
@@ -139,7 +139,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 17,
                 'comment' => NULL,
@@ -151,7 +151,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 18,
                 'comment' => NULL,
@@ -163,7 +163,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 19,
                 'comment' => NULL,
@@ -175,7 +175,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 20,
                 'comment' => NULL,
@@ -187,7 +187,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 21,
                 'comment' => NULL,
@@ -199,7 +199,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 22,
                 'comment' => 'test',
@@ -211,7 +211,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 23,
                 'comment' => NULL,
@@ -223,7 +223,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 24,
                 'comment' => NULL,
@@ -235,7 +235,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'ipaddress' => '127.0.0.1',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 25,
                 'comment' => NULL,
@@ -248,7 +248,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'ipaddress' => '127.0.0.1',
             ),
         ));
-        
-        
+
+
     }
 }

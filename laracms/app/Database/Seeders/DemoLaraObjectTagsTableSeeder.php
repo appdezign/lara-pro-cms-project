@@ -14,12 +14,12 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_object_tags')->delete();
-        
+
         \DB::table('lara_object_tags')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 2059,
                 'language' => 'nl',
@@ -42,7 +42,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202001,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2060,
                 'language' => 'nl',
@@ -65,7 +65,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 102001,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 2061,
                 'language' => 'nl',
@@ -88,7 +88,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202002,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 2062,
                 'language' => 'nl',
@@ -111,7 +111,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 102002,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 2063,
                 'language' => 'nl',
@@ -134,7 +134,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202003,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 2064,
                 'language' => 'nl',
@@ -157,7 +157,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202004,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 2065,
                 'language' => 'nl',
@@ -180,7 +180,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202005,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 2066,
                 'language' => 'nl',
@@ -203,7 +203,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202006,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 2067,
                 'language' => 'nl',
@@ -226,7 +226,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 202007,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 2068,
                 'language' => 'nl',
@@ -249,7 +249,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 102003,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 2069,
                 'language' => 'nl',
@@ -272,7 +272,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 102004,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 2073,
                 'language' => 'nl',
@@ -295,7 +295,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 142001,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 2074,
                 'language' => 'nl',
@@ -318,7 +318,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 142002,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 2075,
                 'language' => 'nl',
@@ -341,7 +341,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 142003,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 2076,
                 'language' => 'nl',
@@ -364,7 +364,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 142004,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 2077,
                 'language' => 'nl',
@@ -387,7 +387,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 103001,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 2078,
                 'language' => 'nl',
@@ -410,7 +410,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 103002,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 2079,
                 'language' => 'nl',
@@ -433,7 +433,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 103003,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 2080,
                 'language' => 'nl',
@@ -456,7 +456,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 103004,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 2081,
                 'language' => 'nl',
@@ -479,7 +479,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 103005,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 2082,
                 'language' => 'nl',
@@ -502,7 +502,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 2083,
                 'language' => 'nl',
@@ -525,7 +525,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 2084,
                 'language' => 'nl',
@@ -548,7 +548,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 2085,
                 'language' => 'nl',
@@ -571,7 +571,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 244001,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 2086,
                 'language' => 'nl',
@@ -594,7 +594,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 244002,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 2087,
                 'language' => 'nl',
@@ -617,7 +617,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 244003,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 2088,
                 'language' => 'nl',
@@ -640,7 +640,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 161001,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 2089,
                 'language' => 'nl',
@@ -663,7 +663,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 161002,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 2090,
                 'language' => 'nl',
@@ -686,7 +686,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 161003,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 2091,
                 'language' => 'nl',
@@ -709,7 +709,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 261001,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 2092,
                 'language' => 'nl',
@@ -732,7 +732,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 261002,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 2093,
                 'language' => 'nl',
@@ -755,7 +755,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 261003,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 2094,
                 'language' => 'nl',
@@ -778,7 +778,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 261004,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 2095,
                 'language' => 'nl',
@@ -801,7 +801,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 2096,
                 'language' => 'nl',
@@ -824,7 +824,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 2097,
                 'language' => 'nl',
@@ -847,7 +847,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 163001,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 2098,
                 'language' => 'nl',
@@ -870,7 +870,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 163002,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 2099,
                 'language' => 'nl',
@@ -893,7 +893,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 163003,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 2100,
                 'language' => 'nl',
@@ -916,7 +916,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 163004,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 2101,
                 'language' => 'nl',
@@ -939,7 +939,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 163005,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 2102,
                 'language' => 'nl',
@@ -962,7 +962,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 164001,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 2103,
                 'language' => 'nl',
@@ -985,7 +985,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 164002,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 2104,
                 'language' => 'nl',
@@ -1008,7 +1008,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 164003,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 2105,
                 'language' => 'nl',
@@ -1031,7 +1031,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 164004,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 2106,
                 'language' => 'nl',
@@ -1054,7 +1054,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 2107,
                 'language' => 'nl',
@@ -1077,7 +1077,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 2108,
                 'language' => 'nl',
@@ -1100,7 +1100,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 2109,
                 'language' => 'nl',
@@ -1123,7 +1123,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 0,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 2110,
                 'language' => 'nl',
@@ -1146,7 +1146,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 170001,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 2111,
                 'language' => 'nl',
@@ -1169,7 +1169,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 170004,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 2112,
                 'language' => 'nl',
@@ -1192,7 +1192,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 170002,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 2113,
                 'language' => 'nl',
@@ -1215,7 +1215,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 170005,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 2114,
                 'language' => 'nl',
@@ -1238,7 +1238,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 170006,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 2115,
                 'language' => 'nl',
@@ -1261,7 +1261,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 170007,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 2117,
                 'language' => 'nl',
@@ -1284,7 +1284,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 170003,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 2118,
                 'language' => 'nl',
@@ -1307,7 +1307,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 173001,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 2119,
                 'language' => 'nl',
@@ -1330,7 +1330,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 0,
                 'position' => 173004,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 2120,
                 'language' => 'nl',
@@ -1353,7 +1353,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'depth' => 1,
                 'position' => 173002,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 2121,
                 'language' => 'nl',
@@ -1377,7 +1377,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'position' => 173003,
             ),
         ));
-        
-        
+
+
     }
 }
