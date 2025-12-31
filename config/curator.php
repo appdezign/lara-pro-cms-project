@@ -3,19 +3,15 @@
 declare(strict_types=1);
 
 return [
-    'curation_formats' => [
-        'jpg',
-        'jpeg',
-        'webp',
-        'png',
-        'avif',
-    ],
-    'default_disk' => env('FILAMENT_FILESYSTEM_DISK', 'public'),
+    'curation_formats' => Awcodes\Curator\Enums\PreviewableExtensions::toArray(),
+    'default_disk' => env('CURATOR_DEFAULT_DISK', 'public'),
+    'default_directory' => null,
     'default_visibility' => 'public',
     'features' => [
         'curations' => true,
         'file_swap' => true,
         'directory_restriction' => false,
+        'preserve_file_names' => false,
         'tenancy' => [
             'enabled' => false,
             'relationship_name' => null,
@@ -32,14 +28,24 @@ return [
             'group' => null,
             'icon' => 'heroicon-o-photo',
             'sort' => null,
-            'register' => false,
+            'should_register' => true,
             'should_show_badge' => false,
         ],
-        'resource' => Awcodes\Curator\Resources\MediaResource::class,
+        // 'resource' => Awcodes\Curator\Resources\Media\MediaResource::class,
+        'resource' => Lara\Admin\Resources\Media\LaraMediaResource::class,
         'pages' => [
-            'create' => Awcodes\Curator\Resources\MediaResource\CreateMedia::class,
-            'edit' => Awcodes\Curator\Resources\MediaResource\EditMedia::class,
-            'index' => Awcodes\Curator\Resources\MediaResource\ListMedia::class,
+            'create' => Awcodes\Curator\Resources\Media\Pages\CreateMedia::class,
+            // 'edit' => Awcodes\Curator\Resources\Media\Pages\EditMedia::class,
+            'edit' =>  Lara\Admin\Resources\Media\Pages\LaraEditMedia::class,
+            // 'index' => Awcodes\Curator\Resources\Media\Pages\ListMedia::class,
+            'index' => Lara\Admin\Resources\Media\Pages\LaraListMedia::class,
+        ],
+        'schemas' => [
+            'form' => Awcodes\Curator\Resources\Media\Schemas\MediaForm::class,
+        ],
+        'tables' => [
+            // 'table' => Awcodes\Curator\Resources\Media\Tables\MediaTable::class,
+            'table' => Lara\Admin\Resources\Media\Tables\MediaTable::class,
         ],
     ],
     'url_provider' => Awcodes\Curator\Providers\GlideUrlProvider::class,
