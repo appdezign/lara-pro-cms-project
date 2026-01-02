@@ -20,6 +20,7 @@ return [
 	Lara\App\Providers\RouteServiceProvider::class,
 
 	Barryvdh\HttpCache\ServiceProvider::class,
-	Awcodes\RicherEditor\RicherEditorServiceProvider::class
+	Awcodes\RicherEditor\RicherEditorServiceProvider::class,
+	ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthServiceProvider::class,
 
 ];
