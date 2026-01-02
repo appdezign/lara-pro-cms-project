@@ -17,6 +17,8 @@ return [
 		'label_single' => 'form',
 	],
 	'tabs' => [
+		'custom_fields' => '_custom_fields',
+		'entity_views' => '_entity_views',
 		'info' => 'info',
 		'manager' => 'manager',
 	],

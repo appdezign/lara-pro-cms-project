@@ -5,11 +5,11 @@ return [
 		'login' => 'login',
 	],
 	'menu' => [
-		'dashboard' => '_dashboard',
-		'logouttext' => '_logouttext',
-		'profile' => '_profile',
+		'dashboard' => 'dashboard',
+		'logouttext' => 'uitloggen',
+		'profile' => 'profiel',
 	],
 	'message' => [
-		'profile_saved_successfully' => '_profile_saved_successfully',
+		'profile_saved_successfully' => 'het profiel is succesvol opgeslagen',
 	],
 ];

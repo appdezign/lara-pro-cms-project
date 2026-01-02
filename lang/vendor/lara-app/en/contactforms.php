@@ -12,7 +12,7 @@ return [
 		'title' => 'title',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'title',
 	],
 	'model' => [
 		'label_plural' => 'contactforms',

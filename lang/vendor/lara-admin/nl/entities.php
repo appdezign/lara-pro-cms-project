@@ -2,7 +2,7 @@
 
 return [
 	'button' => [
-		'export_db' => '_export_db',
+		'export_db' => 'database exporteren',
 	],
 	'column' => [
 		'cgroup' => 'groep',
@@ -24,6 +24,9 @@ return [
 		'filter_is_open' => 'filter is open',
 		'has_front_auth' => 'frontend autorisatie',
 		'label_single' => 'entiteit (enkelvoud)',
+		'media_disk_files' => 'disk voor bestanden',
+		'media_disk_images' => 'disk voor afbeeldingen',
+		'media_disk_videos' => 'disk voor videos',
 		'media_has_featured' => 'featured',
 		'media_has_files' => 'files',
 		'media_has_gallery' => 'gallery',

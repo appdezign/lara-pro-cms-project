@@ -1,13 +1,16 @@
 <?php
 
 return [
+	'button' => [
+		'submit' => 'versturen',
+	],
 	'column' => [
 		'myemail' => 'my email',
 		'myname' => 'my name',
 		'title' => 'titel',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'klasiek formulier',
 	],
 	'model' => [
 		'label_plural' => 'klassieke formulieren',

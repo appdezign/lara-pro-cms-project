@@ -2,9 +2,8 @@
 
 return [
 	'column' => [
-		'rich_test' => '_rich_test',
 		'source' => 'bron',
-		'sticky' => '_sticky',
+		'sticky' => 'sticky',
 		'title' => 'titel',
 	],
 	'entity' => [

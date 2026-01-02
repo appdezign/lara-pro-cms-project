@@ -2,6 +2,6 @@
 
 return [
 	'button' => [
-		'submit' => '_submit',
+		'submit' => 'submit',
 	],
 ];

@@ -18,7 +18,7 @@ return [
 		'usecache' => 'usecache',
 	],
 	'filter' => [
-		'hook' => '_hook',
+		'hook' => 'hook',
 		'type' => 'type',
 	],
 	'model' => [

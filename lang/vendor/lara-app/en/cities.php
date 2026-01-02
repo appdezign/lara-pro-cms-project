@@ -2,21 +2,21 @@
 
 return [
 	'column' => [
-		'geolocation' => '_geolocation',
-		'title' => '_title',
+		'geolocation' => 'geolocation',
+		'title' => 'title',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'title',
 	],
 	'filter' => [
-		'publish' => '_publish',
-		'tags' => '_tags',
+		'publish' => 'publish',
+		'tags' => 'tags',
 	],
 	'model' => [
-		'label_plural' => '_label_plural',
-		'label_single' => '_label_single',
+		'label_plural' => 'label plural',
+		'label_single' => 'label single',
 	],
 	'navigation' => [
-		'label' => '_label',
+		'label' => 'label',
 	],
 ];

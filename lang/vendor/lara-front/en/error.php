@@ -2,7 +2,7 @@
 
 return [
 	'message' => [
-		'body' => '_body',
-		'title' => '_title',
+		'body' => 'body',
+		'title' => 'title',
 	],
 ];

@@ -7,7 +7,7 @@ return [
 		'type' => 'type',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'title',
 	],
 	'filter' => [
 		'type' => 'type',

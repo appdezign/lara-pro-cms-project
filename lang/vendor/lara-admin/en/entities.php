@@ -2,7 +2,7 @@
 
 return [
 	'button' => [
-		'export_db' => '_export_db',
+		'export_db' => 'export db',
 	],
 	'column' => [
 		'cgroup' => 'group',
@@ -12,7 +12,7 @@ return [
 		'col_has_hideinlist' => 'hideinlist',
 		'col_has_lead' => 'lead',
 		'col_has_status' => 'status',
-		'col_max_body_fields' => '_col_max_body_fields',
+		'col_max_body_fields' => 'col max body fields',
 		'controller' => 'controller',
 		'filter_by_author' => 'filter by author',
 		'filter_by_category' => 'filter by category',
@@ -24,6 +24,9 @@ return [
 		'filter_is_open' => 'filter is open',
 		'has_front_auth' => 'frontend auth',
 		'label_single' => 'label single',
+		'media_disk_files' => 'media disk files',
+		'media_disk_images' => 'media disk images',
+		'media_disk_videos' => 'media disk videos',
 		'media_has_featured' => 'featured',
 		'media_has_files' => 'files',
 		'media_has_gallery' => 'gallery',

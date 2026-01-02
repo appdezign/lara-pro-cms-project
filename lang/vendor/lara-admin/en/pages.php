@@ -7,7 +7,7 @@ return [
 		'title' => 'title',
 	],
 	'entity' => [
-		'entity_title' => '_entity_title',
+		'entity_title' => 'entity title',
 	],
 	'filter' => [
 		'cgroup' => 'group',

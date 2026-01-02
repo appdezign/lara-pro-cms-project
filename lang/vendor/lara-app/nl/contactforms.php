@@ -12,7 +12,7 @@ return [
 		'title' => 'titel',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'contactformulier',
 	],
 	'model' => [
 		'label_plural' => 'contactformulieren',
