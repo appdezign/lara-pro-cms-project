@@ -1,7 +1,7 @@
 {
 	"name": "appdezign/lara-pro-cms-project",
 	"description": "Lara CMS Project 10",
-	"version": "10.2.4",
+	"version": "10.2.6",
 	"keywords": ["Lara", "CMS"],
 	"license": "proprietary",
 	"type": "project",
@@ -13,9 +13,9 @@
 	],
     "require": {
 		"php": "^8.3",
-		"appdezign/lara-pro-base-theme": "10.2.4",
-		"appdezign/lara-pro-cms": "10.2.4",
-		"appdezign/lara-pro-demo-theme": "10.2.4",
+		"appdezign/lara-pro-base-theme": "10.2.6",
+		"appdezign/lara-pro-cms": "10.2.6",
+		"appdezign/lara-pro-demo-theme": "10.2.6",
 		"awcodes/filament-curator": "^4.0",
 		"awcodes/richer-editor": "^1.1",
 		"composer/installers": "~1.0",
