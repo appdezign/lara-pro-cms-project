@@ -35,10 +35,9 @@ class AppServiceProvider extends ServiceProvider
 		    CacheCheck::new(),
 		    OptimizedAppCheck::new(),
 		    DatabaseCheck::new(),
-		    DebugModeCheck::new(),
-		    EnvironmentCheck::new(),
-		    UsedDiskSpaceCheck::new(),
 		    SecurityAdvisoriesCheck::new(),
+		    EnvironmentCheck::new(),
+		    DebugModeCheck::new(),
 	    ]);
 
     }
