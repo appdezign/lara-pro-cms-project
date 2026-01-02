@@ -7,7 +7,7 @@ return [
 		'page_prev' => 'prev',
 	],
 	'form' => [
-		'email_is_invalid' => '_email_is_invalid',
+		'email_is_invalid' => 'email is invalid',
 		'error_email_is_invalid' => 'the emailaddress is invalid',
 		'error_required' => 'error required',
 		'mail_sent_successfully' => 'your mail has been sent successfully',

@@ -2,21 +2,21 @@
 
 return [
 	'column' => [
-		'geolocation' => '_geolocation',
-		'title' => '_title',
+		'geolocation' => 'geo locatie',
+		'title' => 'titel',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'steden',
 	],
 	'filter' => [
-		'publish' => '_publish',
-		'tags' => '_tags',
+		'publish' => 'publiceren',
+		'tags' => 'tags',
 	],
 	'model' => [
-		'label_plural' => '_label_plural',
-		'label_single' => '_label_single',
+		'label_plural' => 'cities',
+		'label_single' => 'city',
 	],
 	'navigation' => [
-		'label' => '_label',
+		'label' => 'city',
 	],
 ];

@@ -11,7 +11,7 @@ return [
 		'type' => 'type',
 	],
 	'entity' => [
-		'title' => '_title',
+		'title' => 'call-to-action',
 	],
 	'model' => [
 		'label_plural' => 'call-to-actions',

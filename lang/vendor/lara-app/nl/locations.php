@@ -6,7 +6,7 @@ return [
 		'address' => 'adres',
 		'city' => 'stad',
 		'country' => 'land',
-		'geolocation' => '_geolocation',
+		'geolocation' => 'geo location',
 		'latitude' => 'latitude',
 		'longitude' => 'longitude',
 		'pcode' => 'postcode',

@@ -17,6 +17,8 @@ return [
 		'label_single' => 'formulier',
 	],
 	'tabs' => [
+		'custom_fields' => 'custom velden',
+		'entity_views' => 'views',
 		'info' => 'info',
 		'manager' => 'manager',
 	],

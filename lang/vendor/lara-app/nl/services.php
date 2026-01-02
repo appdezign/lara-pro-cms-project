@@ -6,7 +6,7 @@ return [
 	],
 	'entity' => [
 		'entity_plural' => 'diensten',
-		'label_plural' => '_label_plural',
+		'label_plural' => 'diensten',
 		'title' => 'diensten',
 	],
 	'model' => [

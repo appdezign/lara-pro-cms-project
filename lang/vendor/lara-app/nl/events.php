@@ -10,12 +10,12 @@ return [
 		'title' => 'titel',
 	],
 	'entity' => [
-		'label_plural' => '_label_plural',
+		'label_plural' => 'evenementen',
 		'title' => 'agenda',
 	],
 	'model' => [
-		'label_plural' => 'agenda items',
-		'label_single' => 'agenda item',
+		'label_plural' => 'evenementen',
+		'label_single' => 'evenement',
 	],
 	'navigation' => [
 		'label' => 'agenda',

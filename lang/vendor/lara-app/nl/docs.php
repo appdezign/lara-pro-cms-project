@@ -5,7 +5,7 @@ return [
 		'title' => 'titel',
 	],
 	'entity' => [
-		'label_plural' => '_label_plural',
+		'label_plural' => 'documenten',
 		'title' => 'documenten',
 	],
 	'model' => [

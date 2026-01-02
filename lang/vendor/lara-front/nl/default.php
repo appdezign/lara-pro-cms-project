@@ -7,7 +7,7 @@ return [
 		'page_prev' => 'previous',
 	],
 	'form' => [
-		'email_is_invalid' => '_email_is_invalid',
+		'email_is_invalid' => 'het e-mailadres is ongeldig',
 		'error_email_is_invalid' => 'het e-mailadres is ongeldig',
 		'error_required' => 'dit veld is verplicht',
 		'mail_sent_successfully' => 'de mail is succesvol verstuurd',

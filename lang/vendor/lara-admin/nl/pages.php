@@ -7,7 +7,7 @@ return [
 		'title' => 'titel',
 	],
 	'entity' => [
-		'entity_title' => '_entity_title',
+		'entity_title' => 'pagina\'s',
 	],
 	'filter' => [
 		'cgroup' => 'groep',

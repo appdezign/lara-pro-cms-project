@@ -10,7 +10,7 @@ return [
 		'title' => 'title',
 	],
 	'entity' => [
-		'label_plural' => '_label_plural',
+		'label_plural' => 'label plural',
 		'title' => 'events',
 	],
 	'model' => [
