@@ -8,7 +8,7 @@ use Lara\Common\Models\BaseModel;
 
 class Blog extends BaseModel
 {
-    protected $table = 'lara_content_blogs';
+	protected $table = 'lara_content_blogs';
 
 	protected array $appendCasts = [];
 
