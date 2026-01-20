@@ -1,0 +1,20 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/hoeksms/Library/Application Support/Herd/bin/php83",
+            "args": [
+                "/Users/hoeksms/Code/__laracms/_laracms/laracms10pro/artisan",
+                "boost:mcp"
+            ]
+        },
+        "herd": {
+            "command": "/Users/hoeksms/Library/Application Support/Herd/bin/php83",
+            "args": [
+                "/Applications/Herd.app/Contents/Resources/herd-mcp.phar"
+            ],
+            "env": {
+                "SITE_PATH": "/Users/hoeksms/Code/__laracms/_laracms/laracms10pro"
+            }
+        }
+    }
+}
