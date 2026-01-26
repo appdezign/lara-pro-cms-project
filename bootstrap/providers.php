@@ -21,6 +21,7 @@ return [
 
 	Barryvdh\HttpCache\ServiceProvider::class,
 	Awcodes\RicherEditor\RicherEditorServiceProvider::class,
+	Awcodes\Mason\MasonServiceProvider::class,
 	ShuvroRoy\FilamentSpatieLaravelHealth\FilamentSpatieLaravelHealthServiceProvider::class,
 
 ];
