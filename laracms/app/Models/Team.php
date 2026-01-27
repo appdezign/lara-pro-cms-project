@@ -3,34 +3,19 @@
 namespace Lara\App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Lara\Common\Models\BaseModel;
+use Lara\Common\Http\Concerns\HasLanguage;
 
 class Team extends BaseModel
 {
-    protected $table = 'lara_content_teams';
+	use HasLanguage;
 
-	protected array $appendCasts = [];
-
-	public function __construct($attributes = [])
-	{
-		$this->mergeCasts($this->appendCasts);
-		parent::__construct($attributes);
-	}
-
-	public function languageParent(): BelongsTo
-	{
-		return $this->belongsTo(self::class, 'language_parent');
-	}
-
-	public function languageChildren(): HasMany
-	{
-		return $this->hasMany(self::class, 'language_parent');
-	}
+	protected $table = 'lara_content_teams';
 
 	public function location(): BelongsTo
 	{
-		return $this->belongsTo('Lara\App\Models\Location', 'location_id');
+		return $this->belongsTo(Location::class, 'location_id');
 	}
 
 }

@@ -9,11 +9,6 @@ use Lara\App\Models\Testimonial;
 class TestimonialsController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): Testimonial
 	{
 		return Testimonial::create();

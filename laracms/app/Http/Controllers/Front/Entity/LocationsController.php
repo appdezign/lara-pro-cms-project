@@ -9,11 +9,6 @@ use Lara\App\Models\Location;
 class LocationsController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): Location
 	{
 		return Location::create();

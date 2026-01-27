@@ -2,21 +2,13 @@
 
 namespace Lara\App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Lara\Common\Models\BaseModel;
+use Lara\Common\Http\Concerns\HasLanguage;
 
 class Testimonial extends BaseModel
 {
-    protected $table = 'lara_content_testimonials';
+	use HasLanguage;
 
-	public function languageParent(): BelongsTo
-	{
-		return $this->belongsTo(self::class, 'language_parent');
-	}
+	protected $table = 'lara_content_testimonials';
 
-	public function languageChildren(): HasMany
-	{
-		return $this->hasMany(self::class, 'language_parent');
-	}
 }

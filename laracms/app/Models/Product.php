@@ -2,35 +2,24 @@
 
 namespace Lara\App\Models;
 
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Lara\Common\Models\BaseModel;
+use Lara\Common\Http\Concerns\HasLanguage;
 
 class Product extends BaseModel
 {
-    protected $table = 'lara_content_products';
+	use HasLanguage;
 
-	protected array $appendCasts = [
-		'myradio' => 'array',
-		'mycheckboxlist' => 'array',
-		'mymultiselect' => 'array',
-		'mymultitogglebuttons' => 'array',
-		'mytagsinput' => 'array',
-	];
+	protected $table = 'lara_content_products';
 
-	public function __construct($attributes = [])
+	protected function casts(): array
 	{
-		$this->mergeCasts($this->appendCasts);
-		parent::__construct($attributes);
+		return array_merge(parent::casts(), [
+			'myradio'              => 'array',
+			'mycheckboxlist'       => 'array',
+			'mymultiselect'        => 'array',
+			'mymultitogglebuttons' => 'array',
+			'mytagsinput'          => 'array',
+		]);
 	}
 
-    public function languageParent(): BelongsTo
-	{
-		return $this->belongsTo(self::class, 'language_parent');
-	}
-
-	public function languageChildren(): HasMany
-	{
-		return $this->hasMany(self::class, 'language_parent');
-	}
 }

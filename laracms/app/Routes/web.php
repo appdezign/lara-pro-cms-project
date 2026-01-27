@@ -17,7 +17,7 @@ use Lara\Common\Models\Tag;
 $tablename = config('lara-common.database.ent.entities');
 $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
-if (!App::runningInConsole() && !$laraNeedsSetup) {
+if (!$laraNeedsSetup) {
 
 	// quick cache clear
 	Route::get('cc', 'Front\Special\CacheController@process')->name('special.cache.clear');
@@ -29,6 +29,27 @@ if (!App::runningInConsole() && !$laraNeedsSetup) {
 	// Front Profile
 	Route::get('user/profile', 'Front\Auth\ProfileController@form')->name('special.user.profile')->middleware('auth');
 	Route::patch('user/profile', 'Front\Auth\ProfileController@process')->name('special.user.saveprofile')->middleware('auth');
+
+	// API Entity Routes
+	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+
+		Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
+
+			$entities = Entity::where('cgroup', 'entity')->get();
+			foreach ($entities as $entity) {
+
+				$apkey = $entity->resource_slug;
+
+				$controllerClass = 'Lara\\App\\Http\\Controllers\\Front\\Api\\' . $entity->controller;
+				if (class_exists($controllerClass)) {
+					Route::resource($apkey, 'Front\\Api\\' . $entity->controller, ['as' => 'api', 'parameters' => [$apkey => 'id']])->only(['index', 'show']);
+				}
+
+			}
+
+		});
+
+	});
 
 	// FRONT Entity Routes
 	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
@@ -139,10 +160,10 @@ if (!App::runningInConsole() && !$laraNeedsSetup) {
 							$tagslug = str_replace('.', '/', $tag->route);
 
 							Route::get($menuItem->route . '/' . $tagslug, $Ctrlr . '@' . $menuItem->entityview->method)
-								->name($entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $tag->route . '.' . $menuItem->entityview->method)->middleware($menuItemMiddleware);
+								->name($entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $menuItem->id . '.' . $tag->route . '.' . $menuItem->entityview->method)->middleware($menuItemMiddleware);
 
 							Route::get($menuItem->route . '/' . $tagslug . '/{slug}.html', $Ctrlr . '@show')
-								->name($entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $tag->route . '.' . $menuItem->entityview->method . '.show')->middleware($menuItemMiddleware);
+								->name($entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $menuItem->id . '.' . $tag->route . '.' . $menuItem->entityview->method . '.show')->middleware($menuItemMiddleware);
 
 						}
 
@@ -158,6 +179,10 @@ if (!App::runningInConsole() && !$laraNeedsSetup) {
 
 					Route::get($menuItem->route, $Ctrlr . '@' . $menuItem->entityview->method)
 						->name($menuItem->routename)->middleware($menuItemMiddleware);
+
+					Route::get($menuItem->route . '/{slug}', $Ctrlr . '@show')
+						->name($menuItem->routename . '.show')->middleware($menuItemMiddleware);
+
 
 				}
 			}
@@ -195,7 +220,7 @@ if (!App::runningInConsole() && !$laraNeedsSetup) {
 
 				// create route for regular POST without AJAX
 				Route::post($menuForm->route, $Ctrlr . '@process')
-					->name('form.' . $menuForm->entity->resource_slug . '.process')
+					->name('form.' . $menuForm->entity->resource_slug . '.' . $menuForm->id . '.process')
 					->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
 			}
 

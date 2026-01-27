@@ -9,11 +9,6 @@ use Lara\App\Models\Event;
 class EventsController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): Event
 	{
 		return Event::create();

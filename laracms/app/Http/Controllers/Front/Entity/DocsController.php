@@ -9,11 +9,6 @@ use Lara\App\Models\Doc;
 class DocsController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): Doc
 	{
 		return Doc::create();
