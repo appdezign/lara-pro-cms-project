@@ -3,57 +3,38 @@
 namespace Lara\App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+
 use Lara\Common\Models\BaseModel;
+use Lara\Common\Http\Concerns\HasLanguage;
 
 use Lara\Common\Casts\DateCast;
-use Lara\Common\Casts\DateTimeCast;
 use Lara\Common\Casts\TimeCast;
 
 class Event extends BaseModel
 {
-    protected $table = 'lara_content_events';
+	use HasLanguage;
 
-	protected array $appendCasts = [
-		'test_date' => DateTimeCast::class,
-		'start_date' => DateCast::class,
-		'start_time' => TimeCast::class,
-		'end_date' => DateCast::class,
-		'end_time' => TimeCast::class,
-	];
+	protected $table = 'lara_content_events';
 
-	public function __construct($attributes = [])
+	protected function casts(): array
 	{
-		$this->mergeCasts($this->appendCasts);
-		parent::__construct($attributes);
+		return array_merge(parent::casts(), [
+			'startdate' => DateCast::class,
+			'starttime' => TimeCast::class,
+			'enddate'   => DateCast::class,
+			'endtime'   => TimeCast::class,
+		]);
 	}
 
-	/**
-	 * @return BelongsTo
-	 */
-	public function languageParent(): BelongsTo
-	{
-		return $this->belongsTo(self::class, 'language_parent');
-	}
-
-	/**
-	 * @return HasMany
-	 */
-	public function languageChildren(): HasMany
-	{
-		return $this->hasMany(self::class, 'language_parent');
-	}
-
-	/**
-	 * @return BelongsTo
-	 */
 	public function location(): BelongsTo
 	{
-		return $this->belongsTo('Lara\App\Models\Location', 'location_id');
+		return $this->belongsTo(Location::class, 'location_id');
 	}
 
-	public function scopeFront($query) {
+	public function scopeFront(Builder $query): Builder
+	{
 		return $query->where('startdate', '>=', Carbon::today());
 	}
 
