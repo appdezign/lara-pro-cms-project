@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Response;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
@@ -17,7 +17,7 @@ use Illuminate\View\View;
 use Lara\Common\Models\Page;
 use Lara\App\Models\Blog;
 
-use Lara\Front\Http\Concerns\FrontTrait;
+use Lara\Front\Http\Concerns\hasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
@@ -26,14 +26,13 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-use Lara\Front\Http\Concerns\FrontThemeTrait;
+use Lara\Front\Http\Concerns\hasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
-use Lara\Front\Mail\MailConfirmation;
-
-use Lara\Front\Rules\ReCaptcha;
-
 use Jenssegers\Agent\Agent;
+
+use Lara\Front\Mail\MailConfirmation;
+use Lara\Front\Rules\ReCaptcha;
 
 use LaravelLocalization;
 use stdClass;
@@ -41,7 +40,7 @@ use stdClass;
 class ClassicformsController extends Controller
 {
 
-	use FrontTrait;
+	use hasFrontend;
 	use HasFrontAuth;
 	use HasFrontEntity;
 	use HasFrontList;
@@ -50,43 +49,18 @@ class ClassicformsController extends Controller
 	use HasFrontRoutes;
 	use HasFrontSecurity;
 	use HasFrontTerms;
-	use FrontThemeTrait;
+	use hasTheme;
 	use HasFrontView;
 
-	/**
-	 * @var string
-	 */
-	protected $modelClass = \Lara\App\Models\Classicform::class;
-
-	/**
-	 * @var string|null
-	 */
-	protected $routename;
-
-	/**
-	 * @var object
-	 */
-	protected $entity;
-
-	/**
-	 * @var string
-	 */
-	protected $language;
-
-	/**
-	 * @var object
-	 */
-	protected $data;
-
-	/**
-	 * @var bool
-	 */
-	protected $ismobile;
-
-	/**
-	 * @var object
-	 */
-	protected $globalwidgets;
+	protected ?string $modelClass = \Lara\App\Models\Classicform::class;
+	protected ?string $routename;
+	protected ?object $entity;
+	protected ?object $activeroute;
+	protected ?string $language;
+	protected ?object $data;
+	protected ?object $globalwidgets;
+	protected bool $ismobile;
+	protected bool $ispreview;
 
 	public function __construct()
 	{
@@ -94,16 +68,21 @@ class ClassicformsController extends Controller
 		// get language
 		$this->language = LaravelLocalization::getCurrentLocale();
 
-		// create an empty Laravel object to hold all the data (see: https://goo.gl/ufmFHe)
-		$this->data = new stdClass();
+		$this->data = new stdClass;
 
 		if (!App::runningInConsole()) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
 
+			// preview
+			$this->ispreview = $this->isPreview($this->routename);
+
 			// get entity
 			$this->entity = $this->getFrontEntity($this->routename);
+
+			// get active route
+			$this->activeroute = $this->getLaraActiveRoute($this->routename);
 
 			// get default seo
 			$this->data->seo = $this->getDefaultSeo($this->language);
@@ -124,22 +103,26 @@ class ClassicformsController extends Controller
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
+				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
 				view()->share('ismobile', $this->ismobile);
+				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
+				view()->share('activemenu', $this->getActiveMenuArray());
+				view()->share('firstpageload', $this->getFirstPageLoad());
 
 				return $next($request);
 			});
+
 		}
 
 	}
 
 	/**
-	 * Show form
+	 * Show the form
 	 *
 	 * @param Request $request
 	 * @return Application|Factory|View
-	 * @throws BindingResolutionException
 	 */
 	public function form(Request $request)
 	{
@@ -155,10 +138,10 @@ class ClassicformsController extends Controller
 
 
 		// get params
-		$this->data->params = $this->getFrontParams($this->entity, $request);
+		$this->data->params = $this->getFrontParams($this->entity, $this->activeroute, $request);
 
 		// get related module page for SEO and Intro
-		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, $this->entity->getMethod());
+		$this->data->modulepage = $this->getModulePageBySlug($this->language, $this->entity, 'form');
 
 		// Use module page for Intro
 		$this->data->page = $this->data->modulepage;
@@ -172,18 +155,15 @@ class ClassicformsController extends Controller
 		// get language versions
 		$this->data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity);
 
-		// header tags
-		$this->data->htag = $this->getEntityHeaderTag($this->entity);
-
 		// override default layout with custom module page layout
 		$this->data->layout = $this->getObjectThemeLayout($this->data->modulepage);
 		$this->data->grid = $this->getGrid($this->data->layout);
 
 		// template vars & override
 		$this->data->gridvars = $this->getGridVars($this->entity);
-		$this->data->override = $this->getGridOverride($this->entity);
+		$this->data->override = $this->getGridOverride($this->entity, $this->activeroute);
 
-		$viewfile = $this->getFrontViewFile($this->entity);
+		$viewfile = $this->getFrontViewFile($this->entity, $this->activeroute);
 
 		return view($viewfile, [
 			'data' => $this->data,
@@ -195,18 +175,19 @@ class ClassicformsController extends Controller
 	 * Process form
 	 *
 	 * @param Request $request
-	 * @return false|Application|Factory|View|string
+	 * @return false|string
 	 * @throws BindingResolutionException
 	 */
 	public function process(Request $request)
 	{
 
 		$validationRules = $this->getValidationRules($this->entity);
-		if(config('app.env') == 'production') {
+		if (config('app.env') == 'production' && config('lara.google_recaptcha_site_key')) {
 			$validationRules['g-recaptcha-response'] = [new ReCaptcha];
 		}
-		$validatedData = $request->validate($validationRules);
+		$request->validate($validationRules);
 
+		// save data
 		$formfields = array();
 		$formfields[] = 'title';
 		foreach ($this->entity->getCustomColumns() as $field) {
@@ -236,66 +217,21 @@ class ClassicformsController extends Controller
 
 		$newObject = $this->modelClass::create($request->only($formfields));
 
-		// SEND MAIL
-		$this->sendMail($request);
+		$isSpam = $this->detectSpam($this->entity, $newObject, ['text']);
 
-		// show thank you page
-		$thankYouPage = Page::where('slug', 'classic-form-thank-you')->first();
+		if ($isSpam->result) {
+			// Soft delete because it is suspicious (spam)
+			$newObject->delete();
+			abort(403);
+		} else {
+			// SEND MAIL
+			$this->sendMail($request);
 
-		$this->data = $this->showThankyouPage($request, $thankYouPage->id);
-
-		$viewfile = 'content.page.show';
-
-		return view($viewfile, [
-			'data' => $this->data,
-		]);
-
-	}
-
-	/**
-	 * @param Request $request
-	 * @param int $pageId
-	 * @return mixed
-	 * @throws BindingResolutionException
-	 */
-	private function showThankyouPage(Request $request, int $pageId)
-	{
-
-		$data = new stdClass;
-
-		$pageEntity = $this->getFrontEntity('entity.page.show.' . $pageId);
-
-		// get params
-		$data->params = $this->getFrontParams($pageEntity, $request);
-
-		// get object
-		$data->object = Page::find($pageId);
-
-		if ($data->object) {
-
-			// replace shortcodes
-			$data->object->body = $this->replaceShortcodes($data->object->body);
-
-			// seo
-			$data->seo = $this->getSeo($data->object);
-
-			// get language versions
-			$data->langversions = $this->getFrontLanguageVersions($this->language, $this->entity, $data->object);
-
-			// header tags
-			$data->htag = $this->getEntityHeaderTag($this->entity);
-
-			// override default layout with custom page layout
-			$data->layout = $this->getObjectThemeLayout($data->object);
-			$data->grid = $this->getGrid($this->data->layout);
-
-			$data->gridvars = $this->getGridVars($pageEntity);
-			$data->override = $this->getGridOverride($pageEntity);
+			// redirect to thank you page
+			$thankYouPage = Page::where('slug', 'classic-form-thank-you')->first();
+			return redirect()->route( 'content.pages.show', ['id' => $thankYouPage->id]);
 
 		}
-
-		return $data;
-
 	}
 
 	/**
@@ -306,22 +242,25 @@ class ClassicformsController extends Controller
 	private function sendMail(Request $request)
 	{
 
-		$app = app();
-		$maildata = $app->make('stdClass');
+		$maildata = new stdClass;
 
 		// company
 		$company = $this->getSettingsByGroup('company');
 		$maildata->company = $company;
 
 		// visitor
-		$user = $app->make('stdClass');
-		$user->email = $request->input('email');
-		if ($request->has('name')) {
-			$user->name = $request->input('name');
+		if($request->has('email')) {
+			$user = $app->make('stdClass');
+			$user->email = $request->input('email');
+			if ($request->has('name')) {
+				$user->name = $request->input('name');
+			}
+		} else {
+			$user = null;
 		}
 
 		// webmaster
-		$webmaster = $app->make('stdClass');
+		$webmaster = new StdClass;
 		if (config('app.env') == 'production') {
 			$webmaster->email = $company->company_email;
 			$webmaster->name = $company->company_name;
@@ -331,25 +270,25 @@ class ClassicformsController extends Controller
 		}
 
 		// from
-		$maildata->from = $app->make('stdClass');
+		$maildata->from = new StdClass;
 		$maildata->from->email = $company->company_email;
 		$maildata->from->name = $company->company_name;
 
 		// subject
-		$maildata->subject = _q('lara-eve::' . $this->entity->resource_slug . '.email.subject');
+		$maildata->subject = _q('lara-eve::' . $this->entity->getResourceSlug() . '.email.subject');
 
 		// style
 		$maildata->style = json_decode(json_encode(config('lara-front.mail')), false);
 
 		// Content
-		$intro = $this->getEmailPageContent($this->language, $this->entity->getEntityKey());
-		$maildata->content = $app->make('stdClass');
+		$intro = $this->getEmailPageContent($this->language, $this->entity->getResourceSlug());
+		$maildata->content = new StdClass;
 		$maildata->content->title = $intro->title;
 		$maildata->content->lead = $intro->lead;
 		$maildata->content->body = strip_tags($intro->body);
 
 		// dynamic content
-		$maildata->content->data = $app->make('stdClass');
+		$maildata->content->data = new StdClass;
 		foreach ($this->entity->getCustomColumns() as $field) {
 			$fieldname = $field->fieldname;
 			if($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
@@ -362,21 +301,21 @@ class ClassicformsController extends Controller
 				$fieldvalue = $request->input($fieldname);
 			}
 			$maildata->content->data->$fieldname = [
-				'colname' => _q('lara-eve::' . $this->entity->getEntityKey() . '.column.' . $fieldname),
+				'colname' => _q('lara-eve::' . $this->entity->getResourceSlug() . '.column.' . $fieldname),
 				'colval'  => $fieldvalue,
 			];
 		}
 
 		// mail to visitor
-		$maildata->view = 'email.' . $this->entity->getEntityKey() . '.confirm';
-		Mail::to($user)->queue(new MailConfirmation($maildata));
+		if($user) {
+			$maildata->view = 'email.' . $this->entity->getResourceSlug() . '.confirm';
+			Mail::to($user)->queue(new MailConfirmation($maildata));
+		}
 
 		// mail to webmaster
-		$maildata->view = 'email.' . $this->entity->getEntityKey() . '.webmaster';
+		$maildata->view = 'email.' . $this->entity->getResourceSlug() . '.webmaster';
 		$mlr = (config('app.env') == 'production') ? 'smtp' : 'dev';
 		Mail::mailer($mlr)->to($webmaster)->queue(new MailConfirmation($maildata));
-
-		return true;
 
 	}
 

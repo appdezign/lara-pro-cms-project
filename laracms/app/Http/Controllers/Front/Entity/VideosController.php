@@ -9,11 +9,6 @@ use Lara\App\Models\Video;
 class VideosController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): Video
 	{
 		return Video::create();

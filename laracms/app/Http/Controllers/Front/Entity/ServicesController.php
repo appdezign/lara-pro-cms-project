@@ -9,11 +9,6 @@ use Lara\App\Models\Service;
 class ServicesController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): Service
 	{
 		return Service::create();

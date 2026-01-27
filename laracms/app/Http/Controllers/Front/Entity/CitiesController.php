@@ -9,11 +9,6 @@ use Lara\App\Models\City;
 class CitiesController extends AppFrontController
 {
 
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	protected function make(): City
 	{
 		return City::create();
