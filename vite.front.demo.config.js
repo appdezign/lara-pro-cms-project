@@ -23,6 +23,31 @@ export default defineConfig({
             ],
             refresh: true,
         }),
-
     ],
+	css: {
+		preprocessorOptions: {
+			sass: {
+				silenceDeprecations: [
+					'import',
+					'slash-div',
+					'global-builtin',
+					'color-functions',
+					'abs-percent',
+					'if-function',
+				],
+				quietDeps: true,
+			},
+			scss: {
+				silenceDeprecations: [
+					'import',
+					'slash-div',
+					'global-builtin',
+					'color-functions',
+					'abs-percent',
+					'if-function',
+				],
+				quietDeps: true,
+			},
+		},
+	},
 });
