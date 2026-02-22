@@ -37,7 +37,7 @@ class LaraAppServiceProvider extends ServiceProvider
 		$this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'lara-app');
 
 		// Views
-		$this->loadViewsFrom(__DIR__ . '/../Resources/Views', 'lara-app');
+		$this->loadViewsFrom(__DIR__ . '/../Resources/views', 'lara-app');
 
 
 		// Load policies

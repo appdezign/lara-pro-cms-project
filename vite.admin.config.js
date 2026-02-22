@@ -3,7 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
-
 export default defineConfig({
     plugins: [
 	    viteStaticCopy({
@@ -20,6 +19,7 @@ export default defineConfig({
 	    }),
 
         laravel({
+	        // publicDirectory: "../httpdocs",
 	        buildDirectory: 'assets/admin/build',
             input: [
 	            'laracms/core/resources/css/app.css',
@@ -31,4 +31,7 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+	build: {
+		emptyOutDir: true,
+	},
 });

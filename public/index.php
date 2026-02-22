@@ -4,14 +4,30 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
-// Determine if the application is in maintenance mode...
-if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
-    require $maintenance;
+// Custom maintenance mode...
+if (file_exists($down = __DIR__.'/../laravel/storage/framework/down')) {
+	$data = json_decode(file_get_contents($down), true);
+	$defaultOutput = '<html><body><h1>maintenance</h1></div></body></html>';
+	$output = (isset($data['template'])) ? $data['template'] : $defaultOutput;
+	echo $output;
+	exit();
 }
 
-// Register the Composer autoloader...
-require __DIR__.'/../vendor/autoload.php';
+if(PHP_OS == 'Linux') {
 
-// Bootstrap Laravel and handle the request...
-(require_once __DIR__.'/../bootstrap/app.php')
-    ->handleRequest(Request::capture());
+	// plesk
+	require __DIR__ . '/../laravel/vendor/autoload.php';
+
+	(require_once __DIR__ . '/../laravel/bootstrap/app.php')
+		->handleRequest(Request::capture());
+
+} else {
+
+	// local
+	require __DIR__ . '/../vendor/autoload.php';
+
+	(require_once __DIR__ . '/../bootstrap/app.php')
+		->handleRequest(Request::capture());
+}
+
+

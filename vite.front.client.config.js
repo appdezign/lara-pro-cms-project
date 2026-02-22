@@ -7,18 +7,18 @@ export default defineConfig({
 	    viteStaticCopy({
 		    targets: [
 			    {
-				    src: 'laracms/themes/base/_assets/_public/*',
+				    src: 'laracms/themes/client/_assets/_public/*',
 				    dest: '',
 			    },
 		    ],
 	    }),
 
-	    laravel({
-		    // publicDirectory: "../httpdocs",
-	        buildDirectory: 'assets/themes/base',
+        laravel({
+	        // publicDirectory: "../httpdocs",
+	        buildDirectory: 'assets/themes/client',
             input: [
-				'laracms/themes/base/_assets/scss/app.scss',
-				'laracms/themes/base/_assets/js/app.js',
+				'laracms/themes/client/_assets/scss/app.scss',
+				'laracms/themes/client/_assets/js/app.js',
                 'resources/sass/app.scss',
                 'resources/js/app.js',
             ],
