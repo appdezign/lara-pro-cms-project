@@ -14,6 +14,7 @@ export default defineConfig({
 	    }),
 
         laravel({
+	        // publicDirectory: "../httpdocs",
 	        buildDirectory: 'assets/themes/demo',
             input: [
 				'laracms/themes/demo/_assets/scss/app.scss',
@@ -33,7 +34,7 @@ export default defineConfig({
 					'global-builtin',
 					'color-functions',
 					'abs-percent',
-					'if-function',
+					'if-function'
 				],
 				quietDeps: true,
 			},
@@ -44,10 +45,13 @@ export default defineConfig({
 					'global-builtin',
 					'color-functions',
 					'abs-percent',
-					'if-function',
+					'if-function'
 				],
 				quietDeps: true,
 			},
 		},
+	},
+	build: {
+		emptyOutDir: true,
 	},
 });
