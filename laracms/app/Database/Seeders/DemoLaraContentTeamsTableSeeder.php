@@ -14,12 +14,12 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_teams')->delete();
-
+        
         \DB::table('lara_content_teams')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'location_id' => 1,
@@ -39,7 +39,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Jenny',
                 'created_at' => '2025-07-04 08:06:35',
-                'updated_at' => '2025-10-20 09:38:15',
+                'updated_at' => '2026-03-15 16:00:30',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 17:39:00',
@@ -48,8 +48,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'location_id' => 1,
@@ -69,7 +71,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Ralph',
                 'created_at' => '2025-07-04 15:38:39',
-                'updated_at' => '2025-09-03 13:50:42',
+                'updated_at' => '2025-12-24 12:13:20',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 15:38:00',
@@ -78,8 +80,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'location_id' => 3,
@@ -99,7 +103,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Cameron',
                 'created_at' => '2025-07-09 13:33:20',
-                'updated_at' => '2025-09-03 13:51:37',
+                'updated_at' => '2025-12-24 12:13:31',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:32:00',
@@ -108,8 +112,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'location_id' => 3,
@@ -129,7 +135,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Jerome',
                 'created_at' => '2025-07-09 13:35:21',
-                'updated_at' => '2025-09-03 13:51:52',
+                'updated_at' => '2025-12-24 12:13:42',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:34:00',
@@ -138,8 +144,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'location_id' => 3,
@@ -159,7 +167,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Marvin',
                 'created_at' => '2025-07-09 13:36:13',
-                'updated_at' => '2025-09-03 13:52:12',
+                'updated_at' => '2025-12-24 12:13:54',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:35:00',
@@ -168,8 +176,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'location_id' => 3,
@@ -189,7 +199,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Esther',
                 'created_at' => '2025-07-09 13:38:45',
-                'updated_at' => '2025-09-03 13:52:41',
+                'updated_at' => '2025-12-24 12:14:15',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:38:00',
@@ -198,8 +208,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'location_id' => 3,
@@ -219,7 +231,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Darrell',
                 'created_at' => '2025-07-09 13:39:36',
-                'updated_at' => '2025-09-03 13:53:10',
+                'updated_at' => '2025-12-24 12:14:27',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:39:00',
@@ -228,8 +240,10 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 8,
                 'location_id' => 3,
@@ -249,7 +263,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Jane',
                 'created_at' => '2025-07-09 13:40:37',
-                'updated_at' => '2025-09-03 13:53:29',
+                'updated_at' => '2025-12-24 12:14:35',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:40:00',
@@ -258,9 +272,11 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

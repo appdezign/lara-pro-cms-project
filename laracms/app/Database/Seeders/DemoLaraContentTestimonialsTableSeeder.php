@@ -14,12 +14,12 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_testimonials')->delete();
-
+        
         \DB::table('lara_content_testimonials')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -34,7 +34,7 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'role' => 'Co-founder of Lorem Company',
                 'stars' => '5',
                 'created_at' => '2025-08-24 12:36:50',
-                'updated_at' => '2025-08-24 12:46:05',
+                'updated_at' => '2025-12-24 12:19:03',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 12:36:00',
@@ -43,8 +43,10 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -59,7 +61,7 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'role' => 'Strategic Advisor at Company LLC',
                 'stars' => '4',
                 'created_at' => '2025-08-24 12:44:37',
-                'updated_at' => '2025-08-24 12:45:21',
+                'updated_at' => '2025-12-24 12:19:31',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 12:44:00',
@@ -68,8 +70,10 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -84,7 +88,7 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'role' => 'Founder & CEO, Uber',
                 'stars' => '5',
                 'created_at' => '2025-08-24 12:46:29',
-                'updated_at' => '2025-08-24 12:48:36',
+                'updated_at' => '2025-12-24 12:21:43',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 12:46:00',
@@ -93,8 +97,10 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -109,7 +115,7 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'role' => 'Strategic Advisor at Company LLC',
                 'stars' => '5',
                 'created_at' => '2025-08-24 12:48:52',
-                'updated_at' => '2025-08-24 12:49:39',
+                'updated_at' => '2025-12-24 12:22:15',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 12:48:00',
@@ -118,8 +124,10 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -134,7 +142,7 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'role' => 'Head of Marketing at Lorem Ltd.',
                 'stars' => '5',
                 'created_at' => '2025-08-24 12:51:01',
-                'updated_at' => '2025-08-24 12:51:50',
+                'updated_at' => '2025-12-24 12:22:42',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 12:50:00',
@@ -143,8 +151,10 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -159,7 +169,7 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'role' => 'Project Manager at Ipsum Ltd.',
                 'stars' => NULL,
                 'created_at' => '2025-08-24 12:52:56',
-                'updated_at' => '2025-08-24 12:53:19',
+                'updated_at' => '2025-12-24 12:22:58',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 12:52:00',
@@ -168,9 +178,11 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

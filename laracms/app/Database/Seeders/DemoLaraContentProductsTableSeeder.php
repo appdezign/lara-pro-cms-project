@@ -14,12 +14,12 @@ class DemoLaraContentProductsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_products')->delete();
-
+        
         \DB::table('lara_content_products')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -50,17 +50,19 @@ class DemoLaraContentProductsTableSeeder extends Seeder
                 'myemail' => 'myemail@domain.com',
                 'mystring' => 'my string',
                 'created_at' => '2025-10-06 18:51:02',
-                'updated_at' => '2025-10-21 08:00:14',
+                'updated_at' => '2026-03-19 17:24:22',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-06 18:50:00',
                 'publish_expire' => 1,
                 'publish_to' => '2025-12-31 20:52:00',
                 'publish_hide' => 0,
-                'position' => 0,
+                'position' => 1001,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -91,18 +93,20 @@ class DemoLaraContentProductsTableSeeder extends Seeder
                 'myemail' => NULL,
                 'mystring' => NULL,
                 'created_at' => '2025-10-21 08:09:22',
-                'updated_at' => '2025-10-21 08:09:22',
+                'updated_at' => '2025-12-29 09:38:53',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-21 08:09:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 0,
+                'position' => 1002,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

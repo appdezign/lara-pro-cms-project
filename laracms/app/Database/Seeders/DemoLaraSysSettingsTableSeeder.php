@@ -14,12 +14,12 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_sys_settings')->delete();
-
+        
         \DB::table('lara_sys_settings')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 101,
                 'title' => 'Company Name',
@@ -29,23 +29,27 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 2,
                 'created_at' => '2017-10-17 15:44:37',
-                'updated_at' => '2024-10-25 15:33:18',
+                'updated_at' => '2026-01-27 16:56:07',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 102,
                 'title' => 'Company Street',
                 'cgroup' => 'company',
                 'key' => 'company_street',
-                'value' => 'Schipholweg',
+                'value' => 'Bellevuelaan',
                 'locked_by_admin' => 0,
                 'position' => 4,
                 'created_at' => '2017-10-17 17:37:10',
-                'updated_at' => '2023-04-16 20:18:56',
+                'updated_at' => '2026-01-25 19:13:53',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 103,
                 'title' => 'Company Email Address',
@@ -57,8 +61,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2017-10-17 17:53:53',
                 'updated_at' => '2023-10-14 16:28:36',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 105,
                 'title' => 'Translation File Sync',
@@ -68,36 +74,42 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 1,
                 'created_at' => '2017-10-20 12:59:00',
-                'updated_at' => '2025-03-07 10:38:57',
+                'updated_at' => '2026-01-25 19:11:27',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 106,
                 'title' => 'Company Street Nr',
                 'cgroup' => 'company',
                 'key' => 'company_street_nr',
-                'value' => '66',
+                'value' => '241',
                 'locked_by_admin' => 0,
                 'position' => 5,
                 'created_at' => '2018-01-22 09:48:07',
-                'updated_at' => '2023-02-10 20:29:45',
+                'updated_at' => '2025-12-31 11:59:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 107,
                 'title' => 'Company Postal Code',
                 'cgroup' => 'company',
                 'key' => 'company_pcode',
-                'value' => '2035LB',
+                'value' => '2012 BX',
                 'locked_by_admin' => 0,
                 'position' => 6,
                 'created_at' => '2018-01-24 12:41:38',
-                'updated_at' => '2023-10-13 16:30:42',
+                'updated_at' => '2025-12-31 12:00:36',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 108,
                 'title' => 'Company City',
@@ -107,10 +119,12 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 7,
                 'created_at' => '2018-01-24 12:42:00',
-                'updated_at' => '2023-02-10 20:30:06',
+                'updated_at' => '2026-01-25 17:17:21',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 109,
                 'title' => 'Company Telephone',
@@ -120,10 +134,12 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'locked_by_admin' => 0,
                 'position' => 10,
                 'created_at' => '2018-01-24 12:42:43',
-                'updated_at' => '2021-11-10 17:08:09',
+                'updated_at' => '2026-01-25 17:17:13',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 110,
                 'title' => 'Company Region',
@@ -135,8 +151,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-01-24 12:43:29',
                 'updated_at' => '2019-12-18 12:52:15',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 111,
                 'title' => 'Company Country',
@@ -148,8 +166,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-01-24 12:43:50',
                 'updated_at' => '2018-01-24 12:43:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 112,
                 'title' => 'google_analytics_sync',
@@ -161,8 +181,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-05-30 14:14:21',
                 'updated_at' => '2024-10-25 15:27:01',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 113,
                 'title' => 'Google Analytics 4 ID',
@@ -174,8 +196,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-05-25 12:00:00',
                 'updated_at' => '2023-09-21 11:15:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 114,
                 'title' => 'AddThis ID',
@@ -187,8 +211,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-05-25 12:00:00',
                 'updated_at' => '2023-02-10 20:28:37',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 115,
                 'title' => 'Lara DB Version',
@@ -200,8 +226,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-12 11:18:52',
                 'updated_at' => '2025-01-20 10:34:45',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 116,
                 'title' => 'Company Latitude',
@@ -213,8 +241,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:01:02',
                 'updated_at' => '2023-03-17 15:48:11',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 117,
                 'title' => 'Company Longitude',
@@ -226,8 +256,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:01:18',
                 'updated_at' => '2023-03-17 15:48:11',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 118,
                 'title' => 'Company Url',
@@ -239,8 +271,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:01:31',
                 'updated_at' => '2023-02-10 20:27:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 119,
                 'title' => 'Google Maps Zoom',
@@ -252,8 +286,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2018-06-18 14:04:34',
                 'updated_at' => '2018-06-18 14:07:50',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            18 =>
+            18 => 
             array (
                 'id' => 120,
                 'title' => 'lara_cleanup_orphans',
@@ -265,8 +301,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-07-19 10:47:25',
                 'updated_at' => '2020-05-19 14:26:14',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            19 =>
+            19 => 
             array (
                 'id' => 121,
                 'title' => 'Company Telephone Clean',
@@ -278,8 +316,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-07-21 18:50:40',
                 'updated_at' => '2019-07-21 18:54:45',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            20 =>
+            20 => 
             array (
                 'id' => 122,
                 'title' => 'Google Tag manager ID',
@@ -291,8 +331,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-08-12 18:53:46',
                 'updated_at' => '2023-02-10 20:27:53',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            21 =>
+            21 => 
             array (
                 'id' => 127,
                 'title' => 'OpenGraph Type',
@@ -304,8 +346,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 20:52:19',
                 'updated_at' => '2019-10-18 12:36:50',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            22 =>
+            22 => 
             array (
                 'id' => 128,
                 'title' => 'OpenGraph Image Width',
@@ -317,8 +361,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 21:01:45',
                 'updated_at' => '2019-10-03 21:01:51',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            23 =>
+            23 => 
             array (
                 'id' => 129,
                 'title' => 'OpenGraph Image Height',
@@ -330,8 +376,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 21:02:21',
                 'updated_at' => '2019-10-18 12:36:57',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            24 =>
+            24 => 
             array (
                 'id' => 130,
                 'title' => 'OpenGraph Description Max Length',
@@ -343,8 +391,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-03 21:03:12',
                 'updated_at' => '2019-10-03 21:04:54',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            25 =>
+            25 => 
             array (
                 'id' => 131,
                 'title' => 'OpenGraph Site Name',
@@ -356,8 +406,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2019-10-18 12:37:44',
                 'updated_at' => '2019-10-18 13:31:43',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            26 =>
+            26 => 
             array (
                 'id' => 132,
                 'title' => 'Eve Version',
@@ -369,8 +421,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2020-08-11 17:09:21',
                 'updated_at' => '2024-11-06 11:25:54',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            27 =>
+            27 => 
             array (
                 'id' => 134,
                 'title' => 'Top post range days',
@@ -382,8 +436,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2021-08-05 18:29:35',
                 'updated_at' => '2021-08-05 18:31:10',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            28 =>
+            28 => 
             array (
                 'id' => 135,
                 'title' => 'Company Facebook Account',
@@ -395,8 +451,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:11:38',
                 'updated_at' => '2023-03-12 13:11:40',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            29 =>
+            29 => 
             array (
                 'id' => 136,
                 'title' => 'Company Instagram Account',
@@ -408,8 +466,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:12:04',
                 'updated_at' => '2023-03-12 13:12:10',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            30 =>
+            30 => 
             array (
                 'id' => 137,
                 'title' => 'Company Twitter Account',
@@ -421,8 +481,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:12:46',
                 'updated_at' => '2023-03-12 13:12:53',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            31 =>
+            31 => 
             array (
                 'id' => 138,
                 'title' => 'Company Linkedin Account',
@@ -434,8 +496,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:13:23',
                 'updated_at' => '2023-03-12 13:13:26',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            32 =>
+            32 => 
             array (
                 'id' => 139,
                 'title' => 'Team Photo Ratio',
@@ -447,8 +511,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-03-12 13:13:23',
                 'updated_at' => '2023-06-29 14:21:34',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            33 =>
+            33 => 
             array (
                 'id' => 143,
                 'title' => 'Lara Translation Version',
@@ -460,8 +526,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2023-10-24 15:48:06',
                 'updated_at' => '2025-09-03 16:53:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            34 =>
+            34 => 
             array (
                 'id' => 144,
                 'title' => 'Seo Description Max Length',
@@ -473,8 +541,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-04-19 11:08:59',
                 'updated_at' => '2024-04-19 11:08:59',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            35 =>
+            35 => 
             array (
                 'id' => 145,
                 'title' => 'Seo Keywords Max Length',
@@ -486,8 +556,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-04-19 11:10:40',
                 'updated_at' => '2024-04-19 11:10:40',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            36 =>
+            36 => 
             array (
                 'id' => 146,
                 'title' => 'last_media_file_sync_page',
@@ -499,8 +571,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-08-10 16:37:02',
                 'updated_at' => '2025-07-06 14:42:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            37 =>
+            37 => 
             array (
                 'id' => 147,
                 'title' => 'last_media_videofile_sync_page',
@@ -512,8 +586,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-08-10 16:37:02',
                 'updated_at' => '2025-07-06 14:42:58',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            38 =>
+            38 => 
             array (
                 'id' => 148,
                 'title' => 'last_media_file_sync_blog',
@@ -525,8 +601,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-10-14 14:06:42',
                 'updated_at' => '2025-04-12 17:37:06',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            39 =>
+            39 => 
             array (
                 'id' => 149,
                 'title' => 'last_media_videofile_sync_blog',
@@ -538,8 +616,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-10-14 14:06:42',
                 'updated_at' => '2025-04-12 17:37:06',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            40 =>
+            40 => 
             array (
                 'id' => 150,
                 'title' => 'last_media_file_sync_team',
@@ -551,8 +631,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2024-10-24 16:17:41',
                 'updated_at' => '2025-04-10 20:05:32',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            41 =>
+            41 => 
             array (
                 'id' => 152,
                 'title' => 'Company 2FA App Name',
@@ -564,8 +646,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2025-01-17 13:36:28',
                 'updated_at' => '2025-01-17 13:36:28',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            42 =>
+            42 => 
             array (
                 'id' => 153,
                 'title' => 'last_media_file_sync_product',
@@ -577,8 +661,10 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2025-05-08 14:43:05',
                 'updated_at' => '2025-05-09 15:00:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            43 =>
+            43 => 
             array (
                 'id' => 154,
                 'title' => 'last_media_videofile_sync_product',
@@ -590,9 +676,11 @@ class DemoLaraSysSettingsTableSeeder extends Seeder
                 'created_at' => '2025-05-08 14:43:05',
                 'updated_at' => '2025-05-09 15:00:48',
                 'deleted_at' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

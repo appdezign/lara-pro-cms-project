@@ -14,12 +14,12 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_blocks_widgets')->delete();
-
+        
         \DB::table('lara_blocks_widgets')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -45,7 +45,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'content_bottom',
                 'created_at' => '2025-07-10 11:01:38',
-                'updated_at' => '2025-09-07 15:48:12',
+                'updated_at' => '2026-03-15 16:20:41',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-10 13:10:00',
@@ -53,8 +53,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -80,7 +82,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'content_bottom',
                 'created_at' => '2025-07-10 13:07:36',
-                'updated_at' => '2025-09-07 16:47:07',
+                'updated_at' => '2026-01-25 19:38:20',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-10 13:07:00',
@@ -88,8 +90,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -115,7 +119,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'home1',
                 'created_at' => '2025-08-25 09:07:04',
-                'updated_at' => '2025-09-03 10:02:30',
+                'updated_at' => '2026-03-10 09:45:33',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 09:06:00',
@@ -123,8 +127,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -150,7 +156,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'home2',
                 'created_at' => '2025-08-25 09:28:47',
-                'updated_at' => '2025-08-25 09:30:33',
+                'updated_at' => '2025-12-24 12:32:19',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 09:26:00',
@@ -158,8 +164,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -185,7 +193,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'home3',
                 'created_at' => '2025-08-25 09:30:02',
-                'updated_at' => '2025-08-25 09:30:56',
+                'updated_at' => '2025-12-24 12:32:45',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 09:29:00',
@@ -193,8 +201,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -220,7 +230,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'home4',
                 'created_at' => '2025-08-25 09:32:01',
-                'updated_at' => '2025-08-25 09:32:57',
+                'updated_at' => '2025-12-24 12:32:55',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 09:31:00',
@@ -228,8 +238,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'user_id' => 3,
@@ -255,7 +267,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 1,
                 'hook' => 'footer1',
                 'created_at' => '2025-08-25 11:22:36',
-                'updated_at' => '2025-08-25 11:24:12',
+                'updated_at' => '2026-03-16 20:24:26',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 11:22:00',
@@ -263,8 +275,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 9,
                 'user_id' => 3,
@@ -274,7 +288,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'slug' => 'useful-links-2',
                 'slug_lock' => 0,
                 'lead' => NULL,
-                'body' => '<ul><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">Home</a></li><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">Services</a></li><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">Case Studies</a></li><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">About Us</a></li><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">News &amp; Insights</a></li><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">Terms &amp; Conditions</a></li><li><a target="_blank" rel="noopener noreferrer nofollow" href="https://lara402.test/">Privacy Policy</a></li></ul><p></p>',
+                'body' => '<ul><li><p><a href="#" rel="noopener noreferrer nofollow">Home</a></p></li><li><p><a href="#" rel="noopener noreferrer nofollow">Services</a></p></li><li><p><a href="#" rel="noopener noreferrer nofollow">Case Studies</a></p></li><li><p><a href="#" rel="noopener noreferrer nofollow">About Us</a></p></li><li><p><a href="#" rel="noopener noreferrer nofollow">News &amp; Insights</a></p></li><li><p><a href="#" rel="noopener noreferrer nofollow">Terms &amp; Conditions</a></p></li><li><p><a href="#" rel="noopener noreferrer nofollow">Privacy Policy</a></p></li></ul><p></p>',
                 'template' => 'footer_links',
                 'sortorder' => 0,
                 'usecache' => 0,
@@ -290,7 +304,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 1,
                 'hook' => 'footer2',
                 'created_at' => '2025-08-25 11:35:31',
-                'updated_at' => '2025-09-07 12:17:33',
+                'updated_at' => '2026-03-10 08:32:56',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 11:35:00',
@@ -298,8 +312,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 10,
                 'user_id' => 3,
@@ -325,7 +341,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 1,
                 'hook' => 'footer3',
                 'created_at' => '2025-09-04 13:55:48',
-                'updated_at' => '2025-09-04 13:56:18',
+                'updated_at' => '2026-03-10 08:37:59',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-04 13:54:00',
@@ -333,8 +349,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 11,
                 'user_id' => 3,
@@ -368,8 +386,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 12,
                 'user_id' => 3,
@@ -390,12 +410,12 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'resource_term' => NULL,
                 'resource_slug' => 'teams',
                 'max_items' => 8,
-                'image_required' => 0,
+                'image_required' => 1,
                 'type' => 'module',
                 'is_global' => 0,
                 'hook' => 'content_bottom',
                 'created_at' => '2025-09-07 16:02:21',
-                'updated_at' => '2025-09-07 16:56:06',
+                'updated_at' => '2026-03-14 16:56:07',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-07 16:01:00',
@@ -403,8 +423,10 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 13,
                 'user_id' => 3,
@@ -430,7 +452,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'is_global' => 0,
                 'hook' => 'content_bottom',
                 'created_at' => '2025-09-07 16:51:11',
-                'updated_at' => '2025-09-07 16:55:00',
+                'updated_at' => '2026-01-27 10:39:50',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-07 16:49:00',
@@ -438,9 +460,11 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

@@ -14,12 +14,12 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_blogs')->delete();
-
+        
         \DB::table('lara_content_blogs')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 22,
                 'user_id' => 1,
@@ -34,7 +34,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:21:18',
-                'updated_at' => '2025-09-22 13:48:22',
+                'updated_at' => '2026-01-25 13:28:32',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-09 12:00:00',
@@ -43,8 +43,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => 'two',
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 23,
                 'user_id' => 1,
@@ -59,7 +61,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:27:44',
-                'updated_at' => '2025-08-25 12:15:59',
+                'updated_at' => '2025-12-24 10:55:39',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-04 12:00:00',
@@ -68,8 +70,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 24,
                 'user_id' => 1,
@@ -84,7 +88,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:29:55',
-                'updated_at' => '2025-08-25 12:15:33',
+                'updated_at' => '2025-12-24 10:54:34',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-05 12:00:00',
@@ -93,8 +97,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 25,
                 'user_id' => 1,
@@ -109,7 +115,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:33:11',
-                'updated_at' => '2025-08-25 12:15:09',
+                'updated_at' => '2025-12-24 10:54:23',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-06 12:00:00',
@@ -118,8 +124,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 26,
                 'user_id' => 1,
@@ -134,7 +142,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:35:31',
-                'updated_at' => '2025-08-25 12:14:20',
+                'updated_at' => '2025-12-24 10:54:05',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-07 12:00:00',
@@ -143,8 +151,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 27,
                 'user_id' => 1,
@@ -159,7 +169,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:38:33',
-                'updated_at' => '2025-08-25 12:13:47',
+                'updated_at' => '2025-12-24 10:53:53',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-08 12:00:00',
@@ -168,8 +178,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 28,
                 'user_id' => 1,
@@ -193,8 +205,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 29,
                 'user_id' => 1,
@@ -209,7 +223,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 18:10:56',
-                'updated_at' => '2025-08-25 12:12:33',
+                'updated_at' => '2026-01-25 13:30:46',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-10 12:00:00',
@@ -218,8 +232,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 30,
                 'user_id' => 1,
@@ -234,7 +250,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 18:12:51',
-                'updated_at' => '2025-10-17 08:54:48',
+                'updated_at' => '2026-02-23 15:34:39',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-11 12:00:00',
@@ -243,8 +259,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 31,
                 'user_id' => 1,
@@ -259,17 +277,19 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 18:30:14',
-                'updated_at' => '2025-10-17 08:26:51',
+                'updated_at' => '2026-03-16 19:05:08',
                 'deleted_at' => NULL,
-                'publish' => 0,
+                'publish' => 1,
                 'publish_from' => '2025-05-12 12:00:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 32,
                 'user_id' => 1,
@@ -293,8 +313,10 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 33,
                 'user_id' => 3,
@@ -318,9 +340,119 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'cgroup' => NULL,
                 'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            12 => 
+            array (
+                'id' => 34,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Test in FIlament 5',
+                'slug' => 'test-in-filament-5',
+                'slug_lock' => NULL,
+                'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula metus eget odio mollis gravida nec eget enim. Maecenas ornare quis erat a sagittis. Suspendisse erat mauris, vestibulum at lacus finibus, tristique lobortis eros.</p>',
+                'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula metus eget odio mollis gravida nec eget enim. Maecenas ornare quis erat a sagittis. Suspendisse erat mauris, vestibulum at lacus finibus, tristique lobortis eros. Pellentesque imperdiet nulla non lobortis volutpat. Pellentesque non neque eu diam laoreet lacinia. Proin aliquam maximus rutrum. Suspendisse et sapien ultricies, viverra ex quis, bibendum augue. Vivamus tristique vulputate auctor. In hac habitasse platea dictumst.</p><p style="text-align: justify;">Donec non ipsum eget nulla sagittis tristique. Ut ac lacinia massa, vitae placerat nunc. Vivamus ullamcorper mi eu arcu vestibulum sodales. Donec hendrerit non arcu a imperdiet. Sed consectetur dapibus aliquet. Aenean maximus massa sem, et convallis metus ultrices nec. Mauris eleifend augue nulla, vel fringilla quam posuere ac. Donec facilisis justo ante, eget dapibus est maximus sit amet. Ut vel orci iaculis, dictum arcu quis, venenatis ligula. Ut auctor tristique dictum. Ut feugiat risus turpis. Integer non dapibus est, sit amet blandit erat. Suspendisse congue aliquam purus, sed elementum tortor porttitor eu. Duis semper mi et velit mollis accumsan.</p>',
+                'body2' => NULL,
+                'sticky' => 0,
+                'source' => NULL,
+                'created_at' => '2026-02-18 09:01:52',
+                'updated_at' => '2026-02-18 09:31:10',
+                'deleted_at' => '2026-02-18 09:31:10',
+                'publish' => 0,
+                'publish_from' => '2026-02-18 09:00:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'cgroup' => NULL,
+                'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            13 => 
+            array (
+                'id' => 35,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Test for Filament 5',
+                'slug' => 'test-for-filament-5',
+                'slug_lock' => NULL,
+                'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula metus eget odio mollis gravida nec eget enim. Maecenas ornare quis erat a sagittis. Suspendisse erat mauris, vestibulum at lacus finibus, tristique lobortis eros.</p>',
+                'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula metus eget odio mollis gravida nec eget enim. Maecenas ornare quis erat a sagittis. Suspendisse erat mauris, vestibulum at lacus finibus, tristique lobortis eros. Pellentesque imperdiet nulla non lobortis volutpat. Pellentesque non neque eu diam laoreet lacinia. Proin aliquam maximus rutrum. Suspendisse et sapien ultricies, viverra ex quis, bibendum augue. Vivamus tristique vulputate auctor. In hac habitasse platea dictumst.</p><p>Donec non ipsum eget nulla sagittis tristique. Ut ac lacinia massa, vitae placerat nunc. Vivamus ullamcorper mi eu arcu vestibulum sodales. Donec hendrerit non arcu a imperdiet. Sed consectetur dapibus aliquet. Aenean maximus massa sem, et convallis metus ultrices nec. Mauris eleifend augue nulla, vel fringilla quam posuere ac. Donec facilisis justo ante, eget dapibus est maximus sit amet. Ut vel orci iaculis, dictum arcu quis, venenatis ligula. Ut auctor tristique dictum. Ut feugiat risus turpis. Integer non dapibus est, sit amet blandit erat. Suspendisse congue aliquam purus, sed elementum tortor porttitor eu. Duis semper mi et velit mollis accumsan.</p>',
+                'body2' => NULL,
+                'sticky' => 0,
+                'source' => NULL,
+                'created_at' => '2026-02-18 09:29:59',
+                'updated_at' => '2026-02-18 10:04:34',
+                'deleted_at' => '2026-02-18 10:04:34',
+                'publish' => 1,
+                'publish_from' => '2026-02-18 09:29:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'cgroup' => NULL,
+                'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            14 => 
+            array (
+                'id' => 36,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Test for Filament 4',
+                'slug' => 'test-for-filament-4',
+                'slug_lock' => NULL,
+                'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula metus eget odio mollis gravida nec eget enim. Maecenas ornare quis erat a sagittis. Suspendisse erat mauris, vestibulum at lacus finibus, tristique lobortis eros.</p>',
+                'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula metus eget odio mollis gravida nec eget enim. Maecenas ornare quis erat a sagittis. Suspendisse erat mauris, vestibulum at lacus finibus, tristique lobortis eros. Pellentesque imperdiet nulla non lobortis volutpat. Pellentesque non neque eu diam laoreet lacinia. Proin aliquam maximus rutrum. Suspendisse et sapien ultricies, viverra ex quis, bibendum augue. Vivamus tristique vulputate auctor. In hac habitasse platea dictumst.</p><p>Donec non ipsum eget nulla sagittis tristique. Ut ac lacinia massa, vitae placerat nunc. Vivamus ullamcorper mi eu arcu vestibulum sodales. Donec hendrerit non arcu a imperdiet. Sed consectetur dapibus aliquet. Aenean maximus massa sem, et convallis metus ultrices nec. Mauris eleifend augue nulla, vel fringilla quam posuere ac. Donec facilisis justo ante, eget dapibus est maximus sit amet. Ut vel orci iaculis, dictum arcu quis, venenatis ligula. Ut auctor tristique dictum. Ut feugiat risus turpis. Integer non dapibus est, sit amet blandit erat. Suspendisse congue aliquam purus, sed elementum tortor porttitor eu. Duis semper mi et velit mollis accumsan.</p>',
+                'body2' => NULL,
+                'sticky' => 0,
+                'source' => NULL,
+                'created_at' => '2026-02-18 09:39:58',
+                'updated_at' => '2026-02-18 10:04:30',
+                'deleted_at' => '2026-02-18 10:04:30',
+                'publish' => 1,
+                'publish_from' => '2026-02-18 09:39:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'cgroup' => NULL,
+                'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            15 => 
+            array (
+                'id' => 37,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Test voor afbeelding',
+                'slug' => 'test-voor-afbeelding',
+                'slug_lock' => NULL,
+                'lead' => '<p></p>',
+                'body' => '<p></p>',
+                'body2' => NULL,
+                'sticky' => 0,
+                'source' => NULL,
+                'created_at' => '2026-02-22 14:39:48',
+                'updated_at' => '2026-03-11 17:07:03',
+                'deleted_at' => '2026-03-11 17:07:03',
+                'publish' => 1,
+                'publish_from' => '2026-02-22 14:39:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'cgroup' => NULL,
+                'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

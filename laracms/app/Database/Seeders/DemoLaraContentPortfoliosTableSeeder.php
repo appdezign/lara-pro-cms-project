@@ -14,12 +14,12 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_portfolios')->delete();
-
+        
         \DB::table('lara_content_portfolios')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -32,7 +32,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:15:27',
+                'updated_at' => '2025-12-24 12:16:47',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -41,8 +41,10 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -55,7 +57,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:15:51',
+                'updated_at' => '2025-12-24 12:16:57',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -64,8 +66,10 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -78,7 +82,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:16:07',
+                'updated_at' => '2025-12-24 12:17:13',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -87,8 +91,10 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -101,7 +107,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:16:27',
+                'updated_at' => '2025-12-24 12:17:26',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -110,8 +116,10 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -124,7 +132,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:16:43',
+                'updated_at' => '2025-12-24 12:18:14',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -133,8 +141,10 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -147,7 +157,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:17:03',
+                'updated_at' => '2025-12-24 12:18:25',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -156,8 +166,10 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 7,
                 'user_id' => 3,
@@ -170,7 +182,7 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'body' => NULL,
                 'url' => NULL,
                 'created_at' => '2025-08-24 13:10:12',
-                'updated_at' => '2025-08-24 13:17:23',
+                'updated_at' => '2025-12-24 12:18:34',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-24 13:09:00',
@@ -179,9 +191,11 @@ class DemoLaraContentPortfoliosTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

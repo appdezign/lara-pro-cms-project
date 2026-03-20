@@ -14,12 +14,12 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_menu_menu_items')->delete();
-
+        
         \DB::table('lara_menu_menu_items')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'language' => 'nl',
@@ -31,7 +31,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 1,
                 'route' => NULL,
-                'routename' => 'entity.pages.show.5',
+                'routename' => 'entity.pages.1.show.5',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,
@@ -47,8 +47,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 2,
                 'depth' => 0,
                 'position' => 1001,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'language' => 'nl',
@@ -60,7 +62,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 0,
                 'route' => 'about',
-                'routename' => 'entity.pages.show.2',
+                'routename' => 'entity.pages.2.show.2',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,
@@ -76,8 +78,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 4,
                 'depth' => 0,
                 'position' => 1002,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 7,
                 'language' => 'nl',
@@ -89,7 +93,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'form',
                 'is_home' => 0,
                 'route' => 'contact-2',
-                'routename' => 'form.contactforms.form',
+                'routename' => 'form.contactforms.7.form',
                 'route_has_auth' => 0,
                 'entity_id' => 43,
                 'entity_view_id' => 105,
@@ -105,15 +109,17 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 34,
                 'depth' => 0,
                 'position' => 2001,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 13,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'menu_id' => 1,
-                'title' => 'Faq',
-                'slug' => 'faq',
+                'title' => 'Firmaq',
+                'slug' => 'firmaq',
                 'slug_lock' => 0,
                 'type' => 'url',
                 'is_home' => 0,
@@ -124,18 +130,20 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'entity_view_id' => NULL,
                 'object_id' => NULL,
                 'tag_id' => NULL,
-                'url' => '/faq',
+                'url' => 'https://www.firmaq.nl/nl',
                 'locked_by_admin' => 0,
                 'updated_at' => NULL,
                 'created_at' => NULL,
-                'publish' => 1,
+                'publish' => 0,
                 'parent_id' => NULL,
                 'lft' => 23,
                 'rgt' => 24,
                 'depth' => 0,
                 'position' => 1012,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 16,
                 'language' => 'nl',
@@ -147,7 +155,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'blog',
-                'routename' => 'entitytag.blogs.index',
+                'routename' => 'entitytag.blogs.16.index',
                 'route_has_auth' => 0,
                 'entity_id' => 2,
                 'entity_view_id' => 201,
@@ -163,8 +171,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 10,
                 'depth' => 0,
                 'position' => 1005,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 20,
                 'language' => 'nl',
@@ -176,7 +186,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'team',
-                'routename' => 'entitytag.teams.index',
+                'routename' => 'entitytag.teams.20.index',
                 'route_has_auth' => 0,
                 'entity_id' => 3,
                 'entity_view_id' => 103,
@@ -192,8 +202,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 6,
                 'depth' => 0,
                 'position' => 1003,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            6 =>
+            6 => 
             array (
                 'id' => 21,
                 'language' => 'nl',
@@ -205,7 +217,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'services',
-                'routename' => 'entitytag.services.index',
+                'routename' => 'entitytag.services.21.index',
                 'route_has_auth' => 0,
                 'entity_id' => 61,
                 'entity_view_id' => 203,
@@ -221,8 +233,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 8,
                 'depth' => 0,
                 'position' => 1004,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            7 =>
+            7 => 
             array (
                 'id' => 22,
                 'language' => 'nl',
@@ -234,7 +248,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'laravel-events',
-                'routename' => 'entitytag.events.index',
+                'routename' => 'entitytag.events.22.laravel.index',
                 'route_has_auth' => 0,
                 'entity_id' => 44,
                 'entity_view_id' => 106,
@@ -250,8 +264,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 14,
                 'depth' => 0,
                 'position' => 1007,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            8 =>
+            8 => 
             array (
                 'id' => 23,
                 'language' => 'nl',
@@ -279,8 +295,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 22,
                 'depth' => 0,
                 'position' => 1008,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            9 =>
+            9 => 
             array (
                 'id' => 24,
                 'language' => 'nl',
@@ -292,7 +310,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'media/photo-album',
-                'routename' => 'entitytag.galleries.index',
+                'routename' => 'entitytag.galleries.24.index',
                 'route_has_auth' => 0,
                 'entity_id' => 64,
                 'entity_view_id' => 207,
@@ -308,8 +326,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 17,
                 'depth' => 1,
                 'position' => 1009,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            10 =>
+            10 => 
             array (
                 'id' => 25,
                 'language' => 'nl',
@@ -321,7 +341,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'media/videos',
-                'routename' => 'entity.videos.index',
+                'routename' => 'entity.videos.25.index',
                 'route_has_auth' => 0,
                 'entity_id' => 66,
                 'entity_view_id' => 211,
@@ -337,8 +357,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 19,
                 'depth' => 1,
                 'position' => 1010,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            11 =>
+            11 => 
             array (
                 'id' => 26,
                 'language' => 'nl',
@@ -350,7 +372,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'media/downloads',
-                'routename' => 'entitytag.docs.index',
+                'routename' => 'entitytag.docs.26.index',
                 'route_has_auth' => 1,
                 'entity_id' => 65,
                 'entity_view_id' => 209,
@@ -366,8 +388,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 21,
                 'depth' => 1,
                 'position' => 1011,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            12 =>
+            12 => 
             array (
                 'id' => 27,
                 'language' => 'nl',
@@ -379,7 +403,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 0,
                 'route' => 'privacy',
-                'routename' => 'entity.pages.show.25',
+                'routename' => 'entity.pages.27.show.25',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,
@@ -395,8 +419,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 32,
                 'depth' => 0,
                 'position' => 1016,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            13 =>
+            13 => 
             array (
                 'id' => 28,
                 'language' => 'nl',
@@ -408,7 +434,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'form',
                 'is_home' => 0,
                 'route' => 'contact',
-                'routename' => 'form.contactforms.form',
+                'routename' => 'form.contactforms.28.form',
                 'route_has_auth' => 0,
                 'entity_id' => 43,
                 'entity_view_id' => 105,
@@ -424,8 +450,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 26,
                 'depth' => 0,
                 'position' => 1013,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            14 =>
+            14 => 
             array (
                 'id' => 29,
                 'language' => 'nl',
@@ -437,7 +465,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'form',
                 'is_home' => 0,
                 'route' => 'classicform',
-                'routename' => 'form.classicforms.form',
+                'routename' => 'form.classicforms.29.form',
                 'route_has_auth' => 0,
                 'entity_id' => 69,
                 'entity_view_id' => 213,
@@ -453,8 +481,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 30,
                 'depth' => 0,
                 'position' => 1014,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            15 =>
+            15 => 
             array (
                 'id' => 30,
                 'language' => 'nl',
@@ -466,7 +496,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 0,
                 'route' => 'classicform/thank-you',
-                'routename' => 'entity.pages.show.26',
+                'routename' => 'entity.pages.30.show.26',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,
@@ -482,8 +512,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 29,
                 'depth' => 1,
                 'position' => 1015,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            16 =>
+            16 => 
             array (
                 'id' => 31,
                 'language' => 'nl',
@@ -495,7 +527,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'entity',
                 'is_home' => 0,
                 'route' => 'events',
-                'routename' => 'entitytag.events.index',
+                'routename' => 'entitytag.events.31.index',
                 'route_has_auth' => 0,
                 'entity_id' => 44,
                 'entity_view_id' => 106,
@@ -511,8 +543,10 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 12,
                 'depth' => 0,
                 'position' => 1006,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            17 =>
+            17 => 
             array (
                 'id' => 32,
                 'language' => 'nl',
@@ -524,7 +558,7 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'type' => 'page',
                 'is_home' => 0,
                 'route' => 'privacy-2',
-                'routename' => 'entity.pages.show.25',
+                'routename' => 'entity.pages.32.show.25',
                 'route_has_auth' => 0,
                 'entity_id' => 1,
                 'entity_view_id' => 101,
@@ -540,9 +574,11 @@ class DemoLaraMenuMenuItemsTableSeeder extends Seeder
                 'rgt' => 36,
                 'depth' => 0,
                 'position' => 2002,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

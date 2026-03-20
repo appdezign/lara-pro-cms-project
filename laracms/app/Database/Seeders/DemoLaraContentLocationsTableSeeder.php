@@ -14,12 +14,12 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_locations')->delete();
-
+        
         \DB::table('lara_content_locations')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -38,7 +38,7 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'geo_longitude' => '-86.79707840',
                 'geo_latitude' => '36.16409770',
                 'created_at' => '2025-07-04 17:37:33',
-                'updated_at' => '2025-10-06 13:49:57',
+                'updated_at' => '2026-03-19 16:50:17',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 17:37:24',
@@ -47,8 +47,10 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => '2026-03-19 16:50:17',
+                'locked_by' => 3,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -76,8 +78,10 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -105,8 +109,10 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -134,9 +140,11 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

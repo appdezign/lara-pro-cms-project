@@ -14,14 +14,15 @@ class DemoLaraContentCitiesTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_cities')->delete();
-
+        
         \DB::table('lara_content_cities')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
+                'tezt_id' => 0,
                 'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
@@ -30,15 +31,15 @@ class DemoLaraContentCitiesTableSeeder extends Seeder
                 'slug_lock' => 0,
                 'lead' => '<p></p>',
                 'body' => '<p></p>',
-                'geo_longitude' => '4.63278940',
-                'geo_latitude' => '52.37070970',
+                'geo_longitude' => '4.63276290',
+                'geo_latitude' => '52.37071520',
                 'geo_location' => 'auto',
                 'geo_country' => 'Netherlands',
                 'geo_city' => 'Haarlem',
                 'geo_pcode' => '2012BX',
                 'geo_address' => 'Bellevuelaan 241',
                 'created_at' => '2025-10-21 13:07:08',
-                'updated_at' => '2025-10-21 13:15:35',
+                'updated_at' => '2025-12-28 12:22:20',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-20 15:11:00',
@@ -49,7 +50,7 @@ class DemoLaraContentCitiesTableSeeder extends Seeder
                 'cgroup' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }
