@@ -11,7 +11,9 @@ return [
 		'middlename' => 'tussenvoegsel',
 		'name' => 'naam',
 		'new_password' => 'nieuw wachtwoord',
+		'new_password_confirmation' => 'nieuw wachtwoord bevestigen',
 		'password' => 'wachtwoord',
+		'password_confirmation' => 'wachtwoord bevestigen',
 		'roles' => 'rollen',
 	],
 	'model' => [

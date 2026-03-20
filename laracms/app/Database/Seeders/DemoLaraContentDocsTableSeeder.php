@@ -14,12 +14,12 @@ class DemoLaraContentDocsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_docs')->delete();
-
+        
         \DB::table('lara_content_docs')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -31,7 +31,7 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
                 'body' => NULL,
                 'created_at' => '2025-08-29 13:21:58',
-                'updated_at' => '2025-08-29 13:34:25',
+                'updated_at' => '2025-12-19 14:52:10',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
@@ -40,8 +40,10 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -62,8 +64,10 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -84,8 +88,10 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -106,8 +112,10 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -128,8 +136,10 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            5 =>
+            5 => 
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -150,9 +160,11 @@ class DemoLaraContentDocsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

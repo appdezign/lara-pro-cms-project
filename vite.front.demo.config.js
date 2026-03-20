@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
@@ -12,46 +13,20 @@ export default defineConfig({
 			    },
 		    ],
 	    }),
-
         laravel({
 	        // publicDirectory: "../httpdocs",
 	        buildDirectory: 'assets/themes/demo',
             input: [
-				'laracms/themes/demo/_assets/scss/app.scss',
-				'laracms/themes/demo/_assets/js/app.js',
-                'resources/sass/app.scss',
-                'resources/js/app.js',
+				'laracms/themes/demo/_assets/css/app.css',
+				'laracms/themes/demo/_assets/js/app.js'
             ],
             refresh: true,
         }),
-    ],
-	css: {
-		preprocessorOptions: {
-			sass: {
-				silenceDeprecations: [
-					'import',
-					'slash-div',
-					'global-builtin',
-					'color-functions',
-					'abs-percent',
-					'if-function'
+        tailwindcss(),
 				],
-				quietDeps: true,
-			},
-			scss: {
-				silenceDeprecations: [
-					'import',
-					'slash-div',
-					'global-builtin',
-					'color-functions',
-					'abs-percent',
-					'if-function'
-				],
-				quietDeps: true,
+    server: {
+        watch: {
+            ignored: ['**/storage/framework/views/**'],
 			},
 		},
-	},
-	build: {
-		emptyOutDir: true,
-	},
 });

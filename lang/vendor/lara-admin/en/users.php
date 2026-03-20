@@ -11,7 +11,9 @@ return [
 		'middlename' => 'middlename',
 		'name' => 'name',
 		'new_password' => 'new password',
+		'new_password_confirmation' => '_new_password_confirmation',
 		'password' => 'password',
+		'password_confirmation' => '_password_confirmation',
 		'roles' => 'roles',
 	],
 	'model' => [

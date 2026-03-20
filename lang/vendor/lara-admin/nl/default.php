@@ -8,6 +8,9 @@ return [
 		'done' => 'klaar',
 		'repeater_add' => 'toevoegen',
 	],
+	'character-counter' => [
+		'character_label' => '_character_label',
+	],
 	'column' => [
 		'body' => 'tekst',
 		'body2' => 'tekst 2',
@@ -71,7 +74,12 @@ return [
 		'geolocation' => 'geo locatie',
 		'slug_edit' => 'slug bewerken',
 	],
+	'mason' => [
+		'drag_and_drop_bricks' => '_drag_and_drop_bricks',
+	],
 	'message' => [
+		'object_saved' => 'De data is succesvol opgeslagen',
+		'record_locked' => 'Dit content item wordt momenteel bewerkt door een andere gebruiker',
 		'reorder_saved' => 'volgorde opgeslagen',
 	],
 	'repeater' => [

@@ -33,6 +33,8 @@ return new class extends Migration
             $table->boolean('publish_hide')->default(false);
             $table->string('cgroup')->nullable();
             $table->integer('position')->default(0);
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('locked_by');
         });
     }
 

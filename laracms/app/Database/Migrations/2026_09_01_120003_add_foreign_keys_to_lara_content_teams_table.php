@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('lara_content_teams', function (Blueprint $table) {
             $table->foreign(['location_id'], 'lara_content_teams_ibfk_1')->references(['id'])->on('lara_content_locations')->onUpdate('restrict')->onDelete('cascade');
+            $table->foreign(['locked_by'])->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['user_id'])->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
         });
     }
@@ -24,6 +25,7 @@ return new class extends Migration
     {
         Schema::table('lara_content_teams', function (Blueprint $table) {
             $table->dropForeign('lara_content_teams_ibfk_1');
+            $table->dropForeign('lara_content_teams_locked_by_foreign');
             $table->dropForeign('lara_content_teams_user_id_foreign');
         });
     }

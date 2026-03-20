@@ -9,7 +9,7 @@ class BrickCollection
 	public static function make(): array
 	{
 		return [
-			Section::class,
+			// Section::class,
 		];
 	}
 }

@@ -34,7 +34,7 @@ class LaraAppServiceProvider extends ServiceProvider
 		RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
 
 		// Load Translations
-		$this->loadTranslationsFrom(__DIR__ . '/../Resources/lang', 'lara-app');
+		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-app', 'lara-app');
 
 		// Views
 		$this->loadViewsFrom(__DIR__ . '/../Resources/views', 'lara-app');

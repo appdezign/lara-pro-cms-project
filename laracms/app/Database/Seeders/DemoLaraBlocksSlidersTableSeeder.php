@@ -14,12 +14,12 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_blocks_sliders')->delete();
-
+        
         \DB::table('lara_blocks_sliders')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -42,7 +42,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'captiontype' => NULL,
                 'type' => 'payoff',
                 'created_at' => '2025-07-06 16:11:23',
-                'updated_at' => '2025-08-25 07:52:14',
+                'updated_at' => '2025-12-29 13:19:44',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-06 16:11:00',
@@ -50,8 +50,10 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -74,7 +76,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'captiontype' => NULL,
                 'type' => 'payoff',
                 'created_at' => '2025-07-06 17:47:57',
-                'updated_at' => '2025-08-25 07:52:42',
+                'updated_at' => '2025-12-24 10:57:55',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-06 17:47:00',
@@ -82,8 +84,10 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            2 =>
+            2 => 
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -106,7 +110,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'captiontype' => NULL,
                 'type' => 'payoff',
                 'created_at' => '2025-07-06 17:54:25',
-                'updated_at' => '2025-08-25 07:53:08',
+                'updated_at' => '2025-12-24 10:58:14',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-06 17:54:00',
@@ -114,8 +118,10 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            3 =>
+            3 => 
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -133,12 +139,12 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'urltext' => 'View case study',
                 'urltitle' => 'Cashless payment case study',
                 'url' => '#',
-                'payoff' => '<p></p>',
+                'payoff' => '<p>Aenean dolor elit tempus tellus imperdiet. Elementum, ac convallis morbi sit est feugiat ultrices. Cras tortor maecenas pulvinar nec ac justo. Massa sem eget semper...</p>',
                 'subtitle' => 'Payment Service Provider Company',
                 'captiontype' => NULL,
                 'type' => 'payoff',
                 'created_at' => '2025-08-25 10:31:16',
-                'updated_at' => '2025-08-25 10:32:56',
+                'updated_at' => '2026-03-10 09:39:00',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 10:30:00',
@@ -146,8 +152,10 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            4 =>
+            4 => 
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -170,7 +178,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'captiontype' => NULL,
                 'type' => 'payoff',
                 'created_at' => '2025-08-25 10:35:39',
-                'updated_at' => '2025-08-25 10:37:00',
+                'updated_at' => '2026-03-10 09:38:44',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-25 10:35:00',
@@ -178,9 +186,45 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            5 => 
+            array (
+                'id' => 7,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Pagetitle nr 1',
+                'slug' => 'pagetitle-nr-1',
+                'slug_lock' => 0,
+                'lead' => NULL,
+                'body' => NULL,
+                'textposition' => NULL,
+                'overlaysize' => NULL,
+                'overlaytransp' => NULL,
+                'overlaycolor' => NULL,
+                'urltext' => NULL,
+                'urltitle' => NULL,
+                'url' => NULL,
+                'payoff' => NULL,
+                'subtitle' => NULL,
+                'captiontype' => NULL,
+                'type' => 'image',
+                'created_at' => '2026-03-19 10:45:22',
+                'updated_at' => '2026-03-20 08:57:58',
+                'deleted_at' => NULL,
+                'publish' => 1,
+                'publish_from' => '2026-03-19 10:44:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'position' => NULL,
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

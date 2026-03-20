@@ -14,12 +14,12 @@ class DemoLaraContentEventsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_events')->delete();
-
+        
         \DB::table('lara_content_events')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'location_id' => 1,
@@ -36,7 +36,7 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'starttime' => '11:00:00',
                 'startdate' => '2026-08-01',
                 'created_at' => '2025-07-09 18:18:15',
-                'updated_at' => '2025-09-14 18:17:25',
+                'updated_at' => '2026-03-12 16:28:24',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 18:17:00',
@@ -45,8 +45,10 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'location_id' => 2,
@@ -63,7 +65,7 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'starttime' => '11:00:00',
                 'startdate' => '2026-11-01',
                 'created_at' => '2025-07-09 18:22:12',
-                'updated_at' => '2025-09-14 18:16:56',
+                'updated_at' => '2026-02-18 15:53:44',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 18:22:00',
@@ -72,9 +74,11 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }

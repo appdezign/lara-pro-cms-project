@@ -37,6 +37,8 @@ return new class extends Migration
             $table->boolean('publish_hide')->default(false);
             $table->unsignedInteger('position')->default(0);
             $table->string('cgroup')->nullable();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('lara_content_locations_locked_by_foreign');
         });
     }
 

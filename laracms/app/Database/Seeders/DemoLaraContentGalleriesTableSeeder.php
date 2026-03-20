@@ -14,12 +14,12 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('lara_content_galleries')->delete();
-
+        
         \DB::table('lara_content_galleries')->insert(array (
-            0 =>
+            0 => 
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -31,7 +31,7 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'lead' => NULL,
                 'body' => NULL,
                 'created_at' => '2025-08-28 14:43:33',
-                'updated_at' => '2025-08-29 12:31:49',
+                'updated_at' => '2026-03-13 18:48:30',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-28 14:43:00',
@@ -40,8 +40,10 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => '2026-03-13 18:48:30',
+                'locked_by' => 3,
             ),
-            1 =>
+            1 => 
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -53,7 +55,7 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'lead' => NULL,
                 'body' => NULL,
                 'created_at' => '2025-08-29 12:32:13',
-                'updated_at' => '2025-08-29 12:36:23',
+                'updated_at' => '2026-03-12 18:54:23',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 12:32:00',
@@ -62,9 +64,11 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
-
-
+        
+        
     }
 }
