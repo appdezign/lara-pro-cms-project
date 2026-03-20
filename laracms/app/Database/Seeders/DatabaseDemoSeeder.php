@@ -21,6 +21,7 @@ class DatabaseDemoSeeder extends Seeder
 		#iseed_start
 
 
+	    $this->call(DemoCuratorTableSeeder::class);
         $this->call(DemoLaraAuthModelHasPermissionsTableSeeder::class);
         $this->call(DemoLaraAuthModelHasRolesTableSeeder::class);
         $this->call(DemoLaraAuthPasswordResetTokensTableSeeder::class);
