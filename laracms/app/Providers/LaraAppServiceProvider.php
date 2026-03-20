@@ -36,6 +36,11 @@ class LaraAppServiceProvider extends ServiceProvider
 		// Load Translations
 		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-app', 'lara-app');
 
+		// Publish Config
+		$this->publishes([
+			__DIR__ . '/../../../config/lara-eve.php' => config_path('lara-eve.php'),
+		], 'lara');
+
 		// Views
 		$this->loadViewsFrom(__DIR__ . '/../Resources/views', 'lara-app');
 
