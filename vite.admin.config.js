@@ -1,32 +1,32 @@
 import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
-import { viteStaticCopy } from 'vite-plugin-static-copy';
+import {viteStaticCopy} from 'vite-plugin-static-copy';
 
 export default defineConfig({
-    plugins: [
-	    viteStaticCopy({
-		    targets: [
-			    {
-				    src: 'laracms/core/resources/_filament/*',
-				    dest: './../../filament/',
-			    },
-		    ],
-	    }),
+	plugins: [
+		viteStaticCopy({
+			targets: [
+				{
+					src: 'laracms/core/resources/_filament/*',
+					dest: './../../filament/',
+				},
+			],
+		}),
 
-        laravel({
-	        // publicDirectory: "../httpdocs",
-	        buildDirectory: 'assets/admin/build',
-            input: [
-	            'laracms/core/resources/css/app.css',
-	            'laracms/core/resources/js/app.js',
-	            'laracms/core/resources/css/theme.css',
-	            'laracms/core/resources/css/lara.scss'
-            ],
-            refresh: true,
-        }),
-        tailwindcss(),
-    ],
+		laravel({
+			// publicDirectory: "../httpdocs",
+			buildDirectory: 'assets/admin/build',
+			input: [
+				'laracms/core/resources/css/app.css',
+				'laracms/core/resources/js/app.js',
+				'laracms/core/resources/css/theme.css',
+				'laracms/core/resources/css/lara.scss'
+			],
+			refresh: true,
+		}),
+		tailwindcss(),
+	],
 	build: {
 		emptyOutDir: true,
 	},
