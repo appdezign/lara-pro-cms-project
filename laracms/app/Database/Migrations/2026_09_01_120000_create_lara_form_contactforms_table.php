@@ -20,6 +20,8 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('ipaddress')->nullable();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('lara_form_contactforms_locked_by_foreign');
         });
     }
 

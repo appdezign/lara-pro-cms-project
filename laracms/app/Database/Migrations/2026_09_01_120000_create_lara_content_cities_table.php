@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('lara_content_cities', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('tezt_id');
             $table->unsignedBigInteger('user_id')->index('lara_content_cities_user_id_foreign');
             $table->string('language')->nullable();
             $table->unsignedBigInteger('language_parent')->nullable();

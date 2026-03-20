@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('lara_form_classicforms', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->date('mydate')->nullable();
-            $table->integer('myradio')->default(0);
+            $table->text('myradio')->nullable();
             $table->text('myselect')->nullable();
             $table->text('mycomment')->nullable();
             $table->boolean('myboolean')->default(false);
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('myname')->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->string('ipaddress')->nullable();
+            $table->timestamp('locked_at')->nullable();
+            $table->unsignedBigInteger('locked_by')->nullable()->index('lara_form_classicforms_locked_by_foreign');
         });
     }
 

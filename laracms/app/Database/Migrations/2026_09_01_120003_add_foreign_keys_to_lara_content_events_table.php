@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('lara_content_events', function (Blueprint $table) {
+            $table->foreign(['locked_by'])->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
             $table->foreign(['user_id'])->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
         });
     }
@@ -22,6 +23,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('lara_content_events', function (Blueprint $table) {
+            $table->dropForeign('lara_content_events_locked_by_foreign');
             $table->dropForeign('lara_content_events_user_id_foreign');
         });
     }

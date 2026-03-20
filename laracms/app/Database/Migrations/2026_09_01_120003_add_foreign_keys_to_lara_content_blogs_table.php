@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('lara_content_blogs', function (Blueprint $table) {
             $table->foreign(['user_id'], 'lara_content_blogs_ibfk_1')->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('set null');
+            $table->foreign(['locked_by'], 'lara_content_blogs_ibfk_2')->references(['id'])->on('lara_auth_users')->onUpdate('restrict')->onDelete('cascade');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('lara_content_blogs', function (Blueprint $table) {
             $table->dropForeign('lara_content_blogs_ibfk_1');
+            $table->dropForeign('lara_content_blogs_ibfk_2');
         });
     }
 };
