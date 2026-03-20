@@ -8,6 +8,9 @@ return [
 		'done' => 'done',
 		'repeater_add' => 'add',
 	],
+	'character-counter' => [
+		'character_label' => '_character_label',
+	],
 	'column' => [
 		'body' => 'body',
 		'body2' => 'body2',
@@ -71,7 +74,12 @@ return [
 		'geolocation' => 'geo location',
 		'slug_edit' => 'slug edit',
 	],
+	'mason' => [
+		'drag_and_drop_bricks' => '_drag_and_drop_bricks',
+	],
 	'message' => [
+		'object_saved' => '_object_saved',
+		'record_locked' => 'This content item is being edited by another user',
 		'reorder_saved' => 'reorder saved',
 	],
 	'repeater' => [

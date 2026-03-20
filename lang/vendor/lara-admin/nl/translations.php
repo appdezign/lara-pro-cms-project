@@ -4,7 +4,7 @@ return [
 	'button' => [
 		'auto_translate_en' => 'auto [en]',
 		'cleanup_duplicates' => 'cleanup',
-		'export_to_file' => 'export',
+		'export_to_file' => 'publiceren',
 	],
 	'column' => [
 		'key' => 'key',

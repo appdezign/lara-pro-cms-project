@@ -2,14 +2,12 @@
 
 return [
 	'headers' => [
-		'login' => 'login',
+		'login' => '_login',
+		'register' => '_register',
 	],
 	'menu' => [
-		'dashboard' => 'dashboard',
-		'logouttext' => 'logouttext',
-		'profile' => 'profile',
-	],
-	'message' => [
-		'profile_saved_successfully' => 'profile saved successfully',
+		'dashboard' => '_dashboard',
+		'logouttext' => '_logouttext',
+		'profile' => '_profile',
 	],
 ];

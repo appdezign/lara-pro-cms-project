@@ -7,6 +7,10 @@ return [
 	'column' => [
 		'comment' => 'comment',
 		'email' => 'email',
+		'mydate' => '_mydate',
+		'myradio' => '_myradio',
+		'myselect' => '_myselect',
+		'mytoggle' => '_mytoggle',
 		'name' => 'name',
 		'telephone' => 'telephone',
 		'title' => 'title',

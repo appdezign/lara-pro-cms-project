@@ -15,6 +15,7 @@ return [
 	],
 	'headers' => [
 		'related_docs' => 'gerelateerde documenten',
+		'related_files' => 'gerelateerde documenten',
 		'related_pages' => 'gerelateerde pagina\'s',
 	],
 ];

@@ -15,6 +15,7 @@ return [
 	],
 	'headers' => [
 		'related_docs' => 'related docs',
+		'related_files' => '_related_files',
 		'related_pages' => 'related pages',
 	],
 ];

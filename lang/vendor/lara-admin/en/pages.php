@@ -2,6 +2,7 @@
 
 return [
 	'column' => [
+		'bricks' => '_bricks',
 		'ishome' => 'is home',
 		'menuroute' => 'menu route',
 		'title' => 'title',
