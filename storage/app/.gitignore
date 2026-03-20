@@ -1,4 +1,5 @@
-*
-!private/
-!public/
-!.gitignore
+.cache/*
+analytics/*
+private/*
+public/_fonts/*
+
