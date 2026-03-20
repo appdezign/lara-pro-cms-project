@@ -18,7 +18,8 @@
 		"appdezign/lara-pro-demo-theme": "10.2.17",
 		"awcodes/mason": "^3.0",
 		"composer/installers": "~1.0",
-		"filament/filament": "v4.8.1",
+		"filament/filament": "^4.8",
+		"filament/spatie-laravel-google-fonts-plugin": "^4.0",
 		"laravel/framework": "^12.35",
 		"laravel/helpers": "^1.7",
 		"laravel/tinker": "^2.9",
@@ -76,7 +77,8 @@
 	"scripts": {
 		"post-autoload-dump": [
 			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-			"@php artisan package:discover"
+			"@php artisan package:discover",
+			"@php artisan filament:upgrade"
 		]
 	},
     "config": {
