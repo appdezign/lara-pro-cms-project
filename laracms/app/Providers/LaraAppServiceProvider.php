@@ -33,16 +33,20 @@ class LaraAppServiceProvider extends ServiceProvider
 		// see: https://github.com/mcamara/laravel-localization?tab=readme-ov-file#caching-routes
 		RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
 
-		// Load Translations
-		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-app', 'lara-app');
+		// Merge config
+		$this->mergeConfigFrom(__DIR__ . '/../../../config/lara-eve.php', 'lara-eve');
 
 		// Publish Config
 		$this->publishes([
 			__DIR__ . '/../../../config/lara-eve.php' => config_path('lara-eve.php'),
 		], 'lara');
 
-		// Views
+		// Load Views
 		$this->loadViewsFrom(__DIR__ . '/../Resources/views', 'lara-app');
+
+		// Load Translations
+		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-app', 'lara-app');
+
 
 
 		// Load policies
