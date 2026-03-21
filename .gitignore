@@ -1,5 +1,7 @@
 .DS_Store
 /.idea/
+/.ai/
+/.junie/
 /_dev/
 /bin/lara*
 /bin/readme.md
