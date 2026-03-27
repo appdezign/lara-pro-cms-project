@@ -4,26 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3beb97a5e96b0410c46a4f59054e02e8",
+    "content-hash": "9d7c8324d4f887ecd8929aa06ce49ef7",
     "packages": [
         {
             "name": "appdezign/lara-pro-base-theme",
-            "version": "10.5.0",
+            "version": "10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-base-theme.git",
-                "reference": "a3786914938012ce83fbd828e0ce8183d25e5a61"
+                "reference": "260ead51ff5e3d566a71e3cadc38f318010fa96b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/a3786914938012ce83fbd828e0ce8183d25e5a61",
-                "reference": "a3786914938012ce83fbd828e0ce8183d25e5a61",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/260ead51ff5e3d566a71e3cadc38f318010fa96b",
+                "reference": "260ead51ff5e3d566a71e3cadc38f318010fa96b",
                 "shasum": ""
             },
             "require": {
                 "appdezign/lara-pro-cms": "^10.0",
                 "appdezign/lara-pro-demo-theme": "^10.0",
-                "composer/installers": "~1.0",
+                "composer/installers": "^1.0|^2.0",
                 "laravel/framework": "^12.0",
                 "php": "^8.0"
             },
@@ -65,22 +65,22 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.5.0"
+                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.5.1"
             },
-            "time": "2026-03-27T12:00:03+00:00"
+            "time": "2026-03-27T12:50:00+00:00"
         },
         {
             "name": "appdezign/lara-pro-cms",
-            "version": "10.5.0",
+            "version": "10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-cms.git",
-                "reference": "cb7c11eeef5da7cc4acd6d07438032b412f3e143"
+                "reference": "90afa8d14e0a97becbfba93063cd2278b8d641fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/cb7c11eeef5da7cc4acd6d07438032b412f3e143",
-                "reference": "cb7c11eeef5da7cc4acd6d07438032b412f3e143",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/90afa8d14e0a97becbfba93063cd2278b8d641fa",
+                "reference": "90afa8d14e0a97becbfba93063cd2278b8d641fa",
                 "shasum": ""
             },
             "require": {
@@ -94,7 +94,7 @@
                 "barryvdh/laravel-httpcache": "^1.0",
                 "bezhansalleh/filament-google-analytics": "^3.0",
                 "binafy/laravel-stub": "^1.1",
-                "composer/installers": "~1.0",
+                "composer/installers": "^1.0|^2.0",
                 "cviebrock/eloquent-sluggable": "^12.0",
                 "davidhsianturi/blade-bootstrap-icons": "^2.1",
                 "filament/filament": "^5.0",
@@ -170,28 +170,28 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.5.0"
+                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.5.1"
             },
-            "time": "2026-03-27T11:59:30+00:00"
+            "time": "2026-03-27T12:49:37+00:00"
         },
         {
             "name": "appdezign/lara-pro-demo-theme",
-            "version": "10.5.0",
+            "version": "10.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-demo-theme.git",
-                "reference": "11e79d61d886ea395eb6574b12f963b11445e8b0"
+                "reference": "c153464615bf9ebdbd72b031ab89a1660f8f35ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/11e79d61d886ea395eb6574b12f963b11445e8b0",
-                "reference": "11e79d61d886ea395eb6574b12f963b11445e8b0",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/c153464615bf9ebdbd72b031ab89a1660f8f35ad",
+                "reference": "c153464615bf9ebdbd72b031ab89a1660f8f35ad",
                 "shasum": ""
             },
             "require": {
                 "appdezign/lara-pro-base-theme": "^10.0",
                 "appdezign/lara-pro-cms": "^10.0",
-                "composer/installers": "~1.0",
+                "composer/installers": "^1.0|^2.0",
                 "laravel/framework": "^12.0",
                 "php": "^8.0"
             },
@@ -233,9 +233,9 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.5.0"
+                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.5.1"
             },
-            "time": "2026-03-27T12:00:34+00:00"
+            "time": "2026-03-27T12:50:24+00:00"
         },
         {
             "name": "arrilot/laravel-widgets",
@@ -1486,39 +1486,37 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.12.0",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19"
+                "reference": "12fb2dfe5e16183de69e784a7b84046c43d97e8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/d20a64ed3c94748397ff5973488761b22f6d3f19",
-                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19",
+                "url": "https://api.github.com/repos/composer/installers/zipball/12fb2dfe5e16183de69e784a7b84046c43d97e8e",
+                "reference": "12fb2dfe5e16183de69e784a7b84046c43d97e8e",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0 || ^2.0"
-            },
-            "replace": {
-                "roundcube/plugin-installer": "*",
-                "shama/baton": "*"
+                "composer-plugin-api": "^1.0 || ^2.0",
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "composer/composer": "1.6.* || ^2.0",
-                "composer/semver": "^1 || ^3",
-                "phpstan/phpstan": "^0.12.55",
-                "phpstan/phpstan-phpunit": "^0.12.16",
-                "symfony/phpunit-bridge": "^4.2 || ^5",
-                "symfony/process": "^2.3"
+                "composer/composer": "^1.10.27 || ^2.7",
+                "composer/semver": "^1.7.2 || ^3.4.0",
+                "phpstan/phpstan": "^1.11",
+                "phpstan/phpstan-phpunit": "^1",
+                "symfony/phpunit-bridge": "^7.1.1",
+                "symfony/process": "^5 || ^6 || ^7"
             },
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
-                    "dev-main": "1.x-dev"
-                }
+                    "dev-main": "2.x-dev"
+                },
+                "plugin-modifies-install-path": true
             },
             "autoload": {
                 "psr-4": {
@@ -1539,7 +1537,6 @@
             "description": "A multi-framework Composer library installer",
             "homepage": "https://composer.github.io/installers/",
             "keywords": [
-                "Craft",
                 "Dolibarr",
                 "Eliasis",
                 "Hurad",
@@ -1560,7 +1557,6 @@
                 "Whmcs",
                 "WolfCMS",
                 "agl",
-                "aimeos",
                 "annotatecms",
                 "attogram",
                 "bitrix",
@@ -1569,6 +1565,7 @@
                 "cockpit",
                 "codeigniter",
                 "concrete5",
+                "concreteCMS",
                 "croogo",
                 "dokuwiki",
                 "drupal",
@@ -1579,7 +1576,6 @@
                 "grav",
                 "installer",
                 "itop",
-                "joomla",
                 "known",
                 "kohana",
                 "laravel",
@@ -1588,6 +1584,7 @@
                 "magento",
                 "majima",
                 "mako",
+                "matomo",
                 "mediawiki",
                 "miaoxing",
                 "modulework",
@@ -1607,9 +1604,7 @@
                 "silverstripe",
                 "sydes",
                 "sylius",
-                "symfony",
                 "tastyigniter",
-                "typo3",
                 "wordpress",
                 "yawik",
                 "zend",
@@ -1617,7 +1612,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.12.0"
+                "source": "https://github.com/composer/installers/tree/v2.3.0"
             },
             "funding": [
                 {
@@ -1633,7 +1628,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-13T08:19:44+00:00"
+            "time": "2024-06-24T20:46:46+00:00"
         },
         {
             "name": "composer/semver",
