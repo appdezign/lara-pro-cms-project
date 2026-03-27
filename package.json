@@ -4,7 +4,8 @@
     "scripts": {
         "build ADMIN": "vite build --config vite.admin.config.js",
         "build front BASE": "vite build --config vite.front.base.config.js",
-        "build front DEMO": "vite build --config vite.front.demo.config.js"
+        "build front DEMO": "vite build --config vite.front.demo.config.js",
+		"build": "vite build --config vite.admin.config.js && vite build --config vite.front.base.config.js && vite build --config vite.front.demo.config.js"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.6",

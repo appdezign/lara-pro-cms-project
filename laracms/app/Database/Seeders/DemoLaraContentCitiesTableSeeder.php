@@ -22,7 +22,6 @@ class DemoLaraContentCitiesTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'tezt_id' => 0,
                 'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
