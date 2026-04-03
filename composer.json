@@ -13,9 +13,9 @@
 	],
     "require": {
 		"php": "^8.3",
-		"appdezign/lara-pro-base-theme": "10.5.2",
-		"appdezign/lara-pro-cms": "10.5.2",
-		"appdezign/lara-pro-demo-theme": "10.5.2",
+		"appdezign/lara-pro-base-theme": "10.5.3",
+		"appdezign/lara-pro-cms": "10.5.3",
+		"appdezign/lara-pro-demo-theme": "10.5.3",
 		"composer/installers": "^2.3.0",
 		"filament/filament": "^4.8|^5.0",
 		"laravel/framework": "^12|^13.0",
