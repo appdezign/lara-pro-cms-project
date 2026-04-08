@@ -11053,7 +11053,7 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
             array (
                 'id' => 2372,
                 'language' => 'en',
-                'module' => 'lara-eve',
+                'module' => 'lara-app',
                 'resource' => 'contactforms',
                 'tag' => 'email',
                 'key' => 'subject',
@@ -11065,7 +11065,7 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
             array (
                 'id' => 2373,
                 'language' => 'nl',
-                'module' => 'lara-eve',
+                'module' => 'lara-app',
                 'resource' => 'contactforms',
                 'tag' => 'email',
                 'key' => 'subject',
@@ -13767,7 +13767,7 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
             array (
                 'id' => 2675,
                 'language' => 'en',
-                'module' => 'lara-eve',
+                'module' => 'lara-app',
                 'resource' => 'classicforms',
                 'tag' => 'email',
                 'key' => 'subject',
@@ -13779,7 +13779,7 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
             array (
                 'id' => 2676,
                 'language' => 'nl',
-                'module' => 'lara-eve',
+                'module' => 'lara-app',
                 'resource' => 'classicforms',
                 'tag' => 'email',
                 'key' => 'subject',
