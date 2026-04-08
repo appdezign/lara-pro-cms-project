@@ -34,7 +34,7 @@ class LaraAppServiceProvider extends ServiceProvider
 		RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
 
 		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../config/lara-app.php', 'lara-eve');
+		$this->mergeConfigFrom(__DIR__ . '/../Config/lara-app.php', 'lara-app');
 
 		// Publish Config
 		$this->publishes([
