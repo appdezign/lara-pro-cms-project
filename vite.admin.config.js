@@ -15,7 +15,6 @@ export default defineConfig({
 		}),
 
 		laravel({
-			// publicDirectory: "../httpdocs",
 			buildDirectory: 'assets/admin/build',
 			input: [
 				'laracms/core/resources/css/app.css',

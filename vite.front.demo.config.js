@@ -16,7 +16,6 @@ export default defineConfig({
 			],
 		}),
 		laravel({
-			publicDirectory: "../httpdocs",
 			buildDirectory: 'assets/themes/' + THEME_NAME,
 			input: [
 				'laracms/themes/' + THEME_NAME + '/_assets/css/app.css',

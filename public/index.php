@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 
 // Custom maintenance mode...
-if (file_exists($down = __DIR__.'/../laravel/storage/framework/down')) {
+if (file_exists($down = __DIR__.'/../storage/framework/down')) {
 	$data = json_decode(file_get_contents($down), true);
 	$defaultOutput = '<html><body><h1>maintenance</h1></div></body></html>';
 	$output = (isset($data['template'])) ? $data['template'] : $defaultOutput;
@@ -13,21 +14,13 @@ if (file_exists($down = __DIR__.'/../laravel/storage/framework/down')) {
 	exit();
 }
 
-if(PHP_OS == 'Linux') {
+// Register the Composer autoloader...
+require __DIR__.'/../vendor/autoload.php';
 
-	// plesk
-	require __DIR__ . '/../laravel/vendor/autoload.php';
+// Bootstrap Laravel and handle the request...
+/** @var Application $app */
+$app = require_once __DIR__.'/../bootstrap/app.php';
 
-	(require_once __DIR__ . '/../laravel/bootstrap/app.php')
-		->handleRequest(Request::capture());
-
-} else {
-
-	// local
-	require __DIR__ . '/../vendor/autoload.php';
-
-	(require_once __DIR__ . '/../bootstrap/app.php')
-		->handleRequest(Request::capture());
-}
+$app->handleRequest(Request::capture());
 
 
