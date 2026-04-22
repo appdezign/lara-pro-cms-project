@@ -52,7 +52,7 @@ if (!$laraNeedsSetup) {
 	});
 
 	// FRONT Entity Routes
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'httpcache', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
+	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
 
 		$entity_prefix = 'entity';
 		$entity_tag_prefix = 'entitytag';
@@ -74,9 +74,14 @@ if (!$laraNeedsSetup) {
 			if ((isset($rootMenuItem->entity) && $rootMenuItem->entity->has_front_auth) == 1 || $rootMenuItem->route_has_auth) {
 				$specialMiddleware[] = 'auth';
 			}
+
+			/*
+			 * httpcache is deprecated
 			if (config('app.env') == 'production' && config('httpcache.enabled')) {
 				$specialMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
 			}
+			*/
+
 			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
 			// Home
@@ -102,9 +107,14 @@ if (!$laraNeedsSetup) {
 				if ($menuPage->entity->has_front_auth == 1 || $menuPage->route_has_auth) {
 					$menuPageMiddleware[] = 'auth';
 				}
+
+				/*
+				 * httpcache is deprecated
 				if (config('app.env') == 'production' && config('httpcache.enabled')) {
 					$menuPageMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
 				}
+				*/
+
 				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
 				$Ctrlr = 'Front\Page\\' . $menuPage->entity->controller;
@@ -134,9 +144,14 @@ if (!$laraNeedsSetup) {
 				if ($menuItem->entity->has_front_auth == 1 || $menuItem->route_has_auth) {
 					$menuItemMiddleware[] = 'auth';
 				}
+
+				/*
+				 * httpcache is deprecated
 				if (config('app.env') == 'production' && config('httpcache.enabled')) {
 					$menuItemMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
 				}
+				*/
+
 				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
 				$Ctrlr = 'Front\\Entity\\' . $menuItem->entity->controller;
@@ -208,9 +223,14 @@ if (!$laraNeedsSetup) {
 				if ($menuForm->entity->has_front_auth == 1 || $menuForm->route_has_auth) {
 					$menuFormMiddleware[] = 'auth';
 				}
+
+				/*
+				 * httpcache is deprecated
 				if (config('app.env') == 'production' && config('lara.httpcache_on_forms')) {
 					$menuFormMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
 				}
+				*/
+
 				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
 				$Ctrlr = 'Front\\Form\\' . $menuForm->entity->controller;
