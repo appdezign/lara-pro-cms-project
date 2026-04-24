@@ -75,12 +75,9 @@ if (!$laraNeedsSetup) {
 				$specialMiddleware[] = 'auth';
 			}
 
-			/*
-			 * httpcache is deprecated
-			if (config('app.env') == 'production' && config('httpcache.enabled')) {
-				$specialMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
+			if (config('app.env') == 'production' && config('responsecache.enabled')) {
+				$specialMiddleware[] = 'cacheResponse';
 			}
-			*/
 
 			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
@@ -108,12 +105,9 @@ if (!$laraNeedsSetup) {
 					$menuPageMiddleware[] = 'auth';
 				}
 
-				/*
-				 * httpcache is deprecated
-				if (config('app.env') == 'production' && config('httpcache.enabled')) {
-					$menuPageMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
+				if (config('app.env') == 'production' && config('responsecache.enabled')) {
+					$menuPageMiddleware[] = 'cacheResponse';
 				}
-				*/
 
 				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
@@ -145,12 +139,10 @@ if (!$laraNeedsSetup) {
 					$menuItemMiddleware[] = 'auth';
 				}
 
-				/*
-				 * httpcache is deprecated
-				if (config('app.env') == 'production' && config('httpcache.enabled')) {
-					$menuItemMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
+
+				if (config('app.env') == 'production' && config('responsecache.enabled')) {
+					$menuItemMiddleware[] = 'cacheResponse';
 				}
-				*/
 
 				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
@@ -224,12 +216,9 @@ if (!$laraNeedsSetup) {
 					$menuFormMiddleware[] = 'auth';
 				}
 
-				/*
-				 * httpcache is deprecated
-				if (config('app.env') == 'production' && config('lara.httpcache_on_forms')) {
-					$menuFormMiddleware[] = 'ttl:' . config('lara.httpcache_ttl');
+				if (config('app.env') == 'production' && config('responsecache.enabled')) {
+					$menuFormMiddleware[] = 'cacheResponse';
 				}
-				*/
 
 				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
 
