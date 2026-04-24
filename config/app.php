@@ -137,7 +137,7 @@ return [
 		*/
 
     'aliases' => Facade::defaultAliases()->merge([
-	    'Theme' => \Lara\Front\Facades\LaraTheme::class,
+	    'Theme' => \Lara\Front\LaraTheme\Facade\LaraTheme::class,
     ])->toArray(),
 
 ];
