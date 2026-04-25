@@ -29,8 +29,6 @@ use Lara\Front\Http\Concerns\HasFrontTerms;
 use Lara\Front\Http\Concerns\hasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
-use Jenssegers\Agent\Agent;
-
 use Lara\Front\Mail\MailConfirmation;
 use Lara\Front\Rules\ReCaptcha;
 
@@ -59,7 +57,6 @@ class ClassicformsController extends Controller
 	protected ?string $language;
 	protected ?object $data;
 	protected ?object $globalwidgets;
-	protected bool $ismobile;
 	protected bool $ispreview;
 
 	public function __construct()
@@ -96,16 +93,11 @@ class ClassicformsController extends Controller
 			// get global widgets
 			$this->globalwidgets = $this->getGlobalWidgets($this->language);
 
-			// get agent
-			$agent = new Agent();
-			$this->ismobile = $agent->isMobile();
-
 			// share data with all views, see: https://goo.gl/Aqxquw
 			$this->middleware(function ($request, $next) {
 				view()->share('entity', $this->entity);
 				view()->share('activeroute', $this->activeroute);
 				view()->share('language', $this->language);
-				view()->share('ismobile', $this->ismobile);
 				view()->share('ispreview', $this->ispreview);
 				view()->share('globalwidgets', $this->globalwidgets);
 				view()->share('activemenu', $this->getActiveMenuArray());
@@ -250,7 +242,7 @@ class ClassicformsController extends Controller
 
 		// visitor
 		if($request->has('email')) {
-			$user = $app->make('stdClass');
+			$user = new stdClass;
 			$user->email = $request->input('email');
 			if ($request->has('name')) {
 				$user->name = $request->input('name');
@@ -260,7 +252,7 @@ class ClassicformsController extends Controller
 		}
 
 		// webmaster
-		$webmaster = new StdClass;
+		$webmaster = new stdClass;
 		if (config('app.env') == 'production') {
 			$webmaster->email = $company->company_email;
 			$webmaster->name = $company->company_name;
@@ -270,7 +262,7 @@ class ClassicformsController extends Controller
 		}
 
 		// from
-		$maildata->from = new StdClass;
+		$maildata->from = new stdClass;
 		$maildata->from->email = $company->company_email;
 		$maildata->from->name = $company->company_name;
 
@@ -282,15 +274,15 @@ class ClassicformsController extends Controller
 
 		// Content
 		$intro = $this->getEmailPageContent($this->language, $this->entity->getResourceSlug());
-		$maildata->content = new StdClass;
+		$maildata->content = new stdClass;
 		$maildata->content->title = $intro->title;
 		$maildata->content->lead = $intro->lead;
 		$maildata->content->body = strip_tags($intro->body);
 
 		// dynamic content
-		$maildata->content->data = new StdClass;
+		$maildata->content->data = new stdClass;
 		foreach ($this->entity->getCustomColumns() as $field) {
-			$fieldname = $field->fieldname;
+			$fieldname = $field->field_name;
 			if($field->fieldtype == 'boolean' || $field->fieldtype == 'yesno') {
 				if($request->input($fieldname) == 1) {
 					$fieldvalue = _q('lara-admin::default.value.yes');
@@ -299,6 +291,9 @@ class ClassicformsController extends Controller
 				}
 			} else {
 				$fieldvalue = $request->input($fieldname);
+				if (is_array($fieldvalue)) {
+					$fieldvalue = implode(', ', $fieldvalue);
+				}
 			}
 			$maildata->content->data->$fieldname = [
 				'colname' => _q('lara-app::' . $this->entity->getResourceSlug() . '.column.' . $fieldname),
