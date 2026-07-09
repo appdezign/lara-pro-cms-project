@@ -9,7 +9,7 @@ class ClassicformResource extends BaseFormResource
 {
 	protected static ?string $model = Classicform::class;
 
-	protected static bool $shouldRegisterNavigation = true;
+	protected static bool $shouldRegisterNavigation = false;
 
 	public static function getPages(): array
 	{
