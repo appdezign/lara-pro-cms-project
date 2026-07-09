@@ -139,7 +139,6 @@ if (!$laraNeedsSetup) {
 					$menuItemMiddleware[] = 'auth';
 				}
 
-
 				if (config('app.env') == 'production' && config('responsecache.enabled')) {
 					$menuItemMiddleware[] = 'cacheResponse';
 				}

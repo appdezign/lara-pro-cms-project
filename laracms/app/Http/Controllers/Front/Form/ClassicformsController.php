@@ -17,7 +17,7 @@ use Illuminate\View\View;
 use Lara\Common\Models\Page;
 use Lara\App\Models\Blog;
 
-use Lara\Front\Http\Concerns\hasFrontend;
+use Lara\Front\Http\Concerns\HasFrontend;
 use Lara\Front\Http\Concerns\HasFrontAuth;
 use Lara\Front\Http\Concerns\HasFrontEntity;
 use Lara\Front\Http\Concerns\HasFrontList;
@@ -26,7 +26,7 @@ use Lara\Front\Http\Concerns\HasFrontObject;
 use Lara\Front\Http\Concerns\HasFrontRoutes;
 use Lara\Front\Http\Concerns\HasFrontSecurity;
 use Lara\Front\Http\Concerns\HasFrontTerms;
-use Lara\Front\Http\Concerns\hasTheme;
+use Lara\Front\Http\Concerns\HasTheme;
 use Lara\Front\Http\Concerns\HasFrontView;
 
 use Lara\Front\Mail\MailConfirmation;
@@ -38,7 +38,7 @@ use stdClass;
 class ClassicformsController extends Controller
 {
 
-	use hasFrontend;
+	use HasFrontend;
 	use HasFrontAuth;
 	use HasFrontEntity;
 	use HasFrontList;
@@ -47,7 +47,7 @@ class ClassicformsController extends Controller
 	use HasFrontRoutes;
 	use HasFrontSecurity;
 	use HasFrontTerms;
-	use hasTheme;
+	use HasTheme;
 	use HasFrontView;
 
 	protected ?string $modelClass = \Lara\App\Models\Classicform::class;
