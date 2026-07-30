@@ -1,13 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\App;
-
-use Spatie\Honeypot\ProtectAgainstSpam;
-
-use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Tag;
-
+use Spatie\Honeypot\ProtectAgainstSpam;
+use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +15,12 @@ $tablename = config('lara-common.database.ent.entities');
 $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
 if (!$laraNeedsSetup) {
+
+	// Custom Non-Livewire
+	Route::group(['prefix' => 'admin', 'middleware' => ['web', FilamentAuthenticate::class]], function () {
+		// Custom resource routes
+		Route::resource('custom-blog', 'Admin\CustomBlogController', ['as' => 'admin', 'parameters' => ['custom-blog' => 'id']]);
+	});
 
 	// quick cache clear
 	Route::get('cc', 'Front\Special\CacheController@process')->name('special.cache.clear');
