@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1f78ed5d3d172b8461e2e21e9f7ad7e",
+    "content-hash": "b56e77c79bda48b6beff9f91680f38f5",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -13635,6 +13635,83 @@
                 }
             ],
             "time": "2026-06-12T18:19:46+00:00"
+        },
+        {
+            "name": "usamamuneerchaudhary/filarank",
+            "version": "1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://filarank-pro.composer.sh/download/a2309b6b-ede0-45fa-b428-f5e45274ea90/filarank-pro-1.1.zip",
+                "reference": "f40282467f42d4293c73073638cafc7cfc28582c",
+                "shasum": "a894a7ffda80812797c84c3392ee6636280850a3"
+            },
+            "require": {
+                "filament/filament": "^5.0",
+                "illuminate/contracts": "^11.0|^12.0|^13.0",
+                "php": "^8.3"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.18",
+                "orchestra/testbench": "^9.0|^10.0|^11.0",
+                "pestphp/pest": "^4.0",
+                "pestphp/pest-plugin-laravel": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Usamamuneerchaudhary\\FilaRank\\FilaRankServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Usamamuneerchaudhary\\FilaRank\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Usamamuneerchaudhary\\FilaRank\\Tests\\": "tests/"
+                }
+            },
+            "scripts": {
+                "test": [
+                    "vendor/bin/pest"
+                ],
+                "format": [
+                    "vendor/bin/pint"
+                ],
+                "analyse": [
+                    "vendor/bin/phpstan analyse src --level=6"
+                ],
+                "test:standalone": [
+                    "php tests/standalone.php",
+                    "php tests/standalone-pro.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "authors": [
+                {
+                    "name": "Usama Muneer",
+                    "role": "Developer",
+                    "email": "hello@usamamuneer.me"
+                }
+            ],
+            "description": "SEO toolkit for Filament - live scoring, readability analysis, SERP preview, head tag rendering, redirect management, site-wide health reports and many more.",
+            "keywords": [
+                "filament",
+                "laravel",
+                "meta-tags",
+                "open-graph",
+                "php",
+                "readability",
+                "seo",
+                "usamamuneer"
+            ],
+            "time": "2026-07-06T00:08:17+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
