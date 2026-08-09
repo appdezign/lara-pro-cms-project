@@ -2,7 +2,7 @@
 
 return [
 	'button' => [
-		'submit' => 'vesturen',
+		'submit' => 'versturen',
 	],
 	'column' => [
 		'comment' => 'opmerking',
@@ -14,6 +14,9 @@ return [
 		'name' => 'naam',
 		'telephone' => 'telefoon',
 		'title' => 'titel',
+	],
+	'email' => [
+		'subject' => 'onderwerp',
 	],
 	'entity' => [
 		'title' => 'contactformulier',

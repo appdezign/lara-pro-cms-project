@@ -5,6 +5,7 @@ return [
 		'submit' => '_submit',
 	],
 	'column' => [
+		'email' => '_email',
 		'myboolean' => '_myboolean',
 		'mycomment' => '_mycomment',
 		'mydate' => '_mydate',
@@ -12,7 +13,11 @@ return [
 		'myname' => 'myname',
 		'myradio' => '_myradio',
 		'myselect' => '_myselect',
+		'name' => '_name',
 		'title' => 'title',
+	],
+	'email' => [
+		'subject' => '_subject',
 	],
 	'entity' => [
 		'title' => 'title',

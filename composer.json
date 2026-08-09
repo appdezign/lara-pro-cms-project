@@ -22,7 +22,8 @@
 		"laravel/helpers": "^1.8",
 		"laravel/tinker": "^3.0",
 		"laravel/ui": "^4.6",
-		"spatie/laravel-ray": "^1.43"
+		"spatie/laravel-ray": "^1.43",
+		"usamamuneerchaudhary/filarank": "^1.1"
 	},
     "require-dev": {
 		"fakerphp/faker": "^1.23",
@@ -52,6 +53,12 @@
             "Tests\\": "tests/"
         }
     },
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://filarank-pro.composer.sh"
+		}
+	],
     "extra": {
 		"laravel": {
 			"dont-discover": [
