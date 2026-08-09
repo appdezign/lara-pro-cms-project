@@ -15,6 +15,9 @@ return [
 		'telephone' => 'telephone',
 		'title' => 'title',
 	],
+	'email' => [
+		'subject' => 'subject',
+	],
 	'entity' => [
 		'title' => 'title',
 	],
