@@ -44,7 +44,9 @@ return [
     | absolute URLs pointing at your own domain (defaults to APP_URL's host).
     */
     'analysis' => [
-        'disabled_checks' => [],
+        'disabled_checks' => [
+			'image-alt-text',
+        ],
         'site_host' => null,
     ],
 

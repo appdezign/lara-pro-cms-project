@@ -1,6 +1,5 @@
 .DS_Store
 /.idea/
-/.ai/
 /.junie/
 /_dev/
 /bin/lara*
@@ -20,6 +19,7 @@
 /resources/lang/vendor/lara-*
 /resources/views/vendor/lara-*
 /storage/app/analytics/*
+/storage/app/public/tmp/*
 /storage/debugbar/*
 /storage/framework/cache/*
 /storage/framework/sessions/*
