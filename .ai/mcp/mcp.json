@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "laravel-boost": {
+      "command": "/Users/hoeksms/Library/Application Support/Herd/bin/php84",
+      "args": [
+        "/Users/hoeksms/Code/__laracms/_laracms/laracms10pro/artisan",
+        "boost:mcp"
+      ]
+    }
+  }
+}
