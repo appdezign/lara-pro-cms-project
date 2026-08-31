@@ -12,7 +12,7 @@
 		}
 	],
     "require": {
-		"php": "^8.3",
+		"php": "^8.4",
 		"appdezign/lara-pro-base-theme": "10.6.4",
 		"appdezign/lara-pro-cms": "10.6.4",
 		"appdezign/lara-pro-demo-theme": "10.6.4",
