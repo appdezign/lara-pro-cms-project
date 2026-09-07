@@ -100,5 +100,5 @@ return [
     |--------------------------------------------------------------------------
     */
     'seo_meta_model' => SeoMeta::class,
-    'table_name' => 'lara_object_seo_metas',
+    'table_name' => 'lara_object_seo',
 ];
