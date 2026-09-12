@@ -19,6 +19,7 @@
 /resources/lang/vendor/lara-*
 /resources/views/vendor/lara-*
 /storage/app/analytics/*
+/storage/app/public/_fonts/*
 /storage/app/public/tmp/*
 /storage/debugbar/*
 /storage/framework/cache/*
