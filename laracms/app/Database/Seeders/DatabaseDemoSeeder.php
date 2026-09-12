@@ -52,7 +52,6 @@ class DatabaseDemoSeeder extends Seeder
         $this->call(DemoLaraObjectFilesTableSeeder::class);
         $this->call(DemoLaraObjectImagesTableSeeder::class);
         $this->call(DemoLaraObjectLayoutTableSeeder::class);
-        $this->call(DemoLaraObjectOpengraphTableSeeder::class);
         $this->call(DemoLaraObjectPageablesTableSeeder::class);
         $this->call(DemoLaraObjectRelatedTableSeeder::class);
         $this->call(DemoLaraObjectSeoTableSeeder::class);
@@ -70,6 +69,8 @@ class DatabaseDemoSeeder extends Seeder
         $this->call(DemoLaraSysLanguagesTableSeeder::class);
         $this->call(DemoLaraSysSettingsTableSeeder::class);
         $this->call(DemoLaraSysTranslationsTableSeeder::class);
+        $this->call(DemoSeoNotFoundsTableSeeder::class);
+        $this->call(DemoSeoRedirectsTableSeeder::class);
 		#iseed_end
 
 	    DB::statement('SET FOREIGN_KEY_CHECKS=1;');

@@ -39,7 +39,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Jenny',
                 'created_at' => '2025-07-04 08:06:35',
-                'updated_at' => '2026-03-15 16:00:30',
+                'updated_at' => '2026-08-09 09:57:43',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 17:39:00',

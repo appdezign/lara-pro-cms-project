@@ -31,7 +31,7 @@ class DemoLaraContentServicesTableSeeder extends Seeder
                 'lead' => '<p>Nullam semper enim quis vulputate mollis. Donec ultrices elementum mauris, ac porttitor mi cursus eget. Vestibulum gravida risus et lacus finibus tincidunt. Vivamus dui ante, pharetra eu blandit ac, vulputate et diam eu faucibus.</p>',
                 'body' => '<ul><li><p>UX/UI</p></li><li><p>Interactive design</p></li><li><p>Motion design</p></li></ul>',
                 'created_at' => '2025-08-22 17:47:57',
-                'updated_at' => '2026-03-12 14:29:53',
+                'updated_at' => '2026-08-10 16:01:20',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-22 17:46:00',
@@ -40,8 +40,8 @@ class DemoLaraContentServicesTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
-                'locked_at' => '2026-03-12 14:29:53',
-                'locked_by' => 3,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             1 => 
             array (

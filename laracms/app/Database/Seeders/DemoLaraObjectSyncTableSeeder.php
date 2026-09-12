@@ -63,9 +63,9 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'remote_url' => NULL,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
-                'remote_slug' => 'home',
+                'remote_slug' => 'meet-lara',
                 'created_at' => '2025-08-25 07:55:01',
-                'updated_at' => '2025-08-25 08:56:56',
+                'updated_at' => '2026-08-10 16:09:02',
             ),
             4 => 
             array (

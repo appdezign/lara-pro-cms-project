@@ -31,7 +31,7 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'lead' => NULL,
                 'body' => NULL,
                 'created_at' => '2025-08-28 14:43:33',
-                'updated_at' => '2026-03-13 18:48:30',
+                'updated_at' => '2026-09-12 13:29:09',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-28 14:43:00',
@@ -40,8 +40,8 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
-                'locked_at' => '2026-03-13 18:48:30',
-                'locked_by' => 3,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             1 => 
             array (
@@ -55,7 +55,7 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'lead' => NULL,
                 'body' => NULL,
                 'created_at' => '2025-08-29 12:32:13',
-                'updated_at' => '2026-03-12 18:54:23',
+                'updated_at' => '2026-03-27 09:50:49',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 12:32:00',

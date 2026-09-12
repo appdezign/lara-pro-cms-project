@@ -42,7 +42,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'captiontype' => NULL,
                 'type' => 'payoff',
                 'created_at' => '2025-07-06 16:11:23',
-                'updated_at' => '2025-12-29 13:19:44',
+                'updated_at' => '2026-03-20 18:55:37',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-06 16:11:00',

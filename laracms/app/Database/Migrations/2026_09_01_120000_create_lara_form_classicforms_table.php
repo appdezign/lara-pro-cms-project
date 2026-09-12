@@ -13,13 +13,8 @@ return new class extends Migration
     {
         Schema::create('lara_form_classicforms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('mydate')->nullable();
-            $table->text('myradio')->nullable();
-            $table->text('myselect')->nullable();
-            $table->text('mycomment')->nullable();
-            $table->boolean('myboolean')->default(false);
-            $table->string('myemail')->nullable();
-            $table->string('myname')->nullable();
+            $table->string('email')->nullable();
+            $table->string('name')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->string('ipaddress')->nullable();

@@ -1083,10 +1083,10 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
             array (
                 'id' => 124,
                 'entity_id' => 69,
-                'title' => 'myname',
+                'title' => 'name',
                 'field_hook' => 'default',
                 'field_type' => 'string',
-                'field_name' => 'myname',
+                'field_name' => 'name',
                 'field_name_temp' => NULL,
                 'field_options' => NULL,
                 'is_required' => 1,
@@ -1100,126 +1100,6 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'sort_order' => 10,
             ),
             54 => 
-            array (
-                'id' => 125,
-                'entity_id' => 69,
-                'title' => 'myemail',
-                'field_hook' => 'default',
-                'field_type' => 'email',
-                'field_name' => 'myemail',
-                'field_name_temp' => NULL,
-                'field_options' => NULL,
-                'is_required' => 1,
-                'is_filter' => 0,
-                'show_in_list' => 1,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => 20,
-            ),
-            55 => 
-            array (
-                'id' => 126,
-                'entity_id' => 69,
-                'title' => 'myboolean',
-                'field_hook' => 'default',
-                'field_type' => 'toggle',
-                'field_name' => 'myboolean',
-                'field_name_temp' => NULL,
-                'field_options' => NULL,
-                'is_required' => 1,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => 30,
-            ),
-            56 => 
-            array (
-                'id' => 127,
-                'entity_id' => 69,
-                'title' => 'mycomment',
-                'field_hook' => 'default',
-                'field_type' => 'textarea',
-                'field_name' => 'mycomment',
-                'field_name_temp' => NULL,
-                'field_options' => NULL,
-                'is_required' => 1,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => 40,
-            ),
-            57 => 
-            array (
-                'id' => 128,
-                'entity_id' => 69,
-                'title' => 'myselect',
-                'field_hook' => 'default',
-                'field_type' => 'select',
-                'field_name' => 'myselect',
-                'field_name_temp' => NULL,
-                'field_options' => '["one","two","three"]',
-                'is_required' => 1,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => 50,
-            ),
-            58 => 
-            array (
-                'id' => 129,
-                'entity_id' => 69,
-                'title' => 'myradio',
-                'field_hook' => 'default',
-                'field_type' => 'radio',
-                'field_name' => 'myradio',
-                'field_name_temp' => NULL,
-                'field_options' => '["four","five","six"]',
-                'is_required' => 1,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => 60,
-            ),
-            59 => 
-            array (
-                'id' => 130,
-                'entity_id' => 69,
-                'title' => 'mydate',
-                'field_hook' => 'default',
-                'field_type' => 'date',
-                'field_name' => 'mydate',
-                'field_name_temp' => NULL,
-                'field_options' => NULL,
-                'is_required' => 1,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => 70,
-            ),
-            60 => 
             array (
                 'id' => 133,
                 'entity_id' => 2,
@@ -1239,7 +1119,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            61 => 
+            55 => 
             array (
                 'id' => 134,
                 'entity_id' => 41,
@@ -1259,7 +1139,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            62 => 
+            56 => 
             array (
                 'id' => 135,
                 'entity_id' => 70,
@@ -1279,7 +1159,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 110,
             ),
-            63 => 
+            57 => 
             array (
                 'id' => 136,
                 'entity_id' => 70,
@@ -1299,7 +1179,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 120,
             ),
-            64 => 
+            58 => 
             array (
                 'id' => 137,
                 'entity_id' => 70,
@@ -1319,7 +1199,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 130,
             ),
-            65 => 
+            59 => 
             array (
                 'id' => 138,
                 'entity_id' => 70,
@@ -1339,7 +1219,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 140,
             ),
-            66 => 
+            60 => 
             array (
                 'id' => 139,
                 'entity_id' => 70,
@@ -1359,7 +1239,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 150,
             ),
-            67 => 
+            61 => 
             array (
                 'id' => 149,
                 'entity_id' => 70,
@@ -1379,7 +1259,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 250,
             ),
-            68 => 
+            62 => 
             array (
                 'id' => 150,
                 'entity_id' => 70,
@@ -1399,7 +1279,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 260,
             ),
-            69 => 
+            63 => 
             array (
                 'id' => 151,
                 'entity_id' => 70,
@@ -1419,7 +1299,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 270,
             ),
-            70 => 
+            64 => 
             array (
                 'id' => 152,
                 'entity_id' => 70,
@@ -1439,7 +1319,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 280,
             ),
-            71 => 
+            65 => 
             array (
                 'id' => 154,
                 'entity_id' => 70,
@@ -1459,7 +1339,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 160,
             ),
-            72 => 
+            66 => 
             array (
                 'id' => 155,
                 'entity_id' => 70,
@@ -1479,7 +1359,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 170,
             ),
-            73 => 
+            67 => 
             array (
                 'id' => 156,
                 'entity_id' => 70,
@@ -1499,7 +1379,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 180,
             ),
-            74 => 
+            68 => 
             array (
                 'id' => 157,
                 'entity_id' => 70,
@@ -1519,7 +1399,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 190,
             ),
-            75 => 
+            69 => 
             array (
                 'id' => 159,
                 'entity_id' => 70,
@@ -1539,7 +1419,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 200,
             ),
-            76 => 
+            70 => 
             array (
                 'id' => 160,
                 'entity_id' => 70,
@@ -1559,7 +1439,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 210,
             ),
-            77 => 
+            71 => 
             array (
                 'id' => 161,
                 'entity_id' => 70,
@@ -1579,7 +1459,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 230,
             ),
-            78 => 
+            72 => 
             array (
                 'id' => 162,
                 'entity_id' => 70,
@@ -1599,7 +1479,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 220,
             ),
-            79 => 
+            73 => 
             array (
                 'id' => 163,
                 'entity_id' => 70,
@@ -1619,7 +1499,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 230,
             ),
-            80 => 
+            74 => 
             array (
                 'id' => 164,
                 'entity_id' => 70,
@@ -1639,7 +1519,7 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => 240,
             ),
-            81 => 
+            75 => 
             array (
                 'id' => 165,
                 'entity_id' => 73,
@@ -1659,17 +1539,17 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
                 'rule_value' => NULL,
                 'sort_order' => NULL,
             ),
-            82 => 
+            76 => 
             array (
                 'id' => 166,
-                'entity_id' => 1,
-                'title' => 'Bricks',
-                'field_hook' => 'after-last',
-                'field_type' => 'mason',
-                'field_name' => 'bricks',
+                'entity_id' => 69,
+                'title' => 'email',
+                'field_hook' => 'default',
+                'field_type' => 'email',
+                'field_name' => 'email',
                 'field_name_temp' => NULL,
                 'field_options' => NULL,
-                'is_required' => 0,
+                'is_required' => 1,
                 'is_filter' => 0,
                 'show_in_list' => 0,
                 'conditional' => 0,
