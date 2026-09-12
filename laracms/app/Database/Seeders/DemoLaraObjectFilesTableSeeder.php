@@ -257,6 +257,20 @@ class DemoLaraObjectFilesTableSeeder extends Seeder
                 'entity_id' => 50,
                 'entity_files' => '[]',
             ),
+            34 => 
+            array (
+                'id' => 162,
+                'entity_type' => 'Lara\\App\\Models\\Blog',
+                'entity_id' => 38,
+                'entity_files' => '[{"doc_date": "2026-09-10 12:21", "doc_filename": "blogs/file/20260910122200-test.pdf", "doc_original": "Test.pdf"}]',
+            ),
+            35 => 
+            array (
+                'id' => 163,
+                'entity_type' => 'Lara\\App\\Models\\Blog',
+                'entity_id' => 39,
+                'entity_files' => '[]',
+            ),
         ));
         
         

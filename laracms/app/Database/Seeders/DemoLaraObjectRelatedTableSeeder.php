@@ -433,6 +433,24 @@ class DemoLaraObjectRelatedTableSeeder extends Seeder
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
             ),
+            46 => 
+            array (
+                'id' => 57,
+                'entity_type' => 'Lara\\App\\Models\\Blog',
+                'entity_id' => 38,
+                'related_page_objects' => '[{"page_object_id": 2}]',
+                'related_entity_objects' => '[{"object_id": 2, "resource_slug": "teams"}]',
+                'related_entities' => '[{"module_page_menu_id": 24}]',
+            ),
+            47 => 
+            array (
+                'id' => 58,
+                'entity_type' => 'Lara\\App\\Models\\Blog',
+                'entity_id' => 39,
+                'related_page_objects' => '[]',
+                'related_entity_objects' => '[]',
+                'related_entities' => '[]',
+            ),
         ));
         
         

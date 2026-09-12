@@ -65,7 +65,7 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'starttime' => '11:00:00',
                 'startdate' => '2026-11-01',
                 'created_at' => '2025-07-09 18:22:12',
-                'updated_at' => '2026-02-18 15:53:44',
+                'updated_at' => '2026-03-20 10:08:49',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 18:22:00',

@@ -38,7 +38,7 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'geo_longitude' => '-86.79707840',
                 'geo_latitude' => '36.16409770',
                 'created_at' => '2025-07-04 17:37:33',
-                'updated_at' => '2026-03-19 16:50:17',
+                'updated_at' => '2026-04-25 10:58:51',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 17:37:24',
@@ -47,8 +47,8 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'publish_hide' => 0,
                 'position' => 0,
                 'cgroup' => NULL,
-                'locked_at' => '2026-03-19 16:50:17',
-                'locked_by' => 3,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             1 => 
             array (
