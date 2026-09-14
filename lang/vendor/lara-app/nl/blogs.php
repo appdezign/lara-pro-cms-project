@@ -2,6 +2,7 @@
 
 return [
 	'column' => [
+		'seo' => '_seo',
 		'source' => 'bron',
 		'sticky' => 'sticky',
 		'title' => 'titel',

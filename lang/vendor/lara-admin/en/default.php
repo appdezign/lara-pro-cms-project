@@ -127,6 +127,13 @@ return [
 		'videofiles' => 'videofiles',
 		'videos' => 'videos',
 	],
+	'tablecolumn' => [
+		'id' => '_id',
+		'publish' => '_publish',
+		'publish_from' => '_publish_from',
+		'seo' => '_seo',
+		'terms' => '_terms',
+	],
 	'tabs' => [
 		'content' => 'content',
 		'files' => 'files',
