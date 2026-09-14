@@ -1,10 +1,26 @@
 <?php
 
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schedule;
 
 use BezhanSalleh\GoogleAnalytics\Support\GAResponse;
 use Facades\BezhanSalleh\GoogleAnalytics\Support\GADataLookups;
+
+use Lara\App\Sitemap\GoogleSitemapGenerator;
+use Lara\Admin\Media\SyncMedia;
+
+$minutes = config('lara.scheduler_id');
+
+Schedule::call(function () {
+	(new GoogleSitemapGenerator)(['nl']);
+})->name('google-sitemap')
+	->withoutOverlapping(10)
+	->dailyAt($minutes);
+
+Schedule::call(function () {
+	(new SyncMedia)();
+})->name('sync-media')
+	->withoutOverlapping(10)
+	->hourlyAt($minutes);
 
 Schedule::call(function () {
 	GAResponse::sessionsByCountry('LSD');
@@ -15,8 +31,8 @@ Schedule::call(function () {
 	GAResponse::common(GADataLookups::sessionsDuration(), 'LSD');
 	GAResponse::mostVisitedPages('TM');
 	GAResponse::topReferrers('TM');
-})->everyFourHours();
+})->name('google-analytics')
+	->withoutOverlapping(10)
+	->cron($minutes . ' */4 * * *');
 
-Schedule::call(function () {
-	File::cleanDirectory(storage_path('imgcache'));
-})->Hourly();
+

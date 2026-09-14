@@ -1,23 +1,29 @@
 <?php
 
-namespace Lara\App\Http\Traits;
+namespace Lara\App\Sitemap;
 
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
 
-trait GoogleSitemapTrait
+class GoogleSitemapGenerator
 {
 
-	private function generateGoogleSitemap(array $locales = null)
+	/**
+	 * Build the Google sitemap and write it to public/sitemap.xml.
+	 *
+	 * @param array<int, string> $locales Locales to include. Falls back to
+	 *                                   laravellocalization.localesOrder when empty.
+	 */
+	public function __invoke(array $locales = []): void
 	{
 
 		$eol = PHP_EOL;
 
 		$baseUrl = url('/');
 
-		if (empty($locales) || !is_array($locales)) {
+		if (empty($locales)) {
 			$languages = config('laravellocalization.localesOrder');
 		} else {
 			$languages = $locales;
@@ -41,13 +47,17 @@ trait GoogleSitemapTrait
 					} elseif ($menuItem->type == 'page' || $menuItem->type == 'root') {
 						// page
 						$page = Page::where('id', $menuItem->object_id)->first();
-						$lastModified = $page->updated_at;
+						if ($page) {
+							$lastModified = $page->updated_at;
+						} else {
+							$lastModified = $menuItem->updated_at;
+						}
 					} elseif ($menuItem->type == 'entity') {
 						// modules
 						$entity = Entity::where('id', $menuItem->entity_id)->first();
 						$entityModel = $entity->entity_model_class;
 						$lastObject = $entityModel::where('publish', 1)->orderBy('updated_at', 'desc')->first();
-						if($lastObject) {
+						if ($lastObject) {
 							$lastModified = $lastObject->updated_at;
 						} else {
 							$lastModified = $menuItem->updated_at;
@@ -64,7 +74,7 @@ trait GoogleSitemapTrait
 					$objectRoute = htmlspecialchars($baseUrl . '/' . $language . '/' . $menuItem->route);
 
 					$xml .= "\t" . '<url>' . $eol;
-					$xml .= "\t\t" . '<loc>' .  $objectRoute . '</loc>' . $eol;
+					$xml .= "\t\t" . '<loc>' . $objectRoute . '</loc>' . $eol;
 					$xml .= "\t\t" . '<lastmod>' . $lastModified . '</lastmod>' . $eol;
 					$xml .= "\t" . '</url>' . $eol;
 
@@ -78,17 +88,21 @@ trait GoogleSitemapTrait
 						foreach ($entity->views as $view) {
 							if ($view->method == 'show') {
 								if ($entity->columns->has_status) {
-									$entityObjects = $entityModel::where('language', $language)->where('publish', 1)->get();
+									if ($entity->columns->has_expiration) {
+										$entityObjects = $entityModel::langIs($language)->isPublished()->IsNotExpired()->get();
+									} else {
+										$entityObjects = $entityModel::langIs($language)->isPublished()->get();
+									}
 								} else {
-									$entityObjects = $entityModel::get();
+									$entityObjects = $entityModel::langIs($language)->get();
 								}
 
 								foreach ($entityObjects as $object) {
 
 									$singleUrl = $baseUrl . '/' . $language . '/' . $entityMenuRoute . '/' . $object->slug;
 
-									if($entityHasTags) {
-										$objectRoute = htmlspecialchars( $singleUrl . '.html');
+									if ($entityHasTags) {
+										$objectRoute = htmlspecialchars($singleUrl . '.html');
 									} else {
 										$objectRoute = htmlspecialchars($singleUrl);
 									}
@@ -96,7 +110,7 @@ trait GoogleSitemapTrait
 									$lastModified = substr($object->updated_at, 0, 10);
 
 									$xml .= "\t" . '<url>' . $eol;
-									$xml .= "\t\t" . '<loc>' .  $objectRoute . '</loc>' . $eol;
+									$xml .= "\t\t" . '<loc>' . $objectRoute . '</loc>' . $eol;
 									$xml .= "\t\t" . '<lastmod>' . $lastModified . '</lastmod>' . $eol;
 									$xml .= "\t" . '</url>' . $eol;
 								}
