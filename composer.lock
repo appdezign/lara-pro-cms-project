@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f3e3428b7dbccd89c22a381bda90161f",
+    "content-hash": "d3d4ed07f59951794224f12b47d610a5",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
-            "version": "1.3.11",
+            "version": "1.3.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/AnourValar/eloquent-serialize.git",
-                "reference": "abd890c4d1ad8e90dd454d01283fbf342f80f1e5"
+                "reference": "eb46e698efe7e20c311f1f93830111fcdcdabd96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/AnourValar/eloquent-serialize/zipball/abd890c4d1ad8e90dd454d01283fbf342f80f1e5",
-                "reference": "abd890c4d1ad8e90dd454d01283fbf342f80f1e5",
+                "url": "https://api.github.com/repos/AnourValar/eloquent-serialize/zipball/eb46e698efe7e20c311f1f93830111fcdcdabd96",
+                "reference": "eb46e698efe7e20c311f1f93830111fcdcdabd96",
                 "shasum": ""
             },
             "require": {
@@ -67,22 +67,22 @@
             ],
             "support": {
                 "issues": "https://github.com/AnourValar/eloquent-serialize/issues",
-                "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.11"
+                "source": "https://github.com/AnourValar/eloquent-serialize/tree/1.3.12"
             },
-            "time": "2026-08-07T06:14:19+00:00"
+            "time": "2026-09-13T06:25:37+00:00"
         },
         {
             "name": "appdezign/lara-pro-base-theme",
-            "version": "10.6.9",
+            "version": "10.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-base-theme.git",
-                "reference": "b9e34250f215fd902c565a195cfc56a22fba7d5c"
+                "reference": "cdd56c6061c5aaeab4febbe576eaa9a56ccf4930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/b9e34250f215fd902c565a195cfc56a22fba7d5c",
-                "reference": "b9e34250f215fd902c565a195cfc56a22fba7d5c",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/cdd56c6061c5aaeab4febbe576eaa9a56ccf4930",
+                "reference": "cdd56c6061c5aaeab4febbe576eaa9a56ccf4930",
                 "shasum": ""
             },
             "require": {
@@ -130,22 +130,22 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.6.9"
+                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.6.10"
             },
-            "time": "2026-09-13T11:24:41+00:00"
+            "time": "2026-09-14T07:24:05+00:00"
         },
         {
             "name": "appdezign/lara-pro-cms",
-            "version": "10.6.9",
+            "version": "10.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-cms.git",
-                "reference": "8ea8005f7331740c4de260a539c1f0f209db29d6"
+                "reference": "15aa412cef03059dea4d4d18cd8be6f8da4afffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/8ea8005f7331740c4de260a539c1f0f209db29d6",
-                "reference": "8ea8005f7331740c4de260a539c1f0f209db29d6",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/15aa412cef03059dea4d4d18cd8be6f8da4afffa",
+                "reference": "15aa412cef03059dea4d4d18cd8be6f8da4afffa",
                 "shasum": ""
             },
             "require": {
@@ -233,22 +233,22 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.6.9"
+                "source": "https://github.com/appdezign/lara-pro-cms/tree/10.6.10"
             },
-            "time": "2026-09-13T11:24:08+00:00"
+            "time": "2026-09-14T07:18:01+00:00"
         },
         {
             "name": "appdezign/lara-pro-demo-theme",
-            "version": "10.6.9",
+            "version": "10.6.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-demo-theme.git",
-                "reference": "1a126268f780213e23d694ca23271d119527bf7f"
+                "reference": "091082cabff90ab8b205143ba87d000687dc5560"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/1a126268f780213e23d694ca23271d119527bf7f",
-                "reference": "1a126268f780213e23d694ca23271d119527bf7f",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/091082cabff90ab8b205143ba87d000687dc5560",
+                "reference": "091082cabff90ab8b205143ba87d000687dc5560",
                 "shasum": ""
             },
             "require": {
@@ -296,9 +296,9 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.6.9"
+                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.6.10"
             },
-            "time": "2026-09-13T11:25:17+00:00"
+            "time": "2026-09-14T07:24:56+00:00"
         },
         {
             "name": "arrilot/laravel-widgets",
@@ -983,16 +983,16 @@
         },
         {
             "name": "brick/math",
-            "version": "0.18.0",
+            "version": "0.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "82944324d1c1bdb2c2618e89978d4e2ad78d69ad"
+                "reference": "a89bc96a7cf3d7b59e725afe57ccb95eb03cf6ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/82944324d1c1bdb2c2618e89978d4e2ad78d69ad",
-                "reference": "82944324d1c1bdb2c2618e89978d4e2ad78d69ad",
+                "url": "https://api.github.com/repos/brick/math/zipball/a89bc96a7cf3d7b59e725afe57ccb95eb03cf6ce",
+                "reference": "a89bc96a7cf3d7b59e725afe57ccb95eb03cf6ce",
                 "shasum": ""
             },
             "require": {
@@ -1030,7 +1030,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.18.0"
+                "source": "https://github.com/brick/math/tree/0.19.1"
             },
             "funding": [
                 {
@@ -1038,7 +1038,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-06-14T18:21:03+00:00"
+            "time": "2026-08-08T23:03:16+00:00"
         },
         {
             "name": "carbonphp/carbon-doctrine-types",
@@ -6114,16 +6114,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.13.2",
+            "version": "3.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "a1c54919f5fff9800cd03c32bd01defd5a4061cb"
+                "reference": "0023eaa2c9110e47446dd512a263c69c40cd41f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/a1c54919f5fff9800cd03c32bd01defd5a4061cb",
-                "reference": "a1c54919f5fff9800cd03c32bd01defd5a4061cb",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/0023eaa2c9110e47446dd512a263c69c40cd41f2",
+                "reference": "0023eaa2c9110e47446dd512a263c69c40cd41f2",
                 "shasum": ""
             },
             "require": {
@@ -6215,7 +6215,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-08T11:40:35+00:00"
+            "time": "2026-09-12T20:45:19+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -6451,16 +6451,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v5.8.0",
+            "version": "v5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "044a6a392ff8ad0d61f14370a5fbbd0a0107152f"
+                "reference": "9e33da9553fe7786f0962b35f4e4ecf01be89def"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/044a6a392ff8ad0d61f14370a5fbbd0a0107152f",
-                "reference": "044a6a392ff8ad0d61f14370a5fbbd0a0107152f",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/9e33da9553fe7786f0962b35f4e4ecf01be89def",
+                "reference": "9e33da9553fe7786f0962b35f4e4ecf01be89def",
                 "shasum": ""
             },
             "require": {
@@ -6502,9 +6502,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.8.0"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.9.0"
             },
-            "time": "2026-07-04T14:30:18+00:00"
+            "time": "2026-09-13T18:51:52+00:00"
         },
         {
             "name": "njxqlus/filament-relation-manager-component",
@@ -8147,20 +8147,20 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.9.3",
+            "version": "4.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "1df15849d00943a67d677dc9cfd80795f038c9f8"
+                "reference": "40988c506689c11cfc76c18445f7b26819d0d259"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/1df15849d00943a67d677dc9cfd80795f038c9f8",
-                "reference": "1df15849d00943a67d677dc9cfd80795f038c9f8",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/40988c506689c11cfc76c18445f7b26819d0d259",
+                "reference": "40988c506689c11cfc76c18445f7b26819d0d259",
                 "shasum": ""
             },
             "require": {
-                "brick/math": ">=0.8.16 <=0.18",
+                "brick/math": "^0.8.16 || ^0.9 || ^0.10 || ^0.11 || ^0.12 || ^0.13 || ^0.14 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19 || ^0.20 || ^1.0",
                 "php": "^8.0",
                 "ramsey/collection": "^1.2 || ^2.0"
             },
@@ -8193,6 +8193,7 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "captainhook": {
@@ -8219,9 +8220,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.9.3"
+                "source": "https://github.com/ramsey/uuid/tree/4.x"
             },
-            "time": "2026-06-18T03:57:49+00:00"
+            "time": "2026-09-13T14:33:28+00:00"
         },
         {
             "name": "ryangjchandler/blade-capture-directive",
@@ -9914,20 +9915,20 @@
         },
         {
             "name": "spomky-labs/cbor-php",
-            "version": "3.4.0",
+            "version": "3.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spomky-Labs/cbor-php.git",
-                "reference": "c1d8acbf4397a1d2c64ab881e6fb329ad7a4b3d7"
+                "reference": "995b7747ca48c9cb55a8e644cd37f4f00d806e7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/cbor-php/zipball/c1d8acbf4397a1d2c64ab881e6fb329ad7a4b3d7",
-                "reference": "c1d8acbf4397a1d2c64ab881e6fb329ad7a4b3d7",
+                "url": "https://api.github.com/repos/Spomky-Labs/cbor-php/zipball/995b7747ca48c9cb55a8e644cd37f4f00d806e7d",
+                "reference": "995b7747ca48c9cb55a8e644cd37f4f00d806e7d",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.9|^0.10|^0.11|^0.12|^0.13|^0.14|^0.15|^0.16|^0.17|^0.18|^0.19|^0.20",
+                "brick/math": "^0.9|^0.10|^0.11|^0.12|^0.13|^0.14|^0.15|^0.16|^0.17|^0.18|^0.19|^0.20|^1.0",
                 "ext-mbstring": "*",
                 "php": ">=8.0",
                 "symfony/polyfill-php81": "^1.32"
@@ -9970,7 +9971,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Spomky-Labs/cbor-php/issues",
-                "source": "https://github.com/Spomky-Labs/cbor-php/tree/3.4.0"
+                "source": "https://github.com/Spomky-Labs/cbor-php/tree/3.4.1"
             },
             "funding": [
                 {
@@ -9982,24 +9983,24 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2026-09-10T09:03:06+00:00"
+            "time": "2026-09-12T18:58:34+00:00"
         },
         {
             "name": "spomky-labs/pki-framework",
-            "version": "1.6.2",
+            "version": "1.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Spomky-Labs/pki-framework.git",
-                "reference": "8f333bebe104ea24f1a160a6fb69e2dead4f1882"
+                "reference": "792e909d4e387adffe3c4f404451c7d57a3d2022"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Spomky-Labs/pki-framework/zipball/8f333bebe104ea24f1a160a6fb69e2dead4f1882",
-                "reference": "8f333bebe104ea24f1a160a6fb69e2dead4f1882",
+                "url": "https://api.github.com/repos/Spomky-Labs/pki-framework/zipball/792e909d4e387adffe3c4f404451c7d57a3d2022",
+                "reference": "792e909d4e387adffe3c4f404451c7d57a3d2022",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.10|^0.11|^0.12|^0.13|^0.14|^0.15|^0.16|^0.17|^0.18|^0.19|^0.20",
+                "brick/math": "^0.10|^0.11|^0.12|^0.13|^0.14|^0.15|^0.16|^0.17|^0.18|^0.19|^0.20|^1.0",
                 "ext-mbstring": "*",
                 "php": ">=8.1"
             },
@@ -10080,7 +10081,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Spomky-Labs/pki-framework/issues",
-                "source": "https://github.com/Spomky-Labs/pki-framework/tree/1.6.2"
+                "source": "https://github.com/Spomky-Labs/pki-framework/tree/1.6.3"
             },
             "funding": [
                 {
@@ -10092,7 +10093,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2026-09-08T07:15:08+00:00"
+            "time": "2026-09-12T19:02:49+00:00"
         },
         {
             "name": "symfony/cache",
@@ -13934,20 +13935,20 @@
         },
         {
             "name": "web-auth/cose-lib",
-            "version": "4.8.0",
+            "version": "4.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/web-auth/cose-lib.git",
-                "reference": "e2a851baa5acedc18f8bc40ad7167ae899032e9d"
+                "reference": "a4359209df2dfe81d083bcf33eda95a93fcaedb9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/web-auth/cose-lib/zipball/e2a851baa5acedc18f8bc40ad7167ae899032e9d",
-                "reference": "e2a851baa5acedc18f8bc40ad7167ae899032e9d",
+                "url": "https://api.github.com/repos/web-auth/cose-lib/zipball/a4359209df2dfe81d083bcf33eda95a93fcaedb9",
+                "reference": "a4359209df2dfe81d083bcf33eda95a93fcaedb9",
                 "shasum": ""
             },
             "require": {
-                "brick/math": "^0.9 || ^0.10 || ^0.11 || ^0.12 || ^0.13 || ^0.14 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19 || ^0.20",
+                "brick/math": "^0.9 || ^0.10 || ^0.11 || ^0.12 || ^0.13 || ^0.14 || ^0.15 || ^0.16 || ^0.17 || ^0.18 || ^0.19 || ^0.20 || ^1.0",
                 "ext-json": "*",
                 "ext-openssl": "*",
                 "php": ">=8.1",
@@ -13996,7 +13997,7 @@
             ],
             "support": {
                 "issues": "https://github.com/web-auth/cose-lib/issues",
-                "source": "https://github.com/web-auth/cose-lib/tree/4.8.0"
+                "source": "https://github.com/web-auth/cose-lib/tree/4.8.1"
             },
             "funding": [
                 {
@@ -14008,7 +14009,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2026-09-10T20:36:28+00:00"
+            "time": "2026-09-12T18:56:36+00:00"
         },
         {
             "name": "web-auth/webauthn-lib",
