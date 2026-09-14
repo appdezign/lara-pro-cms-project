@@ -3,7 +3,7 @@ import laravel from 'laravel-vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import {viteStaticCopy} from 'vite-plugin-static-copy';
 
-const THEME_NAME = 'demo';
+const THEME_NAME = 'demo'; // myclient
 
 export default defineConfig({
 	plugins: [

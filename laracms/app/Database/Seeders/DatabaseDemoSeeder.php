@@ -69,8 +69,6 @@ class DatabaseDemoSeeder extends Seeder
         $this->call(DemoLaraSysLanguagesTableSeeder::class);
         $this->call(DemoLaraSysSettingsTableSeeder::class);
         $this->call(DemoLaraSysTranslationsTableSeeder::class);
-        $this->call(DemoSeoNotFoundsTableSeeder::class);
-        $this->call(DemoSeoRedirectsTableSeeder::class);
 		#iseed_end
 
 	    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
