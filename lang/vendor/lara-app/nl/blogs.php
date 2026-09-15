@@ -23,4 +23,8 @@ return [
 	'navigation' => [
 		'label' => 'nieuws',
 	],
+	'tablecolumn' => [
+		'seo' => '_seo',
+		'title' => '_title',
+	],
 ];
