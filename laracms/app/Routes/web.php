@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Log;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Tag;
+use Lara\Common\Routes\FrontRouteMiddleware;
 use Spatie\Honeypot\ProtectAgainstSpam;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 /*
@@ -98,30 +99,6 @@ $laraMenuItemIsRoutable = static function (?MenuItem $menuItem, bool $needsView 
 
 };
 
-/**
- * Middleware for a dynamically registered front route.
- *
- * The /content/ fallback routes are deliberately not response-cached, so that
- * block passes $allowResponseCache = false.
- *
- * @return list<string>
- */
-$laraRouteMiddleware = static function (?Entity $entity, ?MenuItem $menuItem = null, bool $allowResponseCache = true): array {
-
-	$middleware = [];
-
-	if (($entity && $entity->has_front_auth == 1) || ($menuItem && $menuItem->route_has_auth)) {
-		$middleware[] = 'auth';
-	}
-
-	if ($allowResponseCache && config('app.env') == 'production' && config('responsecache.enabled')) {
-		$middleware[] = 'cacheResponse';
-	}
-
-	return $middleware;
-
-};
-
 if (!$laraNeedsSetup) {
 
 	// Custom Non-Livewire
@@ -165,7 +142,7 @@ if (!$laraNeedsSetup) {
 	});
 
 	// FRONT Entity Routes
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () use ($laraControllerAction, $laraMenuItemIsRoutable, $laraRouteMiddleware) {
+	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () use ($laraControllerAction, $laraMenuItemIsRoutable) {
 
 		$entity_tag_prefix = 'entitytag';
 
@@ -184,7 +161,7 @@ if (!$laraNeedsSetup) {
 			// Home
 			Route::get('/', 'Front\Page\HomeController@show')
 				->name('special.home.show')
-				->middleware($laraRouteMiddleware($rootMenuItem->entity, $rootMenuItem));
+				->middleware(FrontRouteMiddleware::build($rootMenuItem->entity, $rootMenuItem));
 
 		}
 
@@ -212,7 +189,7 @@ if (!$laraNeedsSetup) {
 
 			Route::get($menuPage->route, $action)
 				->name($menuPage->routename)
-				->middleware($laraRouteMiddleware($menuPage->entity, $menuPage));
+				->middleware(FrontRouteMiddleware::build($menuPage->entity, $menuPage));
 
 		}
 
@@ -244,7 +221,7 @@ if (!$laraNeedsSetup) {
 				continue;
 			}
 
-			$menuItemMiddleware = $laraRouteMiddleware($menuItem->entity, $menuItem);
+			$menuItemMiddleware = FrontRouteMiddleware::build($menuItem->entity, $menuItem);
 
 			if ($menuItem->entity->objrel_has_terms == 1) {
 
@@ -329,7 +306,7 @@ if (!$laraNeedsSetup) {
 
 			Route::get($menuForm->route, $formAction)
 				->name($menuForm->routename)
-				->middleware($laraRouteMiddleware($menuForm->entity, $menuForm));
+				->middleware(FrontRouteMiddleware::build($menuForm->entity, $menuForm));
 
 			// create route for regular POST without AJAX
 			if ($processAction !== null) {
@@ -378,7 +355,7 @@ if (!$laraNeedsSetup) {
 		 * Using a fixed prefix, we can reach all entities and entity objects
 		 * without using the user-defined menu
 		 */
-		Route::group(['prefix' => 'content'], function () use ($laraControllerAction, $laraRouteMiddleware) {
+		Route::group(['prefix' => 'content'], function () use ($laraControllerAction) {
 
 			// These prefixes are used for the route NAMES, and NOT the URI path
 			$content_prefix = 'content';
@@ -396,7 +373,7 @@ if (!$laraNeedsSetup) {
 
 				Route::get($entity->resource_slug . '/{id}', $showAction)
 					->name($content_prefix . '.' . $entity->resource_slug . '.show')
-					->middleware($laraRouteMiddleware($entity, null, false));
+					->middleware(FrontRouteMiddleware::build($entity, null, false));
 
 			}
 
@@ -412,7 +389,7 @@ if (!$laraNeedsSetup) {
 					continue;
 				}
 
-				$entityMiddleware = $laraRouteMiddleware($entity, null, false);
+				$entityMiddleware = FrontRouteMiddleware::build($entity, null, false);
 
 				if ($entity->objrel_has_terms == 1) {
 
