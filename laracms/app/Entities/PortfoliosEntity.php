@@ -1,8 +1,8 @@
 <?php
 
-namespace Lara\App\Lara;
+namespace Lara\App\Entities;
 
-use Lara\Common\Lara\LaraEntity;
+use Lara\Common\Entities\LaraEntity;
 
 class PortfoliosEntity extends LaraEntity
 {
