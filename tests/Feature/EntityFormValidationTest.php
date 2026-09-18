@@ -2,10 +2,16 @@
 
 namespace Tests\Feature;
 
+use Filament\Facades\Filament;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Schema;
 use Illuminate\Support\Facades\Validator;
 use Lara\Admin\Resources\Entities\Schemas\EntityForm;
 use Lara\Admin\Resources\Forms\Schemas\FormForm;
+use Lara\App\Filament\Resources\Blogs\Pages\CreateBlog;
+use Lara\Common\Models\Entity;
+use Lara\Common\Models\User;
+use Livewire\Livewire;
 use ReflectionMethod;
 use Tests\TestCase;
 
@@ -26,16 +32,49 @@ class EntityFormValidationTest extends TestCase
 {
     /**
      * @param class-string $schemaClass
-     * @return array<int, mixed> rules as Filament resolves them
+     * @param non-empty-string $method
      */
-    private function resolvedLabelRules(string $schemaClass): array
+    private function privateStatic(string $schemaClass, string $method): mixed
     {
-        $method = new ReflectionMethod($schemaClass, 'getEntityLabelRules');
-        $method->setAccessible(true);
+        $reflection = new ReflectionMethod($schemaClass, $method);
+        $reflection->setAccessible(true);
 
-        return TextInput::make('label_single')
-            ->rules($method->invoke(null))
-            ->getValidationRules();
+        return $reflection->invoke(null);
+    }
+
+    /**
+     * The label rules as Filament resolves them for a given operation.
+     *
+     * The field has to sit in a real Schema, because the rule condition is
+     * evaluated against the schema's operation.
+     *
+     * @param class-string $schemaClass
+     * @return array<int, mixed>
+     */
+    private function resolvedLabelRules(string $schemaClass, string $operation = 'create'): array
+    {
+        $user = User::where('name', 'admin')->first();
+
+        if (!$user) {
+            $this->markTestSkipped('No "admin" user in the current database.');
+        }
+
+        $this->actingAs($user);
+        Filament::setCurrentPanel('admin');
+
+        // any mountable resource page will do as a schema container
+        $livewire = Livewire::test(CreateBlog::class)->instance();
+
+        $schema = Schema::make($livewire)
+            ->operation($operation)
+            ->components([
+                TextInput::make('label_single')->rules(
+                    $this->privateStatic($schemaClass, 'getEntityLabelRules'),
+                    $this->privateStatic($schemaClass, 'getEntityLabelRuleCondition'),
+                ),
+            ]);
+
+        return $schema->getFlatFields(withHidden: true)['label_single']->getValidationRules();
     }
 
     public function test_entity_form_label_rules_survive_filament_evaluation(): void
@@ -79,5 +118,49 @@ class EntityFormValidationTest extends TestCase
             Validator::make(['label_single' => 'zzvalidfixture'], ['label_single' => $rules])->passes(),
             'A valid, unused, lowercase label must be accepted.'
         );
+    }
+
+    /**
+     * On edit the label is disabled and cannot change, but it is still
+     * submitted and validated. The uniqueness checks would match the record
+     * being edited and reject its own unchanged value, making every existing
+     * entity impossible to save.
+     */
+    public function test_editing_accepts_the_entitys_own_existing_label(): void
+    {
+        $existing = Entity::whereNotNull('label_single')->value('label_single');
+
+        $this->assertNotNull($existing, 'No entities to check.');
+
+        $editRules = $this->resolvedLabelRules(EntityForm::class, 'edit');
+
+        $this->assertTrue(
+            Validator::make(['label_single' => $existing], ['label_single' => $editRules])->passes(),
+            'Editing an entity must accept its own label "' . $existing . '".'
+        );
+
+        // ...while creating a new one with that label is still rejected
+        $createRules = $this->resolvedLabelRules(EntityForm::class, 'create');
+
+        $this->assertTrue(
+            Validator::make(['label_single' => $existing], ['label_single' => $createRules])->fails(),
+            'Creating a duplicate of "' . $existing . '" must still be rejected.'
+        );
+    }
+
+    /**
+     * An entity created before these naming rules existed may have a label that
+     * no longer satisfies them. It must still be editable.
+     */
+    public function test_editing_accepts_a_label_that_would_fail_the_naming_rules(): void
+    {
+        $editRules = $this->resolvedLabelRules(EntityForm::class, 'edit');
+
+        foreach (['Legacy Label', 'OldStyle', 'class'] as $legacy) {
+            $this->assertTrue(
+                Validator::make(['label_single' => $legacy], ['label_single' => $editRules])->passes(),
+                'Editing must not reject the pre-existing label "' . $legacy . '".'
+            );
+        }
     }
 }
