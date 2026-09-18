@@ -29,7 +29,6 @@
 /storage/httpcache/*
 /storage/imgcache/*
 /storage/logs/*
-/tests/
 /vendor/
 /*.sh
 /.env

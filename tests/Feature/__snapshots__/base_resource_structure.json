@@ -1,0 +1,653 @@
+{
+    "blogs": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "seo.score",
+                "has_images",
+                "has_documents",
+                "has_videos",
+                "terms"
+            ],
+            "filters": [
+                "publish",
+                "categories",
+                "tags",
+                "trashed"
+            ],
+            "actions": [
+                "delete",
+                "edit",
+                "restore",
+                "view"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.body2",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-file-tab.files.entity_files",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-media-tab.gallery_ids",
+                "lara-tabs.lara-media-tab.thumb_ids",
+                "lara-tabs.lara-related-tab.related.related_entities",
+                "lara-tabs.lara-related-tab.related.related_entity_objects",
+                "lara-tabs.lara-related-tab.related.related_page_objects",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lara-video-tab.videos.entity_videos",
+                "lara-tabs.lara-videofile-tab.videofiles.entity_videofiles",
+                "lara-tabs.lead",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.seo.additional_keywords",
+                "lara-tabs.seo.description",
+                "lara-tabs.seo.focus_keyword",
+                "lara-tabs.seo.title",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.source",
+                "lara-tabs.sticky",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "cities": {
+        "table": {
+            "error": "Error"
+        },
+        "form": {
+            "error": "Error"
+        }
+    },
+    "classicforms": {
+        "table": {
+            "columns": [
+                "id",
+                "created_at",
+                "name"
+            ],
+            "filters": [],
+            "actions": [
+                "view"
+            ]
+        }
+    },
+    "contactforms": {
+        "table": {
+            "columns": [
+                "id",
+                "created_at",
+                "name",
+                "email"
+            ],
+            "filters": [],
+            "actions": [
+                "view"
+            ]
+        }
+    },
+    "ctas": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_images",
+                "user.name"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.hook",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.linktext",
+                "lara-tabs.linkurl",
+                "lara-tabs.overlaycolor",
+                "lara-tabs.overlaytransp",
+                "lara-tabs.publish",
+                "lara-tabs.publish_from",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.type",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "docs": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_documents",
+                "terms"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-file-tab.files.entity_files",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lead",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "events": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "startdate",
+                "title",
+                "has_images",
+                "terms"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.enddate",
+                "lara-tabs.endtime",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-media-tab.gallery_ids",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lead",
+                "lara-tabs.location_id",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.startdate",
+                "lara-tabs.starttime",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "galleries": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_images",
+                "terms"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-media-tab.gallery_ids",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "locations": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "user.name"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.geo_address",
+                "lara-tabs.geo_city",
+                "lara-tabs.geo_country",
+                "lara-tabs.geo_latitude",
+                "lara-tabs.geo_location",
+                "lara-tabs.geo_longitude",
+                "lara-tabs.geo_pcode",
+                "lara-tabs.geolocation",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.publish",
+                "lara-tabs.publish_from",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "pages": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "menuroute",
+                "title",
+                "seo.score",
+                "has_images",
+                "has_documents",
+                "has_videos",
+                "cgroup"
+            ],
+            "filters": [
+                "cgroup"
+            ],
+            "actions": [
+                "delete",
+                "edit",
+                "restore"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.body2",
+                "lara-tabs.body3",
+                "lara-tabs.cgroup",
+                "lara-tabs.ishome",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-file-tab.files.entity_files",
+                "lara-tabs.lara-layout-tab.layout.content",
+                "lara-tabs.lara-layout-tab.layout.cta",
+                "lara-tabs.lara-layout-tab.layout.footer",
+                "lara-tabs.lara-layout-tab.layout.header",
+                "lara-tabs.lara-layout-tab.layout.hero",
+                "lara-tabs.lara-layout-tab.layout.pagetitle",
+                "lara-tabs.lara-layout-tab.layout.share",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-media-tab.gallery_ids",
+                "lara-tabs.lara-media-tab.hero_ids",
+                "lara-tabs.lara-related-tab.related.related_entities",
+                "lara-tabs.lara-related-tab.related.related_entity_objects",
+                "lara-tabs.lara-related-tab.related.related_page_objects",
+                "lara-tabs.lara-video-tab.videos.entity_videos",
+                "lara-tabs.menuroute",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.seo.additional_keywords",
+                "lara-tabs.seo.description",
+                "lara-tabs.seo.focus_keyword",
+                "lara-tabs.seo.title",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.sync.remote_resource",
+                "lara-tabs.sync.remote_slug",
+                "lara-tabs.sync.remote_suffix",
+                "lara-tabs.sync.remote_url",
+                "lara-tabs.template",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "portfolios": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_images",
+                "terms"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.url",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "products": {
+        "table": {
+            "error": "Error"
+        },
+        "form": {
+            "error": "Error"
+        }
+    },
+    "services": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "seo.score",
+                "has_images",
+                "terms"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lead",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.seo.additional_keywords",
+                "lara-tabs.seo.description",
+                "lara-tabs.seo.focus_keyword",
+                "lara-tabs.seo.title",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "sliders": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_images",
+                "terms"
+            ],
+            "filters": [
+                "categories"
+            ],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.captiontype",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.overlaycolor",
+                "lara-tabs.overlaysize",
+                "lara-tabs.overlaytransp",
+                "lara-tabs.payoff",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.subtitle",
+                "lara-tabs.textposition",
+                "lara-tabs.title",
+                "lara-tabs.type",
+                "lara-tabs.url",
+                "lara-tabs.urltext",
+                "lara-tabs.urltitle",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "teams": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "first_name",
+                "title",
+                "role",
+                "has_images",
+                "has_documents",
+                "has_videos",
+                "terms"
+            ],
+            "filters": [
+                "role"
+            ],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.email",
+                "lara-tabs.facebook",
+                "lara-tabs.first_name",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-file-tab.files.entity_files",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-media-tab.gallery_ids",
+                "lara-tabs.lara-related-tab.related.related_entities",
+                "lara-tabs.lara-related-tab.related.related_entity_objects",
+                "lara-tabs.lara-related-tab.related.related_page_objects",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lara-video-tab.videos.entity_videos",
+                "lara-tabs.linkedin",
+                "lara-tabs.location_id",
+                "lara-tabs.middle_name",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.role",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.twitter",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "testimonials": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_images",
+                "terms"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lead",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.quoteshort",
+                "lara-tabs.role",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.stars",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "videos": {
+        "table": {
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "has_videos",
+                "user.name"
+            ],
+            "filters": [],
+            "actions": [
+                "delete",
+                "edit"
+            ]
+        },
+        "form": {
+            "fields": [
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-video-tab.videos.entity_videos",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
+        }
+    },
+    "widgets": {
+        "table": {
+            "error": "Error"
+        },
+        "form": {
+            "error": "Error"
+        }
+    }
+}
