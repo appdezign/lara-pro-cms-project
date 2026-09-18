@@ -77,6 +77,53 @@ class EntityFormValidationTest extends TestCase
         return $schema->getFlatFields(withHidden: true)['label_single']->getValidationRules();
     }
 
+    /**
+     * The helper text as Filament resolves it for a given operation.
+     *
+     * Mirrors what helperText() does internally: evaluate the value against
+     * the component. A blank result renders no helper text at all.
+     */
+    private function resolvedHelperText(string $schemaClass, string $operation): ?string
+    {
+        $user = User::where('name', 'admin')->first();
+
+        if (!$user) {
+            $this->markTestSkipped('No "admin" user in the current database.');
+        }
+
+        $this->actingAs($user);
+        Filament::setCurrentPanel('admin');
+
+        $livewire = Livewire::test(CreateBlog::class)->instance();
+
+        $field = Schema::make($livewire)
+            ->operation($operation)
+            ->components([TextInput::make('label_single')])
+            ->getFlatFields(withHidden: true)['label_single'];
+
+        return $field->evaluate($this->privateStatic($schemaClass, 'getEntityLabelHelperText'));
+    }
+
+    /**
+     * The helper text explains what to name a new entity. On edit the field is
+     * disabled and the value cannot change, so the guidance is just noise.
+     */
+    public function test_the_label_helper_text_is_only_shown_when_creating(): void
+    {
+        foreach ([EntityForm::class, FormForm::class] as $schemaClass) {
+            $onCreate = $this->resolvedHelperText($schemaClass, 'create');
+            $onEdit = $this->resolvedHelperText($schemaClass, 'edit');
+
+            $this->assertNotEmpty($onCreate, class_basename($schemaClass) . ' should show helper text when creating.');
+            $this->assertStringContainsString('lowercase', (string) $onCreate);
+
+            $this->assertTrue(
+                blank($onEdit),
+                class_basename($schemaClass) . ' should show no helper text when editing, got: ' . var_export($onEdit, true)
+            );
+        }
+    }
+
     public function test_entity_form_label_rules_survive_filament_evaluation(): void
     {
         $rules = $this->resolvedLabelRules(EntityForm::class);
