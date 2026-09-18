@@ -14,11 +14,11 @@ class ServiceResource extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\ListServices::route('/'),
+			'create'  => Pages\CreateService::route('/create'),
+			'reorder' => Pages\ReorderServices::route('/reorder'),
+			'view'    => Pages\ViewService::route('/{record}'),
+			'edit'    => Pages\EditService::route('/{record}/edit'),
 		];
 	}
 

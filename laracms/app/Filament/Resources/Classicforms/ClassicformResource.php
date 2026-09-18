@@ -14,8 +14,8 @@ class ClassicformResource extends BaseFormResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
+			'index'   => Pages\ListClassicforms::route('/'),
+			'view'    => Pages\ViewClassicform::route('/{record}'),
 		];
 	}
 

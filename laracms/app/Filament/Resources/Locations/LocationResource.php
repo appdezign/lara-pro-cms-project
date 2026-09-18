@@ -14,11 +14,11 @@ class LocationResource extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\ListLocations::route('/'),
+			'create'  => Pages\CreateLocation::route('/create'),
+			'reorder' => Pages\ReorderLocations::route('/reorder'),
+			'view'    => Pages\ViewLocation::route('/{record}'),
+			'edit'    => Pages\EditLocation::route('/{record}/edit'),
 		];
 	}
 

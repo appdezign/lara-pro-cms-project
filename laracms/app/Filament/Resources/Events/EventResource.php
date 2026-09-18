@@ -14,11 +14,11 @@ class EventResource extends BaseResource
 	public static function getPages(): array
 	{
 		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
+			'index'   => Pages\ListEvents::route('/'),
+			'create'  => Pages\CreateEvent::route('/create'),
+			'reorder' => Pages\ReorderEvents::route('/reorder'),
+			'view'    => Pages\ViewEvent::route('/{record}'),
+			'edit'    => Pages\EditEvent::route('/{record}/edit'),
 		];
 	}
 

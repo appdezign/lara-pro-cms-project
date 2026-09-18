@@ -14,11 +14,11 @@ class BlogResource extends BaseResource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListRecords::route('/'),
-            'create' => Pages\CreateRecord::route('/create'),
-            'reorder' => Pages\ReorderRecords::route('/reorder'),
-            'view'   => Pages\ViewRecord::route('/{record}'),
-            'edit'   => Pages\EditRecord::route('/{record}/edit'),
+            'index'  => Pages\ListBlogs::route('/'),
+            'create' => Pages\CreateBlog::route('/create'),
+            'reorder' => Pages\ReorderBlogs::route('/reorder'),
+            'view'   => Pages\ViewBlog::route('/{record}'),
+            'edit'   => Pages\EditBlog::route('/{record}/edit'),
         ];
     }
 
