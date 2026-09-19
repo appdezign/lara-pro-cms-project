@@ -75,12 +75,12 @@ class EntityGenerationTest extends TestCase
 
             public function build(Entity $entity): void
             {
-                static::createEntity($entity);
+                self::createEntity($entity);
             }
 
             public function buildTable(Entity $entity): void
             {
-                static::checkDatabaseTable($entity);
+                self::checkDatabaseTable($entity);
             }
         };
     }
@@ -88,10 +88,10 @@ class EntityGenerationTest extends TestCase
     private function makeEntityRow(string $label, string $cgroup = 'entity'): Entity
     {
         return Entity::create([
-            'title'        => $label,
+            'title' => $label,
             'label_single' => $label,
-            'cgroup'       => $cgroup,
-            'nav_group'    => 'modules',
+            'cgroup' => $cgroup,
+            'nav_group' => 'modules',
         ]);
     }
 
@@ -103,11 +103,11 @@ class EntityGenerationTest extends TestCase
         $app = base_path('laracms/app/');
 
         return [
-            $app . 'Models/' . $model . '.php',
-            $app . 'Entities/' . $dir . 'Entity.php',
-            $app . 'Policies/' . $model . 'Policy.php',
-            $app . 'Http/Controllers/Front/Entity/' . $dir . 'Controller.php',
-            $app . 'Filament/Resources/' . $dir . '/' . $model . 'Resource.php',
+            $app.'Models/'.$model.'.php',
+            $app.'Entities/'.$dir.'Entity.php',
+            $app.'Policies/'.$model.'Policy.php',
+            $app.'Http/Controllers/Front/Entity/'.$dir.'Controller.php',
+            $app.'Filament/Resources/'.$dir.'/'.$model.'Resource.php',
         ];
     }
 
@@ -118,7 +118,7 @@ class EntityGenerationTest extends TestCase
                 File::delete($path);
             }
 
-            File::deleteDirectory(base_path('laracms/app/Filament/Resources/' . $dir));
+            File::deleteDirectory(base_path('laracms/app/Filament/Resources/'.$dir));
         }
 
         Schema::dropIfExists(self::TABLE);
@@ -140,12 +140,12 @@ class EntityGenerationTest extends TestCase
     {
         $badLabels = [
             'zz fixture' => 'contains a space',
-            'ZzFixture'  => 'is not lowercase',
-            'class'      => 'is a reserved word',
-            'match'      => 'is a reserved word',
-            '9fixture'   => 'starts with a digit',
+            'ZzFixture' => 'is not lowercase',
+            'class' => 'is a reserved word',
+            'match' => 'is a reserved word',
+            '9fixture' => 'starts with a digit',
             'zz-fixture' => 'contains a hyphen',
-            ''           => 'is empty',
+            '' => 'is empty',
         ];
 
         foreach ($badLabels as $badLabel => $why) {
@@ -161,7 +161,7 @@ class EntityGenerationTest extends TestCase
                 $entity->forceDelete();
             }
 
-            $this->assertTrue($rejected, 'Label "' . $badLabel . '" must be rejected: it ' . $why . '.');
+            $this->assertTrue($rejected, 'Label "'.$badLabel.'" must be rejected: it '.$why.'.');
         }
     }
 
@@ -170,7 +170,7 @@ class EntityGenerationTest extends TestCase
         foreach (['product', 'recipe', 'vacancy', 'zzfixture', 'item2'] as $label) {
             $this->assertNull(
                 EntityLabel::reject($label),
-                'Label "' . $label . '" should be acceptable.'
+                'Label "'.$label.'" should be acceptable.'
             );
         }
     }
@@ -204,7 +204,7 @@ class EntityGenerationTest extends TestCase
 
         foreach (self::PAGE_CLASSES as $page) {
             $this->assertFileExists(
-                base_path('laracms/app/Filament/Resources/' . self::RESOURCE_DIR . '/Pages/' . $page . '.php')
+                base_path('laracms/app/Filament/Resources/'.self::RESOURCE_DIR.'/Pages/'.$page.'.php')
             );
         }
     }
@@ -220,19 +220,19 @@ class EntityGenerationTest extends TestCase
 
         $this->builder()->build($entity);
 
-        $pagesDir = base_path('laracms/app/Filament/Resources/' . self::RESOURCE_DIR . '/Pages/');
+        $pagesDir = base_path('laracms/app/Filament/Resources/'.self::RESOURCE_DIR.'/Pages/');
 
         foreach (['ListRecords', 'CreateRecord', 'EditRecord', 'ViewRecord', 'ReorderRecords'] as $generic) {
-            $this->assertFileDoesNotExist($pagesDir . $generic . '.php');
+            $this->assertFileDoesNotExist($pagesDir.$generic.'.php');
         }
 
         // and the resource points at the new names
         $resource = File::get(
-            base_path('laracms/app/Filament/Resources/' . self::RESOURCE_DIR . '/' . self::MODEL . 'Resource.php')
+            base_path('laracms/app/Filament/Resources/'.self::RESOURCE_DIR.'/'.self::MODEL.'Resource.php')
         );
 
         foreach (self::PAGE_CLASSES as $page) {
-            $this->assertStringContainsString('Pages\\' . $page . '::route', $resource);
+            $this->assertStringContainsString('Pages\\'.$page.'::route', $resource);
         }
     }
 
@@ -246,25 +246,58 @@ class EntityGenerationTest extends TestCase
 
         $this->builder()->build($entity);
 
-        $pagesDir = base_path('laracms/app/Filament/Resources/' . self::FORM_DIR . '/Pages/');
+        $pagesDir = base_path('laracms/app/Filament/Resources/'.self::FORM_DIR.'/Pages/');
 
-        $this->assertFileExists($pagesDir . 'List' . self::FORM_DIR . '.php');
-        $this->assertFileExists($pagesDir . 'View' . self::FORM_MODEL . '.php');
+        $this->assertFileExists($pagesDir.'List'.self::FORM_DIR.'.php');
+        $this->assertFileExists($pagesDir.'View'.self::FORM_MODEL.'.php');
 
         foreach (['Create', 'Edit', 'Reorder'] as $verb) {
             $this->assertCount(
                 0,
-                glob($pagesDir . $verb . '*.php'),
-                'A form resource must not get a ' . $verb . ' page.'
+                glob($pagesDir.$verb.'*.php'),
+                'A form resource must not get a '.$verb.' page.'
             );
         }
 
         $resource = File::get(
-            base_path('laracms/app/Filament/Resources/' . self::FORM_DIR . '/' . self::FORM_MODEL . 'Resource.php')
+            base_path('laracms/app/Filament/Resources/'.self::FORM_DIR.'/'.self::FORM_MODEL.'Resource.php')
         );
 
-        $this->assertStringContainsString('Pages\\List' . self::FORM_DIR . '::route', $resource);
+        $this->assertStringContainsString('Pages\\List'.self::FORM_DIR.'::route', $resource);
         $this->assertStringNotContainsString('CREATEPAGE', $resource, 'An unreplaced stub placeholder was left behind.');
+    }
+
+    /**
+     * .editorconfig declares tabs for this project, and pint.json is configured
+     * not to fight that. Generated code has to follow the same rule, or every
+     * new entity reintroduces the mixed indentation.
+     */
+    public function test_generated_files_are_tab_indented(): void
+    {
+        $entity = $this->makeEntityRow(self::LABEL);
+
+        $this->builder()->build($entity);
+
+        $pagesDir = base_path('laracms/app/Filament/Resources/'.self::RESOURCE_DIR.'/Pages/');
+
+        $files = [
+            ...$this->generatedPaths(),
+            ...array_map(fn (string $page): string => $pagesDir.$page.'.php', self::PAGE_CLASSES),
+        ];
+
+        foreach ($files as $path) {
+            $indented = preg_grep('/^[ \t]+\S/', file($path) ?: []);
+
+            $this->assertNotEmpty($indented, basename($path).' has no indented lines to check.');
+
+            $spaceIndented = preg_grep('/^ /', $indented);
+
+            $this->assertSame(
+                [],
+                array_values($spaceIndented),
+                basename($path).' is space-indented; the stub should emit tabs.'
+            );
+        }
     }
 
     public function test_it_records_the_derived_names_on_the_entity_row(): void
@@ -276,11 +309,11 @@ class EntityGenerationTest extends TestCase
         $entity->refresh();
 
         $this->assertSame(self::PLURAL, $entity->resource_slug);
-        $this->assertSame('Lara\App\Models\\' . self::MODEL, $entity->model_class);
-        $this->assertSame('Lara\App\Policies\\' . self::MODEL . 'Policy', $entity->policy);
-        $this->assertSame(self::RESOURCE_DIR . 'Controller', $entity->controller);
+        $this->assertSame('Lara\App\Models\\'.self::MODEL, $entity->model_class);
+        $this->assertSame('Lara\App\Policies\\'.self::MODEL.'Policy', $entity->policy);
+        $this->assertSame(self::RESOURCE_DIR.'Controller', $entity->controller);
         $this->assertSame(
-            'Lara\App\Filament\Resources\\' . self::RESOURCE_DIR . '\\' . self::MODEL . 'Resource',
+            'Lara\App\Filament\Resources\\'.self::RESOURCE_DIR.'\\'.self::MODEL.'Resource',
             $entity->resource
         );
     }
@@ -291,11 +324,11 @@ class EntityGenerationTest extends TestCase
 
         $this->builder()->build($entity);
 
-        $contents = File::get(base_path('laracms/app/Entities/' . self::RESOURCE_DIR . 'Entity.php'));
+        $contents = File::get(base_path('laracms/app/Entities/'.self::RESOURCE_DIR.'Entity.php'));
 
         $this->assertStringContainsString('namespace Lara\App\Entities;', $contents);
         $this->assertStringContainsString('use Lara\Common\Entities\LaraEntity;', $contents);
-        $this->assertStringContainsString("resource_slug = '" . self::PLURAL . "'", $contents);
+        $this->assertStringContainsString("resource_slug = '".self::PLURAL."'", $contents);
     }
 
     public function test_it_creates_the_content_table_with_the_base_columns(): void
