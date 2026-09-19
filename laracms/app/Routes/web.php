@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Log;
+use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
-use Lara\Common\Models\Tag;
 use Lara\Common\Routes\FrontRouteMiddleware;
+use Lara\Common\Routes\RouteTagIndex;
 use Spatie\Honeypot\ProtectAgainstSpam;
-use Lara\Admin\Http\Middleware\FilamentAuthenticate;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,7 @@ use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 */
 
 $tablename = config('lara-common.database.ent.entities');
-$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+$laraNeedsSetup = ! Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
 
 /**
  * Resolve a controller action for a DB-configured entity controller.
@@ -32,31 +33,10 @@ $laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count(
 $laraControllerAction = static function (string $group, ?string $controller, ?string $method, bool $optional = false): ?string {
 
 	if (empty($controller) || empty($method)) {
-		if (!$optional) {
+		if (! $optional) {
 			Log::warning('lara route: entity is missing a controller or method', [
-				'group'      => $group,
+				'group' => $group,
 				'controller' => $controller,
-				'method'     => $method,
-			]);
-		}
-
-		return null;
-	}
-
-	$fqcn = 'Lara\\App\\Http\\Controllers\\' . $group . '\\' . $controller;
-
-	if (!class_exists($fqcn)) {
-		Log::warning('lara route: controller class not found, skipping route', [
-			'class' => $fqcn,
-		]);
-
-		return null;
-	}
-
-	if (!method_exists($fqcn, $method)) {
-		if (!$optional) {
-			Log::warning('lara route: controller method not found, skipping route', [
-				'class'  => $fqcn,
 				'method' => $method,
 			]);
 		}
@@ -64,7 +44,28 @@ $laraControllerAction = static function (string $group, ?string $controller, ?st
 		return null;
 	}
 
-	return $group . '\\' . $controller . '@' . $method;
+	$fqcn = 'Lara\\App\\Http\\Controllers\\'.$group.'\\'.$controller;
+
+	if (! class_exists($fqcn)) {
+		Log::warning('lara route: controller class not found, skipping route', [
+			'class' => $fqcn,
+		]);
+
+		return null;
+	}
+
+	if (! method_exists($fqcn, $method)) {
+		if (! $optional) {
+			Log::warning('lara route: controller method not found, skipping route', [
+				'class' => $fqcn,
+				'method' => $method,
+			]);
+		}
+
+		return null;
+	}
+
+	return $group.'\\'.$controller.'@'.$method;
 
 };
 
@@ -73,22 +74,22 @@ $laraControllerAction = static function (string $group, ?string $controller, ?st
  */
 $laraMenuItemIsRoutable = static function (?MenuItem $menuItem, bool $needsView = true): bool {
 
-	if (!$menuItem || empty($menuItem->route)) {
+	if (! $menuItem || empty($menuItem->route)) {
 		return false;
 	}
 
-	if (!$menuItem->entity) {
+	if (! $menuItem->entity) {
 		Log::warning('lara route: menu item references a missing entity', [
 			'menu_item_id' => $menuItem->id,
-			'entity_id'    => $menuItem->entity_id,
+			'entity_id' => $menuItem->entity_id,
 		]);
 
 		return false;
 	}
 
-	if ($needsView && !$menuItem->entityview) {
+	if ($needsView && ! $menuItem->entityview) {
 		Log::warning('lara route: menu item references a missing entity view', [
-			'menu_item_id'   => $menuItem->id,
+			'menu_item_id' => $menuItem->id,
 			'entity_view_id' => $menuItem->entity_view_id,
 		]);
 
@@ -99,7 +100,7 @@ $laraMenuItemIsRoutable = static function (?MenuItem $menuItem, bool $needsView 
 
 };
 
-if (!$laraNeedsSetup) {
+if (! $laraNeedsSetup) {
 
 	// Custom Non-Livewire
 	Route::group(['prefix' => 'admin', 'middleware' => ['web', FilamentAuthenticate::class]], function () {
@@ -130,9 +131,9 @@ if (!$laraNeedsSetup) {
 
 				$apkey = $entity->resource_slug;
 
-				$controllerClass = 'Lara\\App\\Http\\Controllers\\Front\\Api\\' . $entity->controller;
+				$controllerClass = 'Lara\\App\\Http\\Controllers\\Front\\Api\\'.$entity->controller;
 				if (class_exists($controllerClass)) {
-					Route::resource($apkey, 'Front\\Api\\' . $entity->controller, ['as' => 'api', 'parameters' => [$apkey => 'id']])->only(['index', 'show']);
+					Route::resource($apkey, 'Front\\Api\\'.$entity->controller, ['as' => 'api', 'parameters' => [$apkey => 'id']])->only(['index', 'show']);
 				}
 
 			}
@@ -177,7 +178,7 @@ if (!$laraNeedsSetup) {
 
 		foreach ($menuPages as $menuPage) {
 
-			if (!$laraMenuItemIsRoutable($menuPage)) {
+			if (! $laraMenuItemIsRoutable($menuPage)) {
 				continue;
 			}
 
@@ -205,12 +206,12 @@ if (!$laraNeedsSetup) {
 
 		foreach ($menuItems as $menuItem) {
 
-			if (!$laraMenuItemIsRoutable($menuItem)) {
+			if (! $laraMenuItemIsRoutable($menuItem)) {
 				continue;
 			}
 
 			// entities and forms only
-			if (!in_array($menuItem->entity->cgroup, ['entity', 'form'])) {
+			if (! in_array($menuItem->entity->cgroup, ['entity', 'form'])) {
 				continue;
 			}
 
@@ -233,23 +234,23 @@ if (!$laraNeedsSetup) {
 
 					// add .html to object slug, so we can distinguish between an object slug and a (sub)cat slug.
 					if ($showAction !== null) {
-						Route::get($menuItem->route . '/{slug}.html', $showAction)
-							->name($menuItem->routename . '.show')->middleware($menuItemMiddleware);
+						Route::get($menuItem->route.'/{slug}.html', $showAction)
+							->name($menuItem->routename.'.show')->middleware($menuItemMiddleware);
 					}
 
-					$tags = Tag::resourceIs($menuItem->entity->resource_slug)->whereNotNull('route')->get();
+					$tags = app(RouteTagIndex::class)->forResource($menuItem->entity->resource_slug);
 
 					foreach ($tags as $tag) {
 
 						$tagslug = str_replace('.', '/', $tag->route);
-						$tagRouteName = $entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $menuItem->id . '.' . $tag->route . '.' . $menuItem->entityview->method;
+						$tagRouteName = $entity_tag_prefix.'.'.$menuItem->entity->resource_slug.'.'.$menuItem->id.'.'.$tag->route.'.'.$menuItem->entityview->method;
 
-						Route::get($menuItem->route . '/' . $tagslug, $listAction)
+						Route::get($menuItem->route.'/'.$tagslug, $listAction)
 							->name($tagRouteName)->middleware($menuItemMiddleware);
 
 						if ($showAction !== null) {
-							Route::get($menuItem->route . '/' . $tagslug . '/{slug}.html', $showAction)
-								->name($tagRouteName . '.show')->middleware($menuItemMiddleware);
+							Route::get($menuItem->route.'/'.$tagslug.'/{slug}.html', $showAction)
+								->name($tagRouteName.'.show')->middleware($menuItemMiddleware);
 						}
 
 					}
@@ -268,8 +269,8 @@ if (!$laraNeedsSetup) {
 					->name($menuItem->routename)->middleware($menuItemMiddleware);
 
 				if ($showAction !== null) {
-					Route::get($menuItem->route . '/{slug}', $showAction)
-						->name($menuItem->routename . '.show')->middleware($menuItemMiddleware);
+					Route::get($menuItem->route.'/{slug}', $showAction)
+						->name($menuItem->routename.'.show')->middleware($menuItemMiddleware);
 				}
 
 			}
@@ -288,7 +289,7 @@ if (!$laraNeedsSetup) {
 
 		foreach ($menuForms as $menuForm) {
 
-			if (!$laraMenuItemIsRoutable($menuForm)) {
+			if (! $laraMenuItemIsRoutable($menuForm)) {
 				continue;
 			}
 
@@ -311,7 +312,7 @@ if (!$laraNeedsSetup) {
 			// create route for regular POST without AJAX
 			if ($processAction !== null) {
 				Route::post($menuForm->route, $processAction)
-					->name('form.' . $menuForm->entity->resource_slug . '.' . $menuForm->id . '.process')
+					->name('form.'.$menuForm->entity->resource_slug.'.'.$menuForm->id.'.process')
 					->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
 			}
 
@@ -321,7 +322,7 @@ if (!$laraNeedsSetup) {
 
 			foreach ($menuForms as $menuForm) {
 
-				if (!$laraMenuItemIsRoutable($menuForm, false)) {
+				if (! $laraMenuItemIsRoutable($menuForm, false)) {
 					continue;
 				}
 
@@ -336,12 +337,12 @@ if (!$laraNeedsSetup) {
 				// Add AJAX route
 				if ($redirectAction !== null) {
 					Route::get($menuForm->entity->resource_slug, $redirectAction)
-						->name('ajax.' . $menuForm->entity->resource_slug . '.redirect');
+						->name('ajax.'.$menuForm->entity->resource_slug.'.redirect');
 				}
 
 				if ($processAction !== null) {
 					Route::post($menuForm->entity->resource_slug, $processAction)
-						->name('ajax.' . $menuForm->entity->resource_slug . '.process')
+						->name('ajax.'.$menuForm->entity->resource_slug.'.process')
 						->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
 				}
 
@@ -371,8 +372,8 @@ if (!$laraNeedsSetup) {
 					continue;
 				}
 
-				Route::get($entity->resource_slug . '/{id}', $showAction)
-					->name($content_prefix . '.' . $entity->resource_slug . '.show')
+				Route::get($entity->resource_slug.'/{id}', $showAction)
+					->name($content_prefix.'.'.$entity->resource_slug.'.show')
 					->middleware(FrontRouteMiddleware::build($entity, null, false));
 
 			}
@@ -394,26 +395,26 @@ if (!$laraNeedsSetup) {
 				if ($entity->objrel_has_terms == 1) {
 
 					Route::get($entity->resource_slug, $indexAction)
-						->name($content_tag_prefix . '.' . $entity->resource_slug . '.index')->middleware($entityMiddleware);
+						->name($content_tag_prefix.'.'.$entity->resource_slug.'.index')->middleware($entityMiddleware);
 
 					// add .html to slug, so we can distinguish between an object slug and a (sub)cat slug.
 					if ($showAction !== null) {
-						Route::get($entity->resource_slug . '/{slug}.html', $showAction)
-							->name($content_tag_prefix . '.' . $entity->resource_slug . '.index.show')->middleware($entityMiddleware);
+						Route::get($entity->resource_slug.'/{slug}.html', $showAction)
+							->name($content_tag_prefix.'.'.$entity->resource_slug.'.index.show')->middleware($entityMiddleware);
 					}
 
-					$tags = Tag::resourceIs($entity->resource_slug)->whereNotNull('route')->get();
+					$tags = app(RouteTagIndex::class)->forResource($entity->resource_slug);
 
 					foreach ($tags as $tag) {
 
 						$tagroutename = str_replace('/', '.', $tag->route);
 
-						Route::get($entity->resource_slug . '/' . $tag->route, $indexAction)
-							->name($content_tag_prefix . '.' . $entity->resource_slug . '.' . $tagroutename . '.index')->middleware($entityMiddleware);
+						Route::get($entity->resource_slug.'/'.$tag->route, $indexAction)
+							->name($content_tag_prefix.'.'.$entity->resource_slug.'.'.$tagroutename.'.index')->middleware($entityMiddleware);
 
 						if ($showAction !== null) {
-							Route::get($entity->resource_slug . '/' . $tag->route . '/{slug}.html', $showAction)
-								->name($content_tag_prefix . '.' . $entity->resource_slug . '.' . $tagroutename . '.index.show')->middleware($entityMiddleware);
+							Route::get($entity->resource_slug.'/'.$tag->route.'/{slug}.html', $showAction)
+								->name($content_tag_prefix.'.'.$entity->resource_slug.'.'.$tagroutename.'.index.show')->middleware($entityMiddleware);
 						}
 
 					}
@@ -421,11 +422,11 @@ if (!$laraNeedsSetup) {
 				} else {
 
 					Route::get($entity->resource_slug, $indexAction)
-						->name($content_prefix . '.' . $entity->resource_slug . '.index')->middleware($entityMiddleware);
+						->name($content_prefix.'.'.$entity->resource_slug.'.index')->middleware($entityMiddleware);
 
 					if ($showAction !== null) {
-						Route::get($entity->resource_slug . '/{id}', $showAction)
-							->name($content_prefix . '.' . $entity->resource_slug . '.index.show')->middleware($entityMiddleware);
+						Route::get($entity->resource_slug.'/{id}', $showAction)
+							->name($content_prefix.'.'.$entity->resource_slug.'.index.show')->middleware($entityMiddleware);
 					}
 
 				}
@@ -440,6 +441,3 @@ if (!$laraNeedsSetup) {
 	});
 
 }
-
-
-
