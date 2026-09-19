@@ -398,7 +398,7 @@ if (!$laraNeedsSetup) {
 
 					// add .html to slug, so we can distinguish between an object slug and a (sub)cat slug.
 					if ($showAction !== null) {
-						Route::get($entity->resource_slug . '/{id}.html', $showAction)
+						Route::get($entity->resource_slug . '/{slug}.html', $showAction)
 							->name($content_tag_prefix . '.' . $entity->resource_slug . '.index.show')->middleware($entityMiddleware);
 					}
 
@@ -412,7 +412,7 @@ if (!$laraNeedsSetup) {
 							->name($content_tag_prefix . '.' . $entity->resource_slug . '.' . $tagroutename . '.index')->middleware($entityMiddleware);
 
 						if ($showAction !== null) {
-							Route::get($entity->resource_slug . '/' . $tag->route . '/{id}.html', $showAction)
+							Route::get($entity->resource_slug . '/' . $tag->route . '/{slug}.html', $showAction)
 								->name($content_tag_prefix . '.' . $entity->resource_slug . '.' . $tagroutename . '.index.show')->middleware($entityMiddleware);
 						}
 
