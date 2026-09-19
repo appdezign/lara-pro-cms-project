@@ -8,7 +8,6 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -51,13 +50,13 @@ class ClassicformsController extends Controller
 	use HasFrontView;
 
 	protected ?string $modelClass = \Lara\App\Models\Classicform::class;
-	protected ?string $routename;
-	protected ?object $entity;
-	protected ?object $activeroute;
-	protected ?string $language;
-	protected ?object $data;
-	protected ?object $globalwidgets;
-	protected bool $ispreview;
+	protected ?string $routename = null;
+	protected ?object $entity = null;
+	protected ?object $activeroute = null;
+	protected ?string $language = null;
+	protected ?object $data = null;
+	protected ?object $globalwidgets = null;
+	protected bool $ispreview = false;
 
 	public function __construct()
 	{
@@ -67,7 +66,9 @@ class ClassicformsController extends Controller
 
 		$this->data = new stdClass;
 
-		if (!App::runningInConsole()) {
+		// only when handling a matched HTTP request: there is no route to read
+		// in console, queue or test-bootstrap contexts
+		if (Route::current() !== null) {
 
 			// get route name
 			$this->routename = Route::current()->getName();
