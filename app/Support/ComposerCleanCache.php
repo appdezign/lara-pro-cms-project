@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Support\Facades\File;
 
 class ComposerCleanCache
@@ -13,7 +14,7 @@ class ComposerCleanCache
 
 		// Bootstrap the Laravel Application Container
 		$app = require_once __DIR__.'/../../bootstrap/app.php';
-		$app->make(\Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+		$app->make(Kernel::class)->bootstrap();
 
 		$targetPaths = [
 			base_path('bootstrap/cache'),
