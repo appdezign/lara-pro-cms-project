@@ -3,39 +3,27 @@
 namespace Lara\App\Database\Factories;
 
 use App\Models\Model;
-use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
+use Exception;
 
 use Lara\App\Models\Blog;
-use Lara\Common\Models\User;
 
-use Carbon\Carbon;
-
-/**
- * @extends Factory<Model>
- */
-#[UseModel(Blog::class)]
 class BlogFactory extends Factory
 {
+
+	protected ?string $resourceSlug = 'blogs';
+
+	use HasLaraFactory;
+
+	protected $model = Blog::class;
+
     /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
+	 * @return array
+	 * @throws Exception
      */
     public function definition(): array
     {
-
-	    $superAdminId = User::role('superadmin')->value('id');
-		$locale = config('app.locale');
-
-        return [
-	        'user_id' =>  $superAdminId,
-	        'language' =>  $locale,
-	        'title' =>  $this->faker->sentence(5),
-	        'lead' =>  $this->faker->paragraph(1),
-	        'body' =>  $this->faker->paragraph(2),
-	        'publish' =>  1,
-	        'publish_from' =>  Carbon::now(),
-        ];
+		return $this->generateContent($this->resourceSlug);
     }
 }
