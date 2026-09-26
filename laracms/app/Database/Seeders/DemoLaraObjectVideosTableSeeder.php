@@ -376,6 +376,13 @@ class DemoLaraObjectVideosTableSeeder extends Seeder
                 'entity_id' => 39,
                 'entity_videos' => '[]',
             ),
+            51 => 
+            array (
+                'id' => 89,
+                'entity_type' => 'Lara\\App\\Models\\Blog',
+                'entity_id' => 40,
+                'entity_videos' => '[]',
+            ),
         ));
         
         

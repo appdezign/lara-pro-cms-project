@@ -451,6 +451,15 @@ class DemoLaraObjectRelatedTableSeeder extends Seeder
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
             ),
+            48 => 
+            array (
+                'id' => 59,
+                'entity_type' => 'Lara\\App\\Models\\Blog',
+                'entity_id' => 40,
+                'related_page_objects' => '[]',
+                'related_entity_objects' => '[]',
+                'related_entities' => '[]',
+            ),
         ));
         
         

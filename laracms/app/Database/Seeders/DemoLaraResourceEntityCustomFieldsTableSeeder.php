@@ -1521,26 +1521,6 @@ class DemoLaraResourceEntityCustomFieldsTableSeeder extends Seeder
             ),
             75 => 
             array (
-                'id' => 165,
-                'entity_id' => 73,
-                'title' => 'geolocation',
-                'field_hook' => 'after-last',
-                'field_type' => 'geolocation',
-                'field_name' => 'geolocation',
-                'field_name_temp' => NULL,
-                'field_options' => NULL,
-                'is_required' => 0,
-                'is_filter' => 0,
-                'show_in_list' => 0,
-                'conditional' => 0,
-                'rule_state' => 'enabled',
-                'rule_field' => NULL,
-                'rule_operator' => NULL,
-                'rule_value' => NULL,
-                'sort_order' => NULL,
-            ),
-            76 => 
-            array (
                 'id' => 166,
                 'entity_id' => 69,
                 'title' => 'email',

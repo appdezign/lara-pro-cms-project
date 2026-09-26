@@ -45,6 +45,8 @@ class DemoLaraBlocksCtasTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
             1 => 
             array (
@@ -72,6 +74,8 @@ class DemoLaraBlocksCtasTableSeeder extends Seeder
                 'publish_to' => NULL,
                 'position' => NULL,
                 'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
             ),
         ));
         

@@ -181,6 +181,33 @@ class DemoLaraContentTestimonialsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
+            6 => 
+            array (
+                'id' => 7,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Voluptatem id occaecati vel maiores.',
+                'slug' => 'voluptatem-id-occaecati-vel-maiores',
+                'slug_lock' => 0,
+                'lead' => 'Velit recusandae expedita esse sed qui dignissimos. Esse aliquam pariatur provident veritatis recusandae.',
+                'body' => NULL,
+                'quoteshort' => 'Sed pariatur itaque.',
+                'role' => 'Est quia excepturi.',
+                'stars' => NULL,
+                'created_at' => '2026-09-26 12:01:22',
+                'updated_at' => '2026-09-26 12:01:22',
+                'deleted_at' => NULL,
+                'publish' => 1,
+                'publish_from' => '2026-09-26 12:01:22',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'position' => 0,
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
         ));
         
         

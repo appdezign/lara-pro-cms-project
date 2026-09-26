@@ -901,102 +901,69 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
             ),
             80 => 
             array (
-                'id' => 105,
-                'mediable_type' => 'Lara\\App\\Models\\Blog',
-                'mediable_id' => 38,
-                'media_id' => 56,
-                'order' => 1,
-                'type' => 'featured',
-                'created_at' => '2026-09-10 12:21:00',
-                'updated_at' => '2026-09-10 12:22:25',
-            ),
-            81 => 
-            array (
-                'id' => 106,
-                'mediable_type' => 'Lara\\App\\Models\\Blog',
-                'mediable_id' => 38,
-                'media_id' => 65,
-                'order' => 1,
-                'type' => 'gallery',
-                'created_at' => '2026-09-10 12:22:16',
-                'updated_at' => '2026-09-10 12:22:25',
-            ),
-            82 => 
-            array (
-                'id' => 107,
-                'mediable_type' => 'Lara\\App\\Models\\Blog',
-                'mediable_id' => 38,
-                'media_id' => 56,
-                'order' => 1,
-                'type' => 'featured',
-                'created_at' => '2026-09-10 12:22:16',
-                'updated_at' => '2026-09-10 12:22:25',
-            ),
-            83 => 
-            array (
-                'id' => 108,
+                'id' => 132,
                 'mediable_type' => 'Lara\\App\\Models\\Blog',
                 'mediable_id' => 38,
                 'media_id' => 57,
-                'order' => 3,
+                'order' => 1,
                 'type' => 'gallery',
-                'created_at' => '2026-09-10 12:22:16',
-                'updated_at' => '2026-09-10 12:22:25',
+                'created_at' => '2026-09-16 10:37:50',
+                'updated_at' => '2026-09-17 08:23:47',
             ),
-            84 => 
+            81 => 
             array (
-                'id' => 109,
+                'id' => 133,
                 'mediable_type' => 'Lara\\App\\Models\\Blog',
                 'mediable_id' => 38,
                 'media_id' => 58,
-                'order' => 4,
+                'order' => 2,
                 'type' => 'gallery',
-                'created_at' => '2026-09-10 12:22:16',
-                'updated_at' => '2026-09-10 12:22:25',
+                'created_at' => '2026-09-16 10:37:50',
+                'updated_at' => '2026-09-17 08:23:47',
             ),
-            85 => 
+            82 => 
             array (
-                'id' => 110,
+                'id' => 134,
                 'mediable_type' => 'Lara\\App\\Models\\Blog',
                 'mediable_id' => 38,
                 'media_id' => 59,
-                'order' => 5,
+                'order' => 3,
                 'type' => 'gallery',
-                'created_at' => '2026-09-10 12:22:16',
-                'updated_at' => '2026-09-10 12:22:25',
+                'created_at' => '2026-09-16 10:37:50',
+                'updated_at' => '2026-09-17 08:23:47',
             ),
-            86 => 
+            83 => 
             array (
-                'id' => 111,
+                'id' => 135,
                 'mediable_type' => 'Lara\\App\\Models\\Blog',
                 'mediable_id' => 38,
                 'media_id' => 60,
-                'order' => 6,
+                'order' => 4,
                 'type' => 'gallery',
-                'created_at' => '2026-09-10 12:22:16',
-                'updated_at' => '2026-09-10 12:22:25',
+                'created_at' => '2026-09-16 10:37:50',
+                'updated_at' => '2026-09-17 08:23:47',
             ),
-            87 => 
+            84 => 
             array (
-                'id' => 112,
+                'id' => 149,
                 'mediable_type' => 'Lara\\App\\Models\\Blog',
                 'mediable_id' => 38,
                 'media_id' => 56,
                 'order' => 1,
                 'type' => 'featured',
-                'created_at' => '2026-09-10 12:22:18',
-                'updated_at' => '2026-09-10 12:22:25',
+                'created_at' => '2026-09-16 11:40:32',
+                'updated_at' => '2026-09-17 08:23:47',
             ),
-            88 => 
+            85 => 
             array (
-                'id' => 113,
+                'id' => 151,
                 'mediable_type' => 'Lara\\App\\Models\\Blog',
                 'mediable_id' => 38,
                 'media_id' => 56,
-                'order' => 2,
+                'order' => 5,
                 'type' => 'gallery',
-                'created_at' => '2026-09-10 12:22:25',
-                'updated_at' => '2026-09-10 12:22:25',
+                'created_at' => '2026-09-16 11:41:04',
+                'updated_at' => '2026-09-17 08:23:47',
             ),
         ));
         

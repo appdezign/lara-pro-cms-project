@@ -417,42 +417,6 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
             ),
             22 => 
             array (
-                'id' => 216,
-                'entity_id' => 73,
-                'title' => 'City Index',
-                'method' => 'index',
-                'filename' => 'index',
-                'template' => NULL,
-                'template_extra_fields' => 0,
-                'is_single' => 0,
-                'list_type' => 'grid3',
-                'image_required' => 1,
-                'showtags' => NULL,
-                'paginate' => NULL,
-                'infinite' => 0,
-                'prevnext' => 0,
-                'publish' => 1,
-            ),
-            23 => 
-            array (
-                'id' => 217,
-                'entity_id' => 73,
-                'title' => 'City Show',
-                'method' => 'show',
-                'filename' => 'show',
-                'template' => NULL,
-                'template_extra_fields' => 0,
-                'is_single' => 1,
-                'list_type' => '_single',
-                'image_required' => 0,
-                'showtags' => NULL,
-                'paginate' => NULL,
-                'infinite' => 0,
-                'prevnext' => 1,
-                'publish' => 1,
-            ),
-            24 => 
-            array (
                 'id' => 218,
                 'entity_id' => 63,
                 'title' => 'Portfolio Index',
@@ -469,7 +433,7 @@ class DemoLaraResourceEntityViewsTableSeeder extends Seeder
                 'prevnext' => 0,
                 'publish' => 1,
             ),
-            25 => 
+            23 => 
             array (
                 'id' => 219,
                 'entity_id' => 63,
