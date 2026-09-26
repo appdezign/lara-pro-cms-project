@@ -2,6 +2,8 @@
 
 namespace Lara\App\Models;
 
+use Lara\App\Database\Factories\ServiceFactory;
+
 use Lara\Common\Models\BaseModel;
 use Lara\Common\Http\Concerns\HasLanguage;
 
@@ -11,4 +13,8 @@ class Service extends BaseModel
 
 	protected $table = 'lara_content_services';
 
+	protected static function newFactory()
+	{
+		return ServiceFactory::new();
+	}
 }

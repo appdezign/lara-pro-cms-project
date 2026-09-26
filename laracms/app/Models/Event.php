@@ -2,21 +2,28 @@
 
 namespace Lara\App\Models;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+use Lara\App\Database\Factories\EventFactory;
 use Lara\Common\Models\BaseModel;
 use Lara\Common\Http\Concerns\HasLanguage;
 
 use Lara\Common\Casts\DateCast;
 use Lara\Common\Casts\TimeCast;
 
+use Carbon\Carbon;
+
 class Event extends BaseModel
 {
 	use HasLanguage;
 
 	protected $table = 'lara_content_events';
+
+	protected static function newFactory()
+	{
+		return EventFactory::new();
+	}
 
 	protected function casts(): array
 	{

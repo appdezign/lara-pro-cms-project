@@ -2,9 +2,9 @@
 
 namespace Lara\App\Models;
 
+use Lara\App\Database\Factories\BlogFactory;
 use Lara\Common\Models\BaseModel;
 use Lara\Common\Http\Concerns\HasLanguage;
-use Lara\App\Database\Factories\BlogFactory;
 
 class Blog extends BaseModel
 {
