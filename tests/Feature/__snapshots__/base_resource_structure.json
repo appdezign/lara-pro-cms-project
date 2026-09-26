@@ -63,14 +63,6 @@
             ]
         }
     },
-    "cities": {
-        "table": {
-            "error": "Error"
-        },
-        "form": {
-            "error": "Error"
-        }
-    },
     "classicforms": {
         "table": {
             "columns": [
@@ -408,10 +400,81 @@
     },
     "products": {
         "table": {
-            "error": "Error"
+            "columns": [
+                "publish",
+                "publish_from",
+                "title",
+                "has_images",
+                "has_documents",
+                "has_videos",
+                "terms"
+            ],
+            "filters": [
+                "publish",
+                "categories",
+                "tags",
+                "user_id",
+                "trashed"
+            ],
+            "actions": [
+                "delete",
+                "edit",
+                "restore",
+                "view"
+            ]
         },
         "form": {
-            "error": "Error"
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-file-tab.files.entity_files",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-media-tab.gallery_ids",
+                "lara-tabs.lara-media-tab.hero_ids",
+                "lara-tabs.lara-media-tab.thumb_ids",
+                "lara-tabs.lara-related-tab.related.related_entities",
+                "lara-tabs.lara-related-tab.related.related_entity_objects",
+                "lara-tabs.lara-related-tab.related.related_page_objects",
+                "lara-tabs.lara-tag-tab.categories",
+                "lara-tabs.lara-tag-tab.tags",
+                "lara-tabs.lara-video-tab.videos.entity_videos",
+                "lara-tabs.lead",
+                "lara-tabs.mycheckbox",
+                "lara-tabs.mycheckboxlist",
+                "lara-tabs.mycolor",
+                "lara-tabs.mydate",
+                "lara-tabs.mydatetime",
+                "lara-tabs.mydecimal",
+                "lara-tabs.myemail",
+                "lara-tabs.mymultiselect",
+                "lara-tabs.mymultitogglebuttons",
+                "lara-tabs.mynumber",
+                "lara-tabs.myradio",
+                "lara-tabs.myselect_2",
+                "lara-tabs.mystring",
+                "lara-tabs.mytagsinput",
+                "lara-tabs.mytext",
+                "lara-tabs.mytextarea",
+                "lara-tabs.mytime",
+                "lara-tabs.mytoggle",
+                "lara-tabs.mytogglebuttons",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.sync.remote_resource",
+                "lara-tabs.sync.remote_slug",
+                "lara-tabs.sync.remote_suffix",
+                "lara-tabs.sync.remote_url",
+                "lara-tabs.title",
+                "lara-tabs.user_id"
+            ]
         }
     },
     "services": {
@@ -644,10 +707,60 @@
     },
     "widgets": {
         "table": {
-            "error": "Error"
+            "columns": [
+                "id",
+                "publish",
+                "publish_from",
+                "title",
+                "hook",
+                "type",
+                "sortorder",
+                "has_images",
+                "user.name"
+            ],
+            "filters": [
+                "hook",
+                "type"
+            ],
+            "actions": [
+                "delete",
+                "edit"
+            ]
         },
         "form": {
-            "error": "Error"
+            "fields": [
+                "lara-tabs.body",
+                "lara-tabs.hook",
+                "lara-tabs.iconalign",
+                "lara-tabs.iconclass",
+                "lara-tabs.image_required",
+                "lara-tabs.is_global",
+                "lara-tabs.language",
+                "lara-tabs.language_children",
+                "lara-tabs.language_parent",
+                "lara-tabs.lara-media-tab.featured_ids",
+                "lara-tabs.lara-widget-tab.is_global",
+                "lara-tabs.lara-widget-tab.onpages",
+                "lara-tabs.linktext",
+                "lara-tabs.linkurl",
+                "lara-tabs.max_items",
+                "lara-tabs.publish",
+                "lara-tabs.publish_expire",
+                "lara-tabs.publish_from",
+                "lara-tabs.publish_hide",
+                "lara-tabs.publish_to",
+                "lara-tabs.resource_slug",
+                "lara-tabs.resource_term",
+                "lara-tabs.slug",
+                "lara-tabs.slug_edit",
+                "lara-tabs.slug_lock",
+                "lara-tabs.sortorder",
+                "lara-tabs.template",
+                "lara-tabs.title",
+                "lara-tabs.type",
+                "lara-tabs.usecache",
+                "lara-tabs.user_id"
+            ]
         }
     }
 }

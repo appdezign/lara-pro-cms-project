@@ -27,7 +27,7 @@ class BaseResourceStructureTest extends TestCase
 {
     private function baselinePath(): string
     {
-        return __DIR__ . '/__snapshots__/base_resource_structure.json';
+        return __DIR__.'/__snapshots__/base_resource_structure.json';
     }
 
     protected function setUp(): void
@@ -36,7 +36,7 @@ class BaseResourceStructureTest extends TestCase
 
         $user = User::where('name', 'admin')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->markTestSkipped('No "admin" user in the current database.');
         }
 
@@ -60,7 +60,7 @@ class BaseResourceStructureTest extends TestCase
         foreach ($entities as $entity) {
             $resource = $entity->resource;
 
-            if (!$resource || !class_exists($resource)) {
+            if (! $resource || ! class_exists($resource)) {
                 continue;
             }
 
@@ -68,12 +68,17 @@ class BaseResourceStructureTest extends TestCase
 
             $captured = [];
 
+            // a page the admin may not open fails to mount; name that, instead of an anonymous error
             if (isset($pages['index'])) {
-                $captured['table'] = $this->captureTable($pages['index']->getPage());
+                $captured['table'] = $resource::canViewAny()
+                    ? $this->captureTable($pages['index']->getPage())
+                    : ['error' => 'forbidden'];
             }
 
             if (isset($pages['create'])) {
-                $captured['form'] = $this->captureForm($pages['create']->getPage());
+                $captured['form'] = $resource::canCreate()
+                    ? $this->captureForm($pages['create']->getPage())
+                    : ['error' => 'forbidden'];
             }
 
             if ($captured !== []) {
@@ -85,7 +90,7 @@ class BaseResourceStructureTest extends TestCase
     }
 
     /**
-     * @param class-string $pageClass
+     * @param  class-string  $pageClass
      * @return array<string, mixed>
      */
     private function captureTable(string $pageClass): array
@@ -105,7 +110,7 @@ class BaseResourceStructureTest extends TestCase
     }
 
     /**
-     * @param class-string $pageClass
+     * @param  class-string  $pageClass
      * @return array<string, mixed>
      */
     private function captureForm(string $pageClass): array
@@ -117,7 +122,7 @@ class BaseResourceStructureTest extends TestCase
             return ['error' => class_basename($e)];
         }
 
-        if (!$schema) {
+        if (! $schema) {
             return ['error' => 'no form schema'];
         }
 
@@ -132,13 +137,13 @@ class BaseResourceStructureTest extends TestCase
 
         $path = $this->baselinePath();
 
-        if (getenv('LARA_REBUILD_BASELINE') || !File::exists($path)) {
+        if (getenv('LARA_REBUILD_BASELINE') || ! File::exists($path)) {
             File::ensureDirectoryExists(dirname($path));
-            File::put($path, json_encode($structure, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES) . "\n");
+            File::put($path, json_encode($structure, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)."\n");
 
             $this->addToAssertionCount(1);
 
-            fwrite(STDERR, "\n  baseline written: " . count($structure) . " resources\n");
+            fwrite(STDERR, "\n  baseline written: ".count($structure)." resources\n");
 
             return;
         }
@@ -149,7 +154,7 @@ class BaseResourceStructureTest extends TestCase
             $baseline,
             $structure,
             'The shared content form or table changed shape. If that was intended, regenerate '
-            . 'the baseline with LARA_REBUILD_BASELINE=1.'
+            .'the baseline with LARA_REBUILD_BASELINE=1.'
         );
     }
 }

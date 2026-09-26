@@ -2,13 +2,24 @@
 
 namespace Tests\Feature;
 
+use Filament\Actions\Testing\TestAction;
+use Filament\Facades\Filament;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 use InvalidArgumentException;
 use Lara\Admin\Concerns\HasLaraBuilder;
+use Lara\Admin\Livewire\BackupColumns;
+use Lara\Admin\Resources\Entities\Pages\EditEntity;
+use Lara\Common\Entities\EntityFieldName;
 use Lara\Common\Entities\EntityLabel;
 use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\EntityCustomField;
+use Lara\Common\Models\User;
+use Livewire\Livewire;
+use Mockery;
+use RuntimeException;
 use Tests\TestCase;
 
 /**
@@ -57,8 +68,15 @@ class EntityGenerationTest extends TestCase
 
     private const FORM_TABLE = 'lara_form_zzformfixtures';
 
+    /** The real schema builder, while a test has swapped in a failing one. */
+    private ?object $realSchema = null;
+
     protected function tearDown(): void
     {
+        if ($this->realSchema !== null) {
+            Schema::swap($this->realSchema);
+        }
+
         $this->cleanUpGeneratedEntity();
 
         parent::tearDown();
@@ -82,6 +100,64 @@ class EntityGenerationTest extends TestCase
             {
                 self::checkDatabaseTable($entity);
             }
+
+            public function buildEntitySafely(Entity $entity): bool
+            {
+                return self::buildEntity($entity);
+            }
+
+            /**
+             * @param  array<string, mixed>|null  $previousValues
+             */
+            public function buildField(EntityCustomField $customField, ?array $previousValues = null): bool
+            {
+                return self::buildCustomField($customField, $previousValues);
+            }
+
+            /**
+             * @param  array<string, mixed>  $previousValues
+             */
+            public function buildBodyColumns(Entity $entity, array $previousValues): bool
+            {
+                return self::buildExtraBodyColumns($entity, $previousValues);
+            }
+
+            public function archiveField(EntityCustomField $customField): void
+            {
+                self::archiveCustomFieldColumn($customField);
+            }
+
+            public function assertFieldCanBeArchived(EntityCustomField $customField): void
+            {
+                self::assertCustomFieldCanBeArchived($customField);
+            }
+
+            /**
+             * @return array<string, array{key: string, columns: list<string>, column_type: string, filled_rows: int}>
+             */
+            public function backupColumns(Entity $entity): array
+            {
+                return self::getBackupColumns($entity);
+            }
+
+            /**
+             * @param  array{key: string, column_type: string}  $backup
+             * @return array<string, string>
+             */
+            public function restorableFieldTypes(Entity $entity, array $backup): array
+            {
+                return self::getRestorableFieldTypes($entity, $backup);
+            }
+
+            public function restoreBackup(Entity $entity, string $key, string $fieldType, string $title): bool
+            {
+                return self::restoreBackupColumn($entity, $key, $fieldType, $title);
+            }
+
+            public function dropBackup(Entity $entity, string $key): bool
+            {
+                return self::dropBackupColumn($entity, $key);
+            }
         };
     }
 
@@ -96,6 +172,72 @@ class EntityGenerationTest extends TestCase
     }
 
     /**
+     * Swap in a schema builder that passes every call through, except the nth call of one
+     * method, which throws. Lets a test fail the builder at an exact step.
+     */
+    private function failSchemaCall(string $method, int $failOnCall = 1): void
+    {
+        $this->realSchema = $realSchema = Schema::getFacadeRoot();
+        $calls = 0;
+
+        $schema = Mockery::mock($realSchema);
+        $schema->shouldReceive($method)->andReturnUsing(
+            function (...$arguments) use ($realSchema, $method, $failOnCall, &$calls) {
+                if (++$calls === $failOnCall) {
+                    throw new RuntimeException('Forced failure of Schema::'.$method.'()');
+                }
+
+                return $realSchema->{$method}(...$arguments);
+            }
+        );
+
+        Schema::swap($schema);
+    }
+
+    /**
+     * A generated fixture entity with its table, ready for custom fields.
+     */
+    private function makeBuiltEntity(): Entity
+    {
+        $entity = $this->makeEntityRow(self::LABEL);
+
+        $this->assertTrue($this->builder()->buildEntitySafely($entity), 'The fixture entity could not be built.');
+
+        return $entity->refresh();
+    }
+
+    /**
+     * Refreshed, so every column is in the original state, as for a record the admin loaded.
+     */
+    private function makeFieldRow(Entity $entity, string $fieldName, string $fieldType = 'string'): EntityCustomField
+    {
+        return EntityCustomField::create([
+            'entity_id' => $entity->id,
+            'title' => $fieldName,
+            'field_name' => $fieldName,
+            'field_type' => $fieldType,
+            'field_hook' => 'after-last',
+        ])->refresh();
+    }
+
+    /**
+     * A built field with a column, and one content row that has a value in it.
+     */
+    private function makeFieldWithData(Entity $entity, string $fieldName, string $fieldType = 'string', string $value = 'kept'): EntityCustomField
+    {
+        $field = $this->makeFieldRow($entity, $fieldName, $fieldType);
+        $this->assertTrue($this->builder()->buildField($field));
+
+        DB::table(self::TABLE)->insert([
+            'user_id' => User::role('superadmin')->value('id'),
+            'title' => 'row with data',
+            $fieldName => $value,
+        ]);
+
+        return $field;
+    }
+
+    /**
      * @return list<string> absolute paths the generator writes
      */
     private function generatedPaths(string $model = self::MODEL, string $dir = self::RESOURCE_DIR): array
@@ -107,6 +249,7 @@ class EntityGenerationTest extends TestCase
             $app.'Entities/'.$dir.'Entity.php',
             $app.'Policies/'.$model.'Policy.php',
             $app.'Http/Controllers/Front/Entity/'.$dir.'Controller.php',
+            $app.'Database/Factories/'.$model.'Factory.php',
             $app.'Filament/Resources/'.$dir.'/'.$model.'Resource.php',
         ];
     }
@@ -362,5 +505,371 @@ class EntityGenerationTest extends TestCase
         $this->assertNotNull($config, 'A generated entity must be resolvable immediately.');
         $this->assertSame(self::PLURAL, $config->resourceSlug);
         $this->assertSame('entity', $config->cgroup);
+    }
+
+    public function test_a_field_name_that_would_clash_with_a_base_column_is_rejected(): void
+    {
+        foreach (['title', 'body', 'body3', 'geo_city', 'publish_from', '_backup', 'My Field', '9lives', str_repeat('a', 64)] as $badName) {
+            $this->assertNotNull(EntityFieldName::reject($badName), 'Field name "'.$badName.'" must be rejected.');
+        }
+
+        foreach (['first_name', 'myselect_2', 'startdate', 'hook', 'resource_slug'] as $goodName) {
+            $this->assertNull(EntityFieldName::reject($goodName), 'Field name "'.$goodName.'" should be acceptable.');
+        }
+    }
+
+    public function test_building_an_entity_creates_its_files_and_table(): void
+    {
+        $this->makeBuiltEntity();
+
+        foreach ($this->generatedPaths() as $path) {
+            $this->assertFileExists($path);
+        }
+
+        $this->assertTrue(Schema::hasTable(self::TABLE));
+    }
+
+    public function test_an_entity_that_fails_to_build_leaves_nothing_behind(): void
+    {
+        $entity = $this->makeEntityRow(self::LABEL);
+
+        $this->failSchemaCall('create');
+
+        $this->assertFalse($this->builder()->buildEntitySafely($entity));
+
+        $this->assertNull(Entity::find($entity->id), 'The entity row must be removed again.');
+        $this->assertFalse(Schema::hasTable(self::TABLE));
+
+        foreach ($this->generatedPaths() as $path) {
+            $this->assertFileDoesNotExist($path);
+        }
+
+        $this->assertDirectoryDoesNotExist(base_path('laracms/app/Filament/Resources/'.self::RESOURCE_DIR));
+    }
+
+    public function test_an_entity_with_a_taken_resource_slug_is_not_built(): void
+    {
+        $this->makeBuiltEntity();
+        $modelFile = base_path('laracms/app/Models/'.self::MODEL.'.php');
+        $modelContents = File::get($modelFile);
+
+        $duplicate = $this->makeEntityRow(self::LABEL);
+
+        $this->assertFalse($this->builder()->buildEntitySafely($duplicate));
+
+        $this->assertNull(Entity::find($duplicate->id));
+        $this->assertSame($modelContents, File::get($modelFile), 'The existing entity must not be touched.');
+        $this->assertTrue(Schema::hasTable(self::TABLE));
+    }
+
+    public function test_a_new_field_gets_its_column(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzcolor');
+
+        $this->assertTrue($this->builder()->buildField($field));
+
+        $this->assertSame('varchar', Schema::getColumnType(self::TABLE, 'zzcolor'));
+        $this->assertNotNull(EntityCustomField::find($field->id));
+    }
+
+    public function test_a_new_field_with_a_base_column_name_is_removed_and_the_base_column_is_untouched(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'title', 'textarea');
+
+        $this->assertFalse($this->builder()->buildField($field));
+
+        $this->assertNull(EntityCustomField::find($field->id));
+        $this->assertSame('varchar', Schema::getColumnType(self::TABLE, 'title'));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, '_title'));
+    }
+
+    public function test_a_new_field_whose_column_cannot_be_added_is_removed(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzcolor');
+
+        $this->failSchemaCall('table');
+
+        $this->assertFalse($this->builder()->buildField($field));
+
+        $this->assertNull(EntityCustomField::find($field->id));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, 'zzcolor'));
+    }
+
+    public function test_a_renamed_field_keeps_the_old_column_as_backup(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzold');
+        $this->builder()->buildField($field);
+
+        $field->update(['field_name_temp' => 'zznew']);
+
+        $this->assertTrue($this->builder()->buildField($field, $field->getPrevious()));
+
+        $field->refresh();
+        $this->assertSame('zznew', $field->field_name);
+        $this->assertNull($field->field_name_temp);
+        $this->assertTrue(Schema::hasColumn(self::TABLE, 'zznew'));
+        $this->assertTrue(Schema::hasColumn(self::TABLE, '_zzold'));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, 'zzold'));
+    }
+
+    public function test_a_rename_that_fails_halfway_restores_the_column_and_the_field(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzold');
+        $this->builder()->buildField($field);
+
+        $field->update(['field_name_temp' => 'zznew']);
+
+        // call 1 renames zzold to _zzold, call 2 adds zznew
+        $this->failSchemaCall('table', 2);
+
+        $this->assertFalse($this->builder()->buildField($field, $field->getPrevious()));
+
+        $field->refresh();
+        $this->assertSame('zzold', $field->field_name);
+        $this->assertNull($field->field_name_temp, 'A pending rename must not be retried on the next save.');
+        $this->assertTrue(Schema::hasColumn(self::TABLE, 'zzold'));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, '_zzold'));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, 'zznew'));
+    }
+
+    public function test_a_type_change_that_fails_halfway_restores_the_column_and_the_field(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzcolor');
+        $this->builder()->buildField($field);
+
+        $field->update(['field_type' => 'textarea']);
+
+        // call 1 renames zzcolor to _zzcolor, call 2 adds the text column
+        $this->failSchemaCall('table', 2);
+
+        $this->assertFalse($this->builder()->buildField($field, $field->getPrevious()));
+
+        $this->assertSame('string', $field->refresh()->field_type);
+        $this->assertSame('varchar', Schema::getColumnType(self::TABLE, 'zzcolor'));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, '_zzcolor'));
+    }
+
+    public function test_a_geolocation_field_that_fails_halfway_leaves_no_geo_columns(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzgeo', 'geolocation');
+
+        // the first three geo columns are added, the fourth fails
+        $this->failSchemaCall('table', 4);
+
+        $this->assertFalse($this->builder()->buildField($field));
+
+        $this->assertNull(EntityCustomField::find($field->id));
+        foreach (['geo_address', 'geo_pcode', 'geo_city', 'geo_country'] as $column) {
+            $this->assertFalse(Schema::hasColumn(self::TABLE, $column), $column.' must be dropped again.');
+        }
+    }
+
+    public function test_extra_body_columns_that_fail_halfway_are_dropped_and_the_count_restored(): void
+    {
+        $entity = $this->makeBuiltEntity();
+
+        $entity->update(['col_extra_body_fields' => 3]);
+
+        // body2 is added, body3 fails
+        $this->failSchemaCall('table', 2);
+
+        $this->assertFalse($this->builder()->buildBodyColumns($entity, $entity->getPrevious()));
+
+        $this->assertEquals(0, $entity->refresh()->col_extra_body_fields);
+        $this->assertFalse(Schema::hasColumn(self::TABLE, 'body2'));
+    }
+
+    public function test_a_multi_value_field_gets_its_array_cast_without_editing_the_model(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzchoices', 'multiselect');
+
+        $this->assertTrue($this->builder()->buildField($field));
+
+        $modelClass = $entity->model_class;
+        $this->assertSame('array', (new $modelClass)->getCasts()['zzchoices'] ?? null);
+    }
+
+    public function test_a_deleted_field_becomes_a_backup_column_with_its_data(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor');
+
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $backups = $this->builder()->backupColumns($entity);
+
+        $this->assertSame(['_zzcolor'], $backups['zzcolor']['columns']);
+        $this->assertSame('varchar', $backups['zzcolor']['column_type']);
+        $this->assertSame(1, $backups['zzcolor']['filled_rows']);
+    }
+
+    public function test_a_backup_column_can_be_restored_as_a_field_with_its_data(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor', value: 'blue');
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $this->assertTrue($this->builder()->restoreBackup($entity, 'zzcolor', 'string', 'Colour'));
+
+        $restored = $entity->customfields()->where('field_name', 'zzcolor')->first();
+        $this->assertNotNull($restored);
+        $this->assertSame('Colour', $restored->title);
+        $this->assertSame('blue', DB::table(self::TABLE)->value('zzcolor'));
+        $this->assertSame([], $this->builder()->backupColumns($entity));
+    }
+
+    public function test_a_backup_column_only_restores_as_a_field_type_that_fits_its_column(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor');
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $backup = $this->builder()->backupColumns($entity)['zzcolor'];
+        $fieldTypes = array_keys($this->builder()->restorableFieldTypes($entity, $backup));
+
+        $this->assertContains('string', $fieldTypes);
+        $this->assertNotContains('number', $fieldTypes);
+
+        $this->assertFalse($this->builder()->restoreBackup($entity, 'zzcolor', 'number', 'Colour'));
+        $this->assertTrue(Schema::hasColumn(self::TABLE, '_zzcolor'));
+        $this->assertFalse($entity->customfields()->where('field_name', 'zzcolor')->exists());
+    }
+
+    public function test_a_restore_that_fails_halfway_keeps_the_backup_column(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor');
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        // the column is renamed and the field row created, then the verification fails
+        $this->failSchemaCall('getColumnType');
+
+        $this->assertFalse($this->builder()->restoreBackup($entity, 'zzcolor', 'string', 'Colour'));
+
+        $this->assertTrue(Schema::hasColumn(self::TABLE, '_zzcolor'));
+        $this->assertFalse(Schema::hasColumn(self::TABLE, 'zzcolor'));
+        $this->assertFalse($entity->customfields()->where('field_name', 'zzcolor')->exists());
+    }
+
+    public function test_a_backup_column_can_be_deleted_permanently(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor');
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $this->assertTrue($this->builder()->dropBackup($entity, 'zzcolor'));
+
+        $this->assertFalse(Schema::hasColumn(self::TABLE, '_zzcolor'));
+        $this->assertSame([], $this->builder()->backupColumns($entity));
+    }
+
+    public function test_an_older_backup_column_is_never_overwritten(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $oldField = $this->makeFieldWithData($entity, 'zzcolor', value: 'old data');
+        $oldField->delete();
+        $this->builder()->archiveField($oldField);
+
+        $newField = $this->makeFieldRow($entity, 'zzcolor');
+        $this->assertTrue($this->builder()->buildField($newField));
+
+        // a type change would need the backup slot, so it is refused and the field restored
+        $newField->update(['field_type' => 'textarea']);
+        $this->assertFalse($this->builder()->buildField($newField, $newField->getPrevious()));
+        $this->assertSame('string', $newField->refresh()->field_type);
+
+        // and so is a delete, before the row is gone
+        $this->expectException(InvalidArgumentException::class);
+
+        try {
+            $this->builder()->assertFieldCanBeArchived($newField);
+        } finally {
+            $this->assertSame('old data', DB::table(self::TABLE)->value('_zzcolor'));
+        }
+    }
+
+    public function test_the_backups_of_a_geolocation_field_are_one_record_and_restore_together(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldRow($entity, 'zzgeo', 'geolocation');
+        $this->assertTrue($this->builder()->buildField($field));
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $backups = $this->builder()->backupColumns($entity);
+
+        $this->assertSame(['geolocation'], array_keys($backups));
+        $this->assertCount(7, $backups['geolocation']['columns']);
+        $this->assertSame(['geolocation' => 'Geolocation'], $this->builder()->restorableFieldTypes($entity, $backups['geolocation']));
+
+        $this->assertTrue($this->builder()->restoreBackup($entity, 'geolocation', 'geolocation', 'Location'));
+
+        $this->assertTrue(Schema::hasColumns(self::TABLE, ['geo_address', 'geo_latitude', 'geo_longitude']));
+        $this->assertTrue($entity->customfields()->where('field_type', 'geolocation')->exists());
+    }
+
+    public function test_the_backup_columns_table_restores_a_backup_for_the_webmaster(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor', value: 'blue');
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $this->actingAs(User::role('superadmin')->firstOrFail());
+        Filament::setCurrentPanel('admin');
+
+        Livewire::test(BackupColumns::class, ['entity' => $entity])
+            ->assertSee('_zzcolor')
+            ->callAction(TestAction::make('restore')->table('zzcolor'), [
+                'title' => 'Colour',
+                'field_type' => 'string',
+            ])
+            ->assertHasNoFormErrors()
+            ->assertDispatched('lara-custom-fields-changed')
+            ->assertSee('No backup columns');
+
+        $this->assertSame('blue', DB::table(self::TABLE)->value('zzcolor'));
+    }
+
+    public function test_the_backup_columns_table_deletes_a_backup_for_the_webmaster(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        $field = $this->makeFieldWithData($entity, 'zzcolor');
+        $field->delete();
+        $this->builder()->archiveField($field);
+
+        $this->actingAs(User::role('superadmin')->firstOrFail());
+        Filament::setCurrentPanel('admin');
+
+        Livewire::test(BackupColumns::class, ['entity' => $entity])
+            ->callAction(TestAction::make('delete')->table('zzcolor'))
+            ->assertSee('No backup columns');
+
+        $this->assertFalse(Schema::hasColumn(self::TABLE, '_zzcolor'));
+    }
+
+    public function test_the_entity_edit_page_shows_the_backup_columns_table(): void
+    {
+        $entity = $this->makeBuiltEntity();
+
+        $this->actingAs(User::role('superadmin')->firstOrFail());
+        Filament::setCurrentPanel('admin');
+
+        Livewire::test(EditEntity::class, ['record' => $entity->id])
+            ->assertOk()
+            ->assertSeeLivewire(BackupColumns::class);
     }
 }
