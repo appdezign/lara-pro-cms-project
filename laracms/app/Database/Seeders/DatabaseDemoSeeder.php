@@ -33,7 +33,6 @@ class DatabaseDemoSeeder extends Seeder
         $this->call(DemoLaraBlocksSlidersTableSeeder::class);
         $this->call(DemoLaraBlocksWidgetsTableSeeder::class);
         $this->call(DemoLaraContentBlogsTableSeeder::class);
-        $this->call(DemoLaraContentCitiesTableSeeder::class);
         $this->call(DemoLaraContentDocsTableSeeder::class);
         $this->call(DemoLaraContentEventsTableSeeder::class);
         $this->call(DemoLaraContentGalleriesTableSeeder::class);
