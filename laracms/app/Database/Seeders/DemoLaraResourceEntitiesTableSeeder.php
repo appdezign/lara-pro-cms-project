@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraResourceEntitiesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,10 +15,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_resource_entities')->delete();
 
-        \DB::table('lara_resource_entities')->insert([
-            0 => [
+        \DB::table('lara_resource_entities')->insert(array (
+            0 =>
+            array (
                 'id' => 1,
                 'title' => 'Page',
                 'resource_slug' => 'pages',
@@ -41,8 +44,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'position',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -84,8 +87,9 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_group_values' => '["page", "module", "email"]',
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
-            ],
-            1 => [
+            ),
+            1 =>
+            array (
                 'id' => 2,
                 'title' => 'Blog',
                 'resource_slug' => 'blogs',
@@ -97,7 +101,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'nav_group' => 'modules',
                 'has_front_auth' => 0,
                 'created_at' => '2025-04-14 18:39:44',
-                'updated_at' => '2026-09-26 15:37:13',
+                'updated_at' => '2026-09-27 12:05:43',
                 'cgroup' => 'entity',
                 'position' => 205,
                 'col_has_lead' => 1,
@@ -149,11 +153,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
-            ],
-            2 => [
+            ),
+            2 =>
+            array (
                 'id' => 3,
                 'title' => 'Teams',
                 'resource_slug' => 'teams',
@@ -177,8 +182,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 1,
                 'sort_primary_field' => 'position',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -217,25 +222,26 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
-            ],
-            3 => [
+            ),
+            3 =>
+            array (
                 'id' => 5,
                 'title' => 'Tag',
                 'resource_slug' => 'tags',
                 'label_single' => 'tag',
                 'resource' => 'Lara\\Admin\\Resources\\Tags\\TagResource',
-                'policy' => null,
+                'policy' => NULL,
                 'model_class' => 'Lara\\Common\\Models\\Tag',
                 'controller' => 'TagsController',
-                'nav_group' => null,
+                'nav_group' => NULL,
                 'has_front_auth' => 0,
                 'created_at' => '2025-05-02 11:55:49',
                 'updated_at' => '2026-03-16 14:00:40',
                 'cgroup' => 'taxonomy',
-                'position' => null,
+                'position' => NULL,
                 'col_has_lead' => 0,
                 'col_has_body' => 0,
                 'col_extra_body_fields' => 0,
@@ -245,8 +251,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -285,25 +291,26 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            4 => [
+            ),
+            4 =>
+            array (
                 'id' => 6,
                 'title' => 'Base',
                 'resource_slug' => 'bases',
                 'label_single' => 'base',
-                'resource' => null,
-                'policy' => null,
-                'model_class' => null,
-                'controller' => null,
-                'nav_group' => null,
+                'resource' => NULL,
+                'policy' => NULL,
+                'model_class' => NULL,
+                'controller' => NULL,
+                'nav_group' => NULL,
                 'has_front_auth' => 0,
                 'created_at' => '2025-05-02 15:10:38',
                 'updated_at' => '2025-05-02 15:10:38',
                 'cgroup' => 'base',
-                'position' => null,
+                'position' => NULL,
                 'col_has_lead' => 0,
                 'col_has_body' => 0,
                 'col_extra_body_fields' => 0,
@@ -311,10 +318,10 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'col_has_expiration' => 0,
                 'col_has_hideinlist' => 0,
                 'sort_is_sortable' => 0,
-                'sort_primary_field' => null,
-                'sort_primary_order' => null,
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_primary_field' => NULL,
+                'sort_primary_order' => NULL,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -353,11 +360,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            5 => [
+            ),
+            5 =>
+            array (
                 'id' => 41,
                 'title' => 'Locations',
                 'resource_slug' => 'locations',
@@ -381,8 +389,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -421,11 +429,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            6 => [
+            ),
+            6 =>
+            array (
                 'id' => 42,
                 'title' => 'Sliders',
                 'resource_slug' => 'sliders',
@@ -449,8 +458,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 1,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -489,11 +498,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            7 => [
+            ),
+            7 =>
+            array (
                 'id' => 43,
                 'title' => 'Contactforms',
                 'resource_slug' => 'contactforms',
@@ -517,8 +527,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -557,11 +567,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            8 => [
+            ),
+            8 =>
+            array (
                 'id' => 44,
                 'title' => 'Events',
                 'resource_slug' => 'events',
@@ -625,11 +636,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            9 => [
+            ),
+            9 =>
+            array (
                 'id' => 52,
                 'title' => 'Widgets',
                 'resource_slug' => 'widgets',
@@ -693,11 +705,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            10 => [
+            ),
+            10 =>
+            array (
                 'id' => 59,
                 'title' => 'Call-to-action',
                 'resource_slug' => 'ctas',
@@ -721,8 +734,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 0,
@@ -761,11 +774,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            11 => [
+            ),
+            11 =>
+            array (
                 'id' => 61,
                 'title' => 'Services',
                 'resource_slug' => 'services',
@@ -789,8 +803,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -829,11 +843,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            12 => [
+            ),
+            12 =>
+            array (
                 'id' => 62,
                 'title' => 'Testimonials',
                 'resource_slug' => 'testimonials',
@@ -857,8 +872,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 1,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -897,11 +912,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            13 => [
+            ),
+            13 =>
+            array (
                 'id' => 63,
                 'title' => 'Portfolios',
                 'resource_slug' => 'portfolios',
@@ -925,8 +941,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 1,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -965,11 +981,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            14 => [
+            ),
+            14 =>
+            array (
                 'id' => 64,
                 'title' => 'Galleries',
                 'resource_slug' => 'galleries',
@@ -993,8 +1010,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -1033,11 +1050,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            15 => [
+            ),
+            15 =>
+            array (
                 'id' => 65,
                 'title' => 'Docs',
                 'resource_slug' => 'docs',
@@ -1061,8 +1079,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -1101,11 +1119,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 1,
-            ],
-            16 => [
+            ),
+            16 =>
+            array (
                 'id' => 66,
                 'title' => 'Videos',
                 'resource_slug' => 'videos',
@@ -1129,8 +1148,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -1169,11 +1188,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            17 => [
+            ),
+            17 =>
+            array (
                 'id' => 69,
                 'title' => 'Classicforms',
                 'resource_slug' => 'classicforms',
@@ -1197,8 +1217,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 0,
                 'sort_primary_field' => 'id',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 0,
                 'show_batch' => 0,
                 'show_status' => 1,
@@ -1237,11 +1257,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 0,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
-            ],
-            18 => [
+            ),
+            18 =>
+            array (
                 'id' => 70,
                 'title' => 'Products',
                 'resource_slug' => 'products',
@@ -1265,8 +1286,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'sort_is_sortable' => 1,
                 'sort_primary_field' => 'position',
                 'sort_primary_order' => 'asc',
-                'sort_secondary_field' => null,
-                'sort_secondary_order' => null,
+                'sort_secondary_field' => NULL,
+                'sort_secondary_order' => NULL,
                 'show_search' => 1,
                 'show_batch' => 1,
                 'show_status' => 1,
@@ -1305,11 +1326,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'media_disk_files' => 'public',
                 'objrel_has_terms' => 1,
                 'objrel_has_groups' => 0,
-                'objrel_group_values' => null,
+                'objrel_group_values' => NULL,
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
-            ],
-        ]);
+            ),
+        ));
+
 
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraAuthModelHasPermissionsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,7 +15,10 @@ class DemoLaraAuthModelHasPermissionsTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_auth_model_has_permissions')->delete();
+
+
 
     }
 }

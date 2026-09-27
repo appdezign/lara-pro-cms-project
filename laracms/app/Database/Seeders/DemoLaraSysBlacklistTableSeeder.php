@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraSysBlacklistTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,7 +15,10 @@ class DemoLaraSysBlacklistTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_sys_blacklist')->delete();
+
+
 
     }
 }

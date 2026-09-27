@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraContentServicesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,14 +15,16 @@ class DemoLaraContentServicesTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_content_services')->delete();
 
-        \DB::table('lara_content_services')->insert([
-            0 => [
+        \DB::table('lara_content_services')->insert(array (
+            0 =>
+            array (
                 'id' => 1,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Product Design',
                 'slug' => 'product-design',
                 'slug_lock' => 0,
@@ -29,22 +32,23 @@ class DemoLaraContentServicesTableSeeder extends Seeder
                 'body' => '<ul><li><p>UX/UI</p></li><li><p>Interactive design</p></li><li><p>Motion design</p></li></ul>',
                 'created_at' => '2025-08-22 17:47:57',
                 'updated_at' => '2026-08-10 16:01:20',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-22 17:46:00',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            1 => [
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            1 =>
+            array (
                 'id' => 2,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Web Development',
                 'slug' => 'web-development',
                 'slug_lock' => 0,
@@ -52,41 +56,43 @@ class DemoLaraContentServicesTableSeeder extends Seeder
                 'body' => '<ul><li><p>Bootstrap 5</p></li><li><p>Responsive</p></li><li><p>ES6 Modules</p></li></ul>',
                 'created_at' => '2025-08-22 18:44:20',
                 'updated_at' => '2025-12-24 12:23:46',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-22 18:44:00',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            2 => [
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            2 =>
+            array (
                 'id' => 3,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Software Testing',
                 'slug' => 'software-testing',
                 'slug_lock' => 0,
                 'lead' => '<p>Phasellus posuere leo vitae quam faucibus cursus. Phasellus eu ex ultrices, facilisis ex at, aliquet felis. Cras id rutrum ante. Curabitur suscipit diam a facilisis laoreet. Duis id elit imperdiet eros vestibulum molestie. Nulla pellentesque justo enim,</p>',
-                'body' => '<div class="grid-layout" data-cols="2" style="--cols: repeat(2, minmax(0, 1fr));" data-from-breakpoint="lg"><div class="grid-layout-col" data-col-span="1" style="--col-span: span 1 / span 1;"><h3>85+</h3><p>Tested projects</p></div><div class="grid-layout-col" data-col-span="1" style="--col-span: span 1 / span 1;"><h3>200+</h3><p>Happy clients</p></div></div><h5></h5><h5></h5>',
+            'body' => '<div class="grid-layout" data-cols="2" style="--cols: repeat(2, minmax(0, 1fr));" data-from-breakpoint="lg"><div class="grid-layout-col" data-col-span="1" style="--col-span: span 1 / span 1;"><h3>85+</h3><p>Tested projects</p></div><div class="grid-layout-col" data-col-span="1" style="--col-span: span 1 / span 1;"><h3>200+</h3><p>Happy clients</p></div></div><h5></h5><h5></h5>',
                 'created_at' => '2025-08-22 18:49:09',
                 'updated_at' => '2026-03-12 14:28:35',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-22 18:49:00',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-        ]);
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+        ));
+
 
     }
 }

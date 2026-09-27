@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraContentLocationsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,19 +15,21 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_content_locations')->delete();
 
-        \DB::table('lara_content_locations')->insert([
-            0 => [
+        \DB::table('lara_content_locations')->insert(array (
+            0 =>
+            array (
                 'id' => 1,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Marathon Music Works',
                 'slug' => 'marathon-music-works',
                 'slug_lock' => 0,
-                'lead' => null,
-                'body' => null,
+                'lead' => NULL,
+                'body' => NULL,
                 'geo_location' => 'auto',
                 'geo_country' => 'United States',
                 'geo_city' => 'Nashville, TN',
@@ -36,27 +39,28 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'geo_latitude' => '36.16409770',
                 'created_at' => '2025-07-04 17:37:33',
                 'updated_at' => '2026-04-25 10:58:51',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 17:37:24',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            1 => [
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            1 =>
+            array (
                 'id' => 2,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'NDSM Loods',
                 'slug' => 'ndsm-loods',
                 'slug_lock' => 0,
-                'lead' => null,
-                'body' => null,
+                'lead' => NULL,
+                'body' => NULL,
                 'geo_location' => 'auto',
                 'geo_country' => 'Nederland',
                 'geo_city' => 'Amsterdam',
@@ -66,27 +70,28 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'geo_latitude' => '52.40120080',
                 'created_at' => '2025-07-09 13:15:22',
                 'updated_at' => '2025-09-29 18:33:38',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:15:01',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            2 => [
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            2 =>
+            array (
                 'id' => 3,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Firmaq West HQ',
                 'slug' => 'firmaq-west-hq',
                 'slug_lock' => 0,
-                'lead' => null,
-                'body' => null,
+                'lead' => NULL,
+                'body' => NULL,
                 'geo_location' => 'auto',
                 'geo_country' => 'Netherlands',
                 'geo_city' => 'Haarlem',
@@ -96,27 +101,28 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'geo_latitude' => '52.37070970',
                 'created_at' => '2025-07-09 13:16:34',
                 'updated_at' => '2025-10-06 13:48:21',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:16:11',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            3 => [
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            3 =>
+            array (
                 'id' => 4,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Firmaq Noord HQ',
                 'slug' => 'firmaq-noord-hq',
                 'slug_lock' => 0,
-                'lead' => null,
-                'body' => null,
+                'lead' => NULL,
+                'body' => NULL,
                 'geo_location' => 'auto',
                 'geo_country' => 'Nederland',
                 'geo_city' => 'Heerenveen',
@@ -126,18 +132,19 @@ class DemoLaraContentLocationsTableSeeder extends Seeder
                 'geo_latitude' => '52.96272830',
                 'created_at' => '2025-07-09 13:17:33',
                 'updated_at' => '2025-10-06 13:49:13',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:17:20',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-        ]);
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+        ));
+
 
     }
 }

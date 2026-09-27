@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraContentEventsTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,15 +15,17 @@ class DemoLaraContentEventsTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_content_events')->delete();
 
-        \DB::table('lara_content_events')->insert([
-            0 => [
+        \DB::table('lara_content_events')->insert(array (
+            0 =>
+            array (
                 'id' => 1,
                 'location_id' => 1,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Laracon US',
                 'slug' => 'laracon-us',
                 'slug_lock' => 0,
@@ -34,23 +37,24 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'startdate' => '2026-08-01',
                 'created_at' => '2025-07-09 18:18:15',
                 'updated_at' => '2026-09-14 09:13:44',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 18:17:00',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-            1 => [
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            1 =>
+            array (
                 'id' => 2,
                 'location_id' => 2,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => null,
+                'language_parent' => NULL,
                 'title' => 'Laracon EU',
                 'slug' => 'laracon-eu',
                 'slug_lock' => 0,
@@ -62,18 +66,19 @@ class DemoLaraContentEventsTableSeeder extends Seeder
                 'startdate' => '2026-11-01',
                 'created_at' => '2025-07-09 18:22:12',
                 'updated_at' => '2026-03-20 10:08:49',
-                'deleted_at' => null,
+                'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 18:22:00',
                 'publish_expire' => 0,
-                'publish_to' => null,
+                'publish_to' => NULL,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => null,
-                'locked_at' => null,
-                'locked_by' => null,
-            ],
-        ]);
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+        ));
+
 
     }
 }

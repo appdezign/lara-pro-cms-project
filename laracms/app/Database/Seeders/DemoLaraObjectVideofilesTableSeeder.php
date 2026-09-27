@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraObjectVideofilesTableSeeder extends Seeder
 {
+
     /**
      * Auto generated seed file
      *
@@ -14,100 +15,117 @@ class DemoLaraObjectVideofilesTableSeeder extends Seeder
     public function run()
     {
 
+
         \DB::table('lara_object_videofiles')->delete();
 
-        \DB::table('lara_object_videofiles')->insert([
-            0 => [
+        \DB::table('lara_object_videofiles')->insert(array (
+            0 =>
+            array (
                 'id' => 18,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 22,
                 'entity_videofiles' => '[]',
-            ],
-            1 => [
+            ),
+            1 =>
+            array (
                 'id' => 19,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 23,
                 'entity_videofiles' => '[]',
-            ],
-            2 => [
+            ),
+            2 =>
+            array (
                 'id' => 20,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 27,
                 'entity_videofiles' => '[]',
-            ],
-            3 => [
+            ),
+            3 =>
+            array (
                 'id' => 21,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 31,
                 'entity_videofiles' => '[]',
-            ],
-            4 => [
+            ),
+            4 =>
+            array (
                 'id' => 22,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 30,
                 'entity_videofiles' => '[]',
-            ],
-            5 => [
+            ),
+            5 =>
+            array (
                 'id' => 23,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 29,
                 'entity_videofiles' => '[]',
-            ],
-            6 => [
+            ),
+            6 =>
+            array (
                 'id' => 24,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 26,
                 'entity_videofiles' => '[]',
-            ],
-            7 => [
+            ),
+            7 =>
+            array (
                 'id' => 25,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 25,
                 'entity_videofiles' => '[]',
-            ],
-            8 => [
+            ),
+            8 =>
+            array (
                 'id' => 26,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 24,
                 'entity_videofiles' => '[]',
-            ],
-            9 => [
+            ),
+            9 =>
+            array (
                 'id' => 27,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 35,
                 'entity_videofiles' => '[]',
-            ],
-            10 => [
+            ),
+            10 =>
+            array (
                 'id' => 28,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 36,
                 'entity_videofiles' => '[]',
-            ],
-            11 => [
+            ),
+            11 =>
+            array (
                 'id' => 29,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 37,
                 'entity_videofiles' => '[]',
-            ],
-            12 => [
+            ),
+            12 =>
+            array (
                 'id' => 30,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 38,
                 'entity_videofiles' => '[]',
-            ],
-            13 => [
+            ),
+            13 =>
+            array (
                 'id' => 31,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 39,
                 'entity_videofiles' => '[]',
-            ],
-            14 => [
+            ),
+            14 =>
+            array (
                 'id' => 32,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 40,
                 'entity_videofiles' => '[]',
-            ],
-        ]);
+            ),
+        ));
+
 
     }
 }
