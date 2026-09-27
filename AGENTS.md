@@ -35,6 +35,8 @@ Lara CMS 10 is a content management system built on Laravel and Filament (admin 
 ## Routing
 
 - Front routes are built from the database (menu items, entities, tags) and are per locale (`mcamara/laravel-localization`).
+- Menu routes are named after their URL by `Lara\Common\Routes\MenuRouteName` (`media/downloads` → `entitytag.docs.media.downloads.index`), never with a database ID. Their menu item, entity, method, tags and related routes travel with the route as a `FrontRouteContext` in the route action (`lara` key). Read that context (via `FrontEntityResolver` / `FrontActiveRoute`); do not parse or build route names by position, also not in templates (use `$activeroute->getSingleRoute()`, `getMenuRoute()`, `getTagRoute($tag)`).
+- `menu_items.routename` must match the name the route file registers. After changing the naming, run `php artisan lara:menu:refresh-routenames` (with `--dry-run` first), then rebuild the route cache and clear the application cache (widgets cache rendered links).
 - Cache routes with `php artisan lara:route:cache` only. **Never run `php artisan route:cache`**: it does not produce working per-locale routes.
 
 ## Testing

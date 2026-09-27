@@ -32,6 +32,8 @@ Lara CMS 10 is a content management system built on Laravel and Filament (admin 
 ## Routing
 
 - Front routes are built from the database (menu items, entities, tags) and are per locale (`mcamara/laravel-localization`).
+- Menu routes are named after their URL by `Lara\Common\Routes\MenuRouteName` (`media/downloads` → `entitytag.docs.media.downloads.index`), never with a database ID. Their menu item, entity, method, tags and related routes travel with the route as a `FrontRouteContext` in the route action (`lara` key). Read that context (via `FrontEntityResolver` / `FrontActiveRoute`); do not parse or build route names by position, also not in templates (use `$activeroute->getSingleRoute()`, `getMenuRoute()`, `getTagRoute($tag)`).
+- `menu_items.routename` must match the name the route file registers. After changing the naming, run `php artisan lara:menu:refresh-routenames` (with `--dry-run` first), then rebuild the route cache and clear the application cache (widgets cache rendered links).
 - Cache routes with `php artisan lara:route:cache` only. **Never run `php artisan route:cache`**: it does not produce working per-locale routes.
 
 ## Testing
@@ -50,4 +52,6 @@ Lara CMS 10 is a content management system built on Laravel and Filament (admin 
 
 ## Code style
 
-- PHP files in `laracms/` use tabs for indentation; Pint is configured not to change indentation. Run `vendor/bin/pint --format agent {files}` on changed files (this is not a git repository, so `--dirty` does not work).
+- PHP (including the generator stubs) and Blade use four spaces (see `.editorconfig`). PHP is formatted by Pint with its default `laravel` preset; Blade is formatted with PhpStorm's own formatter, not with Pint (its `--blade` option would bring in Prettier and reformat far more than indentation).
+- Run `vendor/bin/pint --format agent {files}` on changed PHP files. The project folder is not a git repository, so `--dirty` does not work there; the core and theme folders are separate git repositories.
+- Pint skips any directory named `vendor`, including `lang/vendor` (the site's published translations): pass those files explicitly.
