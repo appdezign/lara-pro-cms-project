@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Log;
 use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
+use Lara\Common\Routes\FrontRouteContext;
 use Lara\Common\Routes\FrontRouteMiddleware;
+use Lara\Common\Routes\MenuRouteName;
 use Lara\Common\Routes\RouteTagIndex;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
@@ -188,9 +190,17 @@ if (! $laraNeedsSetup) {
                 continue;
             }
 
-            Route::get($menuPage->route, $action)
+            $pageRoute = Route::get($menuPage->route, $action)
                 ->name($menuPage->routename)
                 ->middleware(FrontRouteMiddleware::build($menuPage->entity, $menuPage));
+
+            (new FrontRouteContext(
+                menuItemId: $menuPage->id,
+                prefix: 'entity',
+                resourceSlug: $menuPage->entity->resource_slug,
+                method: $menuPage->entityview->method,
+                objectId: $menuPage->object_id,
+            ))->attachTo($pageRoute);
 
         }
 
@@ -224,53 +234,86 @@ if (! $laraNeedsSetup) {
 
             $menuItemMiddleware = FrontRouteMiddleware::build($menuItem->entity, $menuItem);
 
+            $resourceSlug = $menuItem->entity->resource_slug;
+            $method = $menuItem->entityview->method;
+
+            // every route of this menu item knows the item, so the same entity can be in the menu twice
+            $registerRoute = static function (string $uri, string $action, string $name, FrontRouteContext $context) use ($menuItemMiddleware): void {
+                $context->attachTo(Route::get($uri, $action)->name($name)->middleware($menuItemMiddleware));
+            };
+
             if ($menuItem->entity->objrel_has_terms == 1) {
 
                 if (empty($menuItem->tag_id)) {
 
                     // SEO Routes for tags
-                    Route::get($menuItem->route, $listAction)
-                        ->name($menuItem->routename)->middleware($menuItemMiddleware);
+                    $tagRoutePattern = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $menuItem->route.'/{tag}', $method);
+                    $listContext = new FrontRouteContext($menuItem->id, $entity_tag_prefix, $resourceSlug, $method, singleRoute: $menuItem->routename.'.show', menuRoute: $menuItem->routename, tagRoutePattern: $tagRoutePattern);
+
+                    $registerRoute($menuItem->route, $listAction, $menuItem->routename, $listContext);
 
                     // add .html to object slug, so we can distinguish between an object slug and a (sub)cat slug.
                     if ($showAction !== null) {
-                        Route::get($menuItem->route.'/{slug}.html', $showAction)
-                            ->name($menuItem->routename.'.show')->middleware($menuItemMiddleware);
+                        $registerRoute($menuItem->route.'/{slug}.html', $showAction, $menuItem->routename.'.show', $listContext->forShow());
                     }
 
-                    $tags = app(RouteTagIndex::class)->forResource($menuItem->entity->resource_slug);
+                    $tags = app(RouteTagIndex::class)->forResource($resourceSlug);
 
                     foreach ($tags as $tag) {
 
-                        $tagslug = str_replace('.', '/', $tag->route);
-                        $tagRouteName = $entity_tag_prefix.'.'.$menuItem->entity->resource_slug.'.'.$menuItem->id.'.'.$tag->route.'.'.$menuItem->entityview->method;
+                        $tagPath = $menuItem->route.'/'.str_replace('.', '/', $tag->route);
+                        $tagRouteName = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $tagPath, $method);
+                        $tagContext = new FrontRouteContext($menuItem->id, $entity_tag_prefix, $resourceSlug, $method, explode('.', $tag->route), singleRoute: $tagRouteName.'.show', menuRoute: $menuItem->routename, tagRoutePattern: $tagRoutePattern);
 
-                        Route::get($menuItem->route.'/'.$tagslug, $listAction)
-                            ->name($tagRouteName)->middleware($menuItemMiddleware);
+                        $registerRoute($tagPath, $listAction, $tagRouteName, $tagContext);
 
                         if ($showAction !== null) {
-                            Route::get($menuItem->route.'/'.$tagslug.'/{slug}.html', $showAction)
-                                ->name($tagRouteName.'.show')->middleware($menuItemMiddleware);
+                            $registerRoute($tagPath.'/{slug}.html', $showAction, $tagRouteName.'.show', $tagContext->forShow());
                         }
 
                     }
 
                 } else {
 
-                    // entity with a tag (no show method, no tags)
-                    Route::get($menuItem->route, $listAction)
-                        ->name($menuItem->routename)->middleware($menuItemMiddleware);
+                    // entity with a tag (no show method, no tags); its objects are shown by the tag route
+                    // of the tagless menu item for the same entity
+                    $tag = app(RouteTagIndex::class)->forResource($resourceSlug)->firstWhere('id', $menuItem->tag_id);
+                    $tagRoute = $tag?->route;
+
+                    $taglessMenuItem = $menuItems->first(fn (MenuItem $candidate): bool => $candidate->entity_id == $menuItem->entity_id
+                        && $candidate->entity_view_id == $menuItem->entity_view_id
+                        && empty($candidate->tag_id)
+                        && ! empty($candidate->route));
+
+                    $tagRoutePattern = null;
+
+                    if ($taglessMenuItem && $tagRoute) {
+                        $singleRoute = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $taglessMenuItem->route.'/'.str_replace('.', '/', $tagRoute), $taglessMenuItem->entityview->method).'.show';
+                        $tagRoutePattern = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $taglessMenuItem->route.'/{tag}', $taglessMenuItem->entityview->method);
+                    } else {
+                        $singleRoute = $menuItem->routename.'.show';
+
+                        Log::warning('lara route: tagged menu item has no tagless menu item for the same entity', [
+                            'menu_item_id' => $menuItem->id,
+                            'entity_id' => $menuItem->entity_id,
+                            'entity_view_id' => $menuItem->entity_view_id,
+                        ]);
+                    }
+
+                    $tagContext = new FrontRouteContext($menuItem->id, $entity_tag_prefix, $resourceSlug, $method, $tagRoute ? explode('.', $tagRoute) : [], singleRoute: $singleRoute, menuRoute: $menuItem->routename, tagRoutePattern: $tagRoutePattern);
+
+                    $registerRoute($menuItem->route, $listAction, $menuItem->routename, $tagContext);
 
                 }
 
             } else {
 
-                Route::get($menuItem->route, $listAction)
-                    ->name($menuItem->routename)->middleware($menuItemMiddleware);
+                $listContext = new FrontRouteContext($menuItem->id, 'entity', $resourceSlug, $method, singleRoute: $menuItem->routename.'.show', menuRoute: $menuItem->routename);
+
+                $registerRoute($menuItem->route, $listAction, $menuItem->routename, $listContext);
 
                 if ($showAction !== null) {
-                    Route::get($menuItem->route.'/{slug}', $showAction)
-                        ->name($menuItem->routename.'.show')->middleware($menuItemMiddleware);
+                    $registerRoute($menuItem->route.'/{slug}', $showAction, $menuItem->routename.'.show', $listContext->forShow());
                 }
 
             }
@@ -305,15 +348,21 @@ if (! $laraNeedsSetup) {
                 continue;
             }
 
-            Route::get($menuForm->route, $formAction)
+            $formResourceSlug = $menuForm->entity->resource_slug;
+
+            $formRoute = Route::get($menuForm->route, $formAction)
                 ->name($menuForm->routename)
                 ->middleware(FrontRouteMiddleware::build($menuForm->entity, $menuForm));
 
+            (new FrontRouteContext($menuForm->id, 'form', $formResourceSlug, $menuForm->entityview->method))->attachTo($formRoute);
+
             // create route for regular POST without AJAX
             if ($processAction !== null) {
-                Route::post($menuForm->route, $processAction)
-                    ->name('form.'.$menuForm->entity->resource_slug.'.'.$menuForm->id.'.process')
+                $processRoute = Route::post($menuForm->route, $processAction)
+                    ->name(MenuRouteName::make('form', $formResourceSlug, $menuForm->route, 'process'))
                     ->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
+
+                (new FrontRouteContext($menuForm->id, 'form', $formResourceSlug, 'process'))->attachTo($processRoute);
             }
 
         }
