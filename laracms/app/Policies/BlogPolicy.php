@@ -57,5 +57,4 @@ class BlogPolicy
     {
         return $user->can('delete_any_blog');
     }
-
 }

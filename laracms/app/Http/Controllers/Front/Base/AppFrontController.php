@@ -6,7 +6,6 @@ use Lara\Front\Http\Controllers\Base\BaseFrontController;
 
 class AppFrontController extends BaseFrontController
 {
-
-	//
+    //
 
 }

@@ -34,14 +34,14 @@ class FrontendRenderTest extends TestCase
     {
         parent::setUp();
 
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=' . config('app.locale'));
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'='.config('app.locale'));
 
         $this->refreshApplication();
     }
 
     protected function tearDown(): void
     {
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=');
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'=');
 
         parent::tearDown();
     }
@@ -63,23 +63,23 @@ class FrontendRenderTest extends TestCase
         $this->assertSame(
             200,
             $response->status(),
-            $path . ' did not render (matched route: ' . $matched . ').'
+            $path.' did not render (matched route: '.$matched.').'
         );
 
         $this->assertNotSame(
             'error.show.404',
             $matched,
-            $path . ' fell through to the error page instead of its own route.'
+            $path.' fell through to the error page instead of its own route.'
         );
 
         if ($expectedRoutePrefix !== '') {
-            $this->assertStringStartsWith($expectedRoutePrefix, $matched, $path . ' matched an unexpected route.');
+            $this->assertStringStartsWith($expectedRoutePrefix, $matched, $path.' matched an unexpected route.');
         }
     }
 
     public function test_the_home_page_renders(): void
     {
-        $this->assertRenders('/' . $this->locale(), 'special.home.show');
+        $this->assertRenders('/'.$this->locale(), 'special.home.show');
     }
 
     /**
@@ -95,7 +95,7 @@ class FrontendRenderTest extends TestCase
             ->whereNotNull('routename')
             ->with('entity')
             ->get()
-            ->filter(fn(MenuItem $item): bool => $item->entity !== null && Route::has($item->routename));
+            ->filter(fn (MenuItem $item): bool => $item->entity !== null && Route::has($item->routename));
 
         $this->assertGreaterThan(0, $menuItems->count(), 'No routable menu items to render.');
 
@@ -107,22 +107,22 @@ class FrontendRenderTest extends TestCase
             // a page behind auth correctly redirects a guest to the login form
             $needsAuth = $item->route_has_auth || $item->entity->has_front_auth;
 
-            $response = $this->get('/' . $locale . '/' . $item->route);
+            $response = $this->get('/'.$locale.'/'.$item->route);
             $matched = Route::current()?->getName() ?? '(none)';
             $checked++;
 
             if ($needsAuth) {
                 if ($response->status() !== 302) {
-                    $failures[] = $item->route . ' => expected a redirect to login, got HTTP ' . $response->status();
+                    $failures[] = $item->route.' => expected a redirect to login, got HTTP '.$response->status();
                 }
 
                 continue;
             }
 
             if ($response->status() !== 200) {
-                $failures[] = $item->route . ' => HTTP ' . $response->status();
+                $failures[] = $item->route.' => HTTP '.$response->status();
             } elseif ($matched === 'error.show.404') {
-                $failures[] = $item->route . ' => fell through to the error page';
+                $failures[] = $item->route.' => fell through to the error page';
             }
         }
 
@@ -144,33 +144,33 @@ class FrontendRenderTest extends TestCase
             ->whereNull('tag_id')
             ->with('entity')
             ->get()
-            ->first(fn(MenuItem $item): bool => $item->entity !== null
-                && Route::has($item->routename . '.show'));
+            ->first(fn (MenuItem $item): bool => $item->entity !== null
+                && Route::has($item->routename.'.show'));
 
-        if (!$listItem) {
+        if (! $listItem) {
             $this->markTestSkipped('No entity menu item with a single-object route.');
         }
 
         $modelClass = $listItem->entity->model_class;
 
-        if (!$modelClass || !class_exists($modelClass)) {
+        if (! $modelClass || ! class_exists($modelClass)) {
             $this->markTestSkipped('Entity has no usable model class.');
         }
 
         $object = $modelClass::query()->whereNotNull('slug')->first();
 
-        if (!$object) {
+        if (! $object) {
             $this->markTestSkipped('No published object to render.');
         }
 
         $suffix = $listItem->entity->objrel_has_terms ? '.html' : '';
 
-        $this->assertRenders('/' . $locale . '/' . $listItem->route . '/' . $object->slug . $suffix);
+        $this->assertRenders('/'.$locale.'/'.$listItem->route.'/'.$object->slug.$suffix);
     }
 
     public function test_an_unknown_path_renders_the_error_page(): void
     {
-        $response = $this->get('/' . $this->locale() . '/zz-no-such-page');
+        $response = $this->get('/'.$this->locale().'/zz-no-such-page');
 
         $response->assertOk();
 
@@ -179,10 +179,10 @@ class FrontendRenderTest extends TestCase
 
     public function test_the_search_page_renders(): void
     {
-        if (!Route::has('special.search.form')) {
+        if (! Route::has('special.search.form')) {
             $this->markTestSkipped('No search route registered.');
         }
 
-        $this->assertRenders('/' . $this->locale() . '/search', 'special.search');
+        $this->assertRenders('/'.$this->locale().'/search', 'special.search');
     }
 }

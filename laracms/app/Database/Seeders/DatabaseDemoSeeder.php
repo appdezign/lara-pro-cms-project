@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class DatabaseDemoSeeder extends Seeder
 {
-	use WithoutModelEvents;
+    use WithoutModelEvents;
 
     /**
      * Seed the application's database.
@@ -16,12 +16,11 @@ class DatabaseDemoSeeder extends Seeder
     public function run(): void
     {
 
-	    DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-		#iseed_start
+        // iseed_start
 
-
-	    $this->call(DemoCuratorTableSeeder::class);
+        $this->call(DemoCuratorTableSeeder::class);
         $this->call(DemoLaraAuthModelHasPermissionsTableSeeder::class);
         $this->call(DemoLaraAuthModelHasRolesTableSeeder::class);
         $this->call(DemoLaraAuthPasswordResetTokensTableSeeder::class);
@@ -68,9 +67,9 @@ class DatabaseDemoSeeder extends Seeder
         $this->call(DemoLaraSysLanguagesTableSeeder::class);
         $this->call(DemoLaraSysSettingsTableSeeder::class);
         $this->call(DemoLaraSysTranslationsTableSeeder::class);
-		#iseed_end
+        // iseed_end
 
-	    DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
     }
 }

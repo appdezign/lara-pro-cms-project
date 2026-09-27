@@ -2,13 +2,12 @@
 
 namespace Lara\App\Models;
 
-use Lara\Common\Models\BaseModel;
 use Lara\Common\Http\Concerns\HasLanguage;
+use Lara\Common\Models\BaseModel;
 
 class Contactform extends BaseModel
 {
-	use HasLanguage;
+    use HasLanguage;
 
-	protected $table = 'lara_form_contactforms';
-
+    protected $table = 'lara_form_contactforms';
 }

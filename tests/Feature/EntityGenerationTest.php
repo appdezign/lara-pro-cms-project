@@ -411,11 +411,11 @@ class EntityGenerationTest extends TestCase
     }
 
     /**
-     * .editorconfig declares tabs for this project, and pint.json is configured
-     * not to fight that. Generated code has to follow the same rule, or every
-     * new entity reintroduces the mixed indentation.
+     * PHP is indented with four spaces (.editorconfig, Pint's laravel preset).
+     * Generated code has to follow the same rule, or every new entity
+     * reintroduces the mixed indentation.
      */
-    public function test_generated_files_are_tab_indented(): void
+    public function test_generated_files_are_space_indented(): void
     {
         $entity = $this->makeEntityRow(self::LABEL);
 
@@ -433,12 +433,12 @@ class EntityGenerationTest extends TestCase
 
             $this->assertNotEmpty($indented, basename($path).' has no indented lines to check.');
 
-            $spaceIndented = preg_grep('/^ /', $indented);
+            $tabIndented = preg_grep('/^[ ]*\t/', $indented);
 
             $this->assertSame(
                 [],
-                array_values($spaceIndented),
-                basename($path).' is space-indented; the stub should emit tabs.'
+                array_values($tabIndented),
+                basename($path).' is tab-indented; the stub should emit spaces.'
             );
         }
     }

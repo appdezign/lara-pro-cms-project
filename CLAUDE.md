@@ -53,7 +53,9 @@ Lara CMS 10 is a content management system built on Laravel and Filament (admin 
 
 ## Code style
 
-- PHP files in `laracms/` use tabs for indentation; Pint is configured not to change indentation. Run `vendor/bin/pint --format agent {files}` on changed files (this is not a git repository, so `--dirty` does not work).
+- PHP (including the generator stubs) and Blade use four spaces (see `.editorconfig`). PHP is formatted by Pint with its default `laravel` preset; Blade is formatted with PhpStorm's own formatter, not with Pint (its `--blade` option would bring in Prettier and reformat far more than indentation).
+- Run `vendor/bin/pint --format agent {files}` on changed PHP files. The project folder is not a git repository, so `--dirty` does not work there; the core and theme folders are separate git repositories.
+- Pint skips any directory named `vendor`, including `lang/vendor` (the site's published translations): pass those files explicitly.
 
 === foundation rules ===
 

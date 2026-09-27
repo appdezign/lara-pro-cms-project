@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
 use Mcamara\LaravelLocalization\LaravelLocalization;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
 /**
@@ -22,7 +23,7 @@ class RouteBuildingTest extends TestCase
 {
     protected function tearDown(): void
     {
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=');
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'=');
 
         parent::tearDown();
     }
@@ -35,12 +36,12 @@ class RouteBuildingTest extends TestCase
      */
     private function routeNamesForLocale(string $locale): Collection
     {
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=' . $locale);
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'='.$locale);
 
         $this->refreshApplication();
 
         return collect(Route::getRoutes()->getRoutes())
-            ->map(fn($route) => $route->getName())
+            ->map(fn ($route) => $route->getName())
             ->filter()
             ->values();
     }
@@ -50,12 +51,12 @@ class RouteBuildingTest extends TestCase
      */
     private function routeUrisForLocale(string $locale): Collection
     {
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=' . $locale);
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'='.$locale);
 
         $this->refreshApplication();
 
         return collect(Route::getRoutes()->getRoutes())
-            ->map(fn($route) => $route->uri())
+            ->map(fn ($route) => $route->uri())
             ->values();
     }
 
@@ -84,7 +85,7 @@ class RouteBuildingTest extends TestCase
             $this->assertGreaterThan(
                 0,
                 $names->count(),
-                'Locale "' . $locale . '" produced no routes at all.'
+                'Locale "'.$locale.'" produced no routes at all.'
             );
         }
     }
@@ -98,8 +99,8 @@ class RouteBuildingTest extends TestCase
             $this->assertSame(
                 [],
                 $duplicates,
-                'Locale "' . $locale . '" registers duplicate route names, so the later '
-                . 'one silently wins: ' . implode(', ', $duplicates)
+                'Locale "'.$locale.'" registers duplicate route names, so the later '
+                .'one silently wins: '.implode(', ', $duplicates)
             );
         }
     }
@@ -111,19 +112,19 @@ class RouteBuildingTest extends TestCase
 
             // the /content/ fallback is registered for every entity, so it is
             // the reliable marker that the localised group was built
-            $contentUris = $uris->filter(fn(string $uri) => str_contains($uri, 'content/'));
+            $contentUris = $uris->filter(fn (string $uri) => str_contains($uri, 'content/'));
 
             $this->assertGreaterThan(
                 0,
                 $contentUris->count(),
-                'Locale "' . $locale . '" has no /content/ fallback routes.'
+                'Locale "'.$locale.'" has no /content/ fallback routes.'
             );
 
             foreach ($contentUris as $uri) {
                 $this->assertStringStartsWith(
-                    $locale . '/content/',
+                    $locale.'/content/',
                     $uri,
-                    'Fallback route "' . $uri . '" is not prefixed with locale "' . $locale . '".'
+                    'Fallback route "'.$uri.'" is not prefixed with locale "'.$locale.'".'
                 );
             }
         }
@@ -139,12 +140,12 @@ class RouteBuildingTest extends TestCase
         $this->assertGreaterThan(0, $entities->count(), 'No entities to check.');
 
         foreach ($entities as $slug) {
-            $hasIndex = $names->contains('content.' . $slug . '.index')
-                || $names->contains('contenttag.' . $slug . '.index');
+            $hasIndex = $names->contains('content.'.$slug.'.index')
+                || $names->contains('contenttag.'.$slug.'.index');
 
             $this->assertTrue(
                 $hasIndex,
-                'Entity "' . $slug . '" has no /content/ fallback index route.'
+                'Entity "'.$slug.'" has no /content/ fallback index route.'
             );
         }
     }
@@ -165,14 +166,14 @@ class RouteBuildingTest extends TestCase
 
         foreach ($menuItems as $item) {
             // a menu item whose entity row is gone is deliberately skipped
-            if (!$item->entity) {
+            if (! $item->entity) {
                 continue;
             }
 
             $this->assertTrue(
                 $names->contains($item->routename),
-                'Menu item ' . $item->id . ' ("' . $item->title . '") records routename "'
-                . $item->routename . '" but no such route is registered.'
+                'Menu item '.$item->id.' ("'.$item->title.'") records routename "'
+                .$item->routename.'" but no such route is registered.'
             );
         }
     }
@@ -185,7 +186,7 @@ class RouteBuildingTest extends TestCase
     {
         $locale = config('app.locale');
 
-        putenv(LaravelLocalization::ENV_ROUTE_KEY . '=' . $locale);
+        putenv(LaravelLocalization::ENV_ROUTE_KEY.'='.$locale);
         $this->refreshApplication();
 
         $routes = collect(Route::getRoutes()->getRoutes());
@@ -200,10 +201,10 @@ class RouteBuildingTest extends TestCase
 
         foreach ($termEntities as $slug) {
             $single = $routes->first(
-                fn($route) => $route->getName() === 'contenttag.' . $slug . '.index.show'
+                fn ($route) => $route->getName() === 'contenttag.'.$slug.'.index.show'
             );
 
-            $this->assertNotNull($single, 'No single route for term entity "' . $slug . '".');
+            $this->assertNotNull($single, 'No single route for term entity "'.$slug.'".');
             $this->assertStringEndsWith('.html', $single->uri());
         }
     }
@@ -217,21 +218,21 @@ class RouteBuildingTest extends TestCase
      * delete - but both entity_id and entity_view_id are nullable, so a menu
      * item can legitimately exist without them.
      *
-     * @param array<string, mixed> $attributes
+     * @param  array<string, mixed>  $attributes
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('incompleteMenuItemProvider')]
+    #[DataProvider('incompleteMenuItemProvider')]
     public function test_an_incomplete_menu_item_does_not_break_routing(array $attributes, string $case): void
     {
         $locale = config('app.locale');
 
         $orphan = MenuItem::create([
-            'language'  => $locale,
-            'menu_id'   => MenuItem::langIs($locale)->value('menu_id'),
-            'title'     => 'zz orphan fixture',
-            'type'      => 'entity',
-            'route'     => 'zz-orphan-fixture',
+            'language' => $locale,
+            'menu_id' => MenuItem::langIs($locale)->value('menu_id'),
+            'title' => 'zz orphan fixture',
+            'type' => 'entity',
+            'route' => 'zz-orphan-fixture',
             'routename' => 'entity.zzorphans.9999.index',
-            'publish'   => 1,
+            'publish' => 1,
             ...$attributes,
         ]);
 
@@ -241,7 +242,7 @@ class RouteBuildingTest extends TestCase
             $this->assertGreaterThan(
                 0,
                 $names->count(),
-                'A menu item that ' . $case . ' must not prevent the route table from building.'
+                'A menu item that '.$case.' must not prevent the route table from building.'
             );
 
             $this->assertFalse(
@@ -265,7 +266,7 @@ class RouteBuildingTest extends TestCase
     public static function incompleteMenuItemProvider(): array
     {
         return [
-            'no entity'      => [['entity_id' => null, 'entity_view_id' => null], 'has no entity'],
+            'no entity' => [['entity_id' => null, 'entity_view_id' => null], 'has no entity'],
             'no entity view' => [['entity_view_id' => null], 'has no entity view'],
         ];
     }

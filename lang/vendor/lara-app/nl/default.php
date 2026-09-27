@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'tag' => [
-		'show_all' => 'toon alle',
-	],
+    'tag' => [
+        'show_all' => 'toon alle',
+    ],
 ];

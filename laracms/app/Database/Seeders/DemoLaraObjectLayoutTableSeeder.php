@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraObjectLayoutTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,221 +13,203 @@ class DemoLaraObjectLayoutTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_object_layout')->delete();
-        
-        \DB::table('lara_object_layout')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_object_layout')->insert([
+            0 => [
                 'id' => 1,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 2,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_10',
-                'share' => NULL,
+                'share' => null,
                 'cta' => 'contact',
-                'footer' => NULL,
-            ),
-            1 => 
-            array (
+                'footer' => null,
+            ],
+            1 => [
                 'id' => 2,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 17,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            2 => 
-            array (
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            2 => [
                 'id' => 3,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 19,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            3 => 
-            array (
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            3 => [
                 'id' => 4,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 5,
-                'header' => NULL,
+                'header' => null,
                 'hero' => 'hero_slider',
-                'pagetitle' => NULL,
+                'pagetitle' => null,
                 'content' => 'full_width',
-                'share' => NULL,
+                'share' => null,
                 'cta' => 'hidden',
-                'footer' => NULL,
-            ),
-            4 => 
-            array (
+                'footer' => null,
+            ],
+            4 => [
                 'id' => 5,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 25,
                 'header' => 'header_classic',
-                'hero' => NULL,
+                'hero' => null,
                 'pagetitle' => 'page_title_parallax',
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            5 => 
-            array (
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            5 => [
                 'id' => 6,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 14,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_10',
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            6 => 
-            array (
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            6 => [
                 'id' => 7,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 34,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_10',
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            7 => 
-            array (
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            7 => [
                 'id' => 8,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 35,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            8 => 
-            array (
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            8 => [
                 'id' => 9,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 36,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            9 => 
-            array (
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            9 => [
                 'id' => 10,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 37,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_10',
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            10 => 
-            array (
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            10 => [
                 'id' => 11,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 38,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
                 'cta' => 'hidden',
-                'footer' => NULL,
-            ),
-            11 => 
-            array (
+                'footer' => null,
+            ],
+            11 => [
                 'id' => 12,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 40,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_10',
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            12 => 
-            array (
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            12 => [
                 'id' => 13,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 41,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_6',
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            13 => 
-            array (
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            13 => [
                 'id' => 14,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 42,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            14 => 
-            array (
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            14 => [
                 'id' => 15,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 26,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
-                'content' => NULL,
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-            15 => 
-            array (
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
+                'content' => null,
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+            15 => [
                 'id' => 16,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 50,
-                'header' => NULL,
-                'hero' => NULL,
-                'pagetitle' => NULL,
+                'header' => null,
+                'hero' => null,
+                'pagetitle' => null,
                 'content' => 'boxed_default_col_6',
-                'share' => NULL,
-                'cta' => NULL,
-                'footer' => NULL,
-            ),
-        ));
-        
-        
+                'share' => null,
+                'cta' => null,
+                'footer' => null,
+            ],
+        ]);
+
     }
 }

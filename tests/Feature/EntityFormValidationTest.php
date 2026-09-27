@@ -31,8 +31,8 @@ use Tests\TestCase;
 class EntityFormValidationTest extends TestCase
 {
     /**
-     * @param class-string $schemaClass
-     * @param non-empty-string $method
+     * @param  class-string  $schemaClass
+     * @param  non-empty-string  $method
      */
     private function privateStatic(string $schemaClass, string $method): mixed
     {
@@ -48,14 +48,14 @@ class EntityFormValidationTest extends TestCase
      * The field has to sit in a real Schema, because the rule condition is
      * evaluated against the schema's operation.
      *
-     * @param class-string $schemaClass
+     * @param  class-string  $schemaClass
      * @return array<int, mixed>
      */
     private function resolvedLabelRules(string $schemaClass, string $operation = 'create'): array
     {
         $user = User::where('name', 'admin')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->markTestSkipped('No "admin" user in the current database.');
         }
 
@@ -87,7 +87,7 @@ class EntityFormValidationTest extends TestCase
     {
         $user = User::where('name', 'admin')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->markTestSkipped('No "admin" user in the current database.');
         }
 
@@ -114,12 +114,12 @@ class EntityFormValidationTest extends TestCase
             $onCreate = $this->resolvedHelperText($schemaClass, 'create');
             $onEdit = $this->resolvedHelperText($schemaClass, 'edit');
 
-            $this->assertNotEmpty($onCreate, class_basename($schemaClass) . ' should show helper text when creating.');
+            $this->assertNotEmpty($onCreate, class_basename($schemaClass).' should show helper text when creating.');
             $this->assertStringContainsString('lowercase', (string) $onCreate);
 
             $this->assertTrue(
                 blank($onEdit),
-                class_basename($schemaClass) . ' should show no helper text when editing, got: ' . var_export($onEdit, true)
+                class_basename($schemaClass).' should show no helper text when editing, got: '.var_export($onEdit, true)
             );
         }
     }
@@ -144,15 +144,15 @@ class EntityFormValidationTest extends TestCase
 
         $rejected = [
             'Nieuws bericht' => 'contains a space',
-            'Product'        => 'is not lowercase',
-            'class'          => 'is a reserved word',
-            'blog'           => 'is already taken',
+            'Product' => 'is not lowercase',
+            'class' => 'is a reserved word',
+            'blog' => 'is already taken',
         ];
 
         foreach ($rejected as $label => $why) {
             $this->assertTrue(
                 Validator::make(['label_single' => $label], ['label_single' => $rules])->fails(),
-                'Label "' . $label . '" must be rejected: it ' . $why . '.'
+                'Label "'.$label.'" must be rejected: it '.$why.'.'
             );
         }
     }
@@ -183,7 +183,7 @@ class EntityFormValidationTest extends TestCase
 
         $this->assertTrue(
             Validator::make(['label_single' => $existing], ['label_single' => $editRules])->passes(),
-            'Editing an entity must accept its own label "' . $existing . '".'
+            'Editing an entity must accept its own label "'.$existing.'".'
         );
 
         // ...while creating a new one with that label is still rejected
@@ -191,7 +191,7 @@ class EntityFormValidationTest extends TestCase
 
         $this->assertTrue(
             Validator::make(['label_single' => $existing], ['label_single' => $createRules])->fails(),
-            'Creating a duplicate of "' . $existing . '" must still be rejected.'
+            'Creating a duplicate of "'.$existing.'" must still be rejected.'
         );
     }
 
@@ -206,7 +206,7 @@ class EntityFormValidationTest extends TestCase
         foreach (['Legacy Label', 'OldStyle', 'class'] as $legacy) {
             $this->assertTrue(
                 Validator::make(['label_single' => $legacy], ['label_single' => $editRules])->passes(),
-                'Editing must not reject the pre-existing label "' . $legacy . '".'
+                'Editing must not reject the pre-existing label "'.$legacy.'".'
             );
         }
     }

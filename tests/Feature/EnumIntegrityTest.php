@@ -23,7 +23,7 @@ use Tests\TestCase;
 class EnumIntegrityTest extends TestCase
 {
     /**
-     * @param list<class-string<\BackedEnum>> $enums
+     * @param  list<class-string<\BackedEnum>>  $enums
      * @return array{int, list<string>}
      */
     private function resolveAll(iterable $values, array $enums): array
@@ -102,17 +102,17 @@ class EnumIntegrityTest extends TestCase
         $calls = 0;
 
         foreach (glob(base_path('laracms/core/src/admin/Enums/*.php')) as $file) {
-            $enum = 'Lara\\Admin\\Enums\\' . basename($file, '.php');
+            $enum = 'Lara\\Admin\\Enums\\'.basename($file, '.php');
 
-            if (!enum_exists($enum)) {
+            if (! enum_exists($enum)) {
                 continue;
             }
 
             $methods = array_filter(
                 (new \ReflectionEnum($enum))->getMethods(\ReflectionMethod::IS_PUBLIC),
-                fn(\ReflectionMethod $m) => !$m->isStatic()
+                fn (\ReflectionMethod $m) => ! $m->isStatic()
                     && $m->getNumberOfRequiredParameters() === 0
-                    && !in_array($m->getName(), ['cases', 'from', 'tryFrom'], true)
+                    && ! in_array($m->getName(), ['cases', 'from', 'tryFrom'], true)
             );
 
             foreach ($enum::cases() as $case) {
@@ -121,8 +121,8 @@ class EnumIntegrityTest extends TestCase
                         $method->invoke($case);
                         $calls++;
                     } catch (\Throwable $e) {
-                        $failures[] = class_basename($enum) . '::' . $case->name
-                            . '->' . $method->getName() . '() : ' . $e->getMessage();
+                        $failures[] = class_basename($enum).'::'.$case->name
+                            .'->'.$method->getName().'() : '.$e->getMessage();
                     }
                 }
             }
@@ -140,15 +140,15 @@ class EnumIntegrityTest extends TestCase
         $offenders = [];
 
         foreach (glob(base_path('laracms/core/src/admin/Enums/*.php')) as $file) {
-            $enum = 'Lara\\Admin\\Enums\\' . basename($file, '.php');
+            $enum = 'Lara\\Admin\\Enums\\'.basename($file, '.php');
 
-            if (!enum_exists($enum)) {
+            if (! enum_exists($enum)) {
                 continue;
             }
 
             foreach ($enum::cases() as $case) {
                 if (preg_match('/^[A-Z][A-Za-z0-9]*$/', $case->name) !== 1) {
-                    $offenders[] = class_basename($enum) . '::' . $case->name;
+                    $offenders[] = class_basename($enum).'::'.$case->name;
                 }
             }
         }

@@ -21,7 +21,7 @@ class AdminSmokeTest extends TestCase
     {
         $user = User::where('name', 'admin')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->markTestSkipped('No "admin" user in the current database.');
         }
 
@@ -32,9 +32,9 @@ class AdminSmokeTest extends TestCase
 
         foreach (Entity::orderBy('resource_slug')->get() as $entity) {
             foreach (['index', 'create'] as $page) {
-                $name = 'filament.admin.resources.' . $entity->resource_slug . '.' . $page;
+                $name = 'filament.admin.resources.'.$entity->resource_slug.'.'.$page;
 
-                if (!Route::has($name)) {
+                if (! Route::has($name)) {
                     continue;
                 }
 
@@ -43,12 +43,12 @@ class AdminSmokeTest extends TestCase
                 try {
                     $status = $this->get(route($name))->status();
 
-                    if (!in_array($status, [200, 403], true)) {
-                        $failures[] = $entity->resource_slug . '.' . $page . ' => HTTP ' . $status;
+                    if (! in_array($status, [200, 403], true)) {
+                        $failures[] = $entity->resource_slug.'.'.$page.' => HTTP '.$status;
                     }
                 } catch (\Throwable $e) {
-                    $failures[] = $entity->resource_slug . '.' . $page . ' => '
-                        . class_basename($e) . ': ' . substr($e->getMessage(), 0, 160);
+                    $failures[] = $entity->resource_slug.'.'.$page.' => '
+                        .class_basename($e).': '.substr($e->getMessage(), 0, 160);
                 }
             }
         }

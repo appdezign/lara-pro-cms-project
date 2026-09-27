@@ -445,66 +445,66 @@ return [
 
             'grid' => [
 
-	            'label' => 'Grid',
+                'label' => 'Grid',
 
-	            'modal' => [
+                'modal' => [
 
-		            'heading' => 'Grid',
+                    'heading' => 'Grid',
 
-		            'form' => [
+                    'form' => [
 
-			            'preset' => [
+                        'preset' => [
 
-				            'label' => 'Preset',
+                            'label' => 'Preset',
 
-				            'placeholder' => 'None',
+                            'placeholder' => 'None',
 
-				            'options' => [
-					            'two' => 'Two',
-					            'three' => 'Three',
-					            'four' => 'Four',
-					            'five' => 'Five',
-					            'two_start_third' => 'Two (Start Third)',
-					            'two_end_third' => 'Two (End Third)',
-					            'two_start_fourth' => 'Two (Start Fourth)',
-					            'two_end_fourth' => 'Two (End Fourth)',
-				            ],
-			            ],
+                            'options' => [
+                                'two' => 'Two',
+                                'three' => 'Three',
+                                'four' => 'Four',
+                                'five' => 'Five',
+                                'two_start_third' => 'Two (Start Third)',
+                                'two_end_third' => 'Two (End Third)',
+                                'two_start_fourth' => 'Two (Start Fourth)',
+                                'two_end_fourth' => 'Two (End Fourth)',
+                            ],
+                        ],
 
-			            'columns' => [
-				            'label' => 'Columns',
-			            ],
+                        'columns' => [
+                            'label' => 'Columns',
+                        ],
 
-			            'from_breakpoint' => [
+                        'from_breakpoint' => [
 
-				            'label' => 'From breakpoint',
+                            'label' => 'From breakpoint',
 
-				            'options' => [
-					            'default' => 'All',
-					            'sm' => 'Small',
-					            'md' => 'Medium',
-					            'lg' => 'Large',
-					            'xl' => 'Extra large',
-					            '2xl' => 'Two extra large',
-				            ],
+                            'options' => [
+                                'default' => 'All',
+                                'sm' => 'Small',
+                                'md' => 'Medium',
+                                'lg' => 'Large',
+                                'xl' => 'Extra large',
+                                '2xl' => 'Two extra large',
+                            ],
 
-			            ],
+                        ],
 
-			            'is_asymmetric' => [
-				            'label' => 'Two asymmetric columns',
-			            ],
+                        'is_asymmetric' => [
+                            'label' => 'Two asymmetric columns',
+                        ],
 
-			            'start_span' => [
-				            'label' => 'Start span',
-			            ],
+                        'start_span' => [
+                            'label' => 'Start span',
+                        ],
 
-			            'end_span' => [
-				            'label' => 'End span',
-			            ],
+                        'end_span' => [
+                            'label' => 'End span',
+                        ],
 
-		            ],
+                    ],
 
-	            ],
+                ],
 
             ],
 

@@ -15,11 +15,11 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         // resolved without the container: this runs before the app is created
-        if (file_exists(__DIR__ . '/../bootstrap/cache/config.php')) {
+        if (file_exists(__DIR__.'/../bootstrap/cache/config.php')) {
             $this->fail(
                 'The configuration is cached, so phpunit.xml environment settings are '
-                . 'being ignored and these tests would run against the local environment. '
-                . 'Run "php artisan config:clear" before running the test suite.'
+                .'being ignored and these tests would run against the local environment. '
+                .'Run "php artisan config:clear" before running the test suite.'
             );
         }
 

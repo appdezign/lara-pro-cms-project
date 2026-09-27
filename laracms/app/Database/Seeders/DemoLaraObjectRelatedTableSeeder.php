@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraObjectRelatedTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,454 +13,403 @@ class DemoLaraObjectRelatedTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_object_related')->delete();
-        
-        \DB::table('lara_object_related')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_object_related')->insert([
+            0 => [
                 'id' => 11,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 2,
                 'related_page_objects' => '[{"page_object_id": 25}]',
                 'related_entity_objects' => '[{"object_id": 22, "resource_slug": "blogs"}]',
                 'related_entities' => '[{"module_page_menu_id": 21}, {"module_page_menu_id": 16}]',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 12,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 22,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 13,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 1,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 14,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 2,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 15,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 3,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 16,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 4,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 17,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 5,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 18,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 6,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 19,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 7,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 20,
                 'entity_type' => 'Lara\\App\\Models\\Team',
                 'entity_id' => 8,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 21,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 27,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 22,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 31,
                 'related_page_objects' => '[{"page_object_id": 2}]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 23,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 23,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 24,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 17,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 25,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 19,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 26,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 30,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 27,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 5,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 28,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 29,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 29,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 26,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 30,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 25,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 31,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 24,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 32,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 25,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 33,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 14,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 34,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 34,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 35,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 35,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 36,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 36,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 37,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 37,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 38,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 38,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 39,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 40,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 40,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 41,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 41,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 42,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 42,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 1,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 43,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 2,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 44,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 3,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 45,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 5,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 46,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 9,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 47,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 10,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 48,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 11,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 49,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 12,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 50,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 14,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 51,
                 'entity_type' => 'Lara\\App\\Models\\City',
                 'entity_id' => 1,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 52,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 26,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 53,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 35,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 54,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 36,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 55,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 37,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 56,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 50,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 57,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 38,
                 'related_page_objects' => '[{"page_object_id": 2}]',
                 'related_entity_objects' => '[{"object_id": 2, "resource_slug": "teams"}]',
                 'related_entities' => '[{"module_page_menu_id": 24}]',
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 58,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 39,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 59,
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 40,
                 'related_page_objects' => '[]',
                 'related_entity_objects' => '[]',
                 'related_entities' => '[]',
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

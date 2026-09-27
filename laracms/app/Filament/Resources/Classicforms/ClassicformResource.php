@@ -7,16 +7,15 @@ use Lara\App\Models\Classicform;
 
 class ClassicformResource extends BaseFormResource
 {
-	protected static ?string $model = Classicform::class;
+    protected static ?string $model = Classicform::class;
 
-	protected static bool $shouldRegisterNavigation = false;
+    protected static bool $shouldRegisterNavigation = false;
 
-	public static function getPages(): array
-	{
-		return [
-			'index'   => Pages\ListClassicforms::route('/'),
-			'view'    => Pages\ViewClassicform::route('/{record}'),
-		];
-	}
-
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListClassicforms::route('/'),
+            'view' => Pages\ViewClassicform::route('/{record}'),
+        ];
+    }
 }

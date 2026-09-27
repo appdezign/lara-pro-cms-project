@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Lara\App\Filament\Resources\Blogs\BlogResource;
 use Lara\Common\Entities\EntityConfig;
 use Lara\Common\Entities\EntityRegistry;
 use Lara\Common\Models\Entity;
@@ -33,7 +34,7 @@ class EntityRegistryTest extends TestCase
     {
         $entity = Entity::first();
 
-        if (!$entity) {
+        if (! $entity) {
             $this->markTestSkipped('No entities in the current database.');
         }
 
@@ -48,7 +49,7 @@ class EntityRegistryTest extends TestCase
     {
         $entity = Entity::first();
 
-        if (!$entity) {
+        if (! $entity) {
             $this->markTestSkipped('No entities in the current database.');
         }
 
@@ -95,14 +96,14 @@ class EntityRegistryTest extends TestCase
     {
         $entity = Entity::first();
 
-        if (!$entity) {
+        if (! $entity) {
             $this->markTestSkipped('No entities in the current database.');
         }
 
         $versionBefore = $this->registry()->version();
         $original = $entity->col_has_lead;
 
-        $entity->col_has_lead = !$original;
+        $entity->col_has_lead = ! $original;
         $entity->save();
 
         try {
@@ -113,7 +114,7 @@ class EntityRegistryTest extends TestCase
             );
 
             $this->assertSame(
-                (bool) !$original,
+                (bool) ! $original,
                 app(EntityRegistry::class)->get($entity->resource_slug)->content->hasLead,
                 'The new value must be visible without clearing the whole cache.'
             );
@@ -151,7 +152,7 @@ class EntityRegistryTest extends TestCase
     {
         $field = EntityCustomField::first();
 
-        if (!$field) {
+        if (! $field) {
             $this->markTestSkipped('No entity custom fields in the current database.');
         }
 
@@ -189,18 +190,18 @@ class EntityRegistryTest extends TestCase
     {
         $entity = Entity::first();
 
-        if (!$entity) {
+        if (! $entity) {
             $this->markTestSkipped('No entities in the current database.');
         }
 
-        $derivedKey = fn(): string => 'lara_entity_custom_fields_' . $entity->resource_slug . '_content_'
-            . app(EntityRegistry::class)->version();
+        $derivedKey = fn (): string => 'lara_entity_custom_fields_'.$entity->resource_slug.'_content_'
+            .app(EntityRegistry::class)->version();
 
         $keyBefore = $derivedKey();
         Cache::forever($keyBefore, 'stale value');
 
         $original = $entity->col_has_lead;
-        $entity->col_has_lead = !$original;
+        $entity->col_has_lead = ! $original;
         $entity->save();
 
         try {
@@ -224,24 +225,24 @@ class EntityRegistryTest extends TestCase
     {
         $entity = Entity::where('resource_slug', 'blogs')->first();
 
-        if (!$entity) {
+        if (! $entity) {
             $this->markTestSkipped('No "blogs" entity in the current database.');
         }
 
         $fromRegistry = $this->registry()->get('blogs');
-        $fromResource = \Lara\App\Filament\Resources\Blogs\BlogResource::getEntity();
+        $fromResource = BlogResource::getEntity();
 
         $this->assertSame($fromRegistry->id, (int) $fromResource->id);
         $this->assertSame($fromRegistry->content->hasLead, (bool) $fromResource->col_has_lead);
 
         $original = $entity->col_has_lead;
-        $entity->col_has_lead = !$original;
+        $entity->col_has_lead = ! $original;
         $entity->save();
 
         try {
             $this->assertSame(
                 app(EntityRegistry::class)->get('blogs')->content->hasLead,
-                (bool) \Lara\App\Filament\Resources\Blogs\BlogResource::getEntity()->col_has_lead,
+                (bool) BlogResource::getEntity()->col_has_lead,
                 'The frontend and admin views of entity config must not diverge.'
             );
         } finally {

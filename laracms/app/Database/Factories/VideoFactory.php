@@ -2,28 +2,24 @@
 
 namespace Lara\App\Database\Factories;
 
-use App\Models\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
 use Exception;
-
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Lara\App\Models\Video;
+use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
 
 class VideoFactory extends Factory
 {
+    protected ?string $resourceSlug = 'videos';
 
-	protected ?string $resourceSlug = 'videos';
+    use HasLaraFactory;
 
-	use HasLaraFactory;
-
-	protected $model = Video::class;
+    protected $model = Video::class;
 
     /**
-	 * @return array
-	 * @throws Exception
+     * @throws Exception
      */
     public function definition(): array
     {
-		return $this->generateContent($this->resourceSlug);
+        return $this->generateContent($this->resourceSlug);
     }
 }

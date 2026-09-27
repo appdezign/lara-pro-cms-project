@@ -44,7 +44,7 @@ class LaraCacheEndpointTest extends TestCase
     {
         $user = User::where('name', 'admin')->first();
 
-        if (!$user) {
+        if (! $user) {
             $this->markTestSkipped('No "admin" user in the current database.');
         }
 

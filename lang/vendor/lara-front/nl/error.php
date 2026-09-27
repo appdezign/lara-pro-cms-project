@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'message' => [
-		'body' => 'body',
-		'title' => 'titel',
-	],
+    'message' => [
+        'body' => 'body',
+        'title' => 'titel',
+    ],
 ];

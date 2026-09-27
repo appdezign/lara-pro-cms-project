@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraContentProductsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,17 +13,15 @@ class DemoLaraContentProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_content_products')->delete();
-        
-        \DB::table('lara_content_products')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_content_products')->insert([
+            0 => [
                 'id' => 1,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'my first product',
                 'slug' => 'my-first-product',
                 'slug_lock' => 0,
@@ -51,62 +48,60 @@ class DemoLaraContentProductsTableSeeder extends Seeder
                 'mystring' => 'my string',
                 'created_at' => '2025-10-06 18:51:02',
                 'updated_at' => '2026-03-19 17:24:22',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-10-06 18:50:00',
                 'publish_expire' => 1,
                 'publish_to' => '2025-12-31 20:52:00',
                 'publish_hide' => 0,
                 'position' => 1001,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            1 => 
-            array (
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            1 => [
                 'id' => 2,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'my second product',
                 'slug' => 'my-second-product',
                 'slug_lock' => 0,
                 'lead' => '<p></p>',
                 'body' => '<p></p>',
-                'mycolor' => NULL,
-                'myradio' => NULL,
+                'mycolor' => null,
+                'myradio' => null,
                 'mycheckbox' => 0,
                 'mycheckboxlist' => '[]',
                 'mymultitogglebuttons' => '[]',
-                'mytogglebuttons' => NULL,
+                'mytogglebuttons' => null,
                 'mytoggle' => 0,
                 'mytagsinput' => '[]',
                 'mymultiselect' => '[]',
-                'myselect_2' => NULL,
+                'myselect_2' => null,
                 'mydatetime' => '2025-10-21 08:09:00',
-                'mytime' => NULL,
+                'mytime' => null,
                 'mydate' => '2025-10-21',
                 'mydecimal' => '0.0000',
-                'mytextarea' => NULL,
+                'mytextarea' => null,
                 'mynumber' => 0,
-                'mytext' => NULL,
-                'myemail' => NULL,
-                'mystring' => NULL,
+                'mytext' => null,
+                'myemail' => null,
+                'mystring' => null,
                 'created_at' => '2025-10-21 08:09:22',
                 'updated_at' => '2025-12-29 09:38:53',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-10-21 08:09:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 1002,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-        ));
-        
-        
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+        ]);
+
     }
 }

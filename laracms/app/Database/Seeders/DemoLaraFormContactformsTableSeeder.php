@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraFormContactformsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,83 +13,76 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_form_contactforms')->delete();
-        
-        \DB::table('lara_form_contactforms')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_form_contactforms')->insert([
+            0 => [
                 'id' => 25,
-                'comment' => NULL,
+                'comment' => null,
                 'telephone' => '0651392621',
                 'email' => 's.hoeksma@firmaq.nl',
                 'name' => 'Sybrand Hoeksma',
                 'created_at' => '2025-09-05 09:30:16',
                 'updated_at' => '2025-09-05 09:30:16',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'ipaddress' => '127.0.0.1',
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            1 => 
-            array (
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            1 => [
                 'id' => 26,
-                'comment' => NULL,
-                'telephone' => NULL,
+                'comment' => null,
+                'telephone' => null,
                 'email' => 's.hoeksma@firmaq.nl',
                 'name' => 'Sybrand Hoeksma',
                 'created_at' => '2026-04-24 17:08:23',
                 'updated_at' => '2026-04-24 17:08:23',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'ipaddress' => '127.0.0.1',
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            2 => 
-            array (
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            2 => [
                 'id' => 27,
-                'comment' => NULL,
-                'telephone' => NULL,
+                'comment' => null,
+                'telephone' => null,
                 'email' => 's.hoeksma@firmaq.nl',
                 'name' => 'Sybrand Hoeksma',
                 'created_at' => '2026-04-24 17:12:13',
                 'updated_at' => '2026-04-24 17:12:13',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'ipaddress' => '127.0.0.1',
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            3 => 
-            array (
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            3 => [
                 'id' => 28,
-                'comment' => NULL,
-                'telephone' => NULL,
+                'comment' => null,
+                'telephone' => null,
                 'email' => 's.hoeksma@firmaq.nl',
                 'name' => 'Sybrand Hoeksma',
                 'created_at' => '2026-04-24 17:13:07',
                 'updated_at' => '2026-04-24 17:13:07',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'ipaddress' => '127.0.0.1',
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            4 => 
-            array (
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            4 => [
                 'id' => 29,
-                'comment' => NULL,
-                'telephone' => NULL,
+                'comment' => null,
+                'telephone' => null,
                 'email' => 's.hoeksma@firmaq.nl',
                 'name' => 'Sybrand Hoeksma',
                 'created_at' => '2026-04-24 17:16:41',
                 'updated_at' => '2026-04-24 17:16:41',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'ipaddress' => '127.0.0.1',
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-        ));
-        
-        
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+        ]);
+
     }
 }
