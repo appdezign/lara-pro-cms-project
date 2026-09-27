@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
+use Lara\Common\Entities\PagesEntity;
 use Lara\Front\Http\Lara\FrontActiveRoute;
-use Lara\Front\Services\FrontViewResolver;
 use Lara\Front\LaraTheme\Theme;
+use Lara\Front\Services\FrontViewResolver;
 use Tests\TestCase;
 
 /**
@@ -66,7 +67,7 @@ class FrontViewResolverTest extends TestCase
      */
     public function test_it_reports_a_missing_theme_view_file(): void
     {
-        $entity = new \Lara\Common\Entities\PagesEntity();
+        $entity = new PagesEntity;
 
         $this->assertFalse(
             $this->resolver()->checkThemeViewFile($entity, 'zz/no/such/view'),
@@ -76,9 +77,9 @@ class FrontViewResolverTest extends TestCase
 
     public function test_it_resolves_a_view_file_for_a_real_entity_and_route(): void
     {
-        $entity = new \Lara\Common\Entities\PagesEntity();
+        $entity = new PagesEntity;
 
-        $activeroute = new FrontActiveRoute(new \stdClass());
+        $activeroute = new FrontActiveRoute;
         $activeroute->setPrefix('entity');
         $activeroute->setMethod('show');
 

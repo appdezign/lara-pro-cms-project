@@ -2,7 +2,7 @@
 
 return [
 
-	'default_namespace' => 'Lara\Front\Http\Widgets',
+	'default_namespace' => 'Lara\Front\Widgets',
 
     'use_jquery_for_ajax_calls' => env('ARRILOT_USE_JQUERY', false),
 
