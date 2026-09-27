@@ -1,5 +1,7 @@
 <?php
 
+use Lara\Common\Models\User;
+
 return [
 
     /*
@@ -41,9 +43,9 @@ return [
             'provider' => 'users',
         ],
         'api' => [
-	        'driver' => 'token',
-	        'provider' => 'users',
-	        'hash' => false,
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
         ],
     ],
 
@@ -67,7 +69,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', \Lara\Common\Models\User::class),
+            'model' => env('AUTH_MODEL', User::class),
         ],
 
         // 'users' => [

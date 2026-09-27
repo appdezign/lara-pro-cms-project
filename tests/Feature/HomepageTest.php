@@ -31,7 +31,7 @@ class HomepageTest extends TestCase
 
         $this->get('/')
             ->assertRedirect()
-            ->assertRedirectContains('/' . $locale);
+            ->assertRedirectContains('/'.$locale);
     }
 
     public function test_the_admin_login_page_renders(): void

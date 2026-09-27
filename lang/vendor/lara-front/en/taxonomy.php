@@ -1,8 +1,8 @@
 <?php
 
 return [
-	'plural' => [
-		'category' => 'category',
-		'tag' => 'tag',
-	],
+    'plural' => [
+        'category' => 'category',
+        'tag' => 'tag',
+    ],
 ];

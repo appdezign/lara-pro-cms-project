@@ -11,6 +11,7 @@ use Lara\Front\Services\FrontRouteResolver;
 use Lara\Front\Services\FrontSecurityGuard;
 use Lara\Front\Services\FrontTermRepository;
 use Lara\Front\Services\FrontViewResolver;
+use PHPUnit\Framework\Attributes\DataProvider;
 use ReflectionClass;
 use Tests\TestCase;
 
@@ -42,7 +43,7 @@ class FrontServicesTest extends TestCase
         ];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('serviceProvider')]
+    #[DataProvider('serviceProvider')]
     public function test_each_service_resolves_from_the_container(string $service): void
     {
         $this->assertInstanceOf($service, app($service));
@@ -52,7 +53,7 @@ class FrontServicesTest extends TestCase
      * Any state must be an injected collaborator, never request or controller
      * data. That is what made these untestable as traits.
      */
-    #[\PHPUnit\Framework\Attributes\DataProvider('serviceProvider')]
+    #[DataProvider('serviceProvider')]
     public function test_each_service_holds_only_injected_collaborators(string $service): void
     {
         $reflection = new ReflectionClass($service);
@@ -70,18 +71,18 @@ class FrontServicesTest extends TestCase
 
             $this->assertNotNull(
                 $type,
-                $service . '::$' . $property->getName() . ' has no type; services must not carry loose state.'
+                $service.'::$'.$property->getName().' has no type; services must not carry loose state.'
             );
 
             $this->assertStringStartsWith(
                 'Lara\Front\Services\\',
                 (string) $type,
-                $service . '::$' . $property->getName() . ' is not an injected service.'
+                $service.'::$'.$property->getName().' is not an injected service.'
             );
 
             $this->assertTrue(
                 $property->isReadOnly(),
-                $service . '::$' . $property->getName() . ' must be readonly.'
+                $service.'::$'.$property->getName().' must be readonly.'
             );
         }
     }
@@ -100,14 +101,14 @@ class FrontServicesTest extends TestCase
         $oversized = [];
 
         foreach ($shims as $shim) {
-            $path = base_path('laracms/core/src/front/Http/Concerns/' . $shim . '.php');
+            $path = base_path('laracms/core/src/front/Http/Concerns/'.$shim.'.php');
 
             $this->assertFileExists($path);
 
             $lines = count(file($path) ?: []);
 
             if ($lines > 100) {
-                $oversized[] = $shim . ' (' . $lines . ' lines)';
+                $oversized[] = $shim.' ('.$lines.' lines)';
             }
         }
 

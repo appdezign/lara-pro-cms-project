@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'column' => [
-		'body' => 'body',
-	],
+    'column' => [
+        'body' => 'body',
+    ],
 ];

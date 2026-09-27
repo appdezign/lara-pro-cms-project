@@ -1,16 +1,14 @@
 root = true
 
-# PHP indentation is tabs. Laravel Pint's preset would reindent to four spaces,
-# so pint.json turns off the four fixers that rewrite indentation:
-# indentation_type, statement_indentation, array_indentation and
-# method_chaining_indentation. Pint has no setting for the indent character, so
-# switching those off is what makes it indentation-agnostic; every other fixer
-# still runs (import ordering, unused imports, spacing, docblock cleanup).
+# PHP and Blade use four spaces. PHP follows the Laravel standard (PSR-12 /
+# PER-CS) and is formatted by Laravel Pint with its default "laravel" preset.
+# Blade templates are formatted with PhpStorm's own formatter, which follows
+# this file.
 #
-# There are two pint.json files, with identical rules: one here for the project,
-# and one in the core package. Pint does not descend into symlinked directories,
-# so a run from the project root never sees laracms/core - format that package
-# from its own directory.
+# There are two pint.json files: one here for the project, and one in the core
+# package. Pint does not descend into symlinked directories, so a run from the
+# project root never sees laracms/core - format that package from its own
+# directory.
 
 [*]
 charset = utf-8
@@ -19,6 +17,9 @@ indent_size = 4
 indent_style = tab
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+[*.{php,stub}]
+indent_style = space
 
 [*.md]
 trim_trailing_whitespace = false

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraObjectSyncTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,13 +13,11 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_object_sync')->delete();
-        
-        \DB::table('lara_object_sync')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_object_sync')->insert([
+            0 => [
                 'id' => 6,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 2,
@@ -30,309 +27,283 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'remote_slug' => 'about',
                 'created_at' => '2025-07-09 12:44:24',
                 'updated_at' => '2025-07-13 13:01:03',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 7,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 17,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'blogs-index-module-page',
                 'created_at' => '2025-07-10 18:28:21',
                 'updated_at' => '2025-07-10 18:28:26',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 8,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 19,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'en-about',
                 'created_at' => '2025-07-13 12:51:56',
                 'updated_at' => '2025-07-13 13:21:19',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 9,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 5,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'meet-lara',
                 'created_at' => '2025-08-25 07:55:01',
                 'updated_at' => '2026-08-10 16:09:02',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 10,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 25,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'privacy',
                 'created_at' => '2025-08-29 14:27:27',
                 'updated_at' => '2025-09-08 12:14:27',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 11,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 14,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'teams-index-module-nl',
                 'created_at' => '2025-09-03 13:59:29',
                 'updated_at' => '2025-09-03 13:59:48',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 12,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 34,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'blogs-index-module-nl',
                 'created_at' => '2025-09-03 14:06:47',
                 'updated_at' => '2025-12-25 16:57:28',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 13,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 35,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'services-index-module-nl',
                 'created_at' => '2025-09-03 14:53:05',
                 'updated_at' => '2026-03-16 13:53:40',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 14,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 36,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'events-index-module-nl',
                 'created_at' => '2025-09-03 15:40:02',
                 'updated_at' => '2026-03-16 13:54:59',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 15,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 37,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'galleries-index-module-nl',
                 'created_at' => '2025-09-03 18:48:47',
                 'updated_at' => '2025-09-06 18:03:04',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 16,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 38,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'contactforms-form-module-nl',
                 'created_at' => '2025-09-05 08:41:03',
                 'updated_at' => '2026-03-17 09:29:25',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 17,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 40,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'videos-index-module-nl',
                 'created_at' => '2025-09-06 17:41:54',
                 'updated_at' => '2025-09-06 18:03:36',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 18,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 41,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'docs-index-module-nl',
                 'created_at' => '2025-09-06 17:45:19',
                 'updated_at' => '2026-03-13 21:07:11',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 19,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 42,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => '404',
                 'created_at' => '2025-09-08 15:45:02',
                 'updated_at' => '2025-09-08 15:45:05',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 20,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 1,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'my-first-product',
                 'created_at' => '2025-10-06 18:52:38',
                 'updated_at' => '2026-01-02 11:34:31',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 21,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 2,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'test-2',
                 'created_at' => '2025-10-07 07:21:59',
                 'updated_at' => '2025-10-07 07:22:04',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 22,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 3,
-                'remote_url' => NULL,
-                'remote_suffix' => NULL,
-                'remote_resource' => NULL,
-                'remote_slug' => NULL,
+                'remote_url' => null,
+                'remote_suffix' => null,
+                'remote_resource' => null,
+                'remote_slug' => null,
                 'created_at' => '2025-10-07 07:22:54',
                 'updated_at' => '2025-10-07 07:22:54',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 23,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 5,
-                'remote_url' => NULL,
-                'remote_suffix' => NULL,
-                'remote_resource' => NULL,
-                'remote_slug' => NULL,
+                'remote_url' => null,
+                'remote_suffix' => null,
+                'remote_resource' => null,
+                'remote_slug' => null,
                 'created_at' => '2025-10-07 07:58:27',
                 'updated_at' => '2025-10-07 07:58:27',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 24,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 9,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'tags',
                 'created_at' => '2025-10-07 08:18:04',
                 'updated_at' => '2025-10-07 08:18:07',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 25,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 10,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'wertwert',
                 'created_at' => '2025-10-07 08:48:25',
                 'updated_at' => '2025-10-07 08:48:29',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 26,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 11,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'adsfg',
                 'created_at' => '2025-10-07 08:57:22',
                 'updated_at' => '2025-10-07 08:57:24',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 27,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 12,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'dfgh',
                 'created_at' => '2025-10-07 08:58:39',
                 'updated_at' => '2025-10-07 08:58:44',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 28,
                 'entity_type' => 'Lara\\App\\Models\\Product',
                 'entity_id' => 14,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'products',
                 'remote_slug' => 'sdfg',
                 'created_at' => '2025-10-09 17:59:22',
                 'updated_at' => '2025-10-09 17:59:26',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 29,
                 'entity_type' => 'Lara\\App\\Models\\City',
                 'entity_id' => 1,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'cities',
                 'remote_slug' => 'my-first-city',
                 'created_at' => '2025-10-21 13:11:46',
                 'updated_at' => '2025-10-21 13:11:55',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 30,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 26,
-                'remote_url' => NULL,
-                'remote_suffix' => NULL,
-                'remote_resource' => NULL,
-                'remote_slug' => NULL,
+                'remote_url' => null,
+                'remote_suffix' => null,
+                'remote_resource' => null,
+                'remote_slug' => null,
                 'created_at' => '2026-01-08 12:47:37',
                 'updated_at' => '2026-01-08 12:47:37',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 31,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 50,
-                'remote_url' => NULL,
+                'remote_url' => null,
                 'remote_suffix' => '/nl/api/',
                 'remote_resource' => 'pages',
                 'remote_slug' => 'classicforms-form-module-nl',
                 'created_at' => '2026-03-19 17:36:03',
                 'updated_at' => '2026-03-19 17:36:15',
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

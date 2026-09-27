@@ -6,7 +6,6 @@ use Lara\Front\Http\Controllers\Error\ErrorController;
 
 class AppErrorController extends ErrorController
 {
-
-	//
+    //
 
 }

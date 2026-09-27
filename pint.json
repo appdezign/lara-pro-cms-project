@@ -1,16 +1,11 @@
 {
     "preset": "laravel",
     "exclude": [
+        "_dev",
         "bootstrap/cache",
         "node_modules",
         "public",
         "storage",
         "vendor"
-    ],
-    "rules": {
-        "indentation_type": false,
-        "statement_indentation": false,
-        "array_indentation": false,
-        "method_chaining_indentation": false
-    }
+    ]
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraContentDocsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,157 +13,149 @@ class DemoLaraContentDocsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_content_docs')->delete();
-        
-        \DB::table('lara_content_docs')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_content_docs')->insert([
+            0 => [
                 'id' => 1,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'Lorem ipsum dolor sit amet 1',
                 'slug' => 'lorem-ipsum-dolor-sit-amet-1',
                 'slug_lock' => 0,
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
-                'body' => NULL,
+                'body' => null,
                 'created_at' => '2025-08-29 13:21:58',
                 'updated_at' => '2025-12-19 14:52:10',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            1 => 
-            array (
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            1 => [
                 'id' => 2,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'Lorem ipsum dolor sit amet 2',
                 'slug' => 'lorem-ipsum-dolor-sit-amet-2',
                 'slug_lock' => 0,
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
-                'body' => NULL,
+                'body' => null,
                 'created_at' => '2025-08-29 13:21:58',
                 'updated_at' => '2025-08-29 13:34:38',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            2 => 
-            array (
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            2 => [
                 'id' => 3,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'Lorem ipsum dolor sit amet 3',
                 'slug' => 'lorem-ipsum-dolor-sit-amet-3',
                 'slug_lock' => 0,
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
-                'body' => NULL,
+                'body' => null,
                 'created_at' => '2025-08-29 13:21:58',
                 'updated_at' => '2025-08-29 13:34:52',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            3 => 
-            array (
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            3 => [
                 'id' => 4,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'Lorem ipsum dolor sit amet 4',
                 'slug' => 'lorem-ipsum-dolor-sit-amet-4',
                 'slug_lock' => 0,
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
-                'body' => NULL,
+                'body' => null,
                 'created_at' => '2025-08-29 13:21:58',
                 'updated_at' => '2025-08-29 13:42:32',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            4 => 
-            array (
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            4 => [
                 'id' => 5,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'Lorem ipsum dolor sit amet 5',
                 'slug' => 'lorem-ipsum-dolor-sit-amet-5',
                 'slug_lock' => 0,
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
-                'body' => NULL,
+                'body' => null,
                 'created_at' => '2025-08-29 13:21:58',
                 'updated_at' => '2025-09-22 14:08:37',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-            5 => 
-            array (
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+            5 => [
                 'id' => 6,
                 'user_id' => 3,
                 'language' => 'nl',
-                'language_parent' => NULL,
+                'language_parent' => null,
                 'title' => 'Lorem ipsum dolor sit amet 6',
                 'slug' => 'lorem-ipsum-dolor-sit-amet-6',
                 'slug_lock' => 0,
                 'lead' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae tortor turpis. Phasellus id tempus sapien. Mauris egestas, magna id cursus mollis, felis sapien aliquet libero, eu accumsan velit nibh id urna. Phasellus sed fermentum mauris. Phasellus tristique libero vel augue condimentum tempus.</p>',
-                'body' => NULL,
+                'body' => null,
                 'created_at' => '2025-08-29 13:21:58',
                 'updated_at' => '2025-08-29 13:39:09',
-                'deleted_at' => NULL,
+                'deleted_at' => null,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 13:21:00',
                 'publish_expire' => 0,
-                'publish_to' => NULL,
+                'publish_to' => null,
                 'publish_hide' => 0,
                 'position' => 0,
-                'cgroup' => NULL,
-                'locked_at' => NULL,
-                'locked_by' => NULL,
-            ),
-        ));
-        
-        
+                'cgroup' => null,
+                'locked_at' => null,
+                'locked_by' => null,
+            ],
+        ]);
+
     }
 }

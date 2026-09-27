@@ -2,28 +2,24 @@
 
 namespace Lara\App\Database\Factories;
 
-use App\Models\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
 use Exception;
-
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Lara\App\Models\Service;
+use Lara\Common\Database\Factories\Concerns\HasLaraFactory;
 
 class ServiceFactory extends Factory
 {
+    protected ?string $resourceSlug = 'services';
 
-	protected ?string $resourceSlug = 'services';
+    use HasLaraFactory;
 
-	use HasLaraFactory;
-
-	protected $model = Service::class;
+    protected $model = Service::class;
 
     /**
-	 * @return array
-	 * @throws Exception
+     * @throws Exception
      */
     public function definition(): array
     {
-		return $this->generateContent($this->resourceSlug);
+        return $this->generateContent($this->resourceSlug);
     }
 }

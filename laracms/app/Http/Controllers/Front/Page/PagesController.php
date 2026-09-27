@@ -6,7 +6,6 @@ use Lara\Front\Http\Controllers\Page\BasePagesController;
 
 class PagesController extends BasePagesController
 {
-
-	//
+    //
 
 }

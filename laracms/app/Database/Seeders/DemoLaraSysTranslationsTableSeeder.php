@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 
 class DemoLaraSysTranslationsTableSeeder extends Seeder
 {
-
     /**
      * Auto generated seed file
      *
@@ -14,13 +13,11 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('lara_sys_translations')->delete();
-        
-        \DB::table('lara_sys_translations')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('lara_sys_translations')->insert([
+            0 => [
                 'id' => 1256,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -30,9 +27,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'language',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 1257,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -42,9 +38,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taal',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 1258,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -54,9 +49,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 1259,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -66,9 +60,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 1260,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -78,9 +71,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 1261,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -90,9 +82,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 1262,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -102,9 +93,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 1263,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -114,9 +104,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 1264,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -126,9 +115,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'key',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 1265,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -138,9 +126,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'key',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 1266,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -150,9 +137,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'value',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 1267,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -162,9 +148,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'waarde',
                 'created_at' => '2025-07-02 18:19:06',
                 'updated_at' => '2025-07-02 18:19:06',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 1268,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -174,9 +159,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 1269,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -186,9 +170,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 1270,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -198,9 +181,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 1271,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -210,9 +192,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groep',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 1272,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -222,9 +203,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'value',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 1273,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -234,9 +214,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'waarde',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 1274,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -246,9 +225,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locked',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 1275,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -258,9 +236,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vastgezet',
                 'created_at' => '2025-07-02 18:19:17',
                 'updated_at' => '2025-07-02 18:19:17',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 1276,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -270,9 +247,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publish from',
                 'created_at' => '2025-07-02 18:19:19',
                 'updated_at' => '2025-07-02 18:19:19',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 1277,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -282,9 +258,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceer vanaf',
                 'created_at' => '2025-07-02 18:19:19',
                 'updated_at' => '2025-07-02 18:19:19',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 1278,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -294,9 +269,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-02 18:19:19',
                 'updated_at' => '2025-07-02 18:19:19',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 1279,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -306,9 +280,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-02 18:19:19',
                 'updated_at' => '2025-07-02 18:19:19',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 1280,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -318,9 +291,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-02 18:19:19',
                 'updated_at' => '2025-07-02 18:19:19',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 1281,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -330,9 +302,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groep',
                 'created_at' => '2025-07-02 18:19:19',
                 'updated_at' => '2025-07-02 18:19:19',
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 1282,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -342,9 +313,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'status',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 1283,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -354,9 +324,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'status',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 1284,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -366,9 +335,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publish to',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 1285,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -378,9 +346,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceer tot',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 1286,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -390,9 +357,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publish',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 1287,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -402,9 +368,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceren',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 1288,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -414,9 +379,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'expire',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 1289,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -426,9 +390,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'verlopen',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 1290,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -438,9 +401,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hide in list',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 1291,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -450,9 +412,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'verberg in lijst',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 1292,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -462,9 +423,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 1293,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -474,9 +434,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 1296,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -486,9 +445,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 1297,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -498,9 +456,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 1298,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -510,9 +467,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug edit',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 1299,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -522,9 +478,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug bewerken',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 1300,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -534,9 +489,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug edit',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 1301,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -546,9 +500,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug bewerken',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 1302,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -558,9 +511,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug lock',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 1303,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -570,9 +522,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug vastzetten',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 1312,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -582,9 +533,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'og title',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 1313,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -594,9 +544,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'og titel',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 1314,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -606,9 +555,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'og description',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            49 => 
-            array (
+            ],
+            49 => [
                 'id' => 1315,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -618,9 +566,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'og beschrijving',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            50 => 
-            array (
+            ],
+            50 => [
                 'id' => 1316,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -630,9 +577,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            51 => 
-            array (
+            ],
+            51 => [
                 'id' => 1317,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -642,9 +588,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            52 => 
-            array (
+            ],
+            52 => [
                 'id' => 1318,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -654,9 +599,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo title',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            53 => 
-            array (
+            ],
+            53 => [
                 'id' => 1319,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -666,9 +610,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo titel',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            54 => 
-            array (
+            ],
+            54 => [
                 'id' => 1320,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -678,9 +621,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo description',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            55 => 
-            array (
+            ],
+            55 => [
                 'id' => 1321,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -690,9 +632,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo beschrijving',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            56 => 
-            array (
+            ],
+            56 => [
                 'id' => 1322,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -702,9 +643,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo keywords',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            57 => 
-            array (
+            ],
+            57 => [
                 'id' => 1323,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -714,9 +654,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo trefwoorden',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            58 => 
-            array (
+            ],
+            58 => [
                 'id' => 1324,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -726,9 +665,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cgroup',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            59 => 
-            array (
+            ],
+            59 => [
                 'id' => 1325,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -738,9 +676,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groep',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            60 => 
-            array (
+            ],
+            60 => [
                 'id' => 1326,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -750,9 +687,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'author',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            61 => 
-            array (
+            ],
+            61 => [
                 'id' => 1327,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -762,9 +698,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'auteur',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            62 => 
-            array (
+            ],
+            62 => [
                 'id' => 1328,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -774,9 +709,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'user',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            63 => 
-            array (
+            ],
+            63 => [
                 'id' => 1329,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -786,9 +720,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gebruiker',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            64 => 
-            array (
+            ],
+            64 => [
                 'id' => 1330,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -798,9 +731,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            65 => 
-            array (
+            ],
+            65 => [
                 'id' => 1331,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -810,9 +742,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            66 => 
-            array (
+            ],
+            66 => [
                 'id' => 1332,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -822,9 +753,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'main images',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            67 => 
-            array (
+            ],
+            67 => [
                 'id' => 1333,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -834,9 +764,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'afbeeldingen',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            68 => 
-            array (
+            ],
+            68 => [
                 'id' => 1334,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -846,9 +775,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'original',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            69 => 
-            array (
+            ],
+            69 => [
                 'id' => 1335,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -858,9 +786,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'origineel',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            70 => 
-            array (
+            ],
+            70 => [
                 'id' => 1336,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -870,9 +797,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo alt',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            71 => 
-            array (
+            ],
+            71 => [
                 'id' => 1337,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -882,9 +808,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo alt',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            72 => 
-            array (
+            ],
+            72 => [
                 'id' => 1338,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -894,9 +819,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo title',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            73 => 
-            array (
+            ],
+            73 => [
                 'id' => 1339,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -906,9 +830,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo title',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            74 => 
-            array (
+            ],
+            74 => [
                 'id' => 1340,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -918,9 +841,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'caption',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            75 => 
-            array (
+            ],
+            75 => [
                 'id' => 1341,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -930,9 +852,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'onderschrift',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            76 => 
-            array (
+            ],
+            76 => [
                 'id' => 1344,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -942,9 +863,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videos',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            77 => 
-            array (
+            ],
+            77 => [
                 'id' => 1345,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -954,9 +874,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video\'s',
                 'created_at' => '2025-07-02 18:19:21',
                 'updated_at' => '2025-07-02 18:19:21',
-            ),
-            78 => 
-            array (
+            ],
+            78 => [
                 'id' => 1348,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -966,9 +885,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videos',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            79 => 
-            array (
+            ],
+            79 => [
                 'id' => 1354,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -978,9 +896,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videofiles',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            80 => 
-            array (
+            ],
+            80 => [
                 'id' => 1355,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -990,9 +907,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video bestanden',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            81 => 
-            array (
+            ],
+            81 => [
                 'id' => 1356,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1002,9 +918,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videofiles',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            82 => 
-            array (
+            ],
+            82 => [
                 'id' => 1357,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1014,9 +929,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videobestanden',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:22:22',
-            ),
-            83 => 
-            array (
+            ],
+            83 => [
                 'id' => 1360,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1026,9 +940,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video files',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            84 => 
-            array (
+            ],
+            84 => [
                 'id' => 1368,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1038,9 +951,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'files',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            85 => 
-            array (
+            ],
+            85 => [
                 'id' => 1369,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1050,9 +962,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bestanden',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            86 => 
-            array (
+            ],
+            86 => [
                 'id' => 1370,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1062,9 +973,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'files',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            87 => 
-            array (
+            ],
+            87 => [
                 'id' => 1376,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1074,9 +984,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            88 => 
-            array (
+            ],
+            88 => [
                 'id' => 1377,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1086,9 +995,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerd',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            89 => 
-            array (
+            ],
+            89 => [
                 'id' => 1378,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1098,9 +1006,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            90 => 
-            array (
+            ],
+            90 => [
                 'id' => 1379,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1110,9 +1017,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerd',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            91 => 
-            array (
+            ],
+            91 => [
                 'id' => 1380,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1122,9 +1028,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related pages',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            92 => 
-            array (
+            ],
+            92 => [
                 'id' => 1381,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1134,9 +1039,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde pagina\'s',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            93 => 
-            array (
+            ],
+            93 => [
                 'id' => 1382,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1146,9 +1050,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related pages',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            94 => 
-            array (
+            ],
+            94 => [
                 'id' => 1386,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1158,9 +1061,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related items',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            95 => 
-            array (
+            ],
+            95 => [
                 'id' => 1387,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1170,9 +1072,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde items',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            96 => 
-            array (
+            ],
+            96 => [
                 'id' => 1388,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1182,9 +1083,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related items',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            97 => 
-            array (
+            ],
+            97 => [
                 'id' => 1394,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1194,9 +1094,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related entities',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            98 => 
-            array (
+            ],
+            98 => [
                 'id' => 1395,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1206,9 +1105,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde modules',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            99 => 
-            array (
+            ],
+            99 => [
                 'id' => 1396,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1218,9 +1116,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related modules',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            100 => 
-            array (
+            ],
+            100 => [
                 'id' => 1400,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1230,9 +1127,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'save',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            101 => 
-            array (
+            ],
+            101 => [
                 'id' => 1401,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1242,9 +1138,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'opslaan',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            102 => 
-            array (
+            ],
+            102 => [
                 'id' => 1402,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1254,9 +1149,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-02 18:19:29',
                 'updated_at' => '2025-07-02 18:19:29',
-            ),
-            103 => 
-            array (
+            ],
+            103 => [
                 'id' => 1403,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1266,9 +1160,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-02 18:19:29',
                 'updated_at' => '2025-07-02 18:19:29',
-            ),
-            104 => 
-            array (
+            ],
+            104 => [
                 'id' => 1404,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1278,9 +1171,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'layout',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            105 => 
-            array (
+            ],
+            105 => [
                 'id' => 1405,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1290,9 +1182,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'layout',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-02 18:19:30',
-            ),
-            106 => 
-            array (
+            ],
+            106 => [
                 'id' => 1406,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1302,9 +1193,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'layout',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            107 => 
-            array (
+            ],
+            107 => [
                 'id' => 1407,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1314,9 +1204,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'layout',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-02 18:19:30',
-            ),
-            108 => 
-            array (
+            ],
+            108 => [
                 'id' => 1408,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1326,9 +1215,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'header',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            109 => 
-            array (
+            ],
+            109 => [
                 'id' => 1409,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1338,9 +1226,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'header',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            110 => 
-            array (
+            ],
+            110 => [
                 'id' => 1410,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1350,9 +1237,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hero',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            111 => 
-            array (
+            ],
+            111 => [
                 'id' => 1411,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1362,9 +1248,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hero',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            112 => 
-            array (
+            ],
+            112 => [
                 'id' => 1412,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1374,9 +1259,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagetitle',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            113 => 
-            array (
+            ],
+            113 => [
                 'id' => 1413,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1386,9 +1270,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagetitle',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            114 => 
-            array (
+            ],
+            114 => [
                 'id' => 1414,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1398,9 +1281,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            115 => 
-            array (
+            ],
+            115 => [
                 'id' => 1415,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1410,9 +1292,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            116 => 
-            array (
+            ],
+            116 => [
                 'id' => 1416,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1422,9 +1303,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'share',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            117 => 
-            array (
+            ],
+            117 => [
                 'id' => 1417,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1434,9 +1314,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'share',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            118 => 
-            array (
+            ],
+            118 => [
                 'id' => 1418,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1446,9 +1325,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cta',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            119 => 
-            array (
+            ],
+            119 => [
                 'id' => 1419,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1458,9 +1336,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cta',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            120 => 
-            array (
+            ],
+            120 => [
                 'id' => 1420,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1470,9 +1347,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'footer',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            121 => 
-            array (
+            ],
+            121 => [
                 'id' => 1421,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1482,9 +1358,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'footer',
                 'created_at' => '2025-07-02 18:19:30',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            122 => 
-            array (
+            ],
+            122 => [
                 'id' => 1444,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1494,9 +1369,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'positions',
                 'created_at' => '2025-07-02 18:20:39',
                 'updated_at' => '2025-07-02 18:20:39',
-            ),
-            123 => 
-            array (
+            ],
+            123 => [
                 'id' => 1445,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1506,9 +1380,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'posities',
                 'created_at' => '2025-07-02 18:20:39',
                 'updated_at' => '2025-07-02 18:20:39',
-            ),
-            124 => 
-            array (
+            ],
+            124 => [
                 'id' => 1446,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1518,9 +1391,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            125 => 
-            array (
+            ],
+            125 => [
                 'id' => 1447,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1530,9 +1402,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            126 => 
-            array (
+            ],
+            126 => [
                 'id' => 1448,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1542,9 +1413,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            127 => 
-            array (
+            ],
+            127 => [
                 'id' => 1449,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1554,9 +1424,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            128 => 
-            array (
+            ],
+            128 => [
                 'id' => 1450,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1566,9 +1435,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            129 => 
-            array (
+            ],
+            129 => [
                 'id' => 1451,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1578,9 +1446,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            130 => 
-            array (
+            ],
+            130 => [
                 'id' => 1452,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1590,9 +1457,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'item',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            131 => 
-            array (
+            ],
+            131 => [
                 'id' => 1453,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1602,9 +1468,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'item',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            132 => 
-            array (
+            ],
+            132 => [
                 'id' => 1454,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1614,9 +1479,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is home',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            133 => 
-            array (
+            ],
+            133 => [
                 'id' => 1455,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1626,9 +1490,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is home',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            134 => 
-            array (
+            ],
+            134 => [
                 'id' => 1456,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1638,9 +1501,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            135 => 
-            array (
+            ],
+            135 => [
                 'id' => 1457,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1650,9 +1512,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            136 => 
-            array (
+            ],
+            136 => [
                 'id' => 1458,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1662,9 +1523,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            137 => 
-            array (
+            ],
+            137 => [
                 'id' => 1459,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1674,9 +1534,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            138 => 
-            array (
+            ],
+            138 => [
                 'id' => 1460,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1686,9 +1545,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'no tag',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            139 => 
-            array (
+            ],
+            139 => [
                 'id' => 1461,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1698,9 +1556,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geen tag',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            140 => 
-            array (
+            ],
+            140 => [
                 'id' => 1462,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1710,9 +1567,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            141 => 
-            array (
+            ],
+            141 => [
                 'id' => 1463,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1722,9 +1578,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            142 => 
-            array (
+            ],
+            142 => [
                 'id' => 1464,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1734,9 +1589,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'auth',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            143 => 
-            array (
+            ],
+            143 => [
                 'id' => 1465,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1746,9 +1600,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'autorisatie',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            144 => 
-            array (
+            ],
+            144 => [
                 'id' => 1466,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1758,9 +1611,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locked',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            145 => 
-            array (
+            ],
+            145 => [
                 'id' => 1467,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1770,9 +1622,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vastgezet',
                 'created_at' => '2025-07-02 18:20:44',
                 'updated_at' => '2025-07-02 18:20:44',
-            ),
-            146 => 
-            array (
+            ],
+            146 => [
                 'id' => 1472,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -1782,9 +1633,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'post',
                 'created_at' => '2025-07-02 18:41:02',
                 'updated_at' => '2025-07-02 18:41:02',
-            ),
-            147 => 
-            array (
+            ],
+            147 => [
                 'id' => 1473,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -1794,9 +1644,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nieuwsbericht',
                 'created_at' => '2025-07-02 18:41:02',
                 'updated_at' => '2025-07-02 18:41:02',
-            ),
-            148 => 
-            array (
+            ],
+            148 => [
                 'id' => 1474,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -1806,9 +1655,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'news',
                 'created_at' => '2025-07-02 18:41:02',
                 'updated_at' => '2025-07-02 18:41:02',
-            ),
-            149 => 
-            array (
+            ],
+            149 => [
                 'id' => 1475,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -1818,9 +1666,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nieuws',
                 'created_at' => '2025-07-02 18:41:02',
                 'updated_at' => '2025-07-02 18:49:13',
-            ),
-            150 => 
-            array (
+            ],
+            150 => [
                 'id' => 1476,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -1830,9 +1677,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'posts',
                 'created_at' => '2025-07-02 18:41:04',
                 'updated_at' => '2025-07-02 18:41:04',
-            ),
-            151 => 
-            array (
+            ],
+            151 => [
                 'id' => 1477,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -1842,9 +1688,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nieuwsberichten',
                 'created_at' => '2025-07-02 18:41:04',
                 'updated_at' => '2025-07-02 18:41:04',
-            ),
-            152 => 
-            array (
+            ],
+            152 => [
                 'id' => 1478,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1854,9 +1699,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'users',
                 'created_at' => '2025-07-02 18:47:14',
                 'updated_at' => '2025-07-02 18:47:14',
-            ),
-            153 => 
-            array (
+            ],
+            153 => [
                 'id' => 1479,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1866,9 +1710,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gebruikers',
                 'created_at' => '2025-07-02 18:47:14',
                 'updated_at' => '2025-07-02 18:47:14',
-            ),
-            154 => 
-            array (
+            ],
+            154 => [
                 'id' => 1480,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1878,9 +1721,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'user',
                 'created_at' => '2025-07-02 18:47:14',
                 'updated_at' => '2025-07-02 18:47:14',
-            ),
-            155 => 
-            array (
+            ],
+            155 => [
                 'id' => 1481,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1890,9 +1732,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gebruiker',
                 'created_at' => '2025-07-02 18:47:14',
                 'updated_at' => '2025-07-02 18:47:14',
-            ),
-            156 => 
-            array (
+            ],
+            156 => [
                 'id' => 1482,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1902,9 +1743,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'users',
                 'created_at' => '2025-07-02 18:47:14',
                 'updated_at' => '2025-07-02 18:47:14',
-            ),
-            157 => 
-            array (
+            ],
+            157 => [
                 'id' => 1483,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1914,9 +1754,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gebruikers',
                 'created_at' => '2025-07-02 18:47:14',
                 'updated_at' => '2025-07-02 18:49:21',
-            ),
-            158 => 
-            array (
+            ],
+            158 => [
                 'id' => 1484,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1926,9 +1765,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            159 => 
-            array (
+            ],
+            159 => [
                 'id' => 1485,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1938,9 +1776,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            160 => 
-            array (
+            ],
+            160 => [
                 'id' => 1486,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1950,9 +1787,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'name',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            161 => 
-            array (
+            ],
+            161 => [
                 'id' => 1487,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1962,9 +1798,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'naam',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            162 => 
-            array (
+            ],
+            162 => [
                 'id' => 1488,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1974,9 +1809,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'email',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            163 => 
-            array (
+            ],
+            163 => [
                 'id' => 1489,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -1986,9 +1820,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'e-mail',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            164 => 
-            array (
+            ],
+            164 => [
                 'id' => 1490,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -1998,9 +1831,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'email verified',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            165 => 
-            array (
+            ],
+            165 => [
                 'id' => 1491,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2010,9 +1842,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'e-mail geverifieerd',
                 'created_at' => '2025-07-02 19:13:45',
                 'updated_at' => '2025-07-02 19:13:45',
-            ),
-            166 => 
-            array (
+            ],
+            166 => [
                 'id' => 1496,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2022,9 +1853,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'roles',
                 'created_at' => '2025-07-03 06:16:54',
                 'updated_at' => '2025-07-03 06:16:54',
-            ),
-            167 => 
-            array (
+            ],
+            167 => [
                 'id' => 1497,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2034,9 +1864,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rollen',
                 'created_at' => '2025-07-03 06:16:54',
                 'updated_at' => '2025-07-03 06:17:16',
-            ),
-            168 => 
-            array (
+            ],
+            168 => [
                 'id' => 1502,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2046,9 +1875,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'roles',
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
-            ),
-            169 => 
-            array (
+            ],
+            169 => [
                 'id' => 1503,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2058,9 +1886,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rollen',
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
-            ),
-            170 => 
-            array (
+            ],
+            170 => [
                 'id' => 1504,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2070,9 +1897,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'role',
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
-            ),
-            171 => 
-            array (
+            ],
+            171 => [
                 'id' => 1505,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2082,9 +1908,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rol',
                 'created_at' => '2025-07-03 06:16:57',
                 'updated_at' => '2025-07-03 06:16:57',
-            ),
-            172 => 
-            array (
+            ],
+            172 => [
                 'id' => 1506,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2094,9 +1919,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'translations',
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
-            ),
-            173 => 
-            array (
+            ],
+            173 => [
                 'id' => 1507,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2106,9 +1930,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vertalingen',
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
-            ),
-            174 => 
-            array (
+            ],
+            174 => [
                 'id' => 1508,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2118,9 +1941,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'translation',
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
-            ),
-            175 => 
-            array (
+            ],
+            175 => [
                 'id' => 1509,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2130,9 +1952,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vertaling',
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
-            ),
-            176 => 
-            array (
+            ],
+            176 => [
                 'id' => 1510,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2142,9 +1963,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'translations',
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:12',
-            ),
-            177 => 
-            array (
+            ],
+            177 => [
                 'id' => 1511,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2154,9 +1974,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vertalingen',
                 'created_at' => '2025-07-03 06:18:12',
                 'updated_at' => '2025-07-03 06:18:27',
-            ),
-            178 => 
-            array (
+            ],
+            178 => [
                 'id' => 1512,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2166,9 +1985,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'settings',
                 'created_at' => '2025-07-03 06:19:08',
                 'updated_at' => '2025-07-03 06:19:08',
-            ),
-            179 => 
-            array (
+            ],
+            179 => [
                 'id' => 1513,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2178,9 +1996,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'instellingen',
                 'created_at' => '2025-07-03 06:19:08',
                 'updated_at' => '2025-07-03 06:19:20',
-            ),
-            180 => 
-            array (
+            ],
+            180 => [
                 'id' => 1516,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2190,9 +2007,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cache',
                 'created_at' => '2025-07-03 06:21:23',
                 'updated_at' => '2025-07-10 07:51:53',
-            ),
-            181 => 
-            array (
+            ],
+            181 => [
                 'id' => 1517,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2202,9 +2018,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cache',
                 'created_at' => '2025-07-03 06:21:23',
                 'updated_at' => '2025-07-03 06:21:58',
-            ),
-            182 => 
-            array (
+            ],
+            182 => [
                 'id' => 1518,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2214,9 +2029,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'password',
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
-            ),
-            183 => 
-            array (
+            ],
+            183 => [
                 'id' => 1519,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2226,9 +2040,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'wachtwoord',
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
-            ),
-            184 => 
-            array (
+            ],
+            184 => [
                 'id' => 1520,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2238,9 +2051,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'language',
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
-            ),
-            185 => 
-            array (
+            ],
+            185 => [
                 'id' => 1521,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2250,9 +2062,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taal',
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
-            ),
-            186 => 
-            array (
+            ],
+            186 => [
                 'id' => 1522,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2262,9 +2073,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'roles',
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
-            ),
-            187 => 
-            array (
+            ],
+            187 => [
                 'id' => 1523,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2274,9 +2084,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rollen',
                 'created_at' => '2025-07-03 07:16:02',
                 'updated_at' => '2025-07-03 07:16:02',
-            ),
-            188 => 
-            array (
+            ],
+            188 => [
                 'id' => 1524,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2286,9 +2095,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu items',
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
-            ),
-            189 => 
-            array (
+            ],
+            189 => [
                 'id' => 1525,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2298,9 +2106,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu items',
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
-            ),
-            190 => 
-            array (
+            ],
+            190 => [
                 'id' => 1526,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2310,9 +2117,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu item',
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
-            ),
-            191 => 
-            array (
+            ],
+            191 => [
                 'id' => 1527,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2322,9 +2128,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu item',
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
-            ),
-            192 => 
-            array (
+            ],
+            192 => [
                 'id' => 1528,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2334,9 +2139,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu',
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 07:58:18',
-            ),
-            193 => 
-            array (
+            ],
+            193 => [
                 'id' => 1529,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2346,9 +2150,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu',
                 'created_at' => '2025-07-03 07:58:18',
                 'updated_at' => '2025-07-03 08:03:10',
-            ),
-            194 => 
-            array (
+            ],
+            194 => [
                 'id' => 1534,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2358,9 +2161,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
-            ),
-            195 => 
-            array (
+            ],
+            195 => [
                 'id' => 1535,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2370,9 +2172,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
-            ),
-            196 => 
-            array (
+            ],
+            196 => [
                 'id' => 1536,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -2382,9 +2183,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body',
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-10 07:50:35',
-            ),
-            197 => 
-            array (
+            ],
+            197 => [
                 'id' => 1537,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -2394,9 +2194,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tekst',
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-10 07:50:40',
-            ),
-            198 => 
-            array (
+            ],
+            198 => [
                 'id' => 1538,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2406,9 +2205,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locked',
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
-            ),
-            199 => 
-            array (
+            ],
+            199 => [
                 'id' => 1539,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2418,9 +2216,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vastgezet',
                 'created_at' => '2025-07-03 08:25:52',
                 'updated_at' => '2025-07-03 08:25:52',
-            ),
-            200 => 
-            array (
+            ],
+            200 => [
                 'id' => 1540,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2430,9 +2227,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
-            ),
-            201 => 
-            array (
+            ],
+            201 => [
                 'id' => 1541,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2442,9 +2238,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
-            ),
-            202 => 
-            array (
+            ],
+            202 => [
                 'id' => 1542,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2454,9 +2249,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
-            ),
-            203 => 
-            array (
+            ],
+            203 => [
                 'id' => 1543,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2466,9 +2260,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-03 11:03:57',
                 'updated_at' => '2025-07-03 11:03:57',
-            ),
-            204 => 
-            array (
+            ],
+            204 => [
                 'id' => 1544,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2478,9 +2271,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-03 11:06:18',
                 'updated_at' => '2025-07-03 11:06:18',
-            ),
-            205 => 
-            array (
+            ],
+            205 => [
                 'id' => 1545,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2490,9 +2282,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-03 11:06:18',
                 'updated_at' => '2025-07-03 11:16:18',
-            ),
-            206 => 
-            array (
+            ],
+            206 => [
                 'id' => 1546,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2502,9 +2293,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entities',
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
-            ),
-            207 => 
-            array (
+            ],
+            207 => [
                 'id' => 1547,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2514,9 +2304,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteiten',
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
-            ),
-            208 => 
-            array (
+            ],
+            208 => [
                 'id' => 1548,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2526,9 +2315,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
-            ),
-            209 => 
-            array (
+            ],
+            209 => [
                 'id' => 1549,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2538,9 +2326,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit',
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
-            ),
-            210 => 
-            array (
+            ],
+            210 => [
                 'id' => 1550,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2550,9 +2337,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entities',
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:14:51',
-            ),
-            211 => 
-            array (
+            ],
+            211 => [
                 'id' => 1551,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2562,9 +2348,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteiten',
                 'created_at' => '2025-07-03 11:14:51',
                 'updated_at' => '2025-07-03 11:16:03',
-            ),
-            212 => 
-            array (
+            ],
+            212 => [
                 'id' => 1564,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2574,9 +2359,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity relations',
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:18:43',
-            ),
-            213 => 
-            array (
+            ],
+            213 => [
                 'id' => 1565,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2586,9 +2370,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit relaties',
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:20:17',
-            ),
-            214 => 
-            array (
+            ],
+            214 => [
                 'id' => 1566,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2598,9 +2381,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity views',
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:18:43',
-            ),
-            215 => 
-            array (
+            ],
+            215 => [
                 'id' => 1567,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2610,9 +2392,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit views',
                 'created_at' => '2025-07-03 11:18:43',
                 'updated_at' => '2025-07-03 11:20:27',
-            ),
-            216 => 
-            array (
+            ],
+            216 => [
                 'id' => 1568,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2622,9 +2403,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity views',
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
-            ),
-            217 => 
-            array (
+            ],
+            217 => [
                 'id' => 1569,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2634,9 +2414,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit views',
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
-            ),
-            218 => 
-            array (
+            ],
+            218 => [
                 'id' => 1570,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2646,9 +2425,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity view',
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
-            ),
-            219 => 
-            array (
+            ],
+            219 => [
                 'id' => 1571,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2658,9 +2436,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit view',
                 'created_at' => '2025-07-03 11:18:46',
                 'updated_at' => '2025-07-03 11:18:46',
-            ),
-            220 => 
-            array (
+            ],
+            220 => [
                 'id' => 1572,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2670,9 +2447,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity relations',
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
-            ),
-            221 => 
-            array (
+            ],
+            221 => [
                 'id' => 1573,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2682,9 +2458,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit relaties',
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
-            ),
-            222 => 
-            array (
+            ],
+            222 => [
                 'id' => 1574,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2694,9 +2469,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity relation',
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
-            ),
-            223 => 
-            array (
+            ],
+            223 => [
                 'id' => 1575,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2706,9 +2480,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit relatie',
                 'created_at' => '2025-07-03 11:19:11',
                 'updated_at' => '2025-07-03 11:19:11',
-            ),
-            224 => 
-            array (
+            ],
+            224 => [
                 'id' => 1576,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2718,9 +2491,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom fields',
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
-            ),
-            225 => 
-            array (
+            ],
+            225 => [
                 'id' => 1577,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2730,9 +2502,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom velden',
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
-            ),
-            226 => 
-            array (
+            ],
+            226 => [
                 'id' => 1578,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2742,9 +2513,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom field',
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
-            ),
-            227 => 
-            array (
+            ],
+            227 => [
                 'id' => 1579,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2754,9 +2524,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom veld',
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
-            ),
-            228 => 
-            array (
+            ],
+            228 => [
                 'id' => 1580,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2766,9 +2535,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom fields',
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:42',
-            ),
-            229 => 
-            array (
+            ],
+            229 => [
                 'id' => 1581,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2778,9 +2546,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom velden',
                 'created_at' => '2025-07-03 11:22:42',
                 'updated_at' => '2025-07-03 11:22:57',
-            ),
-            230 => 
-            array (
+            ],
+            230 => [
                 'id' => 1582,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2790,9 +2557,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            231 => 
-            array (
+            ],
+            231 => [
                 'id' => 1583,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2802,9 +2568,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            232 => 
-            array (
+            ],
+            232 => [
                 'id' => 1584,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2814,9 +2579,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            233 => 
-            array (
+            ],
+            233 => [
                 'id' => 1585,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2826,9 +2590,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            234 => 
-            array (
+            ],
+            234 => [
                 'id' => 1586,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2838,21 +2601,19 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            235 => 
-            array (
+            ],
+            235 => [
                 'id' => 1587,
                 'language' => 'nl',
                 'module' => 'lara-admin',
                 'resource' => 'entities',
                 'tag' => 'column',
                 'key' => 'label_single',
-            'value' => 'entiteit (enkelvoud)',
+                'value' => 'entiteit (enkelvoud)',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-08-29 12:43:56',
-            ),
-            236 => 
-            array (
+            ],
+            236 => [
                 'id' => 1588,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2862,9 +2623,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            237 => 
-            array (
+            ],
+            237 => [
                 'id' => 1589,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2874,9 +2634,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            238 => 
-            array (
+            ],
+            238 => [
                 'id' => 1590,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2886,9 +2645,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'model class',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            239 => 
-            array (
+            ],
+            239 => [
                 'id' => 1591,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2898,9 +2656,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'model class',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:03',
-            ),
-            240 => 
-            array (
+            ],
+            240 => [
                 'id' => 1592,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2910,9 +2667,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'controller',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            241 => 
-            array (
+            ],
+            241 => [
                 'id' => 1593,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2922,9 +2678,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'controller',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            242 => 
-            array (
+            ],
+            242 => [
                 'id' => 1594,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2934,9 +2689,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nav group',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            243 => 
-            array (
+            ],
+            243 => [
                 'id' => 1595,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2946,9 +2700,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'navigatie groep',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:15',
-            ),
-            244 => 
-            array (
+            ],
+            244 => [
                 'id' => 1596,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2958,9 +2711,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'position',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            245 => 
-            array (
+            ],
+            245 => [
                 'id' => 1597,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2970,9 +2722,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'positie',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:21',
-            ),
-            246 => 
-            array (
+            ],
+            246 => [
                 'id' => 1598,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -2982,9 +2733,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            247 => 
-            array (
+            ],
+            247 => [
                 'id' => 1599,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -2994,9 +2744,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groep',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:26',
-            ),
-            248 => 
-            array (
+            ],
+            248 => [
                 'id' => 1600,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3006,9 +2755,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'lead',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            249 => 
-            array (
+            ],
+            249 => [
                 'id' => 1601,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3018,9 +2766,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'intro',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-10 08:23:31',
-            ),
-            250 => 
-            array (
+            ],
+            250 => [
                 'id' => 1602,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3030,9 +2777,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            251 => 
-            array (
+            ],
+            251 => [
                 'id' => 1603,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3042,9 +2788,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            252 => 
-            array (
+            ],
+            252 => [
                 'id' => 1604,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3054,9 +2799,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'status',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            253 => 
-            array (
+            ],
+            253 => [
                 'id' => 1605,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3066,9 +2810,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'status',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            254 => 
-            array (
+            ],
+            254 => [
                 'id' => 1606,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3078,9 +2821,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hideinlist',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            255 => 
-            array (
+            ],
+            255 => [
                 'id' => 1607,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3090,9 +2832,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hideinlist',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            256 => 
-            array (
+            ],
+            256 => [
                 'id' => 1608,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3102,9 +2843,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'expiration',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            257 => 
-            array (
+            ],
+            257 => [
                 'id' => 1609,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3114,9 +2854,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'expiration',
                 'created_at' => '2025-07-03 11:41:25',
                 'updated_at' => '2025-07-03 11:41:25',
-            ),
-            258 => 
-            array (
+            ],
+            258 => [
                 'id' => 1610,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3126,9 +2865,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'terms',
                 'created_at' => '2025-07-03 11:42:26',
                 'updated_at' => '2025-07-03 11:42:26',
-            ),
-            259 => 
-            array (
+            ],
+            259 => [
                 'id' => 1611,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3138,9 +2876,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'terms',
                 'created_at' => '2025-07-03 11:42:26',
                 'updated_at' => '2025-07-03 11:42:26',
-            ),
-            260 => 
-            array (
+            ],
+            260 => [
                 'id' => 1612,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3150,9 +2887,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groups',
                 'created_at' => '2025-07-03 11:42:26',
                 'updated_at' => '2025-07-03 11:42:26',
-            ),
-            261 => 
-            array (
+            ],
+            261 => [
                 'id' => 1613,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3162,9 +2898,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groups',
                 'created_at' => '2025-07-03 11:42:27',
                 'updated_at' => '2025-07-03 11:42:27',
-            ),
-            262 => 
-            array (
+            ],
+            262 => [
                 'id' => 1614,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3174,9 +2909,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group values',
                 'created_at' => '2025-07-03 11:42:27',
                 'updated_at' => '2025-07-03 11:42:27',
-            ),
-            263 => 
-            array (
+            ],
+            263 => [
                 'id' => 1615,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3186,9 +2920,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group values',
                 'created_at' => '2025-07-03 11:42:27',
                 'updated_at' => '2025-07-03 11:42:27',
-            ),
-            264 => 
-            array (
+            ],
+            264 => [
                 'id' => 1616,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3198,9 +2931,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'has related',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            265 => 
-            array (
+            ],
+            265 => [
                 'id' => 1617,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3210,9 +2942,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'has related',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            266 => 
-            array (
+            ],
+            266 => [
                 'id' => 1618,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3222,9 +2953,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is relatable',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            267 => 
-            array (
+            ],
+            267 => [
                 'id' => 1619,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3234,9 +2964,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is relatable',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            268 => 
-            array (
+            ],
+            268 => [
                 'id' => 1620,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3246,9 +2975,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'trashed',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            269 => 
-            array (
+            ],
+            269 => [
                 'id' => 1621,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3258,9 +2986,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'trashed',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            270 => 
-            array (
+            ],
+            270 => [
                 'id' => 1622,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3270,9 +2997,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show search',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            271 => 
-            array (
+            ],
+            271 => [
                 'id' => 1623,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3282,9 +3008,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon search',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            272 => 
-            array (
+            ],
+            272 => [
                 'id' => 1624,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3294,9 +3019,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show batch',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            273 => 
-            array (
+            ],
+            273 => [
                 'id' => 1625,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3306,9 +3030,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon batch',
                 'created_at' => '2025-07-03 11:43:41',
                 'updated_at' => '2025-07-03 11:43:41',
-            ),
-            274 => 
-            array (
+            ],
+            274 => [
                 'id' => 1626,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3318,9 +3041,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show author',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            275 => 
-            array (
+            ],
+            275 => [
                 'id' => 1627,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3330,9 +3052,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon author',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            276 => 
-            array (
+            ],
+            276 => [
                 'id' => 1628,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3342,9 +3063,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show status',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            277 => 
-            array (
+            ],
+            277 => [
                 'id' => 1629,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3354,9 +3074,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon status',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            278 => 
-            array (
+            ],
+            278 => [
                 'id' => 1630,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3366,9 +3085,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show seo',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            279 => 
-            array (
+            ],
+            279 => [
                 'id' => 1631,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3378,9 +3096,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon seo',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            280 => 
-            array (
+            ],
+            280 => [
                 'id' => 1634,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3390,9 +3107,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show rich lead',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            281 => 
-            array (
+            ],
+            281 => [
                 'id' => 1635,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3402,9 +3118,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon rich lead',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            282 => 
-            array (
+            ],
+            282 => [
                 'id' => 1636,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3414,9 +3129,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show rich body',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            283 => 
-            array (
+            ],
+            283 => [
                 'id' => 1637,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3426,9 +3140,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon rich body',
                 'created_at' => '2025-07-03 11:44:44',
                 'updated_at' => '2025-07-03 11:44:44',
-            ),
-            284 => 
-            array (
+            ],
+            284 => [
                 'id' => 1638,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3438,9 +3151,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show view',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            285 => 
-            array (
+            ],
+            285 => [
                 'id' => 1639,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3450,9 +3162,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon view',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            286 => 
-            array (
+            ],
+            286 => [
                 'id' => 1640,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3462,9 +3173,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show edit',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            287 => 
-            array (
+            ],
+            287 => [
                 'id' => 1641,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3474,9 +3184,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon edit',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            288 => 
-            array (
+            ],
+            288 => [
                 'id' => 1642,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3486,9 +3195,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show delete',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            289 => 
-            array (
+            ],
+            289 => [
                 'id' => 1643,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3498,9 +3206,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon delete',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            290 => 
-            array (
+            ],
+            290 => [
                 'id' => 1644,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3510,9 +3217,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'restore action',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            291 => 
-            array (
+            ],
+            291 => [
                 'id' => 1645,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3522,9 +3228,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon restore',
                 'created_at' => '2025-07-03 11:45:26',
                 'updated_at' => '2025-07-03 11:45:26',
-            ),
-            292 => 
-            array (
+            ],
+            292 => [
                 'id' => 1646,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3534,9 +3239,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'featured',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            293 => 
-            array (
+            ],
+            293 => [
                 'id' => 1647,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3546,9 +3250,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'featured',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            294 => 
-            array (
+            ],
+            294 => [
                 'id' => 1648,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3558,9 +3261,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'thumb',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            295 => 
-            array (
+            ],
+            295 => [
                 'id' => 1649,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3570,9 +3272,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'thumb',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            296 => 
-            array (
+            ],
+            296 => [
                 'id' => 1650,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3582,9 +3283,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hero',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            297 => 
-            array (
+            ],
+            297 => [
                 'id' => 1651,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3594,9 +3294,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hero',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            298 => 
-            array (
+            ],
+            298 => [
                 'id' => 1652,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3606,9 +3305,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'icon',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            299 => 
-            array (
+            ],
+            299 => [
                 'id' => 1653,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3618,9 +3316,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'icon',
                 'created_at' => '2025-07-03 11:46:25',
                 'updated_at' => '2025-07-03 11:46:25',
-            ),
-            300 => 
-            array (
+            ],
+            300 => [
                 'id' => 1654,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3630,9 +3327,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gallery',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            301 => 
-            array (
+            ],
+            301 => [
                 'id' => 1655,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3642,9 +3338,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gallery',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            302 => 
-            array (
+            ],
+            302 => [
                 'id' => 1656,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3654,9 +3349,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max gallery',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            303 => 
-            array (
+            ],
+            303 => [
                 'id' => 1657,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3666,9 +3360,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max gallery',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            304 => 
-            array (
+            ],
+            304 => [
                 'id' => 1658,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3678,9 +3371,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videos',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            305 => 
-            array (
+            ],
+            305 => [
                 'id' => 1659,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3690,9 +3382,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videos',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            306 => 
-            array (
+            ],
+            306 => [
                 'id' => 1660,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3702,9 +3393,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max videos',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            307 => 
-            array (
+            ],
+            307 => [
                 'id' => 1661,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3714,9 +3404,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max videos',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            308 => 
-            array (
+            ],
+            308 => [
                 'id' => 1662,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3726,9 +3415,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video files',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            309 => 
-            array (
+            ],
+            309 => [
                 'id' => 1663,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3738,9 +3426,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video files',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            310 => 
-            array (
+            ],
+            310 => [
                 'id' => 1664,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3750,9 +3437,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max video files',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            311 => 
-            array (
+            ],
+            311 => [
                 'id' => 1665,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3762,9 +3448,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max video files',
                 'created_at' => '2025-07-03 11:47:38',
                 'updated_at' => '2025-07-03 11:47:38',
-            ),
-            312 => 
-            array (
+            ],
+            312 => [
                 'id' => 1666,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3774,9 +3459,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'files',
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
-            ),
-            313 => 
-            array (
+            ],
+            313 => [
                 'id' => 1667,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3786,9 +3470,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'files',
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
-            ),
-            314 => 
-            array (
+            ],
+            314 => [
                 'id' => 1668,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3798,9 +3481,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max files',
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
-            ),
-            315 => 
-            array (
+            ],
+            315 => [
                 'id' => 1669,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3810,9 +3492,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max files',
                 'created_at' => '2025-07-03 11:48:07',
                 'updated_at' => '2025-07-03 11:48:07',
-            ),
-            316 => 
-            array (
+            ],
+            316 => [
                 'id' => 1670,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3822,9 +3503,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sortable',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            317 => 
-            array (
+            ],
+            317 => [
                 'id' => 1671,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3834,9 +3514,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sortable',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            318 => 
-            array (
+            ],
+            318 => [
                 'id' => 1672,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3846,9 +3525,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'primary field',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            319 => 
-            array (
+            ],
+            319 => [
                 'id' => 1673,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3858,9 +3536,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'primary field',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            320 => 
-            array (
+            ],
+            320 => [
                 'id' => 1674,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3870,9 +3547,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'primary order',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            321 => 
-            array (
+            ],
+            321 => [
                 'id' => 1675,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3882,9 +3558,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'primary order',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            322 => 
-            array (
+            ],
+            322 => [
                 'id' => 1676,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3894,9 +3569,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'secondary field',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            323 => 
-            array (
+            ],
+            323 => [
                 'id' => 1677,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3906,9 +3580,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'secondary field',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            324 => 
-            array (
+            ],
+            324 => [
                 'id' => 1678,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3918,9 +3591,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'secondary order',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            325 => 
-            array (
+            ],
+            325 => [
                 'id' => 1679,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3930,9 +3602,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'secondary order',
                 'created_at' => '2025-07-03 11:49:13',
                 'updated_at' => '2025-07-03 11:49:13',
-            ),
-            326 => 
-            array (
+            ],
+            326 => [
                 'id' => 1680,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3942,9 +3613,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'settings',
                 'created_at' => '2025-07-03 11:49:38',
                 'updated_at' => '2025-07-03 11:49:38',
-            ),
-            327 => 
-            array (
+            ],
+            327 => [
                 'id' => 1681,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3954,9 +3624,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'instellingen',
                 'created_at' => '2025-07-03 11:49:38',
                 'updated_at' => '2025-07-03 11:49:38',
-            ),
-            328 => 
-            array (
+            ],
+            328 => [
                 'id' => 1682,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3966,9 +3635,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'setting',
                 'created_at' => '2025-07-03 11:49:39',
                 'updated_at' => '2025-07-03 11:49:39',
-            ),
-            329 => 
-            array (
+            ],
+            329 => [
                 'id' => 1683,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -3978,9 +3646,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'instelling',
                 'created_at' => '2025-07-03 11:49:39',
                 'updated_at' => '2025-07-03 11:49:39',
-            ),
-            330 => 
-            array (
+            ],
+            330 => [
                 'id' => 1684,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -3990,9 +3657,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'name',
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
-            ),
-            331 => 
-            array (
+            ],
+            331 => [
                 'id' => 1685,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4002,9 +3668,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'naam',
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
-            ),
-            332 => 
-            array (
+            ],
+            332 => [
                 'id' => 1686,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4014,9 +3679,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'guard',
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
-            ),
-            333 => 
-            array (
+            ],
+            333 => [
                 'id' => 1687,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4026,9 +3690,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'guard',
                 'created_at' => '2025-07-03 11:55:34',
                 'updated_at' => '2025-07-03 11:55:34',
-            ),
-            334 => 
-            array (
+            ],
+            334 => [
                 'id' => 1688,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4038,9 +3701,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'guard',
                 'created_at' => '2025-07-03 11:55:38',
                 'updated_at' => '2025-07-03 11:55:38',
-            ),
-            335 => 
-            array (
+            ],
+            335 => [
                 'id' => 1689,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4050,9 +3712,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'guard',
                 'created_at' => '2025-07-03 11:55:38',
                 'updated_at' => '2025-07-03 11:55:38',
-            ),
-            336 => 
-            array (
+            ],
+            336 => [
                 'id' => 1690,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4062,9 +3723,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'info',
                 'created_at' => '2025-07-03 14:33:48',
                 'updated_at' => '2025-07-03 14:33:48',
-            ),
-            337 => 
-            array (
+            ],
+            337 => [
                 'id' => 1691,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4074,9 +3734,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'info',
                 'created_at' => '2025-07-03 14:33:48',
                 'updated_at' => '2025-07-03 14:33:48',
-            ),
-            338 => 
-            array (
+            ],
+            338 => [
                 'id' => 1692,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4086,9 +3745,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'columns',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            339 => 
-            array (
+            ],
+            339 => [
                 'id' => 1693,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4098,9 +3756,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'kolommen',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            340 => 
-            array (
+            ],
+            340 => [
                 'id' => 1694,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4110,9 +3767,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'object relations',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            341 => 
-            array (
+            ],
+            341 => [
                 'id' => 1695,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4122,9 +3778,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'object relaties',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            342 => 
-            array (
+            ],
+            342 => [
                 'id' => 1696,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4134,9 +3789,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filters',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            343 => 
-            array (
+            ],
+            343 => [
                 'id' => 1697,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4146,9 +3800,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filters',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            344 => 
-            array (
+            ],
+            344 => [
                 'id' => 1698,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4158,9 +3811,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sections',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            345 => 
-            array (
+            ],
+            345 => [
                 'id' => 1699,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4170,9 +3822,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'secties',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            346 => 
-            array (
+            ],
+            346 => [
                 'id' => 1700,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4182,9 +3833,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            347 => 
-            array (
+            ],
+            347 => [
                 'id' => 1701,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4194,9 +3844,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            348 => 
-            array (
+            ],
+            348 => [
                 'id' => 1702,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4206,9 +3855,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sort order',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            349 => 
-            array (
+            ],
+            349 => [
                 'id' => 1703,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4218,9 +3866,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sorteervolgorde',
                 'created_at' => '2025-07-03 14:35:37',
                 'updated_at' => '2025-07-03 14:35:37',
-            ),
-            350 => 
-            array (
+            ],
+            350 => [
                 'id' => 1704,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4230,9 +3877,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'source',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            351 => 
-            array (
+            ],
+            351 => [
                 'id' => 1705,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4242,9 +3888,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bron',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            352 => 
-            array (
+            ],
+            352 => [
                 'id' => 1706,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4254,9 +3899,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            353 => 
-            array (
+            ],
+            353 => [
                 'id' => 1707,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4266,9 +3910,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            354 => 
-            array (
+            ],
+            354 => [
                 'id' => 1708,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4278,9 +3921,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            355 => 
-            array (
+            ],
+            355 => [
                 'id' => 1709,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4290,9 +3932,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            356 => 
-            array (
+            ],
+            356 => [
                 'id' => 1710,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4302,9 +3943,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related entity',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            357 => 
-            array (
+            ],
+            357 => [
                 'id' => 1711,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4314,9 +3954,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde entiteit',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            358 => 
-            array (
+            ],
+            358 => [
                 'id' => 1712,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4326,9 +3965,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'foreign key',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            359 => 
-            array (
+            ],
+            359 => [
                 'id' => 1713,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4338,9 +3976,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'foreign key',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            360 => 
-            array (
+            ],
+            360 => [
                 'id' => 1714,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4350,9 +3987,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is filter',
                 'created_at' => '2025-07-03 14:42:15',
                 'updated_at' => '2025-07-03 14:42:15',
-            ),
-            361 => 
-            array (
+            ],
+            361 => [
                 'id' => 1715,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4362,9 +3998,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is filter',
                 'created_at' => '2025-07-03 14:42:16',
                 'updated_at' => '2025-07-03 14:42:16',
-            ),
-            362 => 
-            array (
+            ],
+            362 => [
                 'id' => 1716,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4374,9 +4009,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            363 => 
-            array (
+            ],
+            363 => [
                 'id' => 1717,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4386,9 +4020,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            364 => 
-            array (
+            ],
+            364 => [
                 'id' => 1718,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4398,9 +4031,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            365 => 
-            array (
+            ],
+            365 => [
                 'id' => 1719,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4410,9 +4042,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            366 => 
-            array (
+            ],
+            366 => [
                 'id' => 1720,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4422,9 +4053,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'method',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            367 => 
-            array (
+            ],
+            367 => [
                 'id' => 1721,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4434,9 +4064,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'methode',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            368 => 
-            array (
+            ],
+            368 => [
                 'id' => 1722,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4446,9 +4075,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is single',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            369 => 
-            array (
+            ],
+            369 => [
                 'id' => 1723,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4458,9 +4086,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is single',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            370 => 
-            array (
+            ],
+            370 => [
                 'id' => 1724,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4470,9 +4097,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'list type',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            371 => 
-            array (
+            ],
+            371 => [
                 'id' => 1725,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4482,9 +4108,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'lijst type',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            372 => 
-            array (
+            ],
+            372 => [
                 'id' => 1726,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4494,9 +4119,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show tags',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            373 => 
-            array (
+            ],
+            373 => [
                 'id' => 1727,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4506,9 +4130,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon tags',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            374 => 
-            array (
+            ],
+            374 => [
                 'id' => 1728,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4518,9 +4141,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'paginate',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            375 => 
-            array (
+            ],
+            375 => [
                 'id' => 1729,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4530,9 +4152,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'paginering',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            376 => 
-            array (
+            ],
+            376 => [
                 'id' => 1730,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4542,9 +4163,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'prev next',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            377 => 
-            array (
+            ],
+            377 => [
                 'id' => 1731,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4554,9 +4174,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vorige volgende',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            378 => 
-            array (
+            ],
+            378 => [
                 'id' => 1732,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4566,9 +4185,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            379 => 
-            array (
+            ],
+            379 => [
                 'id' => 1733,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4578,9 +4196,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-03 14:54:28',
                 'updated_at' => '2025-07-03 14:54:28',
-            ),
-            380 => 
-            array (
+            ],
+            380 => [
                 'id' => 1734,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4590,9 +4207,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            381 => 
-            array (
+            ],
+            381 => [
                 'id' => 1735,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4602,9 +4218,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            382 => 
-            array (
+            ],
+            382 => [
                 'id' => 1736,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4614,9 +4229,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filename',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            383 => 
-            array (
+            ],
+            383 => [
                 'id' => 1737,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4626,9 +4240,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bestandsnaam',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            384 => 
-            array (
+            ],
+            384 => [
                 'id' => 1738,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4638,9 +4251,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'extra fields',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            385 => 
-            array (
+            ],
+            385 => [
                 'id' => 1739,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4650,9 +4262,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'extra velden',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            386 => 
-            array (
+            ],
+            386 => [
                 'id' => 1740,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4662,9 +4273,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'infinite',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            387 => 
-            array (
+            ],
+            387 => [
                 'id' => 1741,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4674,9 +4284,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'oneindig',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            388 => 
-            array (
+            ],
+            388 => [
                 'id' => 1742,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4686,9 +4295,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publish',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            389 => 
-            array (
+            ],
+            389 => [
                 'id' => 1743,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4698,9 +4306,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceren',
                 'created_at' => '2025-07-03 15:02:14',
                 'updated_at' => '2025-07-03 15:02:14',
-            ),
-            390 => 
-            array (
+            ],
+            390 => [
                 'id' => 1746,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4710,9 +4317,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            391 => 
-            array (
+            ],
+            391 => [
                 'id' => 1747,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4722,9 +4328,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            392 => 
-            array (
+            ],
+            392 => [
                 'id' => 1748,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4734,9 +4339,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            393 => 
-            array (
+            ],
+            393 => [
                 'id' => 1749,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4746,9 +4350,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            394 => 
-            array (
+            ],
+            394 => [
                 'id' => 1750,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4758,9 +4361,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'field name',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            395 => 
-            array (
+            ],
+            395 => [
                 'id' => 1751,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4770,9 +4372,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'veldnaam',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            396 => 
-            array (
+            ],
+            396 => [
                 'id' => 1752,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4782,9 +4383,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'field name temp',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            397 => 
-            array (
+            ],
+            397 => [
                 'id' => 1753,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4794,9 +4394,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'veldnaam tijdelijk',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            398 => 
-            array (
+            ],
+            398 => [
                 'id' => 1754,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4806,9 +4405,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'field name edit',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            399 => 
-            array (
+            ],
+            399 => [
                 'id' => 1755,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4818,9 +4416,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'veldnaam bewerken',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            400 => 
-            array (
+            ],
+            400 => [
                 'id' => 1756,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4830,9 +4427,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'field type',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            401 => 
-            array (
+            ],
+            401 => [
                 'id' => 1757,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4842,9 +4438,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'veldtype',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            402 => 
-            array (
+            ],
+            402 => [
                 'id' => 1758,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4854,9 +4449,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'field options',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            403 => 
-            array (
+            ],
+            403 => [
                 'id' => 1759,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4866,9 +4460,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'veld opties',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            404 => 
-            array (
+            ],
+            404 => [
                 'id' => 1760,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4878,9 +4471,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            405 => 
-            array (
+            ],
+            405 => [
                 'id' => 1761,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4890,9 +4482,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            406 => 
-            array (
+            ],
+            406 => [
                 'id' => 1762,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4902,9 +4493,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show in list',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            407 => 
-            array (
+            ],
+            407 => [
                 'id' => 1763,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4914,9 +4504,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon in lijst',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            408 => 
-            array (
+            ],
+            408 => [
                 'id' => 1764,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4926,9 +4515,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is required',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            409 => 
-            array (
+            ],
+            409 => [
                 'id' => 1765,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4938,9 +4526,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is verplicht',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            410 => 
-            array (
+            ],
+            410 => [
                 'id' => 1766,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4950,9 +4537,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is filter',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            411 => 
-            array (
+            ],
+            411 => [
                 'id' => 1767,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4962,9 +4548,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is filter',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            412 => 
-            array (
+            ],
+            412 => [
                 'id' => 1768,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4974,9 +4559,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sort order',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            413 => 
-            array (
+            ],
+            413 => [
                 'id' => 1769,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -4986,9 +4570,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sorteervolgorde',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            414 => 
-            array (
+            ],
+            414 => [
                 'id' => 1770,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -4998,9 +4581,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'conditional',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            415 => 
-            array (
+            ],
+            415 => [
                 'id' => 1771,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5010,9 +4592,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'voorwaarden',
                 'created_at' => '2025-07-03 15:10:44',
                 'updated_at' => '2025-07-03 15:10:44',
-            ),
-            416 => 
-            array (
+            ],
+            416 => [
                 'id' => 1772,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5022,9 +4603,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-03 15:17:31',
                 'updated_at' => '2025-07-03 15:17:31',
-            ),
-            417 => 
-            array (
+            ],
+            417 => [
                 'id' => 1773,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5034,9 +4614,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entiteit',
                 'created_at' => '2025-07-03 15:17:31',
                 'updated_at' => '2025-07-03 15:17:31',
-            ),
-            418 => 
-            array (
+            ],
+            418 => [
                 'id' => 1774,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5046,9 +4625,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'key',
                 'created_at' => '2025-07-03 15:20:45',
                 'updated_at' => '2025-07-03 15:20:45',
-            ),
-            419 => 
-            array (
+            ],
+            419 => [
                 'id' => 1775,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5058,9 +4636,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'key',
                 'created_at' => '2025-07-03 15:20:45',
                 'updated_at' => '2025-07-03 15:20:45',
-            ),
-            420 => 
-            array (
+            ],
+            420 => [
                 'id' => 1782,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5070,9 +4647,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            421 => 
-            array (
+            ],
+            421 => [
                 'id' => 1783,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5082,9 +4658,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
-            ),
-            422 => 
-            array (
+            ],
+            422 => [
                 'id' => 1784,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5094,9 +4669,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            423 => 
-            array (
+            ],
+            423 => [
                 'id' => 1785,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5106,9 +4680,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
-            ),
-            424 => 
-            array (
+            ],
+            424 => [
                 'id' => 1786,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5118,9 +4691,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            425 => 
-            array (
+            ],
+            425 => [
                 'id' => 1787,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5130,9 +4702,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
-            ),
-            426 => 
-            array (
+            ],
+            426 => [
                 'id' => 1788,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5142,9 +4713,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            427 => 
-            array (
+            ],
+            427 => [
                 'id' => 1789,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5154,9 +4724,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
-            ),
-            428 => 
-            array (
+            ],
+            428 => [
                 'id' => 1790,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5166,9 +4735,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'files',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            429 => 
-            array (
+            ],
+            429 => [
                 'id' => 1791,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5178,9 +4746,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bestanden',
                 'created_at' => '2025-07-03 16:22:13',
                 'updated_at' => '2025-07-03 16:22:13',
-            ),
-            430 => 
-            array (
+            ],
+            430 => [
                 'id' => 1792,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5190,9 +4757,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'lead',
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
-            ),
-            431 => 
-            array (
+            ],
+            431 => [
                 'id' => 1793,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5202,9 +4768,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'intro',
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
-            ),
-            432 => 
-            array (
+            ],
+            432 => [
                 'id' => 1794,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5214,9 +4779,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body',
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
-            ),
-            433 => 
-            array (
+            ],
+            433 => [
                 'id' => 1795,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5226,9 +4790,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tekst',
                 'created_at' => '2025-07-03 16:25:56',
                 'updated_at' => '2025-07-03 16:25:56',
-            ),
-            434 => 
-            array (
+            ],
+            434 => [
                 'id' => 1796,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5238,9 +4801,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'member',
                 'created_at' => '2025-07-04 08:06:25',
                 'updated_at' => '2025-07-04 14:43:11',
-            ),
-            435 => 
-            array (
+            ],
+            435 => [
                 'id' => 1797,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5250,9 +4812,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'medewerker',
                 'created_at' => '2025-07-04 08:06:25',
                 'updated_at' => '2025-07-04 14:09:33',
-            ),
-            436 => 
-            array (
+            ],
+            436 => [
                 'id' => 1798,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5262,9 +4823,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'team',
                 'created_at' => '2025-07-04 08:06:25',
                 'updated_at' => '2025-07-04 14:43:22',
-            ),
-            437 => 
-            array (
+            ],
+            437 => [
                 'id' => 1799,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5274,9 +4834,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'team',
                 'created_at' => '2025-07-04 08:06:25',
                 'updated_at' => '2025-07-04 14:09:26',
-            ),
-            438 => 
-            array (
+            ],
+            438 => [
                 'id' => 1800,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5286,9 +4845,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'team',
                 'created_at' => '2025-07-04 08:06:27',
                 'updated_at' => '2025-07-04 14:43:17',
-            ),
-            439 => 
-            array (
+            ],
+            439 => [
                 'id' => 1801,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5298,9 +4856,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'team',
                 'created_at' => '2025-07-04 08:06:27',
                 'updated_at' => '2025-07-04 14:09:38',
-            ),
-            440 => 
-            array (
+            ],
+            440 => [
                 'id' => 1802,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5310,9 +4867,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'terms',
                 'created_at' => '2025-07-04 14:08:53',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            441 => 
-            array (
+            ],
+            441 => [
                 'id' => 1803,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5322,9 +4878,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'termen',
                 'created_at' => '2025-07-04 14:08:53',
                 'updated_at' => '2025-07-04 15:40:46',
-            ),
-            442 => 
-            array (
+            ],
+            442 => [
                 'id' => 1804,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5334,9 +4889,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'first name',
                 'created_at' => '2025-07-04 14:18:04',
                 'updated_at' => '2025-07-04 14:42:40',
-            ),
-            443 => 
-            array (
+            ],
+            443 => [
                 'id' => 1805,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5346,9 +4900,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'voornaam',
                 'created_at' => '2025-07-04 14:18:04',
                 'updated_at' => '2025-07-04 14:23:42',
-            ),
-            444 => 
-            array (
+            ],
+            444 => [
                 'id' => 1806,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5358,9 +4911,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'middle name',
                 'created_at' => '2025-07-04 14:18:04',
                 'updated_at' => '2025-07-04 14:42:46',
-            ),
-            445 => 
-            array (
+            ],
+            445 => [
                 'id' => 1807,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5370,9 +4922,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tussenvoegsel',
                 'created_at' => '2025-07-04 14:18:04',
                 'updated_at' => '2025-07-04 14:24:01',
-            ),
-            446 => 
-            array (
+            ],
+            446 => [
                 'id' => 1808,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5382,9 +4933,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'role',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:42:51',
-            ),
-            447 => 
-            array (
+            ],
+            447 => [
                 'id' => 1809,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5394,9 +4944,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rol',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:24:06',
-            ),
-            448 => 
-            array (
+            ],
+            448 => [
                 'id' => 1810,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5406,9 +4955,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'email',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:42:55',
-            ),
-            449 => 
-            array (
+            ],
+            449 => [
                 'id' => 1811,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5418,9 +4966,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'e-mail',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:24:12',
-            ),
-            450 => 
-            array (
+            ],
+            450 => [
                 'id' => 1812,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5430,9 +4977,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'facebook',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:42:58',
-            ),
-            451 => 
-            array (
+            ],
+            451 => [
                 'id' => 1813,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5442,9 +4988,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'facebook',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:24:16',
-            ),
-            452 => 
-            array (
+            ],
+            452 => [
                 'id' => 1814,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5454,9 +4999,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'twitter',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:43:01',
-            ),
-            453 => 
-            array (
+            ],
+            453 => [
                 'id' => 1815,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5466,9 +5010,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'twitter',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:24:20',
-            ),
-            454 => 
-            array (
+            ],
+            454 => [
                 'id' => 1816,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5478,9 +5021,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'linkedin',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:43:05',
-            ),
-            455 => 
-            array (
+            ],
+            455 => [
                 'id' => 1817,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5490,9 +5032,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'linkedin',
                 'created_at' => '2025-07-04 14:20:39',
                 'updated_at' => '2025-07-04 14:24:26',
-            ),
-            456 => 
-            array (
+            ],
+            456 => [
                 'id' => 1818,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5502,9 +5043,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'the cache has been cleared',
                 'created_at' => '2025-07-04 14:38:43',
                 'updated_at' => '2025-07-10 07:51:37',
-            ),
-            457 => 
-            array (
+            ],
+            457 => [
                 'id' => 1819,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5514,9 +5054,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'de cache is vernieuwd',
                 'created_at' => '2025-07-04 14:38:43',
                 'updated_at' => '2025-07-10 07:51:47',
-            ),
-            458 => 
-            array (
+            ],
+            458 => [
                 'id' => 1824,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5526,9 +5065,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'source',
                 'created_at' => '2025-07-04 16:56:13',
                 'updated_at' => '2025-07-09 13:47:01',
-            ),
-            459 => 
-            array (
+            ],
+            459 => [
                 'id' => 1825,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5538,9 +5076,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bron',
                 'created_at' => '2025-07-04 16:56:13',
                 'updated_at' => '2025-07-09 13:47:07',
-            ),
-            460 => 
-            array (
+            ],
+            460 => [
                 'id' => 1826,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5550,9 +5087,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'location',
                 'created_at' => '2025-07-04 17:32:33',
                 'updated_at' => '2025-07-10 07:45:55',
-            ),
-            461 => 
-            array (
+            ],
+            461 => [
                 'id' => 1827,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5562,9 +5098,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locatie',
                 'created_at' => '2025-07-04 17:32:33',
                 'updated_at' => '2025-08-15 11:03:23',
-            ),
-            462 => 
-            array (
+            ],
+            462 => [
                 'id' => 1828,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5574,9 +5109,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locations',
                 'created_at' => '2025-07-04 17:32:33',
                 'updated_at' => '2025-07-10 07:39:15',
-            ),
-            463 => 
-            array (
+            ],
+            463 => [
                 'id' => 1829,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5586,9 +5120,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locaties',
                 'created_at' => '2025-07-04 17:32:33',
                 'updated_at' => '2025-07-10 07:38:59',
-            ),
-            464 => 
-            array (
+            ],
+            464 => [
                 'id' => 1830,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5598,9 +5131,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locations',
                 'created_at' => '2025-07-04 17:34:46',
                 'updated_at' => '2025-07-10 07:46:02',
-            ),
-            465 => 
-            array (
+            ],
+            465 => [
                 'id' => 1831,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5610,9 +5142,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locaties',
                 'created_at' => '2025-07-04 17:34:46',
                 'updated_at' => '2025-08-15 11:03:18',
-            ),
-            466 => 
-            array (
+            ],
+            466 => [
                 'id' => 1834,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -5622,9 +5153,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'location',
                 'created_at' => '2025-07-04 17:40:06',
                 'updated_at' => '2025-07-09 13:56:13',
-            ),
-            467 => 
-            array (
+            ],
+            467 => [
                 'id' => 1835,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -5634,9 +5164,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locatie',
                 'created_at' => '2025-07-04 17:40:06',
                 'updated_at' => '2025-07-09 13:43:29',
-            ),
-            468 => 
-            array (
+            ],
+            468 => [
                 'id' => 1836,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5646,9 +5175,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina\'s',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            469 => 
-            array (
+            ],
+            469 => [
                 'id' => 1838,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5658,9 +5186,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video\'s',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            470 => 
-            array (
+            ],
+            470 => [
                 'id' => 1839,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5670,9 +5197,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video bestanden',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            471 => 
-            array (
+            ],
+            471 => [
                 'id' => 1840,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5682,9 +5208,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bestanden',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            472 => 
-            array (
+            ],
+            472 => [
                 'id' => 1841,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5694,9 +5219,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module items',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            473 => 
-            array (
+            ],
+            473 => [
                 'id' => 1842,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5706,9 +5230,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'modules',
                 'created_at' => '2025-07-02 18:19:22',
                 'updated_at' => '2025-07-02 18:19:22',
-            ),
-            474 => 
-            array (
+            ],
+            474 => [
                 'id' => 1843,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5718,9 +5241,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'add',
                 'created_at' => '2025-07-06 12:07:45',
                 'updated_at' => '2025-07-06 12:10:43',
-            ),
-            475 => 
-            array (
+            ],
+            475 => [
                 'id' => 1844,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5730,9 +5252,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toevoegen',
                 'created_at' => '2025-07-06 12:07:45',
                 'updated_at' => '2025-07-06 12:08:23',
-            ),
-            476 => 
-            array (
+            ],
+            476 => [
                 'id' => 1845,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5742,9 +5263,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video title',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            477 => 
-            array (
+            ],
+            477 => [
                 'id' => 1846,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5754,9 +5274,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video titel',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            478 => 
-            array (
+            ],
+            478 => [
                 'id' => 1847,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5766,9 +5285,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'youtube code',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            479 => 
-            array (
+            ],
+            479 => [
                 'id' => 1848,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5778,9 +5296,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'youtube code',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            480 => 
-            array (
+            ],
+            480 => [
                 'id' => 1849,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5790,9 +5307,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filename',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            481 => 
-            array (
+            ],
+            481 => [
                 'id' => 1850,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5802,9 +5318,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'bestandsnaam',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            482 => 
-            array (
+            ],
+            482 => [
                 'id' => 1851,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5814,9 +5329,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'doc original',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            483 => 
-            array (
+            ],
+            483 => [
                 'id' => 1852,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5826,9 +5340,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'document naam',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            484 => 
-            array (
+            ],
+            484 => [
                 'id' => 1853,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5838,9 +5351,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'doc date',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            485 => 
-            array (
+            ],
+            485 => [
                 'id' => 1854,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5850,9 +5362,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'document datum',
                 'created_at' => '2025-07-06 12:18:25',
                 'updated_at' => '2025-07-06 12:18:25',
-            ),
-            486 => 
-            array (
+            ],
+            486 => [
                 'id' => 1855,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5862,9 +5373,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'page',
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
-            ),
-            487 => 
-            array (
+            ],
+            487 => [
                 'id' => 1856,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5874,9 +5384,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina',
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
-            ),
-            488 => 
-            array (
+            ],
+            488 => [
                 'id' => 1857,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5886,9 +5395,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
-            ),
-            489 => 
-            array (
+            ],
+            489 => [
                 'id' => 1858,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5898,9 +5406,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
-            ),
-            490 => 
-            array (
+            ],
+            490 => [
                 'id' => 1859,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5910,9 +5417,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'item',
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
-            ),
-            491 => 
-            array (
+            ],
+            491 => [
                 'id' => 1860,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5922,9 +5428,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'item',
                 'created_at' => '2025-07-06 12:18:26',
                 'updated_at' => '2025-07-06 12:18:26',
-            ),
-            492 => 
-            array (
+            ],
+            492 => [
                 'id' => 1861,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5934,9 +5439,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vidfile original',
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            493 => 
-            array (
+            ],
+            493 => [
                 'id' => 1862,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5946,9 +5450,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videobestand origineel',
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:22:06',
-            ),
-            494 => 
-            array (
+            ],
+            494 => [
                 'id' => 1863,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5958,9 +5461,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'vidfile date',
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            495 => 
-            array (
+            ],
+            495 => [
                 'id' => 1864,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5970,9 +5472,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videobestand datum',
                 'created_at' => '2025-07-06 12:34:56',
                 'updated_at' => '2025-07-10 08:22:11',
-            ),
-            496 => 
-            array (
+            ],
+            496 => [
                 'id' => 1865,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -5982,9 +5483,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module page',
                 'created_at' => '2025-07-06 12:45:39',
                 'updated_at' => '2025-07-06 12:45:39',
-            ),
-            497 => 
-            array (
+            ],
+            497 => [
                 'id' => 1866,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -5994,9 +5494,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module pagina',
                 'created_at' => '2025-07-06 12:45:39',
                 'updated_at' => '2025-07-06 12:45:39',
-            ),
-            498 => 
-            array (
+            ],
+            498 => [
                 'id' => 1869,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6006,9 +5505,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slider',
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-10 07:47:40',
-            ),
-            499 => 
-            array (
+            ],
+            499 => [
                 'id' => 1870,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6018,11 +5516,10 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slider',
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-06 15:24:49',
-            ),
-        ));
-        \DB::table('lara_sys_translations')->insert(array (
-            0 => 
-            array (
+            ],
+        ]);
+        \DB::table('lara_sys_translations')->insert([
+            0 => [
                 'id' => 1871,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6032,9 +5529,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sliders',
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-10 07:47:47',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 1872,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6044,9 +5540,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sliders',
                 'created_at' => '2025-07-06 14:13:57',
                 'updated_at' => '2025-07-06 15:24:57',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 1873,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6056,9 +5551,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'manager',
                 'created_at' => '2025-07-06 15:23:47',
                 'updated_at' => '2025-07-07 10:49:05',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 1874,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6068,9 +5562,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'manager',
                 'created_at' => '2025-07-06 15:23:47',
                 'updated_at' => '2025-07-07 10:48:57',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 1875,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6080,9 +5573,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sliders',
                 'created_at' => '2025-07-06 15:24:07',
                 'updated_at' => '2025-07-10 07:47:44',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 1876,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6092,9 +5584,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sliders',
                 'created_at' => '2025-07-06 15:24:07',
                 'updated_at' => '2025-07-06 15:24:54',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 1877,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6104,9 +5595,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:31',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 1878,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6116,9 +5606,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:06',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 1879,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6128,9 +5617,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'caption type',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:36',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 1880,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6140,9 +5628,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'caption type',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:11',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 1881,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6152,9 +5639,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'subtitle',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:41',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 1882,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6164,9 +5650,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'subtitel',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:18',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 1883,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6176,9 +5661,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'payoff',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:46:44',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 1884,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6188,9 +5672,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'payoff',
                 'created_at' => '2025-07-06 16:01:16',
                 'updated_at' => '2025-07-10 07:48:22',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 1885,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6200,9 +5683,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url',
                 'created_at' => '2025-07-06 16:03:06',
                 'updated_at' => '2025-07-10 07:46:48',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 1886,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6212,9 +5694,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url',
                 'created_at' => '2025-07-06 16:03:06',
                 'updated_at' => '2025-07-10 07:48:25',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 1887,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6224,9 +5705,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url title',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:46:52',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 1888,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6236,9 +5716,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url titel',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:48:37',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 1889,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6248,9 +5727,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url text',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:46:58',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 1890,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6260,9 +5738,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url tekst',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:48:51',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 1891,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6272,9 +5749,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay color',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:47:03',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 1892,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6284,9 +5760,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay kleur',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:48:59',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 1893,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6296,9 +5771,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay transp',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:47:08',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 1894,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6308,9 +5782,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay transparantie',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:49:07',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 1895,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6320,9 +5793,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay size',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:47:14',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 1896,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6332,9 +5804,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay formaat',
                 'created_at' => '2025-07-06 16:03:07',
                 'updated_at' => '2025-07-10 07:49:16',
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 1897,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6344,9 +5815,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent',
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 1898,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6356,9 +5826,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent',
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 1899,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6368,9 +5837,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent none',
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 1900,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6380,9 +5848,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent none',
                 'created_at' => '2025-07-06 16:12:50',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 1901,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6392,9 +5859,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-06 17:41:56',
                 'updated_at' => '2025-07-06 17:41:56',
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 1902,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6404,9 +5870,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-06 17:41:56',
                 'updated_at' => '2025-07-06 17:41:56',
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 1903,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6416,9 +5881,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 1904,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6428,9 +5892,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity',
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 1905,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6440,9 +5903,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taxonomy',
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 1906,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6452,9 +5914,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taxonomie',
                 'created_at' => '2025-07-06 17:42:44',
                 'updated_at' => '2025-07-06 17:42:44',
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 1907,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6464,9 +5925,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'done',
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 1908,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6476,9 +5936,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'klaar',
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:20:40',
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 1909,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6488,9 +5947,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu save information',
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 1910,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6500,9 +5958,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu save information',
                 'created_at' => '2025-07-06 17:46:52',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 1911,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6512,9 +5969,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'textposition',
                 'created_at' => '2025-07-06 17:51:52',
                 'updated_at' => '2025-07-10 07:47:18',
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 1912,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6524,9 +5980,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tekst positie',
                 'created_at' => '2025-07-06 17:51:52',
                 'updated_at' => '2025-07-10 07:49:24',
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 1913,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6536,9 +5991,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2025-07-06 18:00:55',
                 'updated_at' => '2025-07-06 18:07:30',
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 1914,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6548,9 +6002,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2025-07-06 18:00:55',
                 'updated_at' => '2025-07-06 18:07:13',
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 1915,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6560,9 +6013,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-07 08:06:07',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 1916,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6572,9 +6024,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-07 08:06:07',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 1917,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6584,9 +6035,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publish',
                 'created_at' => '2025-07-07 08:14:06',
                 'updated_at' => '2025-07-10 07:42:17',
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 1918,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6596,9 +6046,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceren',
                 'created_at' => '2025-07-07 08:14:06',
                 'updated_at' => '2025-07-10 07:39:56',
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 1919,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6608,9 +6057,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'author',
                 'created_at' => '2025-07-07 08:14:47',
                 'updated_at' => '2025-07-10 07:42:20',
-            ),
-            49 => 
-            array (
+            ],
+            49 => [
                 'id' => 1920,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6620,9 +6068,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'auteur',
                 'created_at' => '2025-07-07 08:14:47',
                 'updated_at' => '2025-07-10 07:40:01',
-            ),
-            50 => 
-            array (
+            ],
+            50 => [
                 'id' => 1921,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6632,9 +6079,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categories',
                 'created_at' => '2025-07-07 08:16:17',
                 'updated_at' => '2025-07-10 07:42:24',
-            ),
-            51 => 
-            array (
+            ],
+            51 => [
                 'id' => 1922,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6644,9 +6090,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categorie',
                 'created_at' => '2025-07-07 08:16:17',
                 'updated_at' => '2025-07-10 07:40:11',
-            ),
-            52 => 
-            array (
+            ],
+            52 => [
                 'id' => 1923,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6656,9 +6101,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-07 08:16:17',
                 'updated_at' => '2025-07-10 07:42:27',
-            ),
-            53 => 
-            array (
+            ],
+            53 => [
                 'id' => 1924,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6668,9 +6112,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-07 08:16:17',
                 'updated_at' => '2025-07-10 07:40:16',
-            ),
-            54 => 
-            array (
+            ],
+            54 => [
                 'id' => 1925,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6680,9 +6123,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by trashed',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            55 => 
-            array (
+            ],
+            55 => [
                 'id' => 1926,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6692,9 +6134,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by trashed',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            56 => 
-            array (
+            ],
+            56 => [
                 'id' => 1927,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6704,9 +6145,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by group',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            57 => 
-            array (
+            ],
+            57 => [
                 'id' => 1928,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6716,9 +6156,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by group',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            58 => 
-            array (
+            ],
+            58 => [
                 'id' => 1929,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6728,9 +6167,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by status',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            59 => 
-            array (
+            ],
+            59 => [
                 'id' => 1930,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6740,9 +6178,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by status',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            60 => 
-            array (
+            ],
+            60 => [
                 'id' => 1931,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6752,9 +6189,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by category',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            61 => 
-            array (
+            ],
+            61 => [
                 'id' => 1932,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6764,9 +6200,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by category',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            62 => 
-            array (
+            ],
+            62 => [
                 'id' => 1933,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6776,9 +6211,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by tag',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            63 => 
-            array (
+            ],
+            63 => [
                 'id' => 1934,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6788,9 +6222,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by tag',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            64 => 
-            array (
+            ],
+            64 => [
                 'id' => 1935,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6800,9 +6233,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by author',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            65 => 
-            array (
+            ],
+            65 => [
                 'id' => 1936,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6812,9 +6244,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter by author',
                 'created_at' => '2025-07-07 08:58:36',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            66 => 
-            array (
+            ],
+            66 => [
                 'id' => 1937,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6824,9 +6255,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'role',
                 'created_at' => '2025-07-07 10:36:40',
                 'updated_at' => '2025-07-09 13:56:38',
-            ),
-            67 => 
-            array (
+            ],
+            67 => [
                 'id' => 1938,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6836,9 +6266,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rol',
                 'created_at' => '2025-07-07 10:36:40',
                 'updated_at' => '2025-07-09 13:56:43',
-            ),
-            68 => 
-            array (
+            ],
+            68 => [
                 'id' => 1939,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6848,9 +6277,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'forms',
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:18:08',
-            ),
-            69 => 
-            array (
+            ],
+            69 => [
                 'id' => 1940,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6860,9 +6288,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'formulieren',
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:17:54',
-            ),
-            70 => 
-            array (
+            ],
+            70 => [
                 'id' => 1941,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6872,9 +6299,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'form',
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:18:12',
-            ),
-            71 => 
-            array (
+            ],
+            71 => [
                 'id' => 1942,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6884,9 +6310,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'formulier',
                 'created_at' => '2025-07-07 13:02:39',
                 'updated_at' => '2025-07-07 13:17:58',
-            ),
-            72 => 
-            array (
+            ],
+            72 => [
                 'id' => 1943,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6896,9 +6321,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-08 10:01:18',
                 'updated_at' => '2025-07-10 07:45:31',
-            ),
-            73 => 
-            array (
+            ],
+            73 => [
                 'id' => 1944,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6908,9 +6332,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groep',
                 'created_at' => '2025-07-08 10:01:18',
                 'updated_at' => '2025-07-10 07:43:56',
-            ),
-            74 => 
-            array (
+            ],
+            74 => [
                 'id' => 1945,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6920,9 +6343,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter is open',
                 'created_at' => '2025-07-08 10:03:16',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            75 => 
-            array (
+            ],
+            75 => [
                 'id' => 1946,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -6932,9 +6354,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'filter is open',
                 'created_at' => '2025-07-08 10:03:16',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            76 => 
-            array (
+            ],
+            76 => [
                 'id' => 1947,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6944,9 +6365,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-08 11:15:54',
                 'updated_at' => '2025-07-10 07:47:28',
-            ),
-            77 => 
-            array (
+            ],
+            77 => [
                 'id' => 1948,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6956,9 +6376,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-07-08 11:15:54',
                 'updated_at' => '2025-07-10 07:49:33',
-            ),
-            78 => 
-            array (
+            ],
+            78 => [
                 'id' => 1949,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -6968,9 +6387,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categories',
                 'created_at' => '2025-07-08 11:16:23',
                 'updated_at' => '2025-07-10 07:47:31',
-            ),
-            79 => 
-            array (
+            ],
+            79 => [
                 'id' => 1950,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -6980,9 +6398,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categorieën',
                 'created_at' => '2025-07-08 11:16:23',
                 'updated_at' => '2025-07-10 07:49:41',
-            ),
-            80 => 
-            array (
+            ],
+            80 => [
                 'id' => 1951,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -6992,9 +6409,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:29',
-            ),
-            81 => 
-            array (
+            ],
+            81 => [
                 'id' => 1952,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7004,9 +6420,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:09',
-            ),
-            82 => 
-            array (
+            ],
+            82 => [
                 'id' => 1953,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7016,9 +6431,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taxonomy',
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:33',
-            ),
-            83 => 
-            array (
+            ],
+            83 => [
                 'id' => 1954,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7028,9 +6442,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taxonomie',
                 'created_at' => '2025-07-09 07:25:39',
                 'updated_at' => '2025-07-09 07:26:16',
-            ),
-            84 => 
-            array (
+            ],
+            84 => [
                 'id' => 1955,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7040,9 +6453,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'export',
                 'created_at' => '2025-07-09 07:28:49',
                 'updated_at' => '2025-07-09 07:28:49',
-            ),
-            85 => 
-            array (
+            ],
+            85 => [
                 'id' => 1956,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7052,9 +6464,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceren',
                 'created_at' => '2025-07-09 07:28:49',
                 'updated_at' => '2026-03-20 09:32:29',
-            ),
-            86 => 
-            array (
+            ],
+            86 => [
                 'id' => 1957,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7064,9 +6475,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync',
                 'created_at' => '2025-07-09 07:46:53',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            87 => 
-            array (
+            ],
+            87 => [
                 'id' => 1958,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7076,9 +6486,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync',
                 'created_at' => '2025-07-09 07:46:53',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            88 => 
-            array (
+            ],
+            88 => [
                 'id' => 1959,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7088,9 +6497,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote url',
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            89 => 
-            array (
+            ],
+            89 => [
                 'id' => 1960,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7100,9 +6508,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote url',
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            90 => 
-            array (
+            ],
+            90 => [
                 'id' => 1961,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7112,9 +6519,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote suffix',
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            91 => 
-            array (
+            ],
+            91 => [
                 'id' => 1962,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7124,9 +6530,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote suffix',
                 'created_at' => '2025-07-09 07:53:58',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            92 => 
-            array (
+            ],
+            92 => [
                 'id' => 1963,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7136,9 +6541,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote slug',
                 'created_at' => '2025-07-09 08:13:41',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            93 => 
-            array (
+            ],
+            93 => [
                 'id' => 1964,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7148,9 +6552,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote slug',
                 'created_at' => '2025-07-09 08:13:41',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            94 => 
-            array (
+            ],
+            94 => [
                 'id' => 1965,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7160,9 +6563,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote resource',
                 'created_at' => '2025-07-09 08:14:42',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            95 => 
-            array (
+            ],
+            95 => [
                 'id' => 1966,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7172,9 +6574,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync remote resource',
                 'created_at' => '2025-07-09 08:14:42',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            96 => 
-            array (
+            ],
+            96 => [
                 'id' => 1967,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7184,9 +6585,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync suffix',
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            97 => 
-            array (
+            ],
+            97 => [
                 'id' => 1968,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7196,9 +6596,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync suffix',
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            98 => 
-            array (
+            ],
+            98 => [
                 'id' => 1969,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7208,9 +6607,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync resource slug',
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            99 => 
-            array (
+            ],
+            99 => [
                 'id' => 1970,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7220,9 +6618,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync resource slug',
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            100 => 
-            array (
+            ],
+            100 => [
                 'id' => 1971,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7232,9 +6629,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync object slug',
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            101 => 
-            array (
+            ],
+            101 => [
                 'id' => 1972,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7244,9 +6640,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync object slug',
                 'created_at' => '2025-07-09 08:40:31',
                 'updated_at' => '2025-07-10 08:17:23',
-            ),
-            102 => 
-            array (
+            ],
+            102 => [
                 'id' => 1973,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7256,9 +6651,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show sync',
                 'created_at' => '2025-07-09 08:48:07',
                 'updated_at' => '2025-07-09 08:49:28',
-            ),
-            103 => 
-            array (
+            ],
+            103 => [
                 'id' => 1974,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7268,9 +6662,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon sync',
                 'created_at' => '2025-07-09 08:48:07',
                 'updated_at' => '2025-07-09 08:49:12',
-            ),
-            104 => 
-            array (
+            ],
+            104 => [
                 'id' => 1975,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7280,9 +6673,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'address',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:54:59',
-            ),
-            105 => 
-            array (
+            ],
+            105 => [
                 'id' => 1976,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7292,9 +6684,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'adres',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:48:21',
-            ),
-            106 => 
-            array (
+            ],
+            106 => [
                 'id' => 1977,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7304,9 +6695,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'postal code',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:55:06',
-            ),
-            107 => 
-            array (
+            ],
+            107 => [
                 'id' => 1978,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7316,9 +6706,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'postcode',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:48:26',
-            ),
-            108 => 
-            array (
+            ],
+            108 => [
                 'id' => 1979,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7328,9 +6717,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'city',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:55:10',
-            ),
-            109 => 
-            array (
+            ],
+            109 => [
                 'id' => 1980,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7340,9 +6728,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'stad',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:48:30',
-            ),
-            110 => 
-            array (
+            ],
+            110 => [
                 'id' => 1981,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7352,9 +6739,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'country',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:55:13',
-            ),
-            111 => 
-            array (
+            ],
+            111 => [
                 'id' => 1982,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7364,9 +6750,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'land',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:48:34',
-            ),
-            112 => 
-            array (
+            ],
+            112 => [
                 'id' => 1983,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7376,9 +6761,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'latitude',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:55:16',
-            ),
-            113 => 
-            array (
+            ],
+            113 => [
                 'id' => 1984,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7388,9 +6772,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'latitude',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:48:39',
-            ),
-            114 => 
-            array (
+            ],
+            114 => [
                 'id' => 1985,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7400,9 +6783,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'longitude',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:55:20',
-            ),
-            115 => 
-            array (
+            ],
+            115 => [
                 'id' => 1986,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7412,9 +6794,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'longitude',
                 'created_at' => '2025-07-09 12:57:38',
                 'updated_at' => '2025-07-09 13:48:45',
-            ),
-            116 => 
-            array (
+            ],
+            116 => [
                 'id' => 1989,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7424,9 +6805,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-09 13:44:53',
                 'updated_at' => '2025-07-09 13:56:17',
-            ),
-            117 => 
-            array (
+            ],
+            117 => [
                 'id' => 1990,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7436,9 +6816,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'naam',
                 'created_at' => '2025-07-09 13:44:53',
                 'updated_at' => '2025-07-09 13:45:06',
-            ),
-            118 => 
-            array (
+            ],
+            118 => [
                 'id' => 1991,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7448,9 +6827,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-09 13:45:20',
                 'updated_at' => '2025-07-09 13:46:42',
-            ),
-            119 => 
-            array (
+            ],
+            119 => [
                 'id' => 1992,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7460,9 +6838,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-09 13:45:20',
                 'updated_at' => '2025-07-09 13:46:50',
-            ),
-            120 => 
-            array (
+            ],
+            120 => [
                 'id' => 1993,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7472,9 +6849,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-09 13:47:12',
                 'updated_at' => '2025-07-09 13:47:46',
-            ),
-            121 => 
-            array (
+            ],
+            121 => [
                 'id' => 1994,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7484,9 +6860,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-09 13:47:12',
                 'updated_at' => '2025-07-09 13:47:52',
-            ),
-            122 => 
-            array (
+            ],
+            122 => [
                 'id' => 1995,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7496,9 +6871,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'latitude',
                 'created_at' => '2025-07-09 13:51:52',
                 'updated_at' => '2025-07-09 13:55:36',
-            ),
-            123 => 
-            array (
+            ],
+            123 => [
                 'id' => 1996,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7508,9 +6882,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'latitude',
                 'created_at' => '2025-07-09 13:51:52',
                 'updated_at' => '2025-07-09 13:54:38',
-            ),
-            124 => 
-            array (
+            ],
+            124 => [
                 'id' => 1997,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7520,9 +6893,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-09 17:00:57',
                 'updated_at' => '2025-07-10 07:45:17',
-            ),
-            125 => 
-            array (
+            ],
+            125 => [
                 'id' => 1998,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7532,9 +6904,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-09 17:00:57',
                 'updated_at' => '2025-07-10 07:43:38',
-            ),
-            126 => 
-            array (
+            ],
+            126 => [
                 'id' => 1999,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7544,9 +6915,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu route',
                 'created_at' => '2025-07-09 17:24:39',
                 'updated_at' => '2025-07-10 07:45:22',
-            ),
-            127 => 
-            array (
+            ],
+            127 => [
                 'id' => 2000,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7556,9 +6926,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menuroute',
                 'created_at' => '2025-07-09 17:24:39',
                 'updated_at' => '2025-07-10 07:43:43',
-            ),
-            128 => 
-            array (
+            ],
+            128 => [
                 'id' => 2001,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7568,9 +6937,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is home',
                 'created_at' => '2025-07-09 17:26:05',
                 'updated_at' => '2025-07-10 07:45:27',
-            ),
-            129 => 
-            array (
+            ],
+            129 => [
                 'id' => 2002,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7580,9 +6948,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is home',
                 'created_at' => '2025-07-09 17:26:05',
                 'updated_at' => '2025-07-10 07:43:50',
-            ),
-            130 => 
-            array (
+            ],
+            130 => [
                 'id' => 2003,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7592,9 +6959,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-09 17:47:06',
                 'updated_at' => '2025-07-10 07:47:23',
-            ),
-            131 => 
-            array (
+            ],
+            131 => [
                 'id' => 2004,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7604,9 +6970,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-09 17:47:06',
                 'updated_at' => '2025-07-10 07:49:29',
-            ),
-            132 => 
-            array (
+            ],
+            132 => [
                 'id' => 2005,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7616,9 +6981,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'events',
                 'created_at' => '2025-07-09 17:58:26',
                 'updated_at' => '2025-07-09 18:01:19',
-            ),
-            133 => 
-            array (
+            ],
+            133 => [
                 'id' => 2006,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7628,9 +6992,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'agenda',
                 'created_at' => '2025-07-09 17:58:26',
                 'updated_at' => '2025-07-09 18:16:58',
-            ),
-            134 => 
-            array (
+            ],
+            134 => [
                 'id' => 2007,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7640,9 +7003,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-09 17:58:27',
                 'updated_at' => '2025-07-09 18:01:08',
-            ),
-            135 => 
-            array (
+            ],
+            135 => [
                 'id' => 2008,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7652,9 +7014,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-09 17:58:27',
                 'updated_at' => '2025-07-09 18:01:31',
-            ),
-            136 => 
-            array (
+            ],
+            136 => [
                 'id' => 2009,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7664,9 +7025,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'events',
                 'created_at' => '2025-07-09 17:58:27',
                 'updated_at' => '2025-07-09 18:01:11',
-            ),
-            137 => 
-            array (
+            ],
+            137 => [
                 'id' => 2010,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7676,9 +7036,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'evenementen',
                 'created_at' => '2025-07-09 17:58:27',
                 'updated_at' => '2025-12-31 12:07:00',
-            ),
-            138 => 
-            array (
+            ],
+            138 => [
                 'id' => 2011,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7688,9 +7047,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'event',
                 'created_at' => '2025-07-09 17:58:27',
                 'updated_at' => '2025-07-09 18:01:16',
-            ),
-            139 => 
-            array (
+            ],
+            139 => [
                 'id' => 2012,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7700,9 +7058,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'evenement',
                 'created_at' => '2025-07-09 17:58:27',
                 'updated_at' => '2025-12-31 12:07:05',
-            ),
-            140 => 
-            array (
+            ],
+            140 => [
                 'id' => 2013,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7712,9 +7069,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'start date',
                 'created_at' => '2025-07-09 18:15:51',
                 'updated_at' => '2025-07-10 07:44:24',
-            ),
-            141 => 
-            array (
+            ],
+            141 => [
                 'id' => 2014,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7724,9 +7080,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'startdatum',
                 'created_at' => '2025-07-09 18:15:51',
                 'updated_at' => '2025-07-10 07:40:50',
-            ),
-            142 => 
-            array (
+            ],
+            142 => [
                 'id' => 2015,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7736,9 +7091,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'location',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:44:28',
-            ),
-            143 => 
-            array (
+            ],
+            143 => [
                 'id' => 2016,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7748,9 +7102,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locatie',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:40:58',
-            ),
-            144 => 
-            array (
+            ],
+            144 => [
                 'id' => 2017,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7760,9 +7113,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'start time',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:44:34',
-            ),
-            145 => 
-            array (
+            ],
+            145 => [
                 'id' => 2018,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7772,9 +7124,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'starttijd',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:41:38',
-            ),
-            146 => 
-            array (
+            ],
+            146 => [
                 'id' => 2019,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7784,9 +7135,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'end date',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:44:38',
-            ),
-            147 => 
-            array (
+            ],
+            147 => [
                 'id' => 2020,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7796,9 +7146,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'einddatum',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:41:46',
-            ),
-            148 => 
-            array (
+            ],
+            148 => [
                 'id' => 2021,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -7808,9 +7157,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'end time',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:44:43',
-            ),
-            149 => 
-            array (
+            ],
+            149 => [
                 'id' => 2022,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -7820,9 +7168,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'einddatum',
                 'created_at' => '2025-07-09 18:17:06',
                 'updated_at' => '2025-07-10 07:41:53',
-            ),
-            150 => 
-            array (
+            ],
+            150 => [
                 'id' => 2024,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7832,9 +7179,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'blokken',
                 'created_at' => '2025-07-10 09:19:01',
                 'updated_at' => '2025-07-10 10:13:51',
-            ),
-            151 => 
-            array (
+            ],
+            151 => [
                 'id' => 2026,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7844,9 +7190,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-10 10:13:05',
                 'updated_at' => '2025-07-10 10:13:33',
-            ),
-            152 => 
-            array (
+            ],
+            152 => [
                 'id' => 2028,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7856,9 +7201,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'blokken',
                 'created_at' => '2025-07-10 10:13:05',
                 'updated_at' => '2025-07-10 10:13:41',
-            ),
-            153 => 
-            array (
+            ],
+            153 => [
                 'id' => 2030,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7868,9 +7212,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'blok',
                 'created_at' => '2025-07-10 10:13:05',
                 'updated_at' => '2025-07-10 10:13:45',
-            ),
-            154 => 
-            array (
+            ],
+            154 => [
                 'id' => 2069,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7880,9 +7223,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            155 => 
-            array (
+            ],
+            155 => [
                 'id' => 2070,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7892,9 +7234,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:16:34',
-            ),
-            156 => 
-            array (
+            ],
+            156 => [
                 'id' => 2071,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7904,9 +7245,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            157 => 
-            array (
+            ],
+            157 => [
                 'id' => 2072,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7916,9 +7256,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 15:16:34',
                 'updated_at' => '2025-07-10 15:16:34',
-            ),
-            158 => 
-            array (
+            ],
+            158 => [
                 'id' => 2073,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7928,9 +7267,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is global',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            159 => 
-            array (
+            ],
+            159 => [
                 'id' => 2074,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7940,9 +7278,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is globaal',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            160 => 
-            array (
+            ],
+            160 => [
                 'id' => 2075,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7952,9 +7289,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'usecache',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            161 => 
-            array (
+            ],
+            161 => [
                 'id' => 2076,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7964,9 +7300,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gebruik cache',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            162 => 
-            array (
+            ],
+            162 => [
                 'id' => 2077,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -7976,9 +7311,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sortorder',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            163 => 
-            array (
+            ],
+            163 => [
                 'id' => 2078,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -7988,9 +7322,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sorteervolgorde',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            164 => 
-            array (
+            ],
+            164 => [
                 'id' => 2079,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8000,9 +7333,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource slug',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            165 => 
-            array (
+            ],
+            165 => [
                 'id' => 2080,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8012,9 +7344,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            166 => 
-            array (
+            ],
+            166 => [
                 'id' => 2081,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8024,9 +7355,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource term',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            167 => 
-            array (
+            ],
+            167 => [
                 'id' => 2082,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8036,9 +7366,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            168 => 
-            array (
+            ],
+            168 => [
                 'id' => 2083,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8048,9 +7377,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'image required',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            169 => 
-            array (
+            ],
+            169 => [
                 'id' => 2084,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8060,9 +7388,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'afbeelding verplicht',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            170 => 
-            array (
+            ],
+            170 => [
                 'id' => 2085,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8072,9 +7399,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max items',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            171 => 
-            array (
+            ],
+            171 => [
                 'id' => 2086,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8084,9 +7410,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max items',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            172 => 
-            array (
+            ],
+            172 => [
                 'id' => 2087,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8096,9 +7421,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'iconclass',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            173 => 
-            array (
+            ],
+            173 => [
                 'id' => 2088,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8108,9 +7432,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'icon class',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            174 => 
-            array (
+            ],
+            174 => [
                 'id' => 2089,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8120,9 +7443,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'iconalign',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            175 => 
-            array (
+            ],
+            175 => [
                 'id' => 2090,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8132,9 +7454,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'icon align',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            176 => 
-            array (
+            ],
+            176 => [
                 'id' => 2091,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8144,9 +7465,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'linktext',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            177 => 
-            array (
+            ],
+            177 => [
                 'id' => 2092,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8156,9 +7476,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'link tekst',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            178 => 
-            array (
+            ],
+            178 => [
                 'id' => 2093,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8168,9 +7487,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'linkurl',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            179 => 
-            array (
+            ],
+            179 => [
                 'id' => 2094,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8180,9 +7498,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'link url',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            180 => 
-            array (
+            ],
+            180 => [
                 'id' => 2095,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8192,9 +7509,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:17:45',
-            ),
-            181 => 
-            array (
+            ],
+            181 => [
                 'id' => 2096,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8204,9 +7520,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'template',
                 'created_at' => '2025-07-10 15:16:36',
                 'updated_at' => '2025-07-10 15:16:36',
-            ),
-            182 => 
-            array (
+            ],
+            182 => [
                 'id' => 2097,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8216,9 +7531,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 15:22:19',
                 'updated_at' => '2025-07-10 19:10:16',
-            ),
-            183 => 
-            array (
+            ],
+            183 => [
                 'id' => 2098,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8228,9 +7542,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 15:22:19',
                 'updated_at' => '2025-07-10 19:10:09',
-            ),
-            184 => 
-            array (
+            ],
+            184 => [
                 'id' => 2099,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8240,9 +7553,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show on pages',
                 'created_at' => '2025-07-10 17:02:31',
                 'updated_at' => '2025-07-10 17:02:31',
-            ),
-            185 => 
-            array (
+            ],
+            185 => [
                 'id' => 2100,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8252,9 +7564,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon op pagina',
                 'created_at' => '2025-07-10 17:02:31',
                 'updated_at' => '2025-07-10 17:02:31',
-            ),
-            186 => 
-            array (
+            ],
+            186 => [
                 'id' => 2109,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8264,9 +7575,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is global',
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
-            ),
-            187 => 
-            array (
+            ],
+            187 => [
                 'id' => 2110,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8276,9 +7586,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'is globaal',
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
-            ),
-            188 => 
-            array (
+            ],
+            188 => [
                 'id' => 2111,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8288,9 +7597,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show on pages',
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
-            ),
-            189 => 
-            array (
+            ],
+            189 => [
                 'id' => 2112,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8300,9 +7608,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon op pagina',
                 'created_at' => '2025-07-10 18:30:43',
                 'updated_at' => '2025-07-10 18:30:43',
-            ),
-            190 => 
-            array (
+            ],
+            190 => [
                 'id' => 2119,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8312,9 +7619,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'widgets',
                 'created_at' => '2025-07-10 19:03:09',
                 'updated_at' => '2025-07-10 19:10:24',
-            ),
-            191 => 
-            array (
+            ],
+            191 => [
                 'id' => 2120,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8324,9 +7630,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pages',
                 'created_at' => '2025-07-10 19:08:32',
                 'updated_at' => '2025-07-10 19:09:18',
-            ),
-            192 => 
-            array (
+            ],
+            192 => [
                 'id' => 2121,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8336,9 +7641,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina\'s',
                 'created_at' => '2025-07-10 19:08:32',
                 'updated_at' => '2025-07-10 19:09:09',
-            ),
-            193 => 
-            array (
+            ],
+            193 => [
                 'id' => 2122,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8348,9 +7652,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:13',
-            ),
-            194 => 
-            array (
+            ],
+            194 => [
                 'id' => 2123,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8360,9 +7663,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:29',
-            ),
-            195 => 
-            array (
+            ],
+            195 => [
                 'id' => 2124,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8372,9 +7674,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:16',
-            ),
-            196 => 
-            array (
+            ],
+            196 => [
                 'id' => 2125,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8384,9 +7685,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:32',
-            ),
-            197 => 
-            array (
+            ],
+            197 => [
                 'id' => 2126,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8396,9 +7696,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:20',
-            ),
-            198 => 
-            array (
+            ],
+            198 => [
                 'id' => 2127,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8408,9 +7707,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:35',
-            ),
-            199 => 
-            array (
+            ],
+            199 => [
                 'id' => 2128,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8420,9 +7718,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:21:28',
-            ),
-            200 => 
-            array (
+            ],
+            200 => [
                 'id' => 2129,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8432,9 +7729,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-10 19:10:32',
                 'updated_at' => '2025-07-11 15:22:39',
-            ),
-            201 => 
-            array (
+            ],
+            201 => [
                 'id' => 2130,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8444,9 +7740,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu route',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:21:03',
-            ),
-            202 => 
-            array (
+            ],
+            202 => [
                 'id' => 2131,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8456,9 +7751,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu route',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:22:18',
-            ),
-            203 => 
-            array (
+            ],
+            203 => [
                 'id' => 2132,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8468,9 +7762,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:21:06',
-            ),
-            204 => 
-            array (
+            ],
+            204 => [
                 'id' => 2133,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8480,9 +7773,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:22:22',
-            ),
-            205 => 
-            array (
+            ],
+            205 => [
                 'id' => 2134,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -8492,9 +7784,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:21:10',
-            ),
-            206 => 
-            array (
+            ],
+            206 => [
                 'id' => 2135,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -8504,9 +7795,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:22:25',
-            ),
-            207 => 
-            array (
+            ],
+            207 => [
                 'id' => 2136,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8516,9 +7806,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pages',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:18:33',
-            ),
-            208 => 
-            array (
+            ],
+            208 => [
                 'id' => 2137,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8528,9 +7817,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina\'s',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:23:11',
-            ),
-            209 => 
-            array (
+            ],
+            209 => [
                 'id' => 2138,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8540,9 +7828,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'page',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:18:39',
-            ),
-            210 => 
-            array (
+            ],
+            210 => [
                 'id' => 2139,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8552,9 +7839,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina',
                 'created_at' => '2025-07-11 08:39:44',
                 'updated_at' => '2025-07-11 15:23:15',
-            ),
-            211 => 
-            array (
+            ],
+            211 => [
                 'id' => 2140,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8564,9 +7850,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:18:44',
-            ),
-            212 => 
-            array (
+            ],
+            212 => [
                 'id' => 2141,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8576,9 +7861,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'parent',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:23:19',
-            ),
-            213 => 
-            array (
+            ],
+            213 => [
                 'id' => 2142,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8588,9 +7872,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'no parent',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:18:54',
-            ),
-            214 => 
-            array (
+            ],
+            214 => [
                 'id' => 2143,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8600,9 +7883,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geen parent',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:24:54',
-            ),
-            215 => 
-            array (
+            ],
+            215 => [
                 'id' => 2144,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8612,9 +7894,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:19:05',
-            ),
-            216 => 
-            array (
+            ],
+            216 => [
                 'id' => 2145,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8624,9 +7905,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:24:37',
-            ),
-            217 => 
-            array (
+            ],
+            217 => [
                 'id' => 2146,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8636,9 +7916,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locked',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:19:01',
-            ),
-            218 => 
-            array (
+            ],
+            218 => [
                 'id' => 2147,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8648,9 +7927,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locked',
                 'created_at' => '2025-07-11 09:36:10',
                 'updated_at' => '2025-07-11 15:24:34',
-            ),
-            219 => 
-            array (
+            ],
+            219 => [
                 'id' => 2148,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8660,9 +7938,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:22',
-            ),
-            220 => 
-            array (
+            ],
+            220 => [
                 'id' => 2149,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8672,9 +7949,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:21',
-            ),
-            221 => 
-            array (
+            ],
+            221 => [
                 'id' => 2150,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8684,9 +7960,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:00',
-            ),
-            222 => 
-            array (
+            ],
+            222 => [
                 'id' => 2151,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8696,9 +7971,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:29',
-            ),
-            223 => 
-            array (
+            ],
+            223 => [
                 'id' => 2152,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8708,9 +7982,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:27',
-            ),
-            224 => 
-            array (
+            ],
+            224 => [
                 'id' => 2153,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8720,9 +7993,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'slug',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:33',
-            ),
-            225 => 
-            array (
+            ],
+            225 => [
                 'id' => 2154,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8732,9 +8004,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu positions',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:09',
-            ),
-            226 => 
-            array (
+            ],
+            226 => [
                 'id' => 2155,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8744,9 +8015,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu posities',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:45',
-            ),
-            227 => 
-            array (
+            ],
+            227 => [
                 'id' => 2156,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8756,9 +8026,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu position',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 15:18:14',
-            ),
-            228 => 
-            array (
+            ],
+            228 => [
                 'id' => 2157,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8768,9 +8037,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu positie',
                 'created_at' => '2025-07-11 09:44:41',
                 'updated_at' => '2025-07-11 13:49:50',
-            ),
-            229 => 
-            array (
+            ],
+            229 => [
                 'id' => 2158,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8780,9 +8048,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:17:50',
-            ),
-            230 => 
-            array (
+            ],
+            230 => [
                 'id' => 2159,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8792,9 +8059,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'content',
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:22:56',
-            ),
-            231 => 
-            array (
+            ],
+            231 => [
                 'id' => 2160,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8804,9 +8070,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu',
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:17:56',
-            ),
-            232 => 
-            array (
+            ],
+            232 => [
                 'id' => 2161,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8816,9 +8081,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu',
                 'created_at' => '2025-07-11 09:50:22',
                 'updated_at' => '2025-07-11 15:23:01',
-            ),
-            233 => 
-            array (
+            ],
+            233 => [
                 'id' => 2162,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8828,9 +8092,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:34',
-            ),
-            234 => 
-            array (
+            ],
+            234 => [
                 'id' => 2163,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8840,9 +8103,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:29',
-            ),
-            235 => 
-            array (
+            ],
+            235 => [
                 'id' => 2164,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8852,9 +8114,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource slug',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:42',
-            ),
-            236 => 
-            array (
+            ],
+            236 => [
                 'id' => 2165,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8864,9 +8125,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'module',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:45',
-            ),
-            237 => 
-            array (
+            ],
+            237 => [
                 'id' => 2166,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8876,9 +8136,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'navigation group',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:50',
-            ),
-            238 => 
-            array (
+            ],
+            238 => [
                 'id' => 2167,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8888,9 +8147,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'navigatie groep',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:53',
-            ),
-            239 => 
-            array (
+            ],
+            239 => [
                 'id' => 2168,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8900,9 +8158,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'group',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:16:55',
-            ),
-            240 => 
-            array (
+            ],
+            240 => [
                 'id' => 2169,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8912,9 +8169,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'groep',
                 'created_at' => '2025-07-11 10:07:48',
                 'updated_at' => '2025-07-11 15:14:58',
-            ),
-            241 => 
-            array (
+            ],
+            241 => [
                 'id' => 2170,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8924,9 +8180,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'info',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:27',
-            ),
-            242 => 
-            array (
+            ],
+            242 => [
                 'id' => 2171,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8936,9 +8191,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'info',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:23',
-            ),
-            243 => 
-            array (
+            ],
+            243 => [
                 'id' => 2172,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8948,9 +8202,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'form',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:02',
-            ),
-            244 => 
-            array (
+            ],
+            244 => [
                 'id' => 2173,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8960,9 +8213,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'formulier',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:15:48',
-            ),
-            245 => 
-            array (
+            ],
+            245 => [
                 'id' => 2174,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8972,9 +8224,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:06',
-            ),
-            246 => 
-            array (
+            ],
+            246 => [
                 'id' => 2175,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -8984,9 +8235,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'resource',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:15:53',
-            ),
-            247 => 
-            array (
+            ],
+            247 => [
                 'id' => 2176,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -8996,9 +8246,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'model class',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:11',
-            ),
-            248 => 
-            array (
+            ],
+            248 => [
                 'id' => 2177,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9008,9 +8257,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'model class',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:05',
-            ),
-            249 => 
-            array (
+            ],
+            249 => [
                 'id' => 2178,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9020,9 +8268,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'controller',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:16',
-            ),
-            250 => 
-            array (
+            ],
+            250 => [
                 'id' => 2179,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9032,9 +8279,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'controller',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:09',
-            ),
-            251 => 
-            array (
+            ],
+            251 => [
                 'id' => 2180,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9044,9 +8290,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'position',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:19',
-            ),
-            252 => 
-            array (
+            ],
+            252 => [
                 'id' => 2181,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9056,9 +8301,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'positie',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:15',
-            ),
-            253 => 
-            array (
+            ],
+            253 => [
                 'id' => 2182,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9068,9 +8312,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'manager',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:17:30',
-            ),
-            254 => 
-            array (
+            ],
+            254 => [
                 'id' => 2183,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9080,9 +8323,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'manager',
                 'created_at' => '2025-07-11 10:15:21',
                 'updated_at' => '2025-07-11 15:16:27',
-            ),
-            255 => 
-            array (
+            ],
+            255 => [
                 'id' => 2202,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9092,9 +8334,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-action',
                 'created_at' => '2025-07-11 13:10:44',
                 'updated_at' => '2025-07-11 15:20:57',
-            ),
-            256 => 
-            array (
+            ],
+            256 => [
                 'id' => 2203,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9104,9 +8345,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-action',
                 'created_at' => '2025-07-11 13:10:44',
                 'updated_at' => '2025-07-11 13:18:21',
-            ),
-            257 => 
-            array (
+            ],
+            257 => [
                 'id' => 2204,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9116,9 +8356,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 15:20:01',
-            ),
-            258 => 
-            array (
+            ],
+            258 => [
                 'id' => 2205,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9128,9 +8367,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 13:19:15',
-            ),
-            259 => 
-            array (
+            ],
+            259 => [
                 'id' => 2206,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9140,9 +8378,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-actions',
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 15:20:49',
-            ),
-            260 => 
-            array (
+            ],
+            260 => [
                 'id' => 2207,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9152,9 +8389,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-actions',
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 13:18:12',
-            ),
-            261 => 
-            array (
+            ],
+            261 => [
                 'id' => 2208,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9164,9 +8400,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-action',
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 15:20:53',
-            ),
-            262 => 
-            array (
+            ],
+            262 => [
                 'id' => 2209,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9176,9 +8411,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-action',
                 'created_at' => '2025-07-11 13:10:46',
                 'updated_at' => '2025-07-11 13:18:17',
-            ),
-            263 => 
-            array (
+            ],
+            263 => [
                 'id' => 2210,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9188,9 +8422,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'link text',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:06',
-            ),
-            264 => 
-            array (
+            ],
+            264 => [
                 'id' => 2211,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9200,9 +8433,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'link tekst',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:41',
-            ),
-            265 => 
-            array (
+            ],
+            265 => [
                 'id' => 2212,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9212,9 +8444,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'link url',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:11',
-            ),
-            266 => 
-            array (
+            ],
+            266 => [
                 'id' => 2213,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9224,9 +8455,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'link url',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:46',
-            ),
-            267 => 
-            array (
+            ],
+            267 => [
                 'id' => 2214,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9236,9 +8466,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:17',
-            ),
-            268 => 
-            array (
+            ],
+            268 => [
                 'id' => 2215,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9248,9 +8477,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:50',
-            ),
-            269 => 
-            array (
+            ],
+            269 => [
                 'id' => 2216,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9260,9 +8488,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:20',
-            ),
-            270 => 
-            array (
+            ],
+            270 => [
                 'id' => 2217,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9272,9 +8499,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:21:54',
-            ),
-            271 => 
-            array (
+            ],
+            271 => [
                 'id' => 2218,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9284,9 +8510,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay color',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:25',
-            ),
-            272 => 
-            array (
+            ],
+            272 => [
                 'id' => 2219,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9296,9 +8521,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay kleur',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:22:02',
-            ),
-            273 => 
-            array (
+            ],
+            273 => [
                 'id' => 2220,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9308,9 +8532,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay transparency',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:20:40',
-            ),
-            274 => 
-            array (
+            ],
+            274 => [
                 'id' => 2221,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9320,9 +8543,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overlay transparantie',
                 'created_at' => '2025-07-11 13:22:10',
                 'updated_at' => '2025-07-11 15:22:11',
-            ),
-            275 => 
-            array (
+            ],
+            275 => [
                 'id' => 2222,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9332,9 +8554,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactform',
                 'created_at' => '2025-07-11 14:00:31',
                 'updated_at' => '2025-07-11 15:19:56',
-            ),
-            276 => 
-            array (
+            ],
+            276 => [
                 'id' => 2223,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9344,9 +8565,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactformulier',
                 'created_at' => '2025-07-11 14:00:31',
                 'updated_at' => '2025-07-11 15:12:14',
-            ),
-            277 => 
-            array (
+            ],
+            277 => [
                 'id' => 2224,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9356,9 +8576,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-07-11 14:00:34',
                 'updated_at' => '2025-07-11 15:19:18',
-            ),
-            278 => 
-            array (
+            ],
+            278 => [
                 'id' => 2225,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9368,9 +8587,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-07-11 14:00:34',
                 'updated_at' => '2025-07-11 15:11:32',
-            ),
-            279 => 
-            array (
+            ],
+            279 => [
                 'id' => 2226,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9380,9 +8598,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactforms',
                 'created_at' => '2025-07-11 14:00:34',
                 'updated_at' => '2025-07-11 15:19:45',
-            ),
-            280 => 
-            array (
+            ],
+            280 => [
                 'id' => 2227,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9392,9 +8609,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactformulieren',
                 'created_at' => '2025-07-11 14:00:34',
                 'updated_at' => '2025-07-11 15:12:07',
-            ),
-            281 => 
-            array (
+            ],
+            281 => [
                 'id' => 2228,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9404,9 +8620,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'date',
                 'created_at' => '2025-07-11 14:11:42',
                 'updated_at' => '2025-07-11 15:17:45',
-            ),
-            282 => 
-            array (
+            ],
+            282 => [
                 'id' => 2229,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9416,9 +8631,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'datum',
                 'created_at' => '2025-07-11 14:11:42',
                 'updated_at' => '2025-07-11 15:14:21',
-            ),
-            283 => 
-            array (
+            ],
+            283 => [
                 'id' => 2230,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9428,9 +8642,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactform',
                 'created_at' => '2025-07-11 14:14:09',
                 'updated_at' => '2025-07-11 15:19:49',
-            ),
-            284 => 
-            array (
+            ],
+            284 => [
                 'id' => 2231,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9440,9 +8653,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactformulier',
                 'created_at' => '2025-07-11 14:14:10',
                 'updated_at' => '2025-07-11 15:12:21',
-            ),
-            285 => 
-            array (
+            ],
+            285 => [
                 'id' => 2232,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9452,9 +8664,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'name',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:19:22',
-            ),
-            286 => 
-            array (
+            ],
+            286 => [
                 'id' => 2233,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9464,9 +8675,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'naam',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:11:37',
-            ),
-            287 => 
-            array (
+            ],
+            287 => [
                 'id' => 2234,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9476,9 +8686,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'email',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:19:30',
-            ),
-            288 => 
-            array (
+            ],
+            288 => [
                 'id' => 2235,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9488,9 +8697,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'e-mail',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:11:43',
-            ),
-            289 => 
-            array (
+            ],
+            289 => [
                 'id' => 2236,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9500,9 +8708,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'telephone',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:19:34',
-            ),
-            290 => 
-            array (
+            ],
+            290 => [
                 'id' => 2237,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9512,9 +8719,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'telefoon',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:11:49',
-            ),
-            291 => 
-            array (
+            ],
+            291 => [
                 'id' => 2238,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9524,9 +8730,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'comment',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:19:37',
-            ),
-            292 => 
-            array (
+            ],
+            292 => [
                 'id' => 2239,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9536,9 +8741,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'opmerking',
                 'created_at' => '2025-07-11 14:19:25',
                 'updated_at' => '2025-07-11 15:11:56',
-            ),
-            293 => 
-            array (
+            ],
+            293 => [
                 'id' => 2240,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9548,9 +8752,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'featured original',
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            294 => 
-            array (
+            ],
+            294 => [
                 'id' => 2241,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9560,9 +8763,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'origineel',
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-08 15:37:41',
-            ),
-            295 => 
-            array (
+            ],
+            295 => [
                 'id' => 2242,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9572,9 +8774,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'featured date',
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            296 => 
-            array (
+            ],
+            296 => [
                 'id' => 2243,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9584,9 +8785,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'datum',
                 'created_at' => '2025-07-11 19:03:27',
                 'updated_at' => '2025-09-08 15:37:59',
-            ),
-            297 => 
-            array (
+            ],
+            297 => [
                 'id' => 2244,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9596,9 +8796,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'add',
                 'created_at' => '2025-07-12 14:33:38',
                 'updated_at' => '2025-07-12 14:34:17',
-            ),
-            298 => 
-            array (
+            ],
+            298 => [
                 'id' => 2245,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9608,9 +8807,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toevoegen',
                 'created_at' => '2025-07-12 14:33:38',
                 'updated_at' => '2025-07-12 14:34:08',
-            ),
-            299 => 
-            array (
+            ],
+            299 => [
                 'id' => 2246,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9620,9 +8818,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gallery',
                 'created_at' => '2025-07-12 15:18:58',
                 'updated_at' => '2025-07-13 11:33:53',
-            ),
-            300 => 
-            array (
+            ],
+            300 => [
                 'id' => 2247,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9632,9 +8829,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'fotoalbum',
                 'created_at' => '2025-07-12 15:18:59',
                 'updated_at' => '2025-07-12 19:05:13',
-            ),
-            301 => 
-            array (
+            ],
+            301 => [
                 'id' => 2252,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9644,9 +8840,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'upload',
                 'created_at' => '2025-07-13 11:26:31',
                 'updated_at' => '2025-07-13 11:33:18',
-            ),
-            302 => 
-            array (
+            ],
+            302 => [
                 'id' => 2253,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9656,9 +8851,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'upload',
                 'created_at' => '2025-07-13 11:26:31',
                 'updated_at' => '2025-07-13 11:32:40',
-            ),
-            303 => 
-            array (
+            ],
+            303 => [
                 'id' => 2254,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9668,9 +8862,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gallery',
                 'created_at' => '2025-07-13 11:29:21',
                 'updated_at' => '2025-07-13 11:33:11',
-            ),
-            304 => 
-            array (
+            ],
+            304 => [
                 'id' => 2255,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9680,9 +8873,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gallery',
                 'created_at' => '2025-07-13 11:29:21',
                 'updated_at' => '2025-07-13 11:32:45',
-            ),
-            305 => 
-            array (
+            ],
+            305 => [
                 'id' => 2256,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9692,9 +8884,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'language versions',
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            306 => 
-            array (
+            ],
+            306 => [
                 'id' => 2257,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9704,9 +8895,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taal versies',
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-08 15:38:09',
-            ),
-            307 => 
-            array (
+            ],
+            307 => [
                 'id' => 2258,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9716,9 +8906,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'language parent',
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            308 => 
-            array (
+            ],
+            308 => [
                 'id' => 2259,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9728,9 +8917,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taal parent',
                 'created_at' => '2025-07-13 12:40:39',
                 'updated_at' => '2025-09-08 15:38:18',
-            ),
-            309 => 
-            array (
+            ],
+            309 => [
                 'id' => 2260,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9740,9 +8928,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'language children',
                 'created_at' => '2025-07-13 12:59:37',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            310 => 
-            array (
+            ],
+            310 => [
                 'id' => 2261,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9752,9 +8939,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'taal children',
                 'created_at' => '2025-07-13 12:59:37',
                 'updated_at' => '2025-09-08 15:38:23',
-            ),
-            311 => 
-            array (
+            ],
+            311 => [
                 'id' => 2264,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -9764,9 +8950,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'placeholder username',
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            312 => 
-            array (
+            ],
+            312 => [
                 'id' => 2265,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -9776,9 +8961,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gebruikersnaam',
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-08 15:40:17',
-            ),
-            313 => 
-            array (
+            ],
+            313 => [
                 'id' => 2266,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -9788,9 +8972,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'placeholder password',
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            314 => 
-            array (
+            ],
+            314 => [
                 'id' => 2267,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -9800,9 +8983,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'wachtwoord',
                 'created_at' => '2025-08-18 16:35:36',
                 'updated_at' => '2025-09-08 15:40:24',
-            ),
-            315 => 
-            array (
+            ],
+            315 => [
                 'id' => 2268,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9812,9 +8994,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'frontend auth',
                 'created_at' => '2025-08-21 18:09:55',
                 'updated_at' => '2025-08-21 18:13:14',
-            ),
-            316 => 
-            array (
+            ],
+            316 => [
                 'id' => 2269,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9824,9 +9005,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'frontend autorisatie',
                 'created_at' => '2025-08-21 18:09:55',
                 'updated_at' => '2025-08-21 18:11:29',
-            ),
-            317 => 
-            array (
+            ],
+            317 => [
                 'id' => 2270,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9836,9 +9016,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-22 17:12:18',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            318 => 
-            array (
+            ],
+            318 => [
                 'id' => 2271,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9848,9 +9027,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'diensten',
                 'created_at' => '2025-08-22 17:12:18',
                 'updated_at' => '2025-08-22 18:41:57',
-            ),
-            319 => 
-            array (
+            ],
+            319 => [
                 'id' => 2272,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9860,9 +9038,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-22 17:21:55',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            320 => 
-            array (
+            ],
+            320 => [
                 'id' => 2273,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9872,9 +9049,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-22 17:21:55',
                 'updated_at' => '2025-08-22 18:41:36',
-            ),
-            321 => 
-            array (
+            ],
+            321 => [
                 'id' => 2274,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9884,9 +9060,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-22 17:21:55',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            322 => 
-            array (
+            ],
+            322 => [
                 'id' => 2275,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9896,9 +9071,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'diensten',
                 'created_at' => '2025-08-22 17:21:55',
                 'updated_at' => '2025-08-22 18:41:46',
-            ),
-            323 => 
-            array (
+            ],
+            323 => [
                 'id' => 2276,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9908,9 +9082,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-08-22 17:21:55',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            324 => 
-            array (
+            ],
+            324 => [
                 'id' => 2277,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9920,9 +9093,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'dienst',
                 'created_at' => '2025-08-22 17:21:55',
                 'updated_at' => '2025-08-22 18:41:51',
-            ),
-            325 => 
-            array (
+            ],
+            325 => [
                 'id' => 2278,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -9932,9 +9104,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'prevent cropping',
                 'created_at' => '2025-08-24 11:41:45',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            326 => 
-            array (
+            ],
+            326 => [
                 'id' => 2279,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -9944,9 +9115,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'voorkom afsnijden',
                 'created_at' => '2025-08-24 11:41:45',
                 'updated_at' => '2025-09-08 15:36:23',
-            ),
-            327 => 
-            array (
+            ],
+            327 => [
                 'id' => 2280,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9956,9 +9126,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-24 12:30:06',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            328 => 
-            array (
+            ],
+            328 => [
                 'id' => 2281,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9968,9 +9137,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'testimonials',
                 'created_at' => '2025-08-24 12:30:06',
                 'updated_at' => '2025-08-24 13:09:17',
-            ),
-            329 => 
-            array (
+            ],
+            329 => [
                 'id' => 2282,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -9980,9 +9148,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-24 12:36:21',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            330 => 
-            array (
+            ],
+            330 => [
                 'id' => 2283,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -9992,9 +9159,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-24 12:36:21',
                 'updated_at' => '2025-08-24 13:08:22',
-            ),
-            331 => 
-            array (
+            ],
+            331 => [
                 'id' => 2284,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10004,9 +9170,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-24 12:36:21',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            332 => 
-            array (
+            ],
+            332 => [
                 'id' => 2285,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10016,9 +9181,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'testimonials',
                 'created_at' => '2025-08-24 12:36:21',
                 'updated_at' => '2025-08-24 13:09:09',
-            ),
-            333 => 
-            array (
+            ],
+            333 => [
                 'id' => 2286,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10028,9 +9192,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-08-24 12:36:21',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            334 => 
-            array (
+            ],
+            334 => [
                 'id' => 2287,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10040,9 +9203,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'testimonial',
                 'created_at' => '2025-08-24 12:36:21',
                 'updated_at' => '2025-08-24 13:09:13',
-            ),
-            335 => 
-            array (
+            ],
+            335 => [
                 'id' => 2288,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10052,9 +9214,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'role',
                 'created_at' => '2025-08-24 12:36:23',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            336 => 
-            array (
+            ],
+            336 => [
                 'id' => 2289,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10064,9 +9225,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'rol',
                 'created_at' => '2025-08-24 12:36:23',
                 'updated_at' => '2025-08-24 13:08:29',
-            ),
-            337 => 
-            array (
+            ],
+            337 => [
                 'id' => 2290,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10076,9 +9236,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'quoteshort',
                 'created_at' => '2025-08-24 12:36:23',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            338 => 
-            array (
+            ],
+            338 => [
                 'id' => 2291,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10088,9 +9247,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'korte quote',
                 'created_at' => '2025-08-24 12:36:23',
                 'updated_at' => '2025-08-24 13:08:53',
-            ),
-            339 => 
-            array (
+            ],
+            339 => [
                 'id' => 2292,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10100,9 +9258,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'stars',
                 'created_at' => '2025-08-24 12:36:23',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            340 => 
-            array (
+            ],
+            340 => [
                 'id' => 2293,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10112,9 +9269,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sterren',
                 'created_at' => '2025-08-24 12:36:23',
                 'updated_at' => '2025-08-24 13:09:00',
-            ),
-            341 => 
-            array (
+            ],
+            341 => [
                 'id' => 2294,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10124,9 +9280,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-24 13:06:04',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            342 => 
-            array (
+            ],
+            342 => [
                 'id' => 2295,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10136,9 +9291,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'portfolio',
                 'created_at' => '2025-08-24 13:06:04',
                 'updated_at' => '2025-08-24 13:09:33',
-            ),
-            343 => 
-            array (
+            ],
+            343 => [
                 'id' => 2296,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10148,9 +9302,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-24 13:09:41',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            344 => 
-            array (
+            ],
+            344 => [
                 'id' => 2297,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10160,9 +9313,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-24 13:09:41',
                 'updated_at' => '2025-09-08 15:41:16',
-            ),
-            345 => 
-            array (
+            ],
+            345 => [
                 'id' => 2298,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10172,9 +9324,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-24 13:09:41',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            346 => 
-            array (
+            ],
+            346 => [
                 'id' => 2299,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10184,9 +9335,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'portfolios',
                 'created_at' => '2025-08-24 13:09:41',
                 'updated_at' => '2025-09-08 15:39:54',
-            ),
-            347 => 
-            array (
+            ],
+            347 => [
                 'id' => 2300,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10196,9 +9346,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-08-24 13:09:41',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            348 => 
-            array (
+            ],
+            348 => [
                 'id' => 2301,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10208,9 +9357,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'portfolio',
                 'created_at' => '2025-08-24 13:09:41',
                 'updated_at' => '2025-09-08 15:40:00',
-            ),
-            349 => 
-            array (
+            ],
+            349 => [
                 'id' => 2302,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10220,9 +9368,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url',
                 'created_at' => '2025-08-24 13:09:45',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            350 => 
-            array (
+            ],
+            350 => [
                 'id' => 2303,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10232,9 +9379,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'url',
                 'created_at' => '2025-08-24 13:09:45',
                 'updated_at' => '2025-09-08 15:41:09',
-            ),
-            351 => 
-            array (
+            ],
+            351 => [
                 'id' => 2304,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -10244,9 +9390,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'reorder saved',
                 'created_at' => '2025-08-24 13:11:41',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            352 => 
-            array (
+            ],
+            352 => [
                 'id' => 2305,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -10256,9 +9401,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'de volgorde is opgeslagen',
                 'created_at' => '2025-08-24 13:11:41',
                 'updated_at' => '2025-09-08 15:41:41',
-            ),
-            353 => 
-            array (
+            ],
+            353 => [
                 'id' => 2306,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -10268,9 +9412,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'menu saved',
                 'created_at' => '2025-08-25 16:11:22',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            354 => 
-            array (
+            ],
+            354 => [
                 'id' => 2307,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -10280,9 +9423,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'het menu is opgeslagen',
                 'created_at' => '2025-08-25 16:11:22',
                 'updated_at' => '2025-09-08 15:41:29',
-            ),
-            355 => 
-            array (
+            ],
+            355 => [
                 'id' => 2308,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10292,9 +9434,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-28 14:42:47',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            356 => 
-            array (
+            ],
+            356 => [
                 'id' => 2309,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10304,9 +9445,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'fotoalbum',
                 'created_at' => '2025-08-28 14:42:47',
                 'updated_at' => '2025-08-29 12:26:15',
-            ),
-            357 => 
-            array (
+            ],
+            357 => [
                 'id' => 2310,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10316,9 +9456,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-28 14:43:21',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            358 => 
-            array (
+            ],
+            358 => [
                 'id' => 2311,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10328,9 +9467,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-28 14:43:21',
                 'updated_at' => '2025-08-29 12:24:35',
-            ),
-            359 => 
-            array (
+            ],
+            359 => [
                 'id' => 2312,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10340,9 +9478,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-28 14:43:21',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            360 => 
-            array (
+            ],
+            360 => [
                 'id' => 2313,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10352,9 +9489,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'fotoalbums',
                 'created_at' => '2025-08-28 14:43:21',
                 'updated_at' => '2025-08-29 12:25:11',
-            ),
-            361 => 
-            array (
+            ],
+            361 => [
                 'id' => 2314,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10364,9 +9500,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-08-28 14:43:21',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            362 => 
-            array (
+            ],
+            362 => [
                 'id' => 2315,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10376,9 +9511,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'fotoalbum',
                 'created_at' => '2025-08-28 14:43:21',
                 'updated_at' => '2025-08-29 12:25:07',
-            ),
-            363 => 
-            array (
+            ],
+            363 => [
                 'id' => 2316,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10388,9 +9522,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-29 13:17:23',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            364 => 
-            array (
+            ],
+            364 => [
                 'id' => 2317,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10400,9 +9533,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'documenten',
                 'created_at' => '2025-08-29 13:17:23',
                 'updated_at' => '2025-08-29 13:22:48',
-            ),
-            365 => 
-            array (
+            ],
+            365 => [
                 'id' => 2318,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10412,9 +9544,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-29 13:21:48',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            366 => 
-            array (
+            ],
+            366 => [
                 'id' => 2319,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10424,9 +9555,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-29 13:21:48',
                 'updated_at' => '2025-08-29 13:22:30',
-            ),
-            367 => 
-            array (
+            ],
+            367 => [
                 'id' => 2320,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10436,9 +9566,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-29 13:21:48',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            368 => 
-            array (
+            ],
+            368 => [
                 'id' => 2321,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10448,9 +9577,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'documenten',
                 'created_at' => '2025-08-29 13:21:48',
                 'updated_at' => '2025-08-29 13:22:37',
-            ),
-            369 => 
-            array (
+            ],
+            369 => [
                 'id' => 2322,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10460,9 +9588,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-08-29 13:21:48',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            370 => 
-            array (
+            ],
+            370 => [
                 'id' => 2323,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10472,9 +9599,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'document',
                 'created_at' => '2025-08-29 13:21:48',
                 'updated_at' => '2025-08-29 13:22:42',
-            ),
-            371 => 
-            array (
+            ],
+            371 => [
                 'id' => 2324,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10484,9 +9610,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-29 14:01:10',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            372 => 
-            array (
+            ],
+            372 => [
                 'id' => 2325,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10496,9 +9621,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'Video',
                 'created_at' => '2025-08-29 14:01:10',
                 'updated_at' => '2025-08-29 14:14:03',
-            ),
-            373 => 
-            array (
+            ],
+            373 => [
                 'id' => 2326,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10508,9 +9632,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-29 14:02:58',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            374 => 
-            array (
+            ],
+            374 => [
                 'id' => 2327,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10520,9 +9643,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-29 14:02:58',
                 'updated_at' => '2025-08-29 14:13:40',
-            ),
-            375 => 
-            array (
+            ],
+            375 => [
                 'id' => 2328,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10532,9 +9654,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-29 14:02:58',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            376 => 
-            array (
+            ],
+            376 => [
                 'id' => 2329,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10544,9 +9665,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video\'s',
                 'created_at' => '2025-08-29 14:02:58',
                 'updated_at' => '2025-08-29 14:13:47',
-            ),
-            377 => 
-            array (
+            ],
+            377 => [
                 'id' => 2330,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10556,9 +9676,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-08-29 14:02:58',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            378 => 
-            array (
+            ],
+            378 => [
                 'id' => 2331,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10568,9 +9687,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video',
                 'created_at' => '2025-08-29 14:02:58',
                 'updated_at' => '2025-08-29 14:13:55',
-            ),
-            379 => 
-            array (
+            ],
+            379 => [
                 'id' => 2332,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10580,9 +9698,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-08-29 18:04:18',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            380 => 
-            array (
+            ],
+            380 => [
                 'id' => 2333,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10592,9 +9709,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'klassiek formulier',
                 'created_at' => '2025-08-29 18:04:18',
                 'updated_at' => '2025-08-31 12:37:59',
-            ),
-            381 => 
-            array (
+            ],
+            381 => [
                 'id' => 2334,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10604,9 +9720,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-08-31 12:36:25',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            382 => 
-            array (
+            ],
+            382 => [
                 'id' => 2335,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10616,9 +9731,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-08-31 12:36:25',
                 'updated_at' => '2025-08-31 12:36:51',
-            ),
-            383 => 
-            array (
+            ],
+            383 => [
                 'id' => 2336,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10628,9 +9742,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-08-31 12:36:25',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            384 => 
-            array (
+            ],
+            384 => [
                 'id' => 2337,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10640,9 +9753,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'klassieke formulieren',
                 'created_at' => '2025-08-31 12:36:25',
                 'updated_at' => '2025-08-31 12:38:14',
-            ),
-            385 => 
-            array (
+            ],
+            385 => [
                 'id' => 2338,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10652,9 +9764,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myname',
                 'created_at' => '2025-08-31 12:44:30',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            386 => 
-            array (
+            ],
+            386 => [
                 'id' => 2339,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10664,9 +9775,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my name',
                 'created_at' => '2025-08-31 12:44:30',
                 'updated_at' => '2025-09-08 15:39:22',
-            ),
-            387 => 
-            array (
+            ],
+            387 => [
                 'id' => 2340,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10676,9 +9786,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myemail',
                 'created_at' => '2025-08-31 12:44:30',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            388 => 
-            array (
+            ],
+            388 => [
                 'id' => 2341,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10688,9 +9797,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my email',
                 'created_at' => '2025-08-31 12:44:30',
                 'updated_at' => '2025-09-08 15:39:27',
-            ),
-            389 => 
-            array (
+            ],
+            389 => [
                 'id' => 2347,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10700,9 +9808,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related pages',
                 'created_at' => '2025-09-03 12:20:33',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            390 => 
-            array (
+            ],
+            390 => [
                 'id' => 2348,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10712,9 +9819,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde pagina\'s',
                 'created_at' => '2025-09-03 12:20:33',
                 'updated_at' => '2025-09-03 14:28:21',
-            ),
-            391 => 
-            array (
+            ],
+            391 => [
                 'id' => 2349,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10724,9 +9830,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'related docs',
                 'created_at' => '2025-09-03 14:15:31',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            392 => 
-            array (
+            ],
+            392 => [
                 'id' => 2350,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10736,9 +9841,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde documenten',
                 'created_at' => '2025-09-03 14:15:31',
                 'updated_at' => '2025-09-03 14:28:28',
-            ),
-            393 => 
-            array (
+            ],
+            393 => [
                 'id' => 2351,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10748,9 +9852,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'go back',
                 'created_at' => '2025-09-03 14:27:30',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            394 => 
-            array (
+            ],
+            394 => [
                 'id' => 2352,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10760,9 +9863,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'overview',
                 'created_at' => '2025-09-03 14:27:30',
                 'updated_at' => '2025-09-03 14:30:57',
-            ),
-            395 => 
-            array (
+            ],
+            395 => [
                 'id' => 2353,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10772,9 +9874,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'category',
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            396 => 
-            array (
+            ],
+            396 => [
                 'id' => 2354,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10784,9 +9885,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categories',
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-03 15:23:07',
-            ),
-            397 => 
-            array (
+            ],
+            397 => [
                 'id' => 2355,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10796,9 +9896,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tag',
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            398 => 
-            array (
+            ],
+            398 => [
                 'id' => 2356,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10808,9 +9907,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-09-03 15:04:54',
                 'updated_at' => '2025-09-03 15:23:12',
-            ),
-            399 => 
-            array (
+            ],
+            399 => [
                 'id' => 2357,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10820,9 +9918,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'show all',
                 'created_at' => '2025-09-03 15:18:51',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            400 => 
-            array (
+            ],
+            400 => [
                 'id' => 2358,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10832,9 +9929,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'toon alle',
                 'created_at' => '2025-09-03 15:18:51',
                 'updated_at' => '2025-09-03 15:25:04',
-            ),
-            401 => 
-            array (
+            ],
+            401 => [
                 'id' => 2359,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10844,9 +9940,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'services',
                 'created_at' => '2025-09-03 15:18:51',
                 'updated_at' => '2025-09-03 15:18:51',
-            ),
-            402 => 
-            array (
+            ],
+            402 => [
                 'id' => 2360,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10856,9 +9951,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'diensten',
                 'created_at' => '2025-09-03 15:18:51',
                 'updated_at' => '2025-09-03 15:18:51',
-            ),
-            403 => 
-            array (
+            ],
+            403 => [
                 'id' => 2362,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -10868,9 +9962,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hero size',
                 'created_at' => '2025-09-04 12:02:56',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            404 => 
-            array (
+            ],
+            404 => [
                 'id' => 2363,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -10880,9 +9973,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hero grootte',
                 'created_at' => '2025-09-04 12:02:56',
                 'updated_at' => '2025-09-08 15:36:52',
-            ),
-            405 => 
-            array (
+            ],
+            405 => [
                 'id' => 2364,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10892,9 +9984,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'required',
                 'created_at' => '2025-09-05 08:39:35',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            406 => 
-            array (
+            ],
+            406 => [
                 'id' => 2365,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10904,9 +9995,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'verplicht',
                 'created_at' => '2025-09-05 08:39:35',
                 'updated_at' => '2025-09-08 15:41:00',
-            ),
-            407 => 
-            array (
+            ],
+            407 => [
                 'id' => 2366,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10916,9 +10006,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'submit',
                 'created_at' => '2025-09-05 08:39:35',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            408 => 
-            array (
+            ],
+            408 => [
                 'id' => 2367,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -10928,9 +10017,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'versturen',
                 'created_at' => '2025-09-05 08:39:35',
                 'updated_at' => '2025-09-08 15:39:41',
-            ),
-            409 => 
-            array (
+            ],
+            409 => [
                 'id' => 2368,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10940,9 +10028,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'error required',
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            410 => 
-            array (
+            ],
+            410 => [
                 'id' => 2369,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10952,9 +10039,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'dit veld is verplicht',
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-08 15:40:38',
-            ),
-            411 => 
-            array (
+            ],
+            411 => [
                 'id' => 2370,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -10964,9 +10050,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'the emailaddress is invalid',
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            412 => 
-            array (
+            ],
+            412 => [
                 'id' => 2371,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -10976,9 +10061,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'het e-mailadres is ongeldig',
                 'created_at' => '2025-09-05 08:47:23',
                 'updated_at' => '2025-09-08 15:40:52',
-            ),
-            413 => 
-            array (
+            ],
+            413 => [
                 'id' => 2372,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -10988,9 +10072,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'subject',
                 'created_at' => '2025-09-05 09:11:59',
                 'updated_at' => '2025-09-05 09:39:08',
-            ),
-            414 => 
-            array (
+            ],
+            414 => [
                 'id' => 2373,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11000,9 +10083,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'onderwerp',
                 'created_at' => '2025-09-05 09:11:59',
                 'updated_at' => '2025-09-08 15:40:30',
-            ),
-            415 => 
-            array (
+            ],
+            415 => [
                 'id' => 2374,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -11012,9 +10094,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'your mail has been sent successfully',
                 'created_at' => '2025-09-05 09:19:30',
                 'updated_at' => '2025-09-05 09:19:30',
-            ),
-            416 => 
-            array (
+            ],
+            416 => [
                 'id' => 2375,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -11024,9 +10105,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'de mail is succesvol verstuurd',
                 'created_at' => '2025-09-05 09:19:30',
                 'updated_at' => '2025-09-05 09:19:30',
-            ),
-            417 => 
-            array (
+            ],
+            417 => [
                 'id' => 2376,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11036,9 +10116,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cleanup',
                 'created_at' => '2025-09-05 09:33:29',
                 'updated_at' => '2025-09-05 09:33:29',
-            ),
-            418 => 
-            array (
+            ],
+            418 => [
                 'id' => 2377,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11048,9 +10127,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cleanup',
                 'created_at' => '2025-09-05 09:33:29',
                 'updated_at' => '2025-09-05 09:33:29',
-            ),
-            419 => 
-            array (
+            ],
+            419 => [
                 'id' => 2378,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11060,9 +10138,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'auto [en]',
                 'created_at' => '2025-09-05 09:37:05',
                 'updated_at' => '2025-09-05 09:37:05',
-            ),
-            420 => 
-            array (
+            ],
+            420 => [
                 'id' => 2379,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11072,9 +10149,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'auto [en]',
                 'created_at' => '2025-09-05 09:37:05',
                 'updated_at' => '2025-09-05 09:37:05',
-            ),
-            421 => 
-            array (
+            ],
+            421 => [
                 'id' => 2380,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11084,9 +10160,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-09-07 17:10:36',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            422 => 
-            array (
+            ],
+            422 => [
                 'id' => 2381,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11096,9 +10171,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'hook',
                 'created_at' => '2025-09-07 17:10:36',
                 'updated_at' => '2025-09-08 15:38:49',
-            ),
-            423 => 
-            array (
+            ],
+            423 => [
                 'id' => 2386,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11108,9 +10182,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'col max body fields',
                 'created_at' => '2025-09-08 09:48:45',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            424 => 
-            array (
+            ],
+            424 => [
                 'id' => 2387,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11120,9 +10193,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'max aantal body velden',
                 'created_at' => '2025-09-08 09:48:45',
                 'updated_at' => '2025-09-08 15:38:40',
-            ),
-            425 => 
-            array (
+            ],
+            425 => [
                 'id' => 2388,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11132,9 +10204,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'extra body fields',
                 'created_at' => '2025-09-08 10:23:27',
                 'updated_at' => '2025-09-08 10:23:27',
-            ),
-            426 => 
-            array (
+            ],
+            426 => [
                 'id' => 2389,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11144,9 +10215,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'extra body velden',
                 'created_at' => '2025-09-08 10:23:27',
                 'updated_at' => '2025-09-08 10:23:27',
-            ),
-            427 => 
-            array (
+            ],
+            427 => [
                 'id' => 2390,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11156,9 +10226,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'entity title',
                 'created_at' => '2025-09-08 16:33:23',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            428 => 
-            array (
+            ],
+            428 => [
                 'id' => 2391,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11168,9 +10237,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina\'s',
                 'created_at' => '2025-09-08 16:33:23',
                 'updated_at' => '2025-12-31 12:27:10',
-            ),
-            429 => 
-            array (
+            ],
+            429 => [
                 'id' => 2404,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11180,9 +10248,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-09-08 16:44:20',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            430 => 
-            array (
+            ],
+            430 => [
                 'id' => 2405,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11192,9 +10259,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'evenementen',
                 'created_at' => '2025-09-08 16:44:20',
                 'updated_at' => '2025-12-31 12:06:34',
-            ),
-            431 => 
-            array (
+            ],
+            431 => [
                 'id' => 2406,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11204,9 +10270,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-09-08 16:44:20',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            432 => 
-            array (
+            ],
+            432 => [
                 'id' => 2407,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11216,9 +10281,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'diensten',
                 'created_at' => '2025-09-08 16:44:20',
                 'updated_at' => '2025-12-31 12:09:24',
-            ),
-            433 => 
-            array (
+            ],
+            433 => [
                 'id' => 2408,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11228,9 +10292,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-09-08 16:44:20',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            434 => 
-            array (
+            ],
+            434 => [
                 'id' => 2409,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11240,9 +10303,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'documenten',
                 'created_at' => '2025-09-08 16:44:20',
                 'updated_at' => '2025-12-31 12:05:53',
-            ),
-            435 => 
-            array (
+            ],
+            435 => [
                 'id' => 2414,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11252,9 +10314,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'blog',
                 'created_at' => '2025-09-08 16:52:33',
                 'updated_at' => '2025-09-08 16:52:33',
-            ),
-            436 => 
-            array (
+            ],
+            436 => [
                 'id' => 2415,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11264,9 +10325,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nieuws',
                 'created_at' => '2025-09-08 16:52:33',
                 'updated_at' => '2025-09-08 16:52:33',
-            ),
-            437 => 
-            array (
+            ],
+            437 => [
                 'id' => 2416,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11276,9 +10336,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'team',
                 'created_at' => '2025-09-08 16:54:33',
                 'updated_at' => '2025-09-08 16:54:33',
-            ),
-            438 => 
-            array (
+            ],
+            438 => [
                 'id' => 2417,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11288,9 +10347,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'team',
                 'created_at' => '2025-09-08 16:54:33',
                 'updated_at' => '2025-09-08 16:54:33',
-            ),
-            439 => 
-            array (
+            ],
+            439 => [
                 'id' => 2418,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11300,9 +10358,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'events',
                 'created_at' => '2025-09-08 16:54:34',
                 'updated_at' => '2025-09-08 16:54:34',
-            ),
-            440 => 
-            array (
+            ],
+            440 => [
                 'id' => 2419,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11312,9 +10369,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'agenda',
                 'created_at' => '2025-09-08 16:54:34',
                 'updated_at' => '2025-09-08 16:54:34',
-            ),
-            441 => 
-            array (
+            ],
+            441 => [
                 'id' => 2420,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11324,9 +10380,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locations',
                 'created_at' => '2025-09-08 16:54:35',
                 'updated_at' => '2025-09-08 16:54:35',
-            ),
-            442 => 
-            array (
+            ],
+            442 => [
                 'id' => 2421,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11336,9 +10391,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'locaties',
                 'created_at' => '2025-09-08 16:54:35',
                 'updated_at' => '2025-09-08 16:54:35',
-            ),
-            443 => 
-            array (
+            ],
+            443 => [
                 'id' => 2422,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11348,9 +10402,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'portfolio',
                 'created_at' => '2025-09-08 16:54:36',
                 'updated_at' => '2025-09-08 16:54:36',
-            ),
-            444 => 
-            array (
+            ],
+            444 => [
                 'id' => 2423,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11360,9 +10413,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'portfolio',
                 'created_at' => '2025-09-08 16:54:36',
                 'updated_at' => '2025-09-08 16:54:36',
-            ),
-            445 => 
-            array (
+            ],
+            445 => [
                 'id' => 2424,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11372,9 +10424,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'testimonials',
                 'created_at' => '2025-09-08 16:54:37',
                 'updated_at' => '2025-09-08 16:54:37',
-            ),
-            446 => 
-            array (
+            ],
+            446 => [
                 'id' => 2425,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11384,9 +10435,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'testimonials',
                 'created_at' => '2025-09-08 16:54:37',
                 'updated_at' => '2025-09-08 16:54:37',
-            ),
-            447 => 
-            array (
+            ],
+            447 => [
                 'id' => 2426,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11396,9 +10446,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'services',
                 'created_at' => '2025-09-08 16:54:38',
                 'updated_at' => '2025-09-08 16:54:38',
-            ),
-            448 => 
-            array (
+            ],
+            448 => [
                 'id' => 2427,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11408,9 +10457,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'diensten',
                 'created_at' => '2025-09-08 16:54:38',
                 'updated_at' => '2025-09-08 16:54:38',
-            ),
-            449 => 
-            array (
+            ],
+            449 => [
                 'id' => 2428,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11420,9 +10468,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'downloads',
                 'created_at' => '2025-09-08 16:54:48',
                 'updated_at' => '2025-09-08 16:54:48',
-            ),
-            450 => 
-            array (
+            ],
+            450 => [
                 'id' => 2429,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11432,9 +10479,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'documenten',
                 'created_at' => '2025-09-08 16:54:48',
                 'updated_at' => '2025-09-08 16:54:48',
-            ),
-            451 => 
-            array (
+            ],
+            451 => [
                 'id' => 2430,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11444,9 +10490,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gallery',
                 'created_at' => '2025-09-08 16:54:49',
                 'updated_at' => '2025-09-08 16:54:49',
-            ),
-            452 => 
-            array (
+            ],
+            452 => [
                 'id' => 2431,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11456,9 +10501,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'fotoalbum',
                 'created_at' => '2025-09-08 16:54:49',
                 'updated_at' => '2025-09-08 16:54:49',
-            ),
-            453 => 
-            array (
+            ],
+            453 => [
                 'id' => 2432,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11468,9 +10512,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'videos',
                 'created_at' => '2025-09-08 16:54:51',
                 'updated_at' => '2025-09-08 16:54:51',
-            ),
-            454 => 
-            array (
+            ],
+            454 => [
                 'id' => 2433,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11480,9 +10523,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'video',
                 'created_at' => '2025-09-08 16:54:51',
                 'updated_at' => '2025-09-08 16:54:51',
-            ),
-            455 => 
-            array (
+            ],
+            455 => [
                 'id' => 2436,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11492,9 +10534,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pages',
                 'created_at' => '2025-09-08 17:50:32',
                 'updated_at' => '2025-09-08 17:50:32',
-            ),
-            456 => 
-            array (
+            ],
+            456 => [
                 'id' => 2437,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11504,9 +10545,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'pagina\'s',
                 'created_at' => '2025-09-08 17:50:32',
                 'updated_at' => '2025-09-08 17:50:32',
-            ),
-            457 => 
-            array (
+            ],
+            457 => [
                 'id' => 2442,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11516,9 +10556,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'image required',
                 'created_at' => '2025-09-10 15:56:19',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            458 => 
-            array (
+            ],
+            458 => [
                 'id' => 2443,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11528,9 +10567,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'afbeelding verplicht',
                 'created_at' => '2025-09-10 15:56:19',
                 'updated_at' => '2025-12-31 12:25:52',
-            ),
-            459 => 
-            array (
+            ],
+            459 => [
                 'id' => 2453,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -11540,9 +10578,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'prev',
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
-            ),
-            460 => 
-            array (
+            ],
+            460 => [
                 'id' => 2454,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -11552,9 +10589,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'previous',
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
-            ),
-            461 => 
-            array (
+            ],
+            461 => [
                 'id' => 2455,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -11564,9 +10600,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'next',
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
-            ),
-            462 => 
-            array (
+            ],
+            462 => [
                 'id' => 2456,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -11576,9 +10611,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'next',
                 'created_at' => '2025-09-16 16:13:51',
                 'updated_at' => '2025-09-16 16:13:51',
-            ),
-            463 => 
-            array (
+            ],
+            463 => [
                 'id' => 2457,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11588,9 +10622,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sticky',
                 'created_at' => '2025-09-16 17:44:20',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            464 => 
-            array (
+            ],
+            464 => [
                 'id' => 2458,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11600,9 +10633,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sticky',
                 'created_at' => '2025-09-16 17:44:20',
                 'updated_at' => '2025-12-31 12:03:48',
-            ),
-            465 => 
-            array (
+            ],
+            465 => [
                 'id' => 2459,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -11612,9 +10644,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-09-19 09:02:33',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            466 => 
-            array (
+            ],
+            466 => [
                 'id' => 2460,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -11624,9 +10655,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-09-19 09:02:33',
                 'updated_at' => '2025-12-31 12:08:27',
-            ),
-            467 => 
-            array (
+            ],
+            467 => [
                 'id' => 2461,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -11636,9 +10666,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body',
                 'created_at' => '2025-09-19 09:02:33',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            468 => 
-            array (
+            ],
+            468 => [
                 'id' => 2462,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -11648,9 +10677,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body',
                 'created_at' => '2025-09-19 09:02:33',
                 'updated_at' => '2025-12-31 12:08:22',
-            ),
-            469 => 
-            array (
+            ],
+            469 => [
                 'id' => 2483,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11660,9 +10688,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'export db',
                 'created_at' => '2025-09-28 12:01:56',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            470 => 
-            array (
+            ],
+            470 => [
                 'id' => 2484,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11672,9 +10699,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'database exporteren',
                 'created_at' => '2025-09-28 12:01:56',
                 'updated_at' => '2025-12-31 12:23:39',
-            ),
-            471 => 
-            array (
+            ],
+            471 => [
                 'id' => 2485,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11684,9 +10710,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom fields',
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
-            ),
-            472 => 
-            array (
+            ],
+            472 => [
                 'id' => 2486,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11696,9 +10721,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom velden',
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
-            ),
-            473 => 
-            array (
+            ],
+            473 => [
                 'id' => 2487,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11708,9 +10732,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'views',
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
-            ),
-            474 => 
-            array (
+            ],
+            474 => [
                 'id' => 2488,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11720,9 +10743,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'views',
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
-            ),
-            475 => 
-            array (
+            ],
+            475 => [
                 'id' => 2489,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11732,9 +10754,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'relations',
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
-            ),
-            476 => 
-            array (
+            ],
+            476 => [
                 'id' => 2490,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11744,9 +10765,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'relaties',
                 'created_at' => '2025-09-28 12:08:46',
                 'updated_at' => '2025-09-28 12:08:46',
-            ),
-            477 => 
-            array (
+            ],
+            477 => [
                 'id' => 2491,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11756,9 +10776,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-09-28 12:16:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            478 => 
-            array (
+            ],
+            478 => [
                 'id' => 2492,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11768,9 +10787,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sliders',
                 'created_at' => '2025-09-28 12:16:14',
                 'updated_at' => '2025-12-31 12:12:38',
-            ),
-            479 => 
-            array (
+            ],
+            479 => [
                 'id' => 2505,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11780,9 +10798,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geo location',
                 'created_at' => '2025-09-29 07:40:32',
                 'updated_at' => '2025-09-29 07:40:32',
-            ),
-            480 => 
-            array (
+            ],
+            480 => [
                 'id' => 2506,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11792,9 +10809,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geo locatie',
                 'created_at' => '2025-09-29 07:40:32',
                 'updated_at' => '2025-09-29 07:40:32',
-            ),
-            481 => 
-            array (
+            ],
+            481 => [
                 'id' => 2507,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11804,9 +10820,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-09-29 18:14:04',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            482 => 
-            array (
+            ],
+            482 => [
                 'id' => 2508,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -11816,9 +10831,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'blokken',
                 'created_at' => '2025-09-29 18:14:04',
                 'updated_at' => '2025-12-31 12:13:19',
-            ),
-            483 => 
-            array (
+            ],
+            483 => [
                 'id' => 2509,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11828,9 +10842,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'address',
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
-            ),
-            484 => 
-            array (
+            ],
+            484 => [
                 'id' => 2510,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11840,9 +10853,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'adres',
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
-            ),
-            485 => 
-            array (
+            ],
+            485 => [
                 'id' => 2511,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11852,9 +10864,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'postal code',
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
-            ),
-            486 => 
-            array (
+            ],
+            486 => [
                 'id' => 2512,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11864,9 +10875,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'postcode',
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
-            ),
-            487 => 
-            array (
+            ],
+            487 => [
                 'id' => 2513,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11876,9 +10886,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'city',
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
-            ),
-            488 => 
-            array (
+            ],
+            488 => [
                 'id' => 2514,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11888,9 +10897,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'stad',
                 'created_at' => '2025-10-06 16:16:26',
                 'updated_at' => '2025-10-06 16:16:26',
-            ),
-            489 => 
-            array (
+            ],
+            489 => [
                 'id' => 2515,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11900,9 +10908,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'country',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            490 => 
-            array (
+            ],
+            490 => [
                 'id' => 2516,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11912,9 +10919,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'land',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            491 => 
-            array (
+            ],
+            491 => [
                 'id' => 2517,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11924,9 +10930,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geo location',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            492 => 
-            array (
+            ],
+            492 => [
                 'id' => 2518,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11936,9 +10941,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geo locatie',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            493 => 
-            array (
+            ],
+            493 => [
                 'id' => 2519,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11948,9 +10952,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'latitude',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            494 => 
-            array (
+            ],
+            494 => [
                 'id' => 2520,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11960,9 +10963,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'latitude',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            495 => 
-            array (
+            ],
+            495 => [
                 'id' => 2521,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -11972,9 +10974,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'longitude',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            496 => 
-            array (
+            ],
+            496 => [
                 'id' => 2522,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -11984,9 +10985,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'longitude',
                 'created_at' => '2025-10-06 16:18:19',
                 'updated_at' => '2025-10-06 16:18:19',
-            ),
-            497 => 
-            array (
+            ],
+            497 => [
                 'id' => 2523,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -11996,9 +10996,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geolocation',
                 'created_at' => '2025-10-06 16:35:56',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            498 => 
-            array (
+            ],
+            498 => [
                 'id' => 2524,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12008,9 +11007,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'geo location',
                 'created_at' => '2025-10-06 16:35:56',
                 'updated_at' => '2025-12-31 12:08:41',
-            ),
-            499 => 
-            array (
+            ],
+            499 => [
                 'id' => 2525,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12020,11 +11018,10 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label',
                 'created_at' => '2025-10-06 17:37:07',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-        ));
-        \DB::table('lara_sys_translations')->insert(array (
-            0 => 
-            array (
+            ],
+        ]);
+        \DB::table('lara_sys_translations')->insert([
+            0 => [
                 'id' => 2526,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12034,9 +11031,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'producten',
                 'created_at' => '2025-10-06 17:37:07',
                 'updated_at' => '2025-10-21 07:59:27',
-            ),
-            1 => 
-            array (
+            ],
+            1 => [
                 'id' => 2527,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12046,9 +11042,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            2 => 
-            array (
+            ],
+            2 => [
                 'id' => 2528,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12058,9 +11053,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'titel',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:08:48',
-            ),
-            3 => 
-            array (
+            ],
+            3 => [
                 'id' => 2529,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12070,9 +11064,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publish',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            4 => 
-            array (
+            ],
+            4 => [
                 'id' => 2530,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12082,9 +11075,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'publiceren',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-10-06 17:50:14',
-            ),
-            5 => 
-            array (
+            ],
+            5 => [
                 'id' => 2531,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12094,9 +11086,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categories',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            6 => 
-            array (
+            ],
+            6 => [
                 'id' => 2532,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12106,9 +11097,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'categoprieën',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-10-06 17:50:14',
-            ),
-            7 => 
-            array (
+            ],
+            7 => [
                 'id' => 2533,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12118,9 +11108,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            8 => 
-            array (
+            ],
+            8 => [
                 'id' => 2534,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12130,9 +11119,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-10-06 17:50:14',
-            ),
-            9 => 
-            array (
+            ],
+            9 => [
                 'id' => 2535,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12142,9 +11130,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'author',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            10 => 
-            array (
+            ],
+            10 => [
                 'id' => 2536,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12154,9 +11141,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'auteur',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-10-06 17:50:14',
-            ),
-            11 => 
-            array (
+            ],
+            11 => [
                 'id' => 2537,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12166,9 +11152,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label plural',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            12 => 
-            array (
+            ],
+            12 => [
                 'id' => 2538,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12178,9 +11163,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'producten',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-10-21 07:59:04',
-            ),
-            13 => 
-            array (
+            ],
+            13 => [
                 'id' => 2539,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12190,9 +11174,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            14 => 
-            array (
+            ],
+            14 => [
                 'id' => 2540,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12202,9 +11185,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'producten',
                 'created_at' => '2025-10-06 17:50:14',
                 'updated_at' => '2025-10-21 07:58:53',
-            ),
-            15 => 
-            array (
+            ],
+            15 => [
                 'id' => 2541,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12214,9 +11196,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'label single',
                 'created_at' => '2025-10-06 17:50:15',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            16 => 
-            array (
+            ],
+            16 => [
                 'id' => 2542,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12226,9 +11207,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'product',
                 'created_at' => '2025-10-06 17:50:15',
                 'updated_at' => '2025-10-21 07:59:12',
-            ),
-            17 => 
-            array (
+            ],
+            17 => [
                 'id' => 2543,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12238,9 +11218,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mystring',
                 'created_at' => '2025-10-06 17:50:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            18 => 
-            array (
+            ],
+            18 => [
                 'id' => 2544,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12250,9 +11229,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mystring',
                 'created_at' => '2025-10-06 17:50:59',
                 'updated_at' => '2025-10-06 17:50:59',
-            ),
-            19 => 
-            array (
+            ],
+            19 => [
                 'id' => 2545,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12262,9 +11240,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myemail',
                 'created_at' => '2025-10-06 17:50:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            20 => 
-            array (
+            ],
+            20 => [
                 'id' => 2546,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12274,9 +11251,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myemail',
                 'created_at' => '2025-10-06 17:50:59',
                 'updated_at' => '2025-10-06 17:50:59',
-            ),
-            21 => 
-            array (
+            ],
+            21 => [
                 'id' => 2547,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12286,9 +11262,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytext',
                 'created_at' => '2025-10-06 17:50:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            22 => 
-            array (
+            ],
+            22 => [
                 'id' => 2548,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12298,9 +11273,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytext',
                 'created_at' => '2025-10-06 17:50:59',
                 'updated_at' => '2025-10-06 17:50:59',
-            ),
-            23 => 
-            array (
+            ],
+            23 => [
                 'id' => 2549,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12310,9 +11284,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mynumber',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            24 => 
-            array (
+            ],
+            24 => [
                 'id' => 2550,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12322,9 +11295,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mynumber',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            25 => 
-            array (
+            ],
+            25 => [
                 'id' => 2551,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12334,9 +11306,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytextarea',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            26 => 
-            array (
+            ],
+            26 => [
                 'id' => 2552,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12346,9 +11317,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytextarea',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            27 => 
-            array (
+            ],
+            27 => [
                 'id' => 2553,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12358,9 +11328,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myselect',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            28 => 
-            array (
+            ],
+            28 => [
                 'id' => 2554,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12370,9 +11339,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myselect',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            29 => 
-            array (
+            ],
+            29 => [
                 'id' => 2555,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12382,9 +11350,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mymultiselect',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            30 => 
-            array (
+            ],
+            30 => [
                 'id' => 2556,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12394,9 +11361,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mymultiselect',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            31 => 
-            array (
+            ],
+            31 => [
                 'id' => 2557,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12406,9 +11372,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytagsinput',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            32 => 
-            array (
+            ],
+            32 => [
                 'id' => 2558,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12418,9 +11383,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytagsinput',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            33 => 
-            array (
+            ],
+            33 => [
                 'id' => 2559,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12430,9 +11394,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytoggle',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            34 => 
-            array (
+            ],
+            34 => [
                 'id' => 2560,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12442,9 +11405,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytoggle',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            35 => 
-            array (
+            ],
+            35 => [
                 'id' => 2561,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12454,9 +11416,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytogglebuttons',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            36 => 
-            array (
+            ],
+            36 => [
                 'id' => 2562,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12466,9 +11427,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytogglebuttons',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            37 => 
-            array (
+            ],
+            37 => [
                 'id' => 2563,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12478,9 +11438,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycheckbox',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            38 => 
-            array (
+            ],
+            38 => [
                 'id' => 2564,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12490,9 +11449,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycheckbox',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            39 => 
-            array (
+            ],
+            39 => [
                 'id' => 2565,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12502,9 +11460,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycheckboxlist',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            40 => 
-            array (
+            ],
+            40 => [
                 'id' => 2566,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12514,9 +11471,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycheckboxlist',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            41 => 
-            array (
+            ],
+            41 => [
                 'id' => 2567,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12526,9 +11482,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myradio',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            42 => 
-            array (
+            ],
+            42 => [
                 'id' => 2568,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12538,9 +11493,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myradio',
                 'created_at' => '2025-10-06 17:51:00',
                 'updated_at' => '2025-10-06 17:51:00',
-            ),
-            43 => 
-            array (
+            ],
+            43 => [
                 'id' => 2569,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12550,9 +11504,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycolorpicker',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            44 => 
-            array (
+            ],
+            44 => [
                 'id' => 2570,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12562,9 +11515,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycolorpicker',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-10-06 17:51:59',
-            ),
-            45 => 
-            array (
+            ],
+            45 => [
                 'id' => 2571,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12574,9 +11526,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mydecimal',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            46 => 
-            array (
+            ],
+            46 => [
                 'id' => 2572,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12586,9 +11537,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mydecimal',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-10-06 17:51:59',
-            ),
-            47 => 
-            array (
+            ],
+            47 => [
                 'id' => 2573,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12598,9 +11548,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mydate',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            48 => 
-            array (
+            ],
+            48 => [
                 'id' => 2574,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12610,9 +11559,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mydate',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-10-06 17:51:59',
-            ),
-            49 => 
-            array (
+            ],
+            49 => [
                 'id' => 2575,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12622,9 +11570,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytime',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            50 => 
-            array (
+            ],
+            50 => [
                 'id' => 2576,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12634,9 +11581,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mytime',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-10-06 17:51:59',
-            ),
-            51 => 
-            array (
+            ],
+            51 => [
                 'id' => 2577,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12646,9 +11592,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mydatetime',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            52 => 
-            array (
+            ],
+            52 => [
                 'id' => 2578,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12658,9 +11603,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mydatetime',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-10-06 17:51:59',
-            ),
-            53 => 
-            array (
+            ],
+            53 => [
                 'id' => 2579,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12670,9 +11614,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mygeo',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            54 => 
-            array (
+            ],
+            54 => [
                 'id' => 2580,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12682,9 +11625,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mygeo',
                 'created_at' => '2025-10-06 17:51:59',
                 'updated_at' => '2025-10-06 17:51:59',
-            ),
-            55 => 
-            array (
+            ],
+            55 => [
                 'id' => 2581,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12694,9 +11636,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myselect 2',
                 'created_at' => '2025-10-07 07:21:48',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            56 => 
-            array (
+            ],
+            56 => [
                 'id' => 2582,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12706,9 +11647,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'myselect_2',
                 'created_at' => '2025-10-07 07:21:48',
                 'updated_at' => '2025-10-07 07:21:48',
-            ),
-            57 => 
-            array (
+            ],
+            57 => [
                 'id' => 2583,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12718,9 +11658,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mymultitogglebuttons',
                 'created_at' => '2025-10-07 08:58:26',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            58 => 
-            array (
+            ],
+            58 => [
                 'id' => 2584,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12730,9 +11669,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mymultitogglebuttons',
                 'created_at' => '2025-10-07 08:58:26',
                 'updated_at' => '2025-10-07 08:58:26',
-            ),
-            59 => 
-            array (
+            ],
+            59 => [
                 'id' => 2585,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12742,9 +11680,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycolor',
                 'created_at' => '2025-10-09 18:09:16',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            60 => 
-            array (
+            ],
+            60 => [
                 'id' => 2586,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12754,9 +11691,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'mycolor',
                 'created_at' => '2025-10-09 18:09:16',
                 'updated_at' => '2025-10-09 18:09:16',
-            ),
-            61 => 
-            array (
+            ],
+            61 => [
                 'id' => 2587,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12766,9 +11702,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-10-16 15:33:48',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            62 => 
-            array (
+            ],
+            62 => [
                 'id' => 2588,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12778,9 +11713,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'call-to-action',
                 'created_at' => '2025-10-16 15:33:48',
                 'updated_at' => '2025-12-31 12:13:50',
-            ),
-            63 => 
-            array (
+            ],
+            63 => [
                 'id' => 2589,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12790,9 +11724,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-10-16 15:38:31',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            64 => 
-            array (
+            ],
+            64 => [
                 'id' => 2590,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12802,9 +11735,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'contactformulier',
                 'created_at' => '2025-10-16 15:38:31',
                 'updated_at' => '2025-12-31 12:05:33',
-            ),
-            65 => 
-            array (
+            ],
+            65 => [
                 'id' => 2591,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12814,9 +11746,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'title',
                 'created_at' => '2025-10-16 15:59:14',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            66 => 
-            array (
+            ],
+            66 => [
                 'id' => 2592,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12826,9 +11757,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'klasiek formulier',
                 'created_at' => '2025-10-16 15:59:14',
                 'updated_at' => '2025-12-31 12:05:30',
-            ),
-            67 => 
-            array (
+            ],
+            67 => [
                 'id' => 2609,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -12838,9 +11768,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'has panel access',
                 'created_at' => '2025-10-23 07:20:17',
                 'updated_at' => '2025-12-31 12:27:47',
-            ),
-            68 => 
-            array (
+            ],
+            68 => [
                 'id' => 2610,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -12850,9 +11779,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'heeft toegang tot panel',
                 'created_at' => '2025-10-23 07:20:17',
                 'updated_at' => '2025-12-31 12:22:55',
-            ),
-            69 => 
-            array (
+            ],
+            69 => [
                 'id' => 2617,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -12862,9 +11790,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'email is invalid',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            70 => 
-            array (
+            ],
+            70 => [
                 'id' => 2618,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -12874,9 +11801,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'het e-mailadres is ongeldig',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:07:32',
-            ),
-            71 => 
-            array (
+            ],
+            71 => [
                 'id' => 2619,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -12886,9 +11812,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'firstname',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            72 => 
-            array (
+            ],
+            72 => [
                 'id' => 2620,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -12898,9 +11823,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'voornaam',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:24:37',
-            ),
-            73 => 
-            array (
+            ],
+            73 => [
                 'id' => 2621,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -12910,9 +11834,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'middlename',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            74 => 
-            array (
+            ],
+            74 => [
                 'id' => 2622,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -12922,9 +11845,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tussenvoegsel',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:24:54',
-            ),
-            75 => 
-            array (
+            ],
+            75 => [
                 'id' => 2623,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -12934,9 +11856,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'lastname',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            76 => 
-            array (
+            ],
+            76 => [
                 'id' => 2624,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -12946,9 +11867,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'achternaam',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:25:00',
-            ),
-            77 => 
-            array (
+            ],
+            77 => [
                 'id' => 2625,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -12958,9 +11878,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'new password',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            78 => 
-            array (
+            ],
+            78 => [
                 'id' => 2626,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -12970,9 +11889,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nieuw wachtwoord',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:25:09',
-            ),
-            79 => 
-            array (
+            ],
+            79 => [
                 'id' => 2627,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -12982,9 +11900,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'submit',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            80 => 
-            array (
+            ],
+            80 => [
                 'id' => 2628,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -12994,9 +11911,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'verzenden',
                 'created_at' => '2025-10-24 08:54:28',
                 'updated_at' => '2025-12-31 12:10:51',
-            ),
-            81 => 
-            array (
+            ],
+            81 => [
                 'id' => 2631,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13006,9 +11922,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'select cache types first',
                 'created_at' => '2025-10-24 12:15:15',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            82 => 
-            array (
+            ],
+            82 => [
                 'id' => 2632,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13018,9 +11933,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'selecteer één of meer types',
                 'created_at' => '2025-10-24 12:15:15',
                 'updated_at' => '2025-10-24 12:55:43',
-            ),
-            83 => 
-            array (
+            ],
+            83 => [
                 'id' => 2633,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13030,9 +11944,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'clear cache',
                 'created_at' => '2025-10-24 12:52:57',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            84 => 
-            array (
+            ],
+            84 => [
                 'id' => 2634,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13042,9 +11955,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cache verwijderen',
                 'created_at' => '2025-10-24 12:52:57',
                 'updated_at' => '2025-10-24 12:55:53',
-            ),
-            85 => 
-            array (
+            ],
+            85 => [
                 'id' => 2635,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13054,9 +11966,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'cache types',
                 'created_at' => '2025-10-24 12:54:42',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            86 => 
-            array (
+            ],
+            86 => [
                 'id' => 2636,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13066,9 +11977,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'type',
                 'created_at' => '2025-10-24 12:54:42',
                 'updated_at' => '2025-10-24 12:56:00',
-            ),
-            87 => 
-            array (
+            ],
+            87 => [
                 'id' => 2637,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13078,9 +11988,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'syncing media',
                 'created_at' => '2025-12-18 13:36:46',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            88 => 
-            array (
+            ],
+            88 => [
                 'id' => 2638,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13090,9 +11999,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media synchroniseren',
                 'created_at' => '2025-12-18 13:36:46',
                 'updated_at' => '2025-12-31 12:26:13',
-            ),
-            89 => 
-            array (
+            ],
+            89 => [
                 'id' => 2639,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13102,9 +12010,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'sync successful',
                 'created_at' => '2025-12-18 13:38:02',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            90 => 
-            array (
+            ],
+            90 => [
                 'id' => 2640,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13114,9 +12021,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'synchronisatie klaar',
                 'created_at' => '2025-12-18 13:38:02',
                 'updated_at' => '2025-12-31 12:26:24',
-            ),
-            91 => 
-            array (
+            ],
+            91 => [
                 'id' => 2641,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13126,9 +12032,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'library sync successful',
                 'created_at' => '2025-12-18 14:04:45',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            92 => 
-            array (
+            ],
+            92 => [
                 'id' => 2642,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13138,9 +12043,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'synchronisatie klaar',
                 'created_at' => '2025-12-18 14:04:45',
                 'updated_at' => '2025-12-31 12:26:39',
-            ),
-            93 => 
-            array (
+            ],
+            93 => [
                 'id' => 2643,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13150,9 +12054,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media disk images',
                 'created_at' => '2025-12-23 10:23:38',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            94 => 
-            array (
+            ],
+            94 => [
                 'id' => 2644,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13162,9 +12065,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'disk voor afbeeldingen',
                 'created_at' => '2025-12-23 10:23:38',
                 'updated_at' => '2025-12-31 12:23:55',
-            ),
-            95 => 
-            array (
+            ],
+            95 => [
                 'id' => 2645,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13174,9 +12076,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media disk videos',
                 'created_at' => '2025-12-23 10:28:28',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            96 => 
-            array (
+            ],
+            96 => [
                 'id' => 2646,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13186,9 +12087,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'disk voor videos',
                 'created_at' => '2025-12-23 10:28:28',
                 'updated_at' => '2025-12-31 12:24:01',
-            ),
-            97 => 
-            array (
+            ],
+            97 => [
                 'id' => 2647,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13198,9 +12098,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'media disk files',
                 'created_at' => '2025-12-23 10:29:00',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            98 => 
-            array (
+            ],
+            98 => [
                 'id' => 2648,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13210,9 +12109,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'disk voor bestanden',
                 'created_at' => '2025-12-23 10:29:00',
                 'updated_at' => '2025-12-31 12:24:08',
-            ),
-            99 => 
-            array (
+            ],
+            99 => [
                 'id' => 2651,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13222,9 +12120,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'reorder saved',
                 'created_at' => '2025-12-29 09:38:49',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            100 => 
-            array (
+            ],
+            100 => [
                 'id' => 2652,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13234,9 +12131,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'volgorde opgeslagen',
                 'created_at' => '2025-12-29 09:38:49',
                 'updated_at' => '2025-12-31 12:23:15',
-            ),
-            101 => 
-            array (
+            ],
+            101 => [
                 'id' => 2653,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13246,9 +12142,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'html',
                 'created_at' => '2025-12-31 12:21:52',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            102 => 
-            array (
+            ],
+            102 => [
                 'id' => 2654,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13258,9 +12153,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'html',
                 'created_at' => '2025-12-31 12:21:52',
                 'updated_at' => '2025-12-31 12:23:02',
-            ),
-            103 => 
-            array (
+            ],
+            103 => [
                 'id' => 2655,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13270,9 +12164,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body2',
                 'created_at' => '2025-12-31 12:21:52',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            104 => 
-            array (
+            ],
+            104 => [
                 'id' => 2656,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13282,9 +12175,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tekst 2',
                 'created_at' => '2025-12-31 12:21:53',
                 'updated_at' => '2025-12-31 12:22:12',
-            ),
-            105 => 
-            array (
+            ],
+            105 => [
                 'id' => 2657,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13294,9 +12186,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'body3',
                 'created_at' => '2025-12-31 12:21:53',
                 'updated_at' => '2025-12-31 12:27:48',
-            ),
-            106 => 
-            array (
+            ],
+            106 => [
                 'id' => 2658,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13306,9 +12197,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tekst 3',
                 'created_at' => '2025-12-31 12:21:53',
                 'updated_at' => '2025-12-31 12:22:16',
-            ),
-            107 => 
-            array (
+            ],
+            107 => [
                 'id' => 2659,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13318,9 +12208,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_submit',
                 'created_at' => '2025-12-31 13:02:11',
                 'updated_at' => '2025-12-31 13:02:11',
-            ),
-            108 => 
-            array (
+            ],
+            108 => [
                 'id' => 2660,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13330,9 +12219,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'versturen',
                 'created_at' => '2025-12-31 13:02:11',
                 'updated_at' => '2025-12-31 15:48:10',
-            ),
-            109 => 
-            array (
+            ],
+            109 => [
                 'id' => 2661,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13342,9 +12230,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_custom_fields',
                 'created_at' => '2025-12-31 15:47:08',
                 'updated_at' => '2025-12-31 15:47:08',
-            ),
-            110 => 
-            array (
+            ],
+            110 => [
                 'id' => 2662,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13354,9 +12241,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'custom velden',
                 'created_at' => '2025-12-31 15:47:08',
                 'updated_at' => '2025-12-31 15:48:25',
-            ),
-            111 => 
-            array (
+            ],
+            111 => [
                 'id' => 2663,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13366,9 +12252,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_entity_views',
                 'created_at' => '2025-12-31 15:47:08',
                 'updated_at' => '2025-12-31 15:47:08',
-            ),
-            112 => 
-            array (
+            ],
+            112 => [
                 'id' => 2664,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13378,9 +12263,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'views',
                 'created_at' => '2025-12-31 15:47:08',
                 'updated_at' => '2025-12-31 15:48:35',
-            ),
-            113 => 
-            array (
+            ],
+            113 => [
                 'id' => 2665,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13390,9 +12274,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myboolean',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2025-12-31 15:55:52',
-            ),
-            114 => 
-            array (
+            ],
+            114 => [
                 'id' => 2666,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13402,9 +12285,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my boolean',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2026-01-06 11:46:23',
-            ),
-            115 => 
-            array (
+            ],
+            115 => [
                 'id' => 2667,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13414,9 +12296,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_mycomment',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2025-12-31 15:55:52',
-            ),
-            116 => 
-            array (
+            ],
+            116 => [
                 'id' => 2668,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13426,9 +12307,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my comment',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2026-01-06 11:46:29',
-            ),
-            117 => 
-            array (
+            ],
+            117 => [
                 'id' => 2669,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13438,9 +12318,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myselect',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2025-12-31 15:55:52',
-            ),
-            118 => 
-            array (
+            ],
+            118 => [
                 'id' => 2670,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13450,9 +12329,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my select',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2026-01-06 11:46:34',
-            ),
-            119 => 
-            array (
+            ],
+            119 => [
                 'id' => 2671,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13462,9 +12340,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myradio',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2025-12-31 15:55:52',
-            ),
-            120 => 
-            array (
+            ],
+            120 => [
                 'id' => 2672,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13474,9 +12351,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my radio',
                 'created_at' => '2025-12-31 15:55:52',
                 'updated_at' => '2026-01-06 11:46:39',
-            ),
-            121 => 
-            array (
+            ],
+            121 => [
                 'id' => 2673,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13486,9 +12362,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_mydate',
                 'created_at' => '2025-12-31 15:58:19',
                 'updated_at' => '2025-12-31 15:58:19',
-            ),
-            122 => 
-            array (
+            ],
+            122 => [
                 'id' => 2674,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13498,9 +12373,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'my date',
                 'created_at' => '2025-12-31 15:58:19',
                 'updated_at' => '2026-01-06 11:46:45',
-            ),
-            123 => 
-            array (
+            ],
+            123 => [
                 'id' => 2675,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13510,9 +12384,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_subject',
                 'created_at' => '2025-12-31 16:05:28',
                 'updated_at' => '2025-12-31 16:05:28',
-            ),
-            124 => 
-            array (
+            ],
+            124 => [
                 'id' => 2676,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13522,9 +12395,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'onderwerp',
                 'created_at' => '2025-12-31 16:05:28',
                 'updated_at' => '2026-01-06 11:47:07',
-            ),
-            125 => 
-            array (
+            ],
+            125 => [
                 'id' => 2677,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13534,9 +12406,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_label_single',
                 'created_at' => '2025-12-31 16:39:01',
                 'updated_at' => '2025-12-31 16:39:01',
-            ),
-            126 => 
-            array (
+            ],
+            126 => [
                 'id' => 2678,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13546,9 +12417,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'klassiek formulier',
                 'created_at' => '2025-12-31 16:39:01',
                 'updated_at' => '2026-01-06 11:46:59',
-            ),
-            127 => 
-            array (
+            ],
+            127 => [
                 'id' => 2679,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13558,9 +12428,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_bricks',
                 'created_at' => '2026-01-08 12:42:36',
                 'updated_at' => '2026-01-08 12:42:36',
-            ),
-            128 => 
-            array (
+            ],
+            128 => [
                 'id' => 2680,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13570,9 +12439,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_bricks',
                 'created_at' => '2026-01-08 12:42:36',
                 'updated_at' => '2026-01-08 12:42:36',
-            ),
-            129 => 
-            array (
+            ],
+            129 => [
                 'id' => 2681,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13582,9 +12450,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_drag_and_drop_bricks',
                 'created_at' => '2026-01-08 13:41:48',
                 'updated_at' => '2026-01-08 13:41:48',
-            ),
-            130 => 
-            array (
+            ],
+            130 => [
                 'id' => 2682,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13594,9 +12461,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_drag_and_drop_bricks',
                 'created_at' => '2026-01-08 13:41:48',
                 'updated_at' => '2026-01-08 13:41:48',
-            ),
-            131 => 
-            array (
+            ],
+            131 => [
                 'id' => 2683,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13606,9 +12472,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'This content item is being edited by another user',
                 'created_at' => '2026-01-25 13:28:32',
                 'updated_at' => '2026-01-25 19:27:26',
-            ),
-            132 => 
-            array (
+            ],
+            132 => [
                 'id' => 2684,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13618,9 +12483,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'Dit content item wordt momenteel bewerkt door een andere gebruiker',
                 'created_at' => '2026-01-25 13:28:32',
                 'updated_at' => '2026-01-25 19:26:42',
-            ),
-            133 => 
-            array (
+            ],
+            133 => [
                 'id' => 2685,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13630,9 +12494,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_character_label',
                 'created_at' => '2026-01-26 10:02:02',
                 'updated_at' => '2026-01-26 10:02:02',
-            ),
-            134 => 
-            array (
+            ],
+            134 => [
                 'id' => 2686,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13642,9 +12505,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_character_label',
                 'created_at' => '2026-01-26 10:02:02',
                 'updated_at' => '2026-01-26 10:02:02',
-            ),
-            135 => 
-            array (
+            ],
+            135 => [
                 'id' => 2687,
                 'language' => 'en',
                 'module' => 'admin',
@@ -13654,9 +12516,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-01-27 10:59:30',
                 'updated_at' => '2026-01-27 10:59:30',
-            ),
-            136 => 
-            array (
+            ],
+            136 => [
                 'id' => 2688,
                 'language' => 'nl',
                 'module' => 'admin',
@@ -13666,9 +12527,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-01-27 10:59:30',
                 'updated_at' => '2026-01-27 10:59:30',
-            ),
-            137 => 
-            array (
+            ],
+            137 => [
                 'id' => 2689,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -13678,9 +12538,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_object_saved',
                 'created_at' => '2026-02-23 15:26:14',
                 'updated_at' => '2026-02-23 15:26:14',
-            ),
-            138 => 
-            array (
+            ],
+            138 => [
                 'id' => 2690,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -13690,9 +12549,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'De data is succesvol opgeslagen',
                 'created_at' => '2026-02-23 15:26:14',
                 'updated_at' => '2026-02-23 15:26:40',
-            ),
-            139 => 
-            array (
+            ],
+            139 => [
                 'id' => 2691,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -13702,9 +12560,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_related_files',
                 'created_at' => '2026-03-16 13:38:52',
                 'updated_at' => '2026-03-16 13:38:52',
-            ),
-            140 => 
-            array (
+            ],
+            140 => [
                 'id' => 2692,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -13714,9 +12571,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'gerelateerde documenten',
                 'created_at' => '2026-03-16 13:38:52',
                 'updated_at' => '2026-03-16 13:46:22',
-            ),
-            141 => 
-            array (
+            ],
+            141 => [
                 'id' => 2693,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13726,9 +12582,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_mydate',
                 'created_at' => '2026-03-16 19:27:41',
                 'updated_at' => '2026-03-16 19:27:41',
-            ),
-            142 => 
-            array (
+            ],
+            142 => [
                 'id' => 2694,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13738,9 +12593,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_mydate',
                 'created_at' => '2026-03-16 19:27:41',
                 'updated_at' => '2026-03-16 19:27:41',
-            ),
-            143 => 
-            array (
+            ],
+            143 => [
                 'id' => 2695,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13750,9 +12604,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_mytoggle',
                 'created_at' => '2026-03-16 19:30:40',
                 'updated_at' => '2026-03-16 19:30:40',
-            ),
-            144 => 
-            array (
+            ],
+            144 => [
                 'id' => 2696,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13762,9 +12615,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_mytoggle',
                 'created_at' => '2026-03-16 19:30:40',
                 'updated_at' => '2026-03-16 19:30:40',
-            ),
-            145 => 
-            array (
+            ],
+            145 => [
                 'id' => 2697,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13774,9 +12626,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myselect',
                 'created_at' => '2026-03-16 19:32:27',
                 'updated_at' => '2026-03-16 19:32:27',
-            ),
-            146 => 
-            array (
+            ],
+            146 => [
                 'id' => 2698,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13786,9 +12637,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myselect',
                 'created_at' => '2026-03-16 19:32:27',
                 'updated_at' => '2026-03-16 19:32:27',
-            ),
-            147 => 
-            array (
+            ],
+            147 => [
                 'id' => 2699,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -13798,9 +12648,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myradio',
                 'created_at' => '2026-03-16 19:36:33',
                 'updated_at' => '2026-03-16 19:36:33',
-            ),
-            148 => 
-            array (
+            ],
+            148 => [
                 'id' => 2700,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -13810,9 +12659,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_myradio',
                 'created_at' => '2026-03-16 19:36:33',
                 'updated_at' => '2026-03-16 19:36:33',
-            ),
-            149 => 
-            array (
+            ],
+            149 => [
                 'id' => 2701,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13822,9 +12670,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_forgot_password',
                 'created_at' => '2026-03-17 11:44:35',
                 'updated_at' => '2026-03-17 11:44:35',
-            ),
-            150 => 
-            array (
+            ],
+            150 => [
                 'id' => 2702,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13834,9 +12681,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'wachtwoord vergeten',
                 'created_at' => '2026-03-17 11:44:35',
                 'updated_at' => '2026-03-17 11:45:12',
-            ),
-            151 => 
-            array (
+            ],
+            151 => [
                 'id' => 2703,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13846,9 +12692,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_register',
                 'created_at' => '2026-03-17 11:44:35',
                 'updated_at' => '2026-03-17 11:44:35',
-            ),
-            152 => 
-            array (
+            ],
+            152 => [
                 'id' => 2704,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13858,9 +12703,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'registreren',
                 'created_at' => '2026-03-17 11:44:35',
                 'updated_at' => '2026-03-17 11:45:25',
-            ),
-            153 => 
-            array (
+            ],
+            153 => [
                 'id' => 2705,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13870,9 +12714,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_password_forgot_title',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:41:19',
-            ),
-            154 => 
-            array (
+            ],
+            154 => [
                 'id' => 2706,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13882,9 +12725,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'wachtwoord vergeten',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:47:25',
-            ),
-            155 => 
-            array (
+            ],
+            155 => [
                 'id' => 2707,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13894,9 +12736,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_placeholder_email',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:41:19',
-            ),
-            156 => 
-            array (
+            ],
+            156 => [
                 'id' => 2708,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13906,9 +12747,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'e-mailadres',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:47:42',
-            ),
-            157 => 
-            array (
+            ],
+            157 => [
                 'id' => 2709,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13918,9 +12758,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_send_password_reset_link',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:41:19',
-            ),
-            158 => 
-            array (
+            ],
+            158 => [
                 'id' => 2710,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13930,9 +12769,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'verstuur link',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:46:40',
-            ),
-            159 => 
-            array (
+            ],
+            159 => [
                 'id' => 2711,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13942,9 +12780,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_back_to_login',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:41:19',
-            ),
-            160 => 
-            array (
+            ],
+            160 => [
                 'id' => 2712,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13954,9 +12791,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'terug naar login',
                 'created_at' => '2026-03-17 12:41:19',
                 'updated_at' => '2026-03-17 12:46:52',
-            ),
-            161 => 
-            array (
+            ],
+            161 => [
                 'id' => 2713,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13966,9 +12802,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_password_reset_title',
                 'created_at' => '2026-03-17 13:08:22',
                 'updated_at' => '2026-03-17 13:08:22',
-            ),
-            162 => 
-            array (
+            ],
+            162 => [
                 'id' => 2714,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -13978,9 +12813,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'wachtwoord resetten',
                 'created_at' => '2026-03-17 13:08:22',
                 'updated_at' => '2026-03-17 14:51:16',
-            ),
-            163 => 
-            array (
+            ],
+            163 => [
                 'id' => 2721,
                 'language' => 'en',
                 'module' => 'lara-common',
@@ -13990,9 +12824,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_reset_password',
                 'created_at' => '2026-03-17 13:08:22',
                 'updated_at' => '2026-03-17 13:08:22',
-            ),
-            164 => 
-            array (
+            ],
+            164 => [
                 'id' => 2722,
                 'language' => 'nl',
                 'module' => 'lara-common',
@@ -14002,9 +12835,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'opslaan',
                 'created_at' => '2026-03-17 13:08:22',
                 'updated_at' => '2026-03-17 15:49:49',
-            ),
-            165 => 
-            array (
+            ],
+            165 => [
                 'id' => 2725,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14014,9 +12846,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_new_password_confirmation',
                 'created_at' => '2026-03-17 14:52:38',
                 'updated_at' => '2026-03-17 14:52:38',
-            ),
-            166 => 
-            array (
+            ],
+            166 => [
                 'id' => 2726,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14026,9 +12857,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'nieuw wachtwoord bevestigen',
                 'created_at' => '2026-03-17 14:52:38',
                 'updated_at' => '2026-03-17 16:59:48',
-            ),
-            167 => 
-            array (
+            ],
+            167 => [
                 'id' => 2729,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14038,9 +12868,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_password_confirmation',
                 'created_at' => '2026-03-17 16:51:38',
                 'updated_at' => '2026-03-17 16:51:38',
-            ),
-            168 => 
-            array (
+            ],
+            168 => [
                 'id' => 2730,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14050,9 +12879,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'wachtwoord bevestigen',
                 'created_at' => '2026-03-17 16:51:38',
                 'updated_at' => '2026-03-17 16:59:36',
-            ),
-            169 => 
-            array (
+            ],
+            169 => [
                 'id' => 2731,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14062,9 +12890,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_register',
                 'created_at' => '2026-03-17 17:00:04',
                 'updated_at' => '2026-03-17 17:00:04',
-            ),
-            170 => 
-            array (
+            ],
+            170 => [
                 'id' => 2732,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14074,9 +12901,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_register',
                 'created_at' => '2026-03-17 17:00:04',
                 'updated_at' => '2026-03-17 17:00:04',
-            ),
-            171 => 
-            array (
+            ],
+            171 => [
                 'id' => 2733,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14086,9 +12912,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_login',
                 'created_at' => '2026-03-17 17:11:15',
                 'updated_at' => '2026-03-17 17:11:15',
-            ),
-            172 => 
-            array (
+            ],
+            172 => [
                 'id' => 2734,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14098,9 +12923,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_login',
                 'created_at' => '2026-03-17 17:11:15',
                 'updated_at' => '2026-03-17 17:11:15',
-            ),
-            173 => 
-            array (
+            ],
+            173 => [
                 'id' => 2735,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14110,9 +12934,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_register',
                 'created_at' => '2026-03-17 17:14:13',
                 'updated_at' => '2026-03-17 17:14:13',
-            ),
-            174 => 
-            array (
+            ],
+            174 => [
                 'id' => 2736,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14122,9 +12945,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'registreren',
                 'created_at' => '2026-03-17 17:14:13',
                 'updated_at' => '2026-03-17 17:15:13',
-            ),
-            175 => 
-            array (
+            ],
+            175 => [
                 'id' => 2737,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14134,9 +12956,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_password_forgot',
                 'created_at' => '2026-03-17 17:14:17',
                 'updated_at' => '2026-03-17 17:14:17',
-            ),
-            176 => 
-            array (
+            ],
+            176 => [
                 'id' => 2738,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14146,9 +12967,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'Wachtwoord resetten',
                 'created_at' => '2026-03-17 17:14:17',
                 'updated_at' => '2026-03-17 17:15:32',
-            ),
-            177 => 
-            array (
+            ],
+            177 => [
                 'id' => 2739,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14158,9 +12978,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_login',
                 'created_at' => '2026-03-17 17:14:20',
                 'updated_at' => '2026-03-17 17:14:20',
-            ),
-            178 => 
-            array (
+            ],
+            178 => [
                 'id' => 2740,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14170,9 +12989,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'login',
                 'created_at' => '2026-03-17 17:14:20',
                 'updated_at' => '2026-03-17 17:15:19',
-            ),
-            179 => 
-            array (
+            ],
+            179 => [
                 'id' => 2741,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14182,9 +13000,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_profile',
                 'created_at' => '2026-03-17 19:27:16',
                 'updated_at' => '2026-03-17 19:27:16',
-            ),
-            180 => 
-            array (
+            ],
+            180 => [
                 'id' => 2742,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14194,9 +13011,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_profile',
                 'created_at' => '2026-03-17 19:27:16',
                 'updated_at' => '2026-03-17 19:27:16',
-            ),
-            181 => 
-            array (
+            ],
+            181 => [
                 'id' => 2743,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14206,9 +13022,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_logouttext',
                 'created_at' => '2026-03-17 19:27:16',
                 'updated_at' => '2026-03-17 19:27:16',
-            ),
-            182 => 
-            array (
+            ],
+            182 => [
                 'id' => 2744,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14218,9 +13033,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_logouttext',
                 'created_at' => '2026-03-17 19:27:16',
                 'updated_at' => '2026-03-17 19:27:16',
-            ),
-            183 => 
-            array (
+            ],
+            183 => [
                 'id' => 2745,
                 'language' => 'en',
                 'module' => 'lara-front',
@@ -14230,9 +13044,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_dashboard',
                 'created_at' => '2026-03-18 15:56:54',
                 'updated_at' => '2026-03-18 15:56:54',
-            ),
-            184 => 
-            array (
+            ],
+            184 => [
                 'id' => 2746,
                 'language' => 'nl',
                 'module' => 'lara-front',
@@ -14242,9 +13055,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_dashboard',
                 'created_at' => '2026-03-18 15:56:54',
                 'updated_at' => '2026-03-18 15:56:54',
-            ),
-            185 => 
-            array (
+            ],
+            185 => [
                 'id' => 2747,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14254,9 +13066,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_email',
                 'created_at' => '2026-04-24 14:23:07',
                 'updated_at' => '2026-04-24 14:23:07',
-            ),
-            186 => 
-            array (
+            ],
+            186 => [
                 'id' => 2748,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14266,9 +13077,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_email',
                 'created_at' => '2026-04-24 14:23:07',
                 'updated_at' => '2026-04-24 14:23:07',
-            ),
-            187 => 
-            array (
+            ],
+            187 => [
                 'id' => 2749,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14278,9 +13088,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_name',
                 'created_at' => '2026-04-24 14:30:42',
                 'updated_at' => '2026-04-24 14:30:42',
-            ),
-            188 => 
-            array (
+            ],
+            188 => [
                 'id' => 2750,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14290,9 +13099,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_name',
                 'created_at' => '2026-04-24 14:30:42',
                 'updated_at' => '2026-04-24 14:30:42',
-            ),
-            189 => 
-            array (
+            ],
+            189 => [
                 'id' => 2751,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14302,9 +13110,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_seo',
                 'created_at' => '2026-07-30 15:30:54',
                 'updated_at' => '2026-07-30 15:30:54',
-            ),
-            190 => 
-            array (
+            ],
+            190 => [
                 'id' => 2752,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14314,9 +13121,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_seo',
                 'created_at' => '2026-07-30 15:30:54',
                 'updated_at' => '2026-07-30 15:30:54',
-            ),
-            191 => 
-            array (
+            ],
+            191 => [
                 'id' => 2753,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14326,9 +13132,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_id',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:34:05',
-            ),
-            192 => 
-            array (
+            ],
+            192 => [
                 'id' => 2754,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14338,9 +13143,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'id',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:37:04',
-            ),
-            193 => 
-            array (
+            ],
+            193 => [
                 'id' => 2755,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14350,9 +13154,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_publish',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:34:05',
-            ),
-            194 => 
-            array (
+            ],
+            194 => [
                 'id' => 2756,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14362,9 +13165,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'status',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:37:09',
-            ),
-            195 => 
-            array (
+            ],
+            195 => [
                 'id' => 2757,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14374,9 +13176,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_publish_from',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:34:05',
-            ),
-            196 => 
-            array (
+            ],
+            196 => [
                 'id' => 2758,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14386,9 +13187,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'datum',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:37:14',
-            ),
-            197 => 
-            array (
+            ],
+            197 => [
                 'id' => 2759,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14398,9 +13198,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_terms',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:34:05',
-            ),
-            198 => 
-            array (
+            ],
+            198 => [
                 'id' => 2760,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14410,9 +13209,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'tags',
                 'created_at' => '2026-07-30 15:34:05',
                 'updated_at' => '2026-07-30 15:37:19',
-            ),
-            199 => 
-            array (
+            ],
+            199 => [
                 'id' => 2761,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14422,9 +13220,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-07-30 15:35:11',
                 'updated_at' => '2026-07-30 15:35:11',
-            ),
-            200 => 
-            array (
+            ],
+            200 => [
                 'id' => 2762,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14434,9 +13231,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-07-30 15:35:11',
                 'updated_at' => '2026-07-30 15:35:11',
-            ),
-            201 => 
-            array (
+            ],
+            201 => [
                 'id' => 2763,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14446,9 +13242,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_seo',
                 'created_at' => '2026-07-30 15:35:11',
                 'updated_at' => '2026-07-30 15:35:11',
-            ),
-            202 => 
-            array (
+            ],
+            202 => [
                 'id' => 2764,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14458,9 +13253,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_seo',
                 'created_at' => '2026-07-30 15:35:11',
                 'updated_at' => '2026-07-30 15:35:11',
-            ),
-            203 => 
-            array (
+            ],
+            203 => [
                 'id' => 2765,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14470,9 +13264,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_seo',
                 'created_at' => '2026-07-30 15:38:11',
                 'updated_at' => '2026-07-30 15:38:11',
-            ),
-            204 => 
-            array (
+            ],
+            204 => [
                 'id' => 2766,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14482,9 +13275,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => 'seo',
                 'created_at' => '2026-07-30 15:38:11',
                 'updated_at' => '2026-07-30 15:38:26',
-            ),
-            205 => 
-            array (
+            ],
+            205 => [
                 'id' => 2767,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14494,9 +13286,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:51:00',
                 'updated_at' => '2026-08-10 15:51:00',
-            ),
-            206 => 
-            array (
+            ],
+            206 => [
                 'id' => 2768,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14506,9 +13297,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:51:00',
                 'updated_at' => '2026-08-10 15:51:00',
-            ),
-            207 => 
-            array (
+            ],
+            207 => [
                 'id' => 2769,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14518,9 +13308,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_cgroup',
                 'created_at' => '2026-08-10 15:51:00',
                 'updated_at' => '2026-08-10 15:51:00',
-            ),
-            208 => 
-            array (
+            ],
+            208 => [
                 'id' => 2770,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14530,9 +13319,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_cgroup',
                 'created_at' => '2026-08-10 15:51:00',
                 'updated_at' => '2026-08-10 15:51:00',
-            ),
-            209 => 
-            array (
+            ],
+            209 => [
                 'id' => 2771,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14542,9 +13330,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_startdate',
                 'created_at' => '2026-08-10 15:55:43',
                 'updated_at' => '2026-08-10 15:55:43',
-            ),
-            210 => 
-            array (
+            ],
+            210 => [
                 'id' => 2772,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14554,9 +13341,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_startdate',
                 'created_at' => '2026-08-10 15:55:43',
                 'updated_at' => '2026-08-10 15:55:43',
-            ),
-            211 => 
-            array (
+            ],
+            211 => [
                 'id' => 2773,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14566,9 +13352,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:43',
                 'updated_at' => '2026-08-10 15:55:43',
-            ),
-            212 => 
-            array (
+            ],
+            212 => [
                 'id' => 2774,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14578,9 +13363,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:43',
                 'updated_at' => '2026-08-10 15:55:43',
-            ),
-            213 => 
-            array (
+            ],
+            213 => [
                 'id' => 2775,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14590,9 +13374,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:48',
                 'updated_at' => '2026-08-10 15:55:48',
-            ),
-            214 => 
-            array (
+            ],
+            214 => [
                 'id' => 2776,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14602,9 +13385,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:48',
                 'updated_at' => '2026-08-10 15:55:48',
-            ),
-            215 => 
-            array (
+            ],
+            215 => [
                 'id' => 2777,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14614,9 +13396,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_user_id',
                 'created_at' => '2026-08-10 15:55:48',
                 'updated_at' => '2026-08-10 15:55:48',
-            ),
-            216 => 
-            array (
+            ],
+            216 => [
                 'id' => 2778,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14626,9 +13407,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_user_id',
                 'created_at' => '2026-08-10 15:55:48',
                 'updated_at' => '2026-08-10 15:55:48',
-            ),
-            217 => 
-            array (
+            ],
+            217 => [
                 'id' => 2779,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14638,9 +13418,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:49',
                 'updated_at' => '2026-08-10 15:55:49',
-            ),
-            218 => 
-            array (
+            ],
+            218 => [
                 'id' => 2780,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14650,9 +13429,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:49',
                 'updated_at' => '2026-08-10 15:55:49',
-            ),
-            219 => 
-            array (
+            ],
+            219 => [
                 'id' => 2781,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14662,9 +13440,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:52',
                 'updated_at' => '2026-08-10 15:55:52',
-            ),
-            220 => 
-            array (
+            ],
+            220 => [
                 'id' => 2782,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14674,9 +13451,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 15:55:52',
                 'updated_at' => '2026-08-10 15:55:52',
-            ),
-            221 => 
-            array (
+            ],
+            221 => [
                 'id' => 2783,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14686,9 +13462,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:00:10',
                 'updated_at' => '2026-08-10 16:00:10',
-            ),
-            222 => 
-            array (
+            ],
+            222 => [
                 'id' => 2784,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14698,9 +13473,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:00:10',
                 'updated_at' => '2026-08-10 16:00:10',
-            ),
-            223 => 
-            array (
+            ],
+            223 => [
                 'id' => 2785,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14710,9 +13484,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:01:18',
                 'updated_at' => '2026-08-10 16:01:18',
-            ),
-            224 => 
-            array (
+            ],
+            224 => [
                 'id' => 2786,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14722,9 +13495,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:01:18',
                 'updated_at' => '2026-08-10 16:01:18',
-            ),
-            225 => 
-            array (
+            ],
+            225 => [
                 'id' => 2787,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14734,9 +13506,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:01:19',
                 'updated_at' => '2026-08-10 16:01:19',
-            ),
-            226 => 
-            array (
+            ],
+            226 => [
                 'id' => 2788,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14746,9 +13517,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:01:19',
                 'updated_at' => '2026-08-10 16:01:19',
-            ),
-            227 => 
-            array (
+            ],
+            227 => [
                 'id' => 2789,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14758,9 +13528,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:01:20',
                 'updated_at' => '2026-08-10 16:01:20',
-            ),
-            228 => 
-            array (
+            ],
+            228 => [
                 'id' => 2790,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14770,9 +13539,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-08-10 16:01:20',
                 'updated_at' => '2026-08-10 16:01:20',
-            ),
-            229 => 
-            array (
+            ],
+            229 => [
                 'id' => 2791,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14782,9 +13550,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-12 13:29:09',
                 'updated_at' => '2026-09-12 13:29:09',
-            ),
-            230 => 
-            array (
+            ],
+            230 => [
                 'id' => 2792,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14794,9 +13561,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-12 13:29:09',
                 'updated_at' => '2026-09-12 13:29:09',
-            ),
-            231 => 
-            array (
+            ],
+            231 => [
                 'id' => 2793,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14806,9 +13572,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-12 13:29:11',
                 'updated_at' => '2026-09-12 13:29:11',
-            ),
-            232 => 
-            array (
+            ],
+            232 => [
                 'id' => 2794,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14818,9 +13583,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-12 13:29:11',
                 'updated_at' => '2026-09-12 13:29:11',
-            ),
-            233 => 
-            array (
+            ],
+            233 => [
                 'id' => 2797,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14830,9 +13594,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-18 13:31:52',
                 'updated_at' => '2026-09-18 13:31:52',
-            ),
-            234 => 
-            array (
+            ],
+            234 => [
                 'id' => 2798,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14842,9 +13605,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-18 13:31:52',
                 'updated_at' => '2026-09-18 13:31:52',
-            ),
-            235 => 
-            array (
+            ],
+            235 => [
                 'id' => 2799,
                 'language' => 'en',
                 'module' => 'lara-app',
@@ -14854,9 +13616,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-18 13:31:53',
                 'updated_at' => '2026-09-18 13:31:53',
-            ),
-            236 => 
-            array (
+            ],
+            236 => [
                 'id' => 2800,
                 'language' => 'nl',
                 'module' => 'lara-app',
@@ -14866,9 +13627,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '_title',
                 'created_at' => '2026-09-18 13:31:53',
                 'updated_at' => '2026-09-18 13:31:53',
-            ),
-            237 => 
-            array (
+            ],
+            237 => [
                 'id' => 2801,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14878,9 +13638,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '__self',
                 'created_at' => '2026-09-18 18:36:16',
                 'updated_at' => '2026-09-18 18:36:16',
-            ),
-            238 => 
-            array (
+            ],
+            238 => [
                 'id' => 2802,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14890,9 +13649,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '__self',
                 'created_at' => '2026-09-18 18:36:16',
                 'updated_at' => '2026-09-18 18:36:16',
-            ),
-            239 => 
-            array (
+            ],
+            239 => [
                 'id' => 2803,
                 'language' => 'en',
                 'module' => 'lara-admin',
@@ -14902,9 +13660,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '__blank',
                 'created_at' => '2026-09-18 18:36:16',
                 'updated_at' => '2026-09-18 18:36:16',
-            ),
-            240 => 
-            array (
+            ],
+            240 => [
                 'id' => 2804,
                 'language' => 'nl',
                 'module' => 'lara-admin',
@@ -14914,9 +13671,8 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'value' => '__blank',
                 'created_at' => '2026-09-18 18:36:16',
                 'updated_at' => '2026-09-18 18:36:16',
-            ),
-        ));
-        
-        
+            ],
+        ]);
+
     }
 }

@@ -7,5 +7,5 @@ use Lara\App\Filament\Resources\Blogs\BlogResource;
 
 class CreateBlog extends LaraCreateRecord
 {
-	protected static string $resource = BlogResource::class;
+    protected static string $resource = BlogResource::class;
 }
