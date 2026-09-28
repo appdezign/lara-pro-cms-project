@@ -14,12 +14,12 @@ class DemoLaraContentPagesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_pages')->delete();
-        
+
         \DB::table('lara_content_pages')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 2,
                 'user_id' => 1,
@@ -35,7 +35,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => '/about',
                 'template' => 'landing',
                 'created_at' => '2025-04-21 18:47:38',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-04-21 18:47:00',
@@ -47,7 +47,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 3,
                 'user_id' => 1,
@@ -75,7 +75,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 4,
                 'user_id' => 1,
@@ -103,7 +103,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 5,
                 'user_id' => 1,
@@ -119,7 +119,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => '/',
                 'template' => 'standard',
                 'created_at' => '2025-04-24 16:04:06',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-04-24 16:04:00',
@@ -131,7 +131,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 14,
                 'user_id' => 1,
@@ -147,19 +147,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-05-30 15:50:05',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-30 15:50:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8010,
+                'position' => 8012,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 19,
                 'user_id' => 3,
@@ -169,25 +169,25 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'slug' => 'en-about',
                 'slug_lock' => 0,
                 'body' => '<p></p>',
-                'ishome' => 0,
+                'ishome' => 1,
                 'body3' => NULL,
                 'body2' => NULL,
-                'menuroute' => NULL,
+                'menuroute' => '/',
                 'template' => 'standard',
                 'created_at' => '2025-07-13 12:51:47',
-                'updated_at' => '2025-07-13 13:21:19',
+                'updated_at' => '2026-09-19 15:15:56',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-13 12:51:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 9001,
+                'position' => 1001,
                 'cgroup' => 'page',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 25,
                 'user_id' => 3,
@@ -196,14 +196,14 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'title' => 'Privacy',
                 'slug' => 'privacy',
                 'slug_lock' => 0,
-                'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in nunc varius, scelerisque ipsum sit amet, hendrerit velit. Vestibulum id odio varius, congue justo ac, tristique nulla. In euismod tortor eu eros laoreet, at molestie nunc rutrum. Nulla rutrum urna quis ligula pulvinar, ut sagittis massa gravida. Nullam pulvinar lacus turpis, vitae vulputate magna congue at. Quisque aliquet ante nisi, id condimentum libero feugiat non. Pellentesque efficitur eu est sit amet consequat.</p><p style="text-align: justify;">Vivamus et porttitor velit. In semper, quam eu gravida malesuada, sem leo posuere est, quis maximus urna justo non turpis. Nullam ac ultricies sem. Aliquam sit amet libero varius, congue odio sit amet, gravida erat. Cras nec dignissim ipsum. Vestibulum sagittis sapien nec mi pulvinar, a rutrum augue pulvinar. Aenean et velit leo. Maecenas vulputate id odio vehicula dignissim.</p><p style="text-align: justify;">Vivamus sed ligula magna. Integer sagittis ante ut placerat molestie. Fusce id eros tellus. Suspendisse varius ipsum ac lacus sollicitudin feugiat. Suspendisse et lacus lorem. Curabitur semper diam sapien, vel hendrerit risus consequat id. Suspendisse eu nulla vitae purus ultricies ornare eget eu lectus. Aenean orci est, gravida at vestibulum quis, sagittis ac ligula. Nunc vitae ipsum nec lectus sagittis pretium. Suspendisse ultrices risus eget ligula ultrices posuere et eget lectus.</p><p style="text-align: justify;">Ut tellus est, convallis vitae mollis ut, tempus ac diam. Curabitur mattis, felis quis imperdiet semper, diam dui consequat nisi, ac dapibus sapien tellus non felis. Aenean mollis turpis diam, nec congue leo aliquet non. Aenean cursus felis quis sem lobortis, eu vehicula nisi commodo. Fusce non condimentum nunc. Vivamus sed volutpat est. Nulla lacinia lorem eu mollis fermentum.</p><p style="text-align: justify;">Vivamus non tincidunt libero. Maecenas pellentesque libero ut enim viverra rutrum. Vivamus sed tincidunt magna, sed pellentesque nunc. Nunc sit amet blandit quam. Nullam fermentum velit non justo finibus, scelerisque dictum mauris iaculis. Nam et odio condimentum, scelerisque magna sit amet, elementum dui. Mauris tristique nibh non urna eleifend pharetra. Cras ante dui, porta a tristique sit amet, faucibus vitae velit. Nunc aliquet interdum lacus, ut posuere nisl euismod a. Nulla facilisi. Vestibulum eros justo, laoreet at felis ac, venenatis viverra neque.</p>',
+                'body' => '<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in nunc varius, scelerisque ipsum sit amet, hendrerit velit. Vestibulum id odio varius, congue justo ac, tristique nulla. In euismod tortor eu eros laoreet, at molestie nunc rutrum. Nulla rutrum urna quis ligula pulvinar, ut sagittis massa gravida. Nullam pulvinar lacus turpis, vitae vulputate magna congue at. Quisque aliquet ante nisi, id condimentum libero feugiat non. Pellentesque efficitur eu est sit amet consequat.</p><p style="text-align: justify;">Vivamus et porttitor velit. In semper, quam eu gravida malesuada, sem leo posuere est, quis maximus urna justo non turpis. Nullam ac ultricies sem. Aliquam sit amet libero varius, congue odio sit amet, gravida erat. Cras nec dignissim ipsum. Vestibulum sagittis sapien nec mi pulvinar, a rutrum augue pulvinar. Aenean et velit leo. Maecenas vulputate id odio vehicula dignissim.</p><p style="text-align: justify;">Vivamus sed ligula magna. Integer sagittis ante ut placerat molestie. Fusce id eros tellus. Suspendisse varius ipsum ac lacus sollicitudin feugiat. Suspendisse et lacus lorem. Curabitur semper diam sapien, vel hendrerit risus consequat id. Suspendisse eu nulla vitae purus ultricies ornare eget eu lectus. Aenean orci est, gravida at vestibulum quis, sagittis ac ligula. Nunc vitae ipsum nec lectus sagittis pretium. Suspendisse ultrices risus eget ligula ultrices posuere et eget lectus.</p><p style="text-align: justify;">Ut tellus est, convallis vitae mollis ut, tempus ac diam. Curabitur mattis, felis quis imperdiet semper, diam dui consequat nisi, ac dapibus sapien tellus non felis. Aenean mollis turpis diam, nec congue leo aliquet non. Aenean cursus felis quis sem lobortis, eu vehicula nisi commodo. Fusce non condimentum nunc. Vivamus sed volutpat est. Nulla lacinia lorem eu mollis fermentum.</p><p style="text-align: justify;">Vivamus non tincidunt libero. Maecenas pellentesque libero ut enim viverra rutrum. Vivamus sed tincidunt magna, sed pellentesque nunc. Nunc sit amet blandit quam. Nullam fermentum velit non justo finibus, scelerisque dictum mauris iaculis. Nam et odio condimentum, scelerisque magna sit amet, elementum dui. Mauris tristique nibh non urna eleifend pharetra. Cras ante dui, porta a tristique sit amet, faucibus vitae velit. Nunc aliquet interdum lacus, ut posuere nisl euismod a. Nulla facilisi. Vestibulum eros justo, laoreet at felis ac, venenatis viverra neque.</p><p>Good <strong>internal linking</strong> is one of the few SEO levers you fully control, yet most teams treat it as an afterthought instead of a strategy. Every link you add passes both authority and context to the page it points to.</p><h2>Start from your cornerstone content</h2><p>Identify the handful of pages that matter most, such as our <a href="/complete-seo-audit-checklist">SEO audit checklist</a>, and make sure every related article links to them at least once. Consequently, those pages accumulate authority faster than pages left to fend for themselves.</p><p>Next, audit your older content specifically for internal linking opportunities. Older posts often predate newer, more relevant pages and never get updated to link to them.</p><h2>Use descriptive anchor text</h2><p>Avoid generic phrases like &quot;click here.&quot; Instead, use anchor text that describes the destination page, because it helps both readers and search engines understand what to expect before they click. In short, deliberate internal linking compounds over time far more reliably than one-off link building campaigns.</p>',
                 'ishome' => 0,
-                'body3' => NULL,
-                'body2' => '<p></p>',
+                'body3' => '<p>test 3</p><p></p><p><img src="https://laracms10.test/storage/blogs/68f0439d-24aa-4dbe-b363-b9a21093f4cc.png" alt="filarank-logo" title="filarank-logo" data-id="135"></p>',
+                'body2' => '<p>test 2</p>',
                 'menuroute' => '/privacy-2',
                 'template' => 'standard',
                 'created_at' => '2025-08-29 14:26:47',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 14:26:00',
@@ -215,7 +215,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 26,
                 'user_id' => 3,
@@ -231,7 +231,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => '/classicform/thank-you',
                 'template' => 'standard',
                 'created_at' => '2025-08-29 18:11:25',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-29 18:11:00',
@@ -243,7 +243,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 34,
                 'user_id' => 3,
@@ -259,19 +259,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-08-31 14:53:47',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-08-31 14:53:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8001,
+                'position' => 8002,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 35,
                 'user_id' => 3,
@@ -287,19 +287,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-03 14:45:46',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-03 14:45:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8009,
+                'position' => 8011,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 36,
                 'user_id' => 3,
@@ -315,19 +315,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-03 15:28:34',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-03 15:28:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8005,
+                'position' => 8007,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 37,
                 'user_id' => 3,
@@ -343,19 +343,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-03 15:28:39',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-03 15:28:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8006,
+                'position' => 8008,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 38,
                 'user_id' => 3,
@@ -371,19 +371,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-05 08:32:55',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-05 08:32:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8003,
+                'position' => 8004,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 39,
                 'user_id' => 1,
@@ -399,7 +399,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => NULL,
                 'created_at' => '2025-09-05 09:14:15',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-05 09:14:15',
@@ -411,7 +411,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 40,
                 'user_id' => 3,
@@ -427,19 +427,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-06 15:22:02',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-06 15:22:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8012,
+                'position' => 8014,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 41,
                 'user_id' => 3,
@@ -455,19 +455,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-06 17:44:38',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-06 17:44:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8004,
+                'position' => 8005,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 42,
                 'user_id' => 3,
@@ -483,7 +483,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-09-08 15:44:52',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-09-08 15:44:00',
@@ -495,7 +495,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 43,
                 'user_id' => 3,
@@ -511,19 +511,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => NULL,
                 'created_at' => '2025-10-06 15:56:36',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-06 15:56:36',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8007,
+                'position' => 8009,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 44,
                 'user_id' => 3,
@@ -539,19 +539,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => NULL,
                 'created_at' => '2025-10-21 08:06:20',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-21 08:06:20',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8008,
+                'position' => 8010,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 45,
                 'user_id' => 1,
@@ -567,19 +567,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => NULL,
                 'created_at' => '2025-10-24 08:54:28',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-10-24 08:54:28',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8011,
+                'position' => 8013,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 50,
                 'user_id' => 3,
@@ -595,19 +595,19 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => 'standard',
                 'created_at' => '2025-12-31 12:56:19',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-12-31 12:56:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,
-                'position' => 8002,
+                'position' => 8003,
                 'cgroup' => 'module',
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 51,
                 'user_id' => 1,
@@ -623,7 +623,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'menuroute' => NULL,
                 'template' => NULL,
                 'created_at' => '2025-12-31 16:05:29',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-26 15:37:08',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-12-31 16:05:29',
@@ -635,8 +635,92 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
+            22 =>
+            array (
+                'id' => 52,
+                'user_id' => 1,
+                'language' => 'en',
+                'language_parent' => NULL,
+                'title' => 'Title',
+                'slug' => '404',
+                'slug_lock' => 0,
+                'body' => 'Body',
+                'ishome' => 0,
+                'body3' => NULL,
+                'body2' => NULL,
+                'menuroute' => NULL,
+                'template' => NULL,
+                'created_at' => '2026-09-19 15:55:07',
+                'updated_at' => '2026-09-19 15:57:52',
+                'deleted_at' => NULL,
+                'publish' => 0,
+                'publish_from' => NULL,
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'position' => 9004,
+                'cgroup' => 'page',
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            23 =>
+            array (
+                'id' => 53,
+                'user_id' => 3,
+                'language' => 'en',
+                'language_parent' => NULL,
+                'title' => 'Blogs Index Module Page',
+                'slug' => 'blogs-index-module-en',
+                'slug_lock' => 1,
+                'body' => '',
+                'ishome' => 0,
+                'body3' => NULL,
+                'body2' => NULL,
+                'menuroute' => '',
+                'template' => NULL,
+                'created_at' => '2026-09-19 16:12:33',
+                'updated_at' => '2026-09-19 16:13:40',
+                'deleted_at' => NULL,
+                'publish' => 1,
+                'publish_from' => '2026-09-19 16:12:33',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'position' => 8001,
+                'cgroup' => 'module',
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            24 =>
+            array (
+                'id' => 54,
+                'user_id' => 3,
+                'language' => 'en',
+                'language_parent' => NULL,
+                'title' => 'Events Index Module Page',
+                'slug' => 'events-index-module-en',
+                'slug_lock' => 1,
+                'body' => '',
+                'ishome' => 0,
+                'body3' => NULL,
+                'body2' => NULL,
+                'menuroute' => '',
+                'template' => NULL,
+                'created_at' => '2026-09-19 16:12:33',
+                'updated_at' => '2026-09-19 16:13:40',
+                'deleted_at' => NULL,
+                'publish' => 1,
+                'publish_from' => '2026-09-19 16:12:33',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'position' => 8006,
+                'cgroup' => 'module',
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
         ));
-        
-        
+
+
     }
 }

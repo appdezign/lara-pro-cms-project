@@ -16,7 +16,6 @@ use Lara\App\Database\Seeders\DemoLaraBlocksCtasTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraBlocksSlidersTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraBlocksWidgetsTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraContentBlogsTableSeeder;
-use Lara\App\Database\Seeders\DemoLaraContentCitiesTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraContentDocsTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraContentEventsTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraContentGalleriesTableSeeder;
@@ -35,7 +34,6 @@ use Lara\App\Database\Seeders\DemoLaraMenuMenusTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraObjectFilesTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraObjectImagesTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraObjectLayoutTableSeeder;
-use Lara\App\Database\Seeders\DemoLaraObjectOpengraphTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraObjectPageablesTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraObjectRelatedTableSeeder;
 use Lara\App\Database\Seeders\DemoLaraObjectSeoTableSeeder;
@@ -73,17 +71,17 @@ use Lara\Common\Database\Seeders\LaraLaraSysTranslationsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
-	use WithoutModelEvents;
+    use WithoutModelEvents;
 
-	/**
-	 * Seed the application's database.
-	 */
-	public function run(): void
-	{
-		DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+    /**
+     * Seed the application's database.
+     */
+    public function run(): void
+    {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-		#iseed_start
-		$this->call(LaraLaraAuthModelHasPermissionsTableSeeder::class);
+        // iseed_start
+        $this->call(LaraLaraAuthModelHasPermissionsTableSeeder::class);
         $this->call(LaraLaraAuthModelHasRolesTableSeeder::class);
         $this->call(LaraLaraAuthPasswordResetTokensTableSeeder::class);
         $this->call(LaraLaraAuthPermissionsTableSeeder::class);
@@ -112,7 +110,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DemoLaraBlocksSlidersTableSeeder::class);
         $this->call(DemoLaraBlocksWidgetsTableSeeder::class);
         $this->call(DemoLaraContentBlogsTableSeeder::class);
-        $this->call(DemoLaraContentCitiesTableSeeder::class);
         $this->call(DemoLaraContentDocsTableSeeder::class);
         $this->call(DemoLaraContentEventsTableSeeder::class);
         $this->call(DemoLaraContentGalleriesTableSeeder::class);
@@ -148,9 +145,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DemoLaraSysLanguagesTableSeeder::class);
         $this->call(DemoLaraSysSettingsTableSeeder::class);
         $this->call(DemoLaraSysTranslationsTableSeeder::class);
-        #iseed_end
+        // iseed_end
 
-		DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-	}
+    }
 }

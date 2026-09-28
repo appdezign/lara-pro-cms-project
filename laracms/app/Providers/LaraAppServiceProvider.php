@@ -7,65 +7,57 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
-
-
-use Lara\Common\Models\Entity;
-
 use Lara\Common\Http\Controllers\Setup\Concerns\HasSetup;
-
+use Lara\Common\Models\Entity;
 use Mcamara\LaravelLocalization\Traits\LoadsTranslatedCachedRoutes;
 
 class LaraAppServiceProvider extends ServiceProvider
 {
+    use HasSetup;
+    use LoadsTranslatedCachedRoutes;
 
-	use HasSetup;
-	use LoadsTranslatedCachedRoutes;
+    /**
+     * Bootstrap the module services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
 
+        // see: https://github.com/mcamara/laravel-localization?tab=readme-ov-file#caching-routes
+        RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
 
-	/**
-	 * Bootstrap the module services.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
+        // Merge config
+        $this->mergeConfigFrom(__DIR__.'/../Config/lara-app.php', 'lara-app');
 
-		// see: https://github.com/mcamara/laravel-localization?tab=readme-ov-file#caching-routes
-		RouteServiceProvider::loadCachedRoutesUsing(fn () => $this->loadCachedRoutes());
+        // Publish Config
+        $this->publishes([
+            __DIR__.'/../config/lara-app.php' => config_path('lara-app.php'),
+        ], 'lara');
 
-		// Merge config
-		$this->mergeConfigFrom(__DIR__ . '/../Config/lara-app.php', 'lara-app');
+        // Load Views
+        $this->loadViewsFrom(__DIR__.'/../Resources/views', 'lara-app');
 
-		// Publish Config
-		$this->publishes([
-			__DIR__ . '/../config/lara-app.php' => config_path('lara-app.php'),
-		], 'lara');
+        // Load Translations
+        $this->loadTranslationsFrom(app()->langPath().'/vendor/lara-app', 'lara-app');
 
-		// Load Views
-		$this->loadViewsFrom(__DIR__ . '/../Resources/views', 'lara-app');
+        // Load policies
+        if (! $this->laraNeedsSetup() && ! App::runningInConsole()) {
+            $entities = Entity::whereNotNull('policy')->get();
+            foreach ($entities as $entity) {
+                Gate::policy($entity->model_class, $entity->policy);
+            }
+            // dd(Gate::policies());
+        }
+    }
 
-		// Load Translations
-		$this->loadTranslationsFrom(app()->langPath() . '/vendor/lara-app', 'lara-app');
-
-
-
-		// Load policies
-		if (!$this->laraNeedsSetup() && !App::runningInConsole()) {
-			$entities = Entity::whereNotNull('policy')->get();
-			foreach ($entities as $entity) {
-				Gate::policy($entity->model_class, $entity->policy);
-			}
-			// dd(Gate::policies());
-		}
-	}
-
-	/**
-	 * Register the module services.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		//
-	}
+    /**
+     * Register the module services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
 }

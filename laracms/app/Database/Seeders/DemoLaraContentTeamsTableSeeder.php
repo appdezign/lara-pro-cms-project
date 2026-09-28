@@ -14,12 +14,12 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_teams')->delete();
-        
+
         \DB::table('lara_content_teams')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'location_id' => 1,
@@ -51,7 +51,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'location_id' => 1,
@@ -83,7 +83,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'location_id' => 3,
@@ -115,7 +115,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'location_id' => 3,
@@ -147,7 +147,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'location_id' => 3,
@@ -179,7 +179,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'location_id' => 3,
@@ -211,7 +211,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'location_id' => 3,
@@ -243,7 +243,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'location_id' => 3,
@@ -276,7 +276,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

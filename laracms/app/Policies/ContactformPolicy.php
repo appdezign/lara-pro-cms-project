@@ -57,5 +57,4 @@ class ContactformPolicy
     {
         return $user->can('delete_any_contactform');
     }
-
 }

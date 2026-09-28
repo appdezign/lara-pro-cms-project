@@ -14,12 +14,12 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_object_tags')->delete();
-        
+
         \DB::table('lara_object_tags')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 2059,
                 'language' => 'nl',
@@ -44,7 +44,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2060,
                 'language' => 'nl',
@@ -69,7 +69,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 2061,
                 'language' => 'nl',
@@ -94,7 +94,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 2062,
                 'language' => 'nl',
@@ -119,7 +119,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 2063,
                 'language' => 'nl',
@@ -144,7 +144,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 2064,
                 'language' => 'nl',
@@ -169,7 +169,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 2065,
                 'language' => 'nl',
@@ -194,7 +194,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 2066,
                 'language' => 'nl',
@@ -219,7 +219,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 2067,
                 'language' => 'nl',
@@ -244,7 +244,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 2068,
                 'language' => 'nl',
@@ -269,7 +269,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 2069,
                 'language' => 'nl',
@@ -294,7 +294,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 2073,
                 'language' => 'nl',
@@ -319,7 +319,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 2074,
                 'language' => 'nl',
@@ -344,7 +344,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 2075,
                 'language' => 'nl',
@@ -369,7 +369,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 2076,
                 'language' => 'nl',
@@ -394,7 +394,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 2077,
                 'language' => 'nl',
@@ -419,7 +419,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 2078,
                 'language' => 'nl',
@@ -444,7 +444,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 2079,
                 'language' => 'nl',
@@ -469,7 +469,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 2080,
                 'language' => 'nl',
@@ -494,7 +494,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 2081,
                 'language' => 'nl',
@@ -519,7 +519,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 2082,
                 'language' => 'nl',
@@ -544,7 +544,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 2083,
                 'language' => 'nl',
@@ -569,7 +569,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => '2026-03-16 14:03:15',
                 'locked_by' => 3,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 2084,
                 'language' => 'nl',
@@ -594,7 +594,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 2085,
                 'language' => 'nl',
@@ -619,7 +619,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 2086,
                 'language' => 'nl',
@@ -644,7 +644,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 2087,
                 'language' => 'nl',
@@ -669,7 +669,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 2088,
                 'language' => 'nl',
@@ -694,7 +694,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 2089,
                 'language' => 'nl',
@@ -719,7 +719,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 2090,
                 'language' => 'nl',
@@ -744,7 +744,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 2091,
                 'language' => 'nl',
@@ -769,7 +769,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 2092,
                 'language' => 'nl',
@@ -794,7 +794,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 2093,
                 'language' => 'nl',
@@ -819,7 +819,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 2094,
                 'language' => 'nl',
@@ -844,7 +844,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 2095,
                 'language' => 'nl',
@@ -869,7 +869,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 2096,
                 'language' => 'nl',
@@ -894,7 +894,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 2097,
                 'language' => 'nl',
@@ -919,7 +919,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 2098,
                 'language' => 'nl',
@@ -944,7 +944,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 2099,
                 'language' => 'nl',
@@ -969,7 +969,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 2100,
                 'language' => 'nl',
@@ -994,7 +994,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 2101,
                 'language' => 'nl',
@@ -1019,7 +1019,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 2102,
                 'language' => 'nl',
@@ -1044,7 +1044,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 2103,
                 'language' => 'nl',
@@ -1069,7 +1069,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 2104,
                 'language' => 'nl',
@@ -1094,7 +1094,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 2105,
                 'language' => 'nl',
@@ -1119,7 +1119,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 2106,
                 'language' => 'nl',
@@ -1144,7 +1144,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 2107,
                 'language' => 'nl',
@@ -1169,7 +1169,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 2108,
                 'language' => 'nl',
@@ -1194,7 +1194,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 2109,
                 'language' => 'nl',
@@ -1219,7 +1219,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 2110,
                 'language' => 'nl',
@@ -1244,7 +1244,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 2111,
                 'language' => 'nl',
@@ -1269,7 +1269,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 2112,
                 'language' => 'nl',
@@ -1294,7 +1294,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 2113,
                 'language' => 'nl',
@@ -1319,7 +1319,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 2114,
                 'language' => 'nl',
@@ -1344,7 +1344,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 2115,
                 'language' => 'nl',
@@ -1369,7 +1369,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 2117,
                 'language' => 'nl',
@@ -1394,7 +1394,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 2118,
                 'language' => 'nl',
@@ -1419,7 +1419,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 2119,
                 'language' => 'nl',
@@ -1444,7 +1444,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 2120,
                 'language' => 'nl',
@@ -1469,7 +1469,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 2121,
                 'language' => 'nl',
@@ -1494,7 +1494,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 2122,
                 'language' => 'nl',
@@ -1520,7 +1520,7 @@ class DemoLaraObjectTagsTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

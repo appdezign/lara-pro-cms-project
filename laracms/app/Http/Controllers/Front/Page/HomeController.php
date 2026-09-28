@@ -6,7 +6,6 @@ use Lara\Front\Http\Controllers\Page\BaseHomeController;
 
 class HomeController extends BaseHomeController
 {
-
-	//
+    //
 
 }

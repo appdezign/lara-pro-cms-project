@@ -14,12 +14,12 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_blocks_widgets')->delete();
-        
+
         \DB::table('lara_blocks_widgets')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -56,7 +56,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -93,7 +93,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -130,7 +130,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -167,7 +167,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -204,7 +204,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -241,7 +241,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'user_id' => 3,
@@ -278,7 +278,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 9,
                 'user_id' => 3,
@@ -315,7 +315,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 10,
                 'user_id' => 3,
@@ -352,7 +352,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 11,
                 'user_id' => 3,
@@ -389,7 +389,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 12,
                 'user_id' => 3,
@@ -426,7 +426,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 13,
                 'user_id' => 3,
@@ -464,7 +464,7 @@ class DemoLaraBlocksWidgetsTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -14,12 +14,12 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_resource_entities')->delete();
-        
+
         \DB::table('lara_resource_entities')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'title' => 'Page',
@@ -32,7 +32,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'nav_group' => 'root',
                 'has_front_auth' => 0,
                 'created_at' => '2025-04-14 18:39:44',
-                'updated_at' => '2025-09-13 10:09:13',
+                'updated_at' => '2026-09-26 15:37:13',
                 'cgroup' => 'page',
                 'position' => 10,
                 'col_has_lead' => 0,
@@ -88,7 +88,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'title' => 'Blog',
@@ -101,7 +101,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'nav_group' => 'modules',
                 'has_front_auth' => 0,
                 'created_at' => '2025-04-14 18:39:44',
-                'updated_at' => '2025-12-30 15:35:53',
+                'updated_at' => '2026-09-27 12:05:43',
                 'cgroup' => 'entity',
                 'position' => 205,
                 'col_has_lead' => 1,
@@ -157,7 +157,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'title' => 'Teams',
@@ -170,7 +170,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'nav_group' => 'modules',
                 'has_front_auth' => 0,
                 'created_at' => '2025-07-04 08:05:37',
-                'updated_at' => '2025-09-16 10:29:11',
+                'updated_at' => '2026-09-15 09:17:31',
                 'cgroup' => 'entity',
                 'position' => 210,
                 'col_has_lead' => 0,
@@ -226,7 +226,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 5,
                 'title' => 'Tag',
@@ -295,7 +295,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 6,
                 'title' => 'Base',
@@ -364,7 +364,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 41,
                 'title' => 'Locations',
@@ -433,7 +433,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 42,
                 'title' => 'Sliders',
@@ -502,7 +502,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 43,
                 'title' => 'Contactforms',
@@ -571,7 +571,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 44,
                 'title' => 'Events',
@@ -640,7 +640,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 52,
                 'title' => 'Widgets',
@@ -709,7 +709,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 59,
                 'title' => 'Call-to-action',
@@ -778,7 +778,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 61,
                 'title' => 'Services',
@@ -847,7 +847,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 62,
                 'title' => 'Testimonials',
@@ -916,7 +916,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 63,
                 'title' => 'Portfolios',
@@ -985,7 +985,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 64,
                 'title' => 'Galleries',
@@ -1054,7 +1054,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 65,
                 'title' => 'Docs',
@@ -1123,7 +1123,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 1,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 66,
                 'title' => 'Videos',
@@ -1192,7 +1192,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 69,
                 'title' => 'Classicforms',
@@ -1261,7 +1261,7 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 0,
                 'objrel_is_relatable' => 0,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 70,
                 'title' => 'Products',
@@ -1330,77 +1330,8 @@ class DemoLaraResourceEntitiesTableSeeder extends Seeder
                 'objrel_has_related' => 1,
                 'objrel_is_relatable' => 1,
             ),
-            19 => 
-            array (
-                'id' => 73,
-                'title' => 'Cities',
-                'resource_slug' => 'cities',
-                'label_single' => 'city',
-                'resource' => 'Lara\\App\\Filament\\Resources\\Cities\\CityResource',
-                'policy' => 'Lara\\App\\Policies\\CityPolicy',
-                'model_class' => 'Lara\\App\\Models\\City',
-                'controller' => 'CitiesController',
-                'nav_group' => 'modules',
-                'has_front_auth' => 0,
-                'created_at' => '2025-10-21 13:05:56',
-                'updated_at' => '2025-12-28 16:51:31',
-                'cgroup' => 'entity',
-                'position' => 230,
-                'col_has_lead' => 1,
-                'col_has_body' => 1,
-                'col_extra_body_fields' => 0,
-                'col_has_status' => 1,
-                'col_has_expiration' => 1,
-                'col_has_hideinlist' => 1,
-                'sort_is_sortable' => 0,
-                'sort_primary_field' => 'id',
-                'sort_primary_order' => 'asc',
-                'sort_secondary_field' => NULL,
-                'sort_secondary_order' => NULL,
-                'show_search' => 1,
-                'show_batch' => 1,
-                'show_status' => 1,
-                'show_seo' => 0,
-                'show_opengraph' => 1,
-                'show_author' => 1,
-                'show_sync' => 1,
-                'show_rich_lead' => 1,
-                'show_rich_body' => 1,
-                'show_view_action' => 1,
-                'show_edit_action' => 1,
-                'show_delete_action' => 1,
-                'show_restore_action' => 1,
-                'filter_by_trashed' => 0,
-                'filter_by_group' => 0,
-                'filter_by_status' => 1,
-                'filter_by_category' => 0,
-                'filter_by_tag' => 1,
-                'filter_by_author' => 0,
-                'filter_is_open' => 0,
-                'media_has_featured' => 1,
-                'media_has_thumb' => 1,
-                'media_has_hero' => 1,
-                'media_has_icon' => 0,
-                'media_has_gallery' => 1,
-                'media_has_gallery_pro' => 0,
-                'media_has_videos' => 1,
-                'media_has_videofiles' => 0,
-                'media_has_files' => 1,
-                'media_max_gallery' => 24,
-                'media_max_videos' => 1,
-                'media_max_videofiles' => 0,
-                'media_max_files' => 8,
-                'media_disk_images' => 'public',
-                'media_disk_videos' => 'public',
-                'media_disk_files' => 'public',
-                'objrel_has_terms' => 1,
-                'objrel_has_groups' => 0,
-                'objrel_group_values' => NULL,
-                'objrel_has_related' => 1,
-                'objrel_is_relatable' => 1,
-            ),
         ));
-        
-        
+
+
     }
 }

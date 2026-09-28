@@ -14,12 +14,12 @@ class DemoLaraContentVideosTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_videos')->delete();
-        
+
         \DB::table('lara_content_videos')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -43,7 +43,7 @@ class DemoLaraContentVideosTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -67,7 +67,7 @@ class DemoLaraContentVideosTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -92,7 +92,7 @@ class DemoLaraContentVideosTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

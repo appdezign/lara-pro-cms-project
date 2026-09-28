@@ -1,7 +1,7 @@
 <?php
 
 return [
-	'button' => [
-		'submit' => 'verzenden',
-	],
+    'button' => [
+        'submit' => 'verzenden',
+    ],
 ];

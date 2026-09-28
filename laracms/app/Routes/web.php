@@ -1,10 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Log;
+use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\MenuItem;
-use Lara\Common\Models\Tag;
+use Lara\Common\Routes\FrontRouteContext;
+use Lara\Common\Routes\FrontRouteMiddleware;
+use Lara\Common\Routes\MenuRouteName;
+use Lara\Common\Routes\RouteTagIndex;
 use Spatie\Honeypot\ProtectAgainstSpam;
-use Lara\Admin\Http\Middleware\FilamentAuthenticate;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,335 +17,476 @@ use Lara\Admin\Http\Middleware\FilamentAuthenticate;
 */
 
 $tablename = config('lara-common.database.ent.entities');
-$laraNeedsSetup = !Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+$laraNeedsSetup = ! Schema::hasTable($tablename) || DB::table($tablename)->count() == 0;
+
+/**
+ * Resolve a controller action for a DB-configured entity controller.
+ *
+ * `entity.controller` is an admin-editable string. Without this guard a stale or
+ * mistyped value throws while the route file is being evaluated, which takes down
+ * every route on the site rather than the one route that is misconfigured.
+ *
+ * Optional actions (show, redirect) are absent on plenty of controllers by
+ * design, so a missing one is skipped silently. A missing required action is
+ * a real misconfiguration and is logged.
+ *
+ * @return string|null Controller action relative to the route namespace, or null
+ */
+$laraControllerAction = static function (string $group, ?string $controller, ?string $method, bool $optional = false): ?string {
+
+    if (empty($controller) || empty($method)) {
+        if (! $optional) {
+            Log::warning('lara route: entity is missing a controller or method', [
+                'group' => $group,
+                'controller' => $controller,
+                'method' => $method,
+            ]);
+        }
+
+        return null;
+    }
 
-if (!$laraNeedsSetup) {
+    $fqcn = 'Lara\\App\\Http\\Controllers\\'.$group.'\\'.$controller;
 
-	// Custom Non-Livewire
-	Route::group(['prefix' => 'admin', 'middleware' => ['web', FilamentAuthenticate::class]], function () {
-		// Custom resource routes
-		Route::resource('custom-blog', 'Admin\CustomBlogController', ['as' => 'admin', 'parameters' => ['custom-blog' => 'id']]);
-	});
+    if (! class_exists($fqcn)) {
+        Log::warning('lara route: controller class not found, skipping route', [
+            'class' => $fqcn,
+        ]);
 
-	// quick cache clear
-	Route::get('cc', 'Front\Special\CacheController@process')->name('special.cache.clear');
+        return null;
+    }
 
-	// external uptime monitoring
-	Route::get('uptime', 'Front\Special\UptimeController@show')
-		->name('special.uptime.show');
+    if (! method_exists($fqcn, $method)) {
+        if (! $optional) {
+            Log::warning('lara route: controller method not found, skipping route', [
+                'class' => $fqcn,
+                'method' => $method,
+            ]);
+        }
 
-	// Front Profile
-	Route::get('user/profile', 'Front\Auth\ProfileController@form')->name('special.user.profile')->middleware('auth');
-	Route::patch('user/profile', 'Front\Auth\ProfileController@process')->name('special.user.saveprofile')->middleware('auth');
+        return null;
+    }
 
-	// API Entity Routes
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
+    return $group.'\\'.$controller.'@'.$method;
 
-		Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
+};
 
-			$entities = Entity::where('cgroup', 'entity')->get();
-			foreach ($entities as $entity) {
+/**
+ * A menu item can only produce routes when its entity and view rows still exist.
+ */
+$laraMenuItemIsRoutable = static function (?MenuItem $menuItem, bool $needsView = true): bool {
+
+    if (! $menuItem || empty($menuItem->route)) {
+        return false;
+    }
+
+    if (! $menuItem->entity) {
+        Log::warning('lara route: menu item references a missing entity', [
+            'menu_item_id' => $menuItem->id,
+            'entity_id' => $menuItem->entity_id,
+        ]);
 
-				$apkey = $entity->resource_slug;
+        return false;
+    }
 
-				$controllerClass = 'Lara\\App\\Http\\Controllers\\Front\\Api\\' . $entity->controller;
-				if (class_exists($controllerClass)) {
-					Route::resource($apkey, 'Front\\Api\\' . $entity->controller, ['as' => 'api', 'parameters' => [$apkey => 'id']])->only(['index', 'show']);
-				}
+    if ($needsView && ! $menuItem->entityview) {
+        Log::warning('lara route: menu item references a missing entity view', [
+            'menu_item_id' => $menuItem->id,
+            'entity_view_id' => $menuItem->entity_view_id,
+        ]);
 
-			}
+        return false;
+    }
 
-		});
+    return true;
+
+};
+
+if (! $laraNeedsSetup) {
+
+    // Custom Non-Livewire
+    Route::group(['prefix' => 'admin', 'middleware' => ['web', FilamentAuthenticate::class]], function () {
+        // Custom resource routes
+        Route::resource('custom-blog', 'Admin\CustomBlogController', ['as' => 'admin', 'parameters' => ['custom-blog' => 'id']]);
+    });
+
+    // quick cache clear (authenticated panel users only)
+    Route::post('cc', 'Front\Special\CacheController@process')
+        ->name('special.cache.clear')
+        ->middleware(['web', FilamentAuthenticate::class]);
+
+    // external uptime monitoring
+    Route::get('uptime', 'Front\Special\UptimeController@show')
+        ->name('special.uptime.show');
 
-	});
+    // Front Profile
+    Route::get('user/profile', 'Front\Auth\ProfileController@form')->name('special.user.profile')->middleware('auth');
+    Route::patch('user/profile', 'Front\Auth\ProfileController@process')->name('special.user.saveprofile')->middleware('auth');
 
-	// FRONT Entity Routes
-	Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () {
+    // API Entity Routes
+    Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']], function () {
 
-		$entity_prefix = 'entity';
-		$entity_tag_prefix = 'entitytag';
+        Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
 
-		$locale = LaravelLocalization::getCurrentLocale();
+            $entities = Entity::where('cgroup', 'entity')->get();
+            foreach ($entities as $entity) {
 
-		// get home
-		$rootMenuItem = MenuItem::langIs($locale)
-			->menuSlugIs('main')
-			->whereNull('parent_id')
-			->isHome()
-			->with('entity')
-			->first();
+                $apkey = $entity->resource_slug;
 
-		if ($rootMenuItem) {
+                $controllerClass = 'Lara\\App\\Http\\Controllers\\Front\\Api\\'.$entity->controller;
+                if (class_exists($controllerClass)) {
+                    Route::resource($apkey, 'Front\\Api\\'.$entity->controller, ['as' => 'api', 'parameters' => [$apkey => 'id']])->only(['index', 'show']);
+                }
 
-			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-			$specialMiddleware = array();
-			if ((isset($rootMenuItem->entity) && $rootMenuItem->entity->has_front_auth) == 1 || $rootMenuItem->route_has_auth) {
-				$specialMiddleware[] = 'auth';
-			}
+            }
 
-			if (config('app.env') == 'production' && config('responsecache.enabled')) {
-				$specialMiddleware[] = 'cacheResponse';
-			}
+        });
 
-			/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+    });
 
-			// Home
-			Route::get('/', 'Front\Page\HomeController@show')->name('special.home.show')->middleware($specialMiddleware);
+    // FRONT Entity Routes
+    Route::group(['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['web', 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath', 'dateLocale']], function () use ($laraControllerAction, $laraMenuItemIsRoutable) {
 
-		}
+        $entity_tag_prefix = 'entitytag';
 
-		/**
-		 * Get all Pages from the MENU
-		 * and create named routes for single page objects.
-		 */
-		$menuPages = MenuItem::langIs($locale)
-			->typeIs('page')
-			->with('entity')
-			->with('entityview')
-			->get();
+        $locale = LaravelLocalization::getCurrentLocale();
 
-		foreach ($menuPages as $menuPage) {
-			if (!empty($menuPage->route)) {
+        // get home
+        $rootMenuItem = MenuItem::langIs($locale)
+            ->menuSlugIs('main')
+            ->whereNull('parent_id')
+            ->isHome()
+            ->with('entity')
+            ->first();
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-				$menuPageMiddleware = array();
-				if ($menuPage->entity->has_front_auth == 1 || $menuPage->route_has_auth) {
-					$menuPageMiddleware[] = 'auth';
-				}
+        if ($rootMenuItem) {
 
-				if (config('app.env') == 'production' && config('responsecache.enabled')) {
-					$menuPageMiddleware[] = 'cacheResponse';
-				}
+            // Home
+            Route::get('/', 'Front\Page\HomeController@show')
+                ->name('special.home.show')
+                ->middleware(FrontRouteMiddleware::build($rootMenuItem->entity, $rootMenuItem));
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+        }
 
-				$Ctrlr = 'Front\Page\\' . $menuPage->entity->controller;
+        /**
+         * Get all Pages from the MENU
+         * and create named routes for single page objects.
+         */
+        $menuPages = MenuItem::langIs($locale)
+            ->typeIs('page')
+            ->with('entity')
+            ->with('entityview')
+            ->get();
 
-				Route::get($menuPage->route, $Ctrlr . '@' . $menuPage->entityview->method)
-					->name($menuPage->routename)->middleware($menuPageMiddleware);
-			}
-		}
+        foreach ($menuPages as $menuPage) {
 
-		/**
-		 * Get all entities from the MENU
-		 * and create named routes for lists and single objects
-		 */
-		$menuItems = MenuItem::langIs($locale)
-			->typeIs('entity')
-			->with('entity')
-			->with('entityview')
-			->get();
+            if (! $laraMenuItemIsRoutable($menuPage)) {
+                continue;
+            }
 
-		foreach ($menuItems as $menuItem) {
+            $action = $laraControllerAction('Front\Page', $menuPage->entity->controller, $menuPage->entityview->method);
 
-			// entities and forms only
-			if (in_array($menuItem->entity->cgroup, ['entity', 'form'])) {
+            if ($action === null) {
+                continue;
+            }
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-				$menuItemMiddleware = array();
-				if ($menuItem->entity->has_front_auth == 1 || $menuItem->route_has_auth) {
-					$menuItemMiddleware[] = 'auth';
-				}
+            $pageRoute = Route::get($menuPage->route, $action)
+                ->name($menuPage->routename)
+                ->middleware(FrontRouteMiddleware::build($menuPage->entity, $menuPage));
 
-				if (config('app.env') == 'production' && config('responsecache.enabled')) {
-					$menuItemMiddleware[] = 'cacheResponse';
-				}
+            (new FrontRouteContext(
+                menuItemId: $menuPage->id,
+                prefix: 'entity',
+                resourceSlug: $menuPage->entity->resource_slug,
+                method: $menuPage->entityview->method,
+                objectId: $menuPage->object_id,
+            ))->attachTo($pageRoute);
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+        }
 
-				$Ctrlr = 'Front\\Entity\\' . $menuItem->entity->controller;
+        /**
+         * Get all entities from the MENU
+         * and create named routes for lists and single objects
+         */
+        $menuItems = MenuItem::langIs($locale)
+            ->typeIs('entity')
+            ->with('entity')
+            ->with('entityview')
+            ->get();
 
-				if ($menuItem->entity->objrel_has_terms == 1) {
+        foreach ($menuItems as $menuItem) {
 
-					if (empty($menuItem->tag_id)) {
+            if (! $laraMenuItemIsRoutable($menuItem)) {
+                continue;
+            }
 
-						// SEO Routes for tags
-						Route::get($menuItem->route, $Ctrlr . '@' . $menuItem->entityview->method)
-							->name($menuItem->routename)->middleware($menuItemMiddleware);
+            // entities and forms only
+            if (! in_array($menuItem->entity->cgroup, ['entity', 'form'])) {
+                continue;
+            }
 
-						// add .html to object slug, so we can distinguish between an object slug and a (sub)cat slug.
-						Route::get($menuItem->route . '/{slug}.html', $Ctrlr . '@show')
-							->name($menuItem->routename . '.show')->middleware($menuItemMiddleware);
+            $listAction = $laraControllerAction('Front\Entity', $menuItem->entity->controller, $menuItem->entityview->method);
+            $showAction = $laraControllerAction('Front\Entity', $menuItem->entity->controller, 'show', true);
 
-						$tags = Tag::resourceIs($menuItem->entity->resource_slug)->whereNotNull('route')->get();
+            if ($listAction === null) {
+                continue;
+            }
 
-						foreach ($tags as $tag) {
+            $menuItemMiddleware = FrontRouteMiddleware::build($menuItem->entity, $menuItem);
 
-							$tagslug = str_replace('.', '/', $tag->route);
+            $resourceSlug = $menuItem->entity->resource_slug;
+            $method = $menuItem->entityview->method;
 
-							Route::get($menuItem->route . '/' . $tagslug, $Ctrlr . '@' . $menuItem->entityview->method)
-								->name($entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $menuItem->id . '.' . $tag->route . '.' . $menuItem->entityview->method)->middleware($menuItemMiddleware);
+            // every route of this menu item knows the item, so the same entity can be in the menu twice
+            $registerRoute = static function (string $uri, string $action, string $name, FrontRouteContext $context) use ($menuItemMiddleware): void {
+                $context->attachTo(Route::get($uri, $action)->name($name)->middleware($menuItemMiddleware));
+            };
 
-							Route::get($menuItem->route . '/' . $tagslug . '/{slug}.html', $Ctrlr . '@show')
-								->name($entity_tag_prefix . '.' . $menuItem->entity->resource_slug . '.' . $menuItem->id . '.' . $tag->route . '.' . $menuItem->entityview->method . '.show')->middleware($menuItemMiddleware);
+            if ($menuItem->entity->objrel_has_terms == 1) {
 
-						}
+                if (empty($menuItem->tag_id)) {
 
-					} else {
+                    // SEO Routes for tags
+                    $tagRoutePattern = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $menuItem->route.'/{tag}', $method);
+                    $listContext = new FrontRouteContext($menuItem->id, $entity_tag_prefix, $resourceSlug, $method, singleRoute: $menuItem->routename.'.show', menuRoute: $menuItem->routename, tagRoutePattern: $tagRoutePattern);
 
-						// entity with a tag (no show method, no tags)
-						Route::get($menuItem->route, $Ctrlr . '@' . $menuItem->entityview->method)
-							->name($menuItem->routename)->middleware($menuItemMiddleware);
+                    $registerRoute($menuItem->route, $listAction, $menuItem->routename, $listContext);
 
-					}
+                    // add .html to object slug, so we can distinguish between an object slug and a (sub)cat slug.
+                    if ($showAction !== null) {
+                        $registerRoute($menuItem->route.'/{slug}.html', $showAction, $menuItem->routename.'.show', $listContext->forShow());
+                    }
 
-				} else {
+                    $tags = app(RouteTagIndex::class)->forResource($resourceSlug);
 
-					Route::get($menuItem->route, $Ctrlr . '@' . $menuItem->entityview->method)
-						->name($menuItem->routename)->middleware($menuItemMiddleware);
+                    foreach ($tags as $tag) {
 
-					Route::get($menuItem->route . '/{slug}', $Ctrlr . '@show')
-						->name($menuItem->routename . '.show')->middleware($menuItemMiddleware);
+                        $tagPath = $menuItem->route.'/'.str_replace('.', '/', $tag->route);
+                        $tagRouteName = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $tagPath, $method);
+                        $tagContext = new FrontRouteContext($menuItem->id, $entity_tag_prefix, $resourceSlug, $method, explode('.', $tag->route), singleRoute: $tagRouteName.'.show', menuRoute: $menuItem->routename, tagRoutePattern: $tagRoutePattern);
 
+                        $registerRoute($tagPath, $listAction, $tagRouteName, $tagContext);
 
-				}
-			}
-		}
+                        if ($showAction !== null) {
+                            $registerRoute($tagPath.'/{slug}.html', $showAction, $tagRouteName.'.show', $tagContext->forShow());
+                        }
 
-		/**
-		 * Get all FORMS from the MENU
-		 * and create named routes
-		 */
-		$menuForms = MenuItem::langIs($locale)
-			->typeIs('form')
-			->with('entity')
-			->with('entityview')
-			->get();
+                    }
 
-		foreach ($menuForms as $menuForm) {
+                } else {
 
-			// exclude CUSTOM entities
-			if ($menuForm->entity->cgroup != 'entity') {
+                    // entity with a tag (no show method, no tags); its objects are shown by the tag route
+                    // of the tagless menu item for the same entity
+                    $tag = app(RouteTagIndex::class)->forResource($resourceSlug)->firstWhere('id', $menuItem->tag_id);
+                    $tagRoute = $tag?->route;
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-				$menuFormMiddleware = array();
-				if ($menuForm->entity->has_front_auth == 1 || $menuForm->route_has_auth) {
-					$menuFormMiddleware[] = 'auth';
-				}
+                    $taglessMenuItem = $menuItems->first(fn (MenuItem $candidate): bool => $candidate->entity_id == $menuItem->entity_id
+                        && $candidate->entity_view_id == $menuItem->entity_view_id
+                        && empty($candidate->tag_id)
+                        && ! empty($candidate->route));
 
-				if (config('app.env') == 'production' && config('responsecache.enabled')) {
-					$menuFormMiddleware[] = 'cacheResponse';
-				}
+                    $tagRoutePattern = null;
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+                    if ($taglessMenuItem && $tagRoute) {
+                        $singleRoute = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $taglessMenuItem->route.'/'.str_replace('.', '/', $tagRoute), $taglessMenuItem->entityview->method).'.show';
+                        $tagRoutePattern = MenuRouteName::make($entity_tag_prefix, $resourceSlug, $taglessMenuItem->route.'/{tag}', $taglessMenuItem->entityview->method);
+                    } else {
+                        $singleRoute = $menuItem->routename.'.show';
 
-				$Ctrlr = 'Front\\Form\\' . $menuForm->entity->controller;
+                        Log::warning('lara route: tagged menu item has no tagless menu item for the same entity', [
+                            'menu_item_id' => $menuItem->id,
+                            'entity_id' => $menuItem->entity_id,
+                            'entity_view_id' => $menuItem->entity_view_id,
+                        ]);
+                    }
 
-				Route::get($menuForm->route, $Ctrlr . '@' . $menuForm->entityview->method)
-					->name($menuForm->routename)->middleware($menuFormMiddleware);
+                    $tagContext = new FrontRouteContext($menuItem->id, $entity_tag_prefix, $resourceSlug, $method, $tagRoute ? explode('.', $tagRoute) : [], singleRoute: $singleRoute, menuRoute: $menuItem->routename, tagRoutePattern: $tagRoutePattern);
 
-				// create route for regular POST without AJAX
-				Route::post($menuForm->route, $Ctrlr . '@process')
-					->name('form.' . $menuForm->entity->resource_slug . '.' . $menuForm->id . '.process')
-					->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
-			}
+                    $registerRoute($menuItem->route, $listAction, $menuItem->routename, $tagContext);
 
-		}
+                }
 
-		Route::group(['prefix' => 'ajax'], function () use ($menuForms) {
+            } else {
 
-			foreach ($menuForms as $menuForm) {
+                $listContext = new FrontRouteContext($menuItem->id, 'entity', $resourceSlug, $method, singleRoute: $menuItem->routename.'.show', menuRoute: $menuItem->routename);
 
-				// exclude CUSTOM entities
-				if ($menuForm->entity->cgroup != 'entity') {
+                $registerRoute($menuItem->route, $listAction, $menuItem->routename, $listContext);
 
-					$Ctrlr = 'Front\\Form\\' . $menuForm->entity->controller;
+                if ($showAction !== null) {
+                    $registerRoute($menuItem->route.'/{slug}', $showAction, $menuItem->routename.'.show', $listContext->forShow());
+                }
 
-					// Add AJAX route
-					Route::get($menuForm->entity->resource_slug, $Ctrlr . '@redirect')->name('ajax.' . $menuForm->entity->resource_slug . '.redirect');
-					Route::post($menuForm->entity->resource_slug, $Ctrlr . '@process')
-						->name('ajax.' . $menuForm->entity->resource_slug . '.process')
-						->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
-				}
+            }
 
-			}
+        }
 
-		});
+        /**
+         * Get all FORMS from the MENU
+         * and create named routes
+         */
+        $menuForms = MenuItem::langIs($locale)
+            ->typeIs('form')
+            ->with('entity')
+            ->with('entityview')
+            ->get();
 
-		/**
-		 * Fixed Urls structure (fallback)
-		 *
-		 * Using a fixed prefix, we can reach all entities and entity objects
-		 * without using the user-defined menu
-		 */
-		Route::group(['prefix' => 'content'], function () {
+        foreach ($menuForms as $menuForm) {
 
-			// These prefixes are used for the route NAMES, and NOT the URI path
-			$content_prefix = 'content';
-			$content_tag_prefix = 'contenttag';
+            if (! $laraMenuItemIsRoutable($menuForm)) {
+                continue;
+            }
 
-			// Page Routes
-			$entities = Entity::where('cgroup', 'page')->get();
-			foreach ($entities as $entity) {
+            // exclude CUSTOM entities
+            if ($menuForm->entity->cgroup == 'entity') {
+                continue;
+            }
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-				$entityMiddleware = array();
-				if ($entity->has_front_auth == 1) {
-					$entityMiddleware[] = 'auth';
-				}
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+            $formAction = $laraControllerAction('Front\Form', $menuForm->entity->controller, $menuForm->entityview->method);
+            $processAction = $laraControllerAction('Front\Form', $menuForm->entity->controller, 'process');
 
-				$Ctrlr = 'Front\Page\\' . $entity->controller;
-				Route::get($entity->resource_slug . '/{id}', $Ctrlr . '@show')
-					->name($content_prefix . '.' . $entity->resource_slug . '.show')->middleware($entityMiddleware);
+            if ($formAction === null) {
+                continue;
+            }
 
-			}
+            $formResourceSlug = $menuForm->entity->resource_slug;
 
-			// Entity Routes
-			$entities = Entity::where('cgroup', 'entity')->get();
+            $formRoute = Route::get($menuForm->route, $formAction)
+                ->name($menuForm->routename)
+                ->middleware(FrontRouteMiddleware::build($menuForm->entity, $menuForm));
 
-			foreach ($entities as $entity) {
+            (new FrontRouteContext($menuForm->id, 'form', $formResourceSlug, $menuForm->entityview->method))->attachTo($formRoute);
 
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (start) ~~~~~~~~~~~~ */
-				$entityMiddleware = array();
-				if ($entity->has_front_auth == 1) {
-					$entityMiddleware[] = 'auth';
-				}
-				/* ~~~~~~~~~~~~ DYNAMIC ROUTE MIDDLEWARE (end) ~~~~~~~~~~~~ */
+            // create route for regular POST without AJAX
+            if ($processAction !== null) {
+                $processRoute = Route::post($menuForm->route, $processAction)
+                    ->name(MenuRouteName::make('form', $formResourceSlug, $menuForm->route, 'process'))
+                    ->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
 
-				$Ctrlr = 'Front\\Entity\\' . $entity->controller;
+                (new FrontRouteContext($menuForm->id, 'form', $formResourceSlug, 'process'))->attachTo($processRoute);
+            }
 
-				if ($entity->objrel_has_terms == 1) {
+        }
 
-					Route::get($entity->resource_slug, $Ctrlr . '@index')
-						->name($content_tag_prefix . '.' . $entity->resource_slug . '.index')->middleware($entityMiddleware);
+        Route::group(['prefix' => 'ajax'], function () use ($menuForms, $laraControllerAction, $laraMenuItemIsRoutable) {
 
-					// add .html to slug, so we can distinguish between an object slug and a (sub)cat slug.
-					Route::get($entity->resource_slug . '/{id}.html', $Ctrlr . '@show')
-						->name($content_tag_prefix . '.' . $entity->resource_slug . '.index.show')->middleware($entityMiddleware);
+            foreach ($menuForms as $menuForm) {
 
-					$tags = Tag::resourceIs($entity->resource_slug)->whereNotNull('route')->get();
+                if (! $laraMenuItemIsRoutable($menuForm, false)) {
+                    continue;
+                }
 
-					foreach ($tags as $tag) {
+                // exclude CUSTOM entities
+                if ($menuForm->entity->cgroup == 'entity') {
+                    continue;
+                }
 
-						$tagroutename = str_replace('/', '.', $tag->route);
+                $redirectAction = $laraControllerAction('Front\Form', $menuForm->entity->controller, 'redirect', true);
+                $processAction = $laraControllerAction('Front\Form', $menuForm->entity->controller, 'process', true);
 
-						Route::get($entity->resource_slug . '/' . $tag->route, $Ctrlr . '@index')
-							->name($content_tag_prefix . '.' . $entity->resource_slug . '.' . $tagroutename . '.index')->middleware($entityMiddleware);
-						Route::get($entity->resource_slug . '/' . $tag->route . '/{id}.html', $Ctrlr . '@show')
-							->name($content_tag_prefix . '.' . $entity->resource_slug . '.' . $tagroutename . '.index.show')->middleware($entityMiddleware);
+                // Add AJAX route
+                if ($redirectAction !== null) {
+                    Route::get($menuForm->entity->resource_slug, $redirectAction)
+                        ->name('ajax.'.$menuForm->entity->resource_slug.'.redirect');
+                }
 
-					}
+                if ($processAction !== null) {
+                    Route::post($menuForm->entity->resource_slug, $processAction)
+                        ->name('ajax.'.$menuForm->entity->resource_slug.'.process')
+                        ->middleware([ProtectAgainstSpam::class, 'throttle:10,86400']); // patch 6.2.23
+                }
 
-				} else {
+            }
 
-					Route::get($entity->resource_slug, $Ctrlr . '@index')
-						->name($content_prefix . '.' . $entity->resource_slug . '.index')->middleware($entityMiddleware);
-					Route::get($entity->resource_slug . '/{id}', $Ctrlr . '@show')
-						->name($content_prefix . '.' . $entity->resource_slug . '.index.show')->middleware($entityMiddleware);
+        });
 
-				}
+        /**
+         * Fixed Urls structure (fallback)
+         *
+         * Using a fixed prefix, we can reach all entities and entity objects
+         * without using the user-defined menu
+         */
+        Route::group(['prefix' => 'content'], function () use ($laraControllerAction) {
 
-			}
+            // These prefixes are used for the route NAMES, and NOT the URI path
+            $content_prefix = 'content';
+            $content_tag_prefix = 'contenttag';
 
-		});
+            // Page Routes
+            $entities = Entity::where('cgroup', 'page')->get();
+            foreach ($entities as $entity) {
 
-		// 404
-		Route::get('/{any}', '\Lara\App\Http\Controllers\Front\Error\AppErrorController@show')->where('any', '.*')->name('error.show.404');
+                $showAction = $laraControllerAction('Front\Page', $entity->controller, 'show');
 
-	});
+                if ($showAction === null) {
+                    continue;
+                }
+
+                Route::get($entity->resource_slug.'/{id}', $showAction)
+                    ->name($content_prefix.'.'.$entity->resource_slug.'.show')
+                    ->middleware(FrontRouteMiddleware::build($entity, null, false));
+
+            }
+
+            // Entity Routes
+            $entities = Entity::where('cgroup', 'entity')->get();
+
+            foreach ($entities as $entity) {
+
+                $indexAction = $laraControllerAction('Front\Entity', $entity->controller, 'index');
+                $showAction = $laraControllerAction('Front\Entity', $entity->controller, 'show', true);
+
+                if ($indexAction === null) {
+                    continue;
+                }
+
+                $entityMiddleware = FrontRouteMiddleware::build($entity, null, false);
+
+                if ($entity->objrel_has_terms == 1) {
+
+                    Route::get($entity->resource_slug, $indexAction)
+                        ->name($content_tag_prefix.'.'.$entity->resource_slug.'.index')->middleware($entityMiddleware);
+
+                    // add .html to slug, so we can distinguish between an object slug and a (sub)cat slug.
+                    if ($showAction !== null) {
+                        Route::get($entity->resource_slug.'/{slug}.html', $showAction)
+                            ->name($content_tag_prefix.'.'.$entity->resource_slug.'.index.show')->middleware($entityMiddleware);
+                    }
+
+                    $tags = app(RouteTagIndex::class)->forResource($entity->resource_slug);
+
+                    foreach ($tags as $tag) {
+
+                        $tagroutename = str_replace('/', '.', $tag->route);
+
+                        Route::get($entity->resource_slug.'/'.$tag->route, $indexAction)
+                            ->name($content_tag_prefix.'.'.$entity->resource_slug.'.'.$tagroutename.'.index')->middleware($entityMiddleware);
+
+                        if ($showAction !== null) {
+                            Route::get($entity->resource_slug.'/'.$tag->route.'/{slug}.html', $showAction)
+                                ->name($content_tag_prefix.'.'.$entity->resource_slug.'.'.$tagroutename.'.index.show')->middleware($entityMiddleware);
+                        }
+
+                    }
+
+                } else {
+
+                    Route::get($entity->resource_slug, $indexAction)
+                        ->name($content_prefix.'.'.$entity->resource_slug.'.index')->middleware($entityMiddleware);
+
+                    if ($showAction !== null) {
+                        Route::get($entity->resource_slug.'/{id}', $showAction)
+                            ->name($content_prefix.'.'.$entity->resource_slug.'.index.show')->middleware($entityMiddleware);
+                    }
+
+                }
+
+            }
+
+        });
+
+        // 404
+        Route::get('/{any}', '\Lara\App\Http\Controllers\Front\Error\AppErrorController@show')->where('any', '.*')->name('error.show.404');
+
+    });
 
 }
-
-
-

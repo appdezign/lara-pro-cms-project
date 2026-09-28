@@ -14,9 +14,8 @@ class ContactformResource extends BaseFormResource
     public static function getPages(): array
     {
         return [
-            'index'  => Pages\ListRecords::route('/'),
-            'view'   => Pages\ViewRecord::route('/{record}'),
+            'index' => Pages\ListContactforms::route('/'),
+            'view' => Pages\ViewContactform::route('/{record}'),
         ];
     }
-
 }

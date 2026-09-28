@@ -1,4 +1,64 @@
 <laravel-boost-guidelines>
+=== .ai/laracms rules ===
+
+# Lara CMS
+
+Lara CMS 10 is a content management system built on Laravel and Filament (admin panel). Content types ("entities") are configured in the database and code is generated from that configuration, so the database is as much a part of the application as the PHP code.
+
+## Structure
+
+- `Lara\Admin` → `laracms/core/src/admin`: Filament resources, pages and the code generator.
+- `Lara\Common` → `laracms/core/src/common`: models, entity configuration, routes, casts, factories.
+- `Lara\Front` → `laracms/core/src/front`: front controllers, widgets, theme engine.
+- `Lara\App` → `laracms/app`: the site-specific entities (Blog, Team, Event, …), with their models, entities, policies, Filament resources, front controllers and migrations.
+- `Laratheme\Base` / `Laratheme\Demo` → `laracms/themes/*`: front-end themes. The active theme is `config('lara.client_theme')`.
+- `laracms/core` is a **symlink** to the separate `laracms10pack` package. Changes there change the shared core package, not only this site.
+- Keep the existing directory structure. Traits live in `Concerns/` directories.
+
+## Entities
+
+- Every content type is a row in `lara_resource_entities` (`resource_slug`, `model_class`, `cgroup`, `col_has_*` flags), with custom fields in `lara_resource_entity_custom_fields` and relations in `lara_resource_entity_relations`.
+- `cgroup` separates the kinds: `entity` (content), `page`, `block`, `form`, `taxonomy`.
+- Content tables are named `lara_content_{resource_slug}`, forms `lara_form_*`, blocks `lara_blocks_*`. Every content record has `language` (`nl` / `en`), `publish`, `publish_from`, `slug` and `user_id`.
+- Creating an entity in the admin runs `HasLaraBuilder` (`Lara\Admin\Concerns`), which writes PHP classes into `laracms/app` and alters the database schema. Treat generated classes as generated: fix the stubs (`laracms/core/src/admin/Stubs`) or the builder, not only the output.
+- Runtime schema changes are intended (webmasters have no server or database access), but must go through the `build*` methods of `HasLaraBuilder` (`buildEntity`, `buildCustomField`, `buildExtraBodyColumns`): check first, change the schema in steps registered with an undo (`runSchemaSteps`), verify, and only then keep the new entity or field values. On failure, restore the row and notify; never leave config and schema out of sync. Field names are checked by `Lara\Common\Entities\EntityFieldName`, entity labels by `EntityLabel`.
+- When a field is deleted, renamed or changes type, its old column is kept as a backup column (`_fieldname`). Webmasters restore or delete these in the admin (Custom fields tab → Backup columns, `Lara\Admin\Livewire\BackupColumns`). Never drop or overwrite a backup column silently; the builder refuses a change while an older backup is in the way.
+- Array casts for json custom fields (multiselect, checkbox list, tags input, …) are derived by `BaseModel::getCustomFieldCasts()` from the entity config. Do not ask the webmaster to add casts to a model.
+- Custom field types are defined in `Lara\Admin\Enums\CustomFieldType` (form component, column type, whether it has options). Admin form rendering lives in `HasContentSection`.
+- Read entity configuration through `Lara\Common\Entities\EntityRegistry` (a singleton with one cache key, invalidated by `EntityConfigObserver`). Do not add new caches of entity configuration.
+- Every model extends `Lara\Common\Models\BaseModel`.
+
+## Translations
+
+- Labels use `_q('module::group.tag.key')`, e.g. `_q('lara-app::blogs.column.title')`. Translations are stored in `lara_sys_translations`, not in lang files. A key must have exactly three dot-separated parts after `::`.
+
+## Routing
+
+- Front routes are built from the database (menu items, entities, tags) and are per locale (`mcamara/laravel-localization`).
+- Menu routes are named after their URL by `Lara\Common\Routes\MenuRouteName` (`media/downloads` → `entitytag.docs.media.downloads.index`), never with a database ID. Their menu item, entity, method, tags and related routes travel with the route as a `FrontRouteContext` in the route action (`lara` key). Read that context (via `FrontEntityResolver` / `FrontActiveRoute`); do not parse or build route names by position, also not in templates (use `$activeroute->getSingleRoute()`, `getMenuRoute()`, `getTagRoute($tag)`).
+- `menu_items.routename` must match the name the route file registers. After changing the naming, run `php artisan lara:menu:refresh-routenames` (with `--dry-run` first), then rebuild the route cache and clear the application cache (widgets cache rendered links).
+- Cache routes with `php artisan lara:route:cache` only. **Never run `php artisan route:cache`**: it does not produce working per-locale routes.
+
+## Testing
+
+- The suite runs against a separate MySQL database, `d10_laracms_test` (set in `phpunit.xml`). It contains essential seed data (users, roles, entities, custom fields, settings, translations, menus, a few pages) and nearly empty content tables.
+- Tests that write data must `use DatabaseTransactions`. **Never use `RefreshDatabase`**: it drops every table and would wipe the seed data.
+- Run the suite with `composer test`, which clears the config cache first. A cached config makes `phpunit.xml` settings be ignored, and `Tests\TestCase` then fails every test on purpose.
+- Content factories exist for `Page` and every model in `Lara\App\Models`. They all use `Lara\Common\Database\Factories\Concerns\HasLaraFactory`, which generates the standard columns, lead/body, every custom field type (option fields pick from `field_options`) and belongsTo relations. A belongsTo relation reuses a recycled or existing record in the same language before creating one. A new entity needs its own factory and a `newFactory()` on its model.
+- `BaseResourceStructureTest` compares every resource's form and table with `tests/Feature/__snapshots__/base_resource_structure.json`. After an intended change, rebuild it with `LARA_REBUILD_BASELINE=1 php artisan test --filter=shared_form` and check the diff.
+- Front controllers cannot be feature-tested yet: they set up their state inside `if (!App::runningInConsole())`.
+
+## Databases
+
+- Development database: `d10_laracms` (from `.env`). Test database: `d10_laracms_test`.
+- Back up and restore with `php artisan database:backup --database=…` and `php artisan database:import {database}_baseline.sql --database=…`. Backups are stored in `storage/app/backups`. Always pass `--database` when working with the test database.
+
+## Code style
+
+- PHP (including the generator stubs) and Blade use four spaces (see `.editorconfig`). PHP is formatted by Pint with its default `laravel` preset; Blade is formatted with PhpStorm's own formatter, not with Pint (its `--blade` option would bring in Prettier and reformat far more than indentation).
+- Run `vendor/bin/pint --format agent {files}` on changed PHP files. The project folder is not a git repository, so `--dirty` does not work there; the core and theme folders are separate git repositories.
+- Pint skips any directory named `vendor`, including `lang/vendor` (the site's published translations): pass those files explicitly.
+
 === foundation rules ===
 
 # Laravel Boost Guidelines
@@ -12,10 +72,6 @@ This application is a Laravel application running on PHP 8.4. You are an expert 
 Before relying on a package's API, confirm its installed version:
 - PHP packages: run `composer show --direct` to list direct dependencies with versions, or `composer show <vendor/package>` for a single package.
 - JS packages: check `package.json` for the installed versions.
-
-## Skills Activation
-
-This project has domain-specific skills available in `**/skills/**`. You MUST activate the relevant skill whenever you work in that domain—don't wait until you're stuck.
 
 ## Conventions
 
@@ -73,7 +129,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 ## Project Rules
 
 - This project contains committed, area-grouped rules in `.ai/rules` when that directory exists (settled decisions, non-obvious traps, standing constraints). Framework and package guidelines that only apply to specific paths (testing, frontend, components) also live there, under `.ai/rules/boost` — this is not just recorded decisions, it is load-bearing guidance you have not seen inline. Before you enter plan mode or create/edit any file, you MUST first: open @.ai/rules/index.md (it maps file globs to rule files), read every rule file whose globs cover the path(s) in scope, and run `grep -rin 'keyword' .ai/rules` to catch what a path match alone misses. Do not write code until you have read and are following every matching rule. If `.ai/rules` does not exist, continue without it.
-- Record durable rules with `record-rule` so the next agent or teammate inherits them instead of working them out again. Pass a `glob` (e.g. `app/Http/Controllers/**`), a short `title`, and a few-line `note`. Always use `record-rule`, never your native memory or notes tool — native memory is personal and session-scoped; only `.ai/rules` is shared with the team and persists in the repo.
+- Record a rule with `record-rule` only when the user explicitly asks for one. Instructions for the work at hand are not rules, no matter how emphatic: "remove this typo", "use X here" are work to do, not rules to record. Never record a rule on your own initiative, as a byproduct of a change, or to summarize what you just did. When the user does ask, pass a `glob` (e.g. `app/Http/Controllers/**`), a short `title`, and a few-line `note`. Use `record-rule` rather than your native memory or notes tool, because native memory is personal and session-scoped, while only `.ai/rules` is shared with the team and persists in the repo.
 
 ## Artisan
 
@@ -103,6 +159,7 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 # Deployment
 
 - Laravel can be deployed using [Laravel Cloud](https://cloud.laravel.com/), which is the fastest way to deploy and scale production Laravel applications.
+- Activate the `deploying-to-cloud` skill whenever deploying to Laravel Cloud, configuring Cloud environments or resources, using the Cloud CLI, or troubleshooting Cloud deployments.
 
 === herd rules ===
 
@@ -110,6 +167,16 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 
 - The application is served by Laravel Herd at `https?://[kebab-case-project-dir].test`. Use the `get-absolute-url` tool to generate valid URLs. Never run commands to serve the site. It is always available.
 - Use the `herd` CLI to manage services, PHP versions, and sites (e.g. `herd sites`, `herd services:start <service>`, `herd php:list`). Run `herd list` to discover all available commands.
+
+=== tests rules ===
+
+# Test Enforcement
+
+- Add or update tests for behavior and logic changes when a test provides meaningful regression coverage.
+- Pure copy, styling, and layout-only changes do not require new or updated tests.
+- When test coverage applies, run the affected tests and ensure they pass.
+- Test the changed behavior and its important failure modes, but do not add tests beyond them.
+- Read the `testing-best-practices` skill before writing tests.
 
 === laravel/core rules ===
 
@@ -161,241 +228,5 @@ This project has domain-specific skills available in `**/skills/**`. You MUST ac
 - Run the narrowest set of tests that covers the change. Pass a file path or `--filter=testName` to `php artisan test --compact`.
 - Rerun a test after each change to it.
 - Run `vendor/bin/phpunit` to call the test runner directly. It accepts the same file path and `--filter=testName` arguments.
-
-=== filament/filament/core rules ===
-
-## Filament
-
-- Filament is a Laravel UI framework built on Livewire, Alpine.js, and Tailwind CSS. UIs are defined in PHP via fluent, chainable components. Follow existing conventions in this app.
-- Use the `search-docs` tool for official documentation on Artisan commands, code examples, testing, relationships, and idiomatic practices. If `search-docs` is unavailable, refer to https://filamentphp.com/docs.
-
-### Artisan
-
-- Always use Filament-specific Artisan commands to create files. Find available commands with the `list-artisan-commands` tool, or run `php artisan --help`.
-- Inspect required options before running, and always pass `--no-interaction`.
-
-### Patterns
-
-Always use static `make()` methods to initialize components. Most configuration methods accept a `Closure` for dynamic values.
-
-Use `Get $get` to read other form field values for conditional logic:
-
-<code-snippet name="Conditional form field visibility" lang="php">
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Schemas\Components\Utilities\Get;
-
-Select::make('type')
-    ->options(CompanyType::class)
-    ->required()
-    ->live(),
-
-TextInput::make('company_name')
-    ->required()
-    ->visible(fn (Get $get): bool => $get('type') === 'business'),
-
-</code-snippet>
-
-Use `Set $set` inside `->afterStateUpdated()` on a `->live()` field to mutate another field reactively. Prefer `->live(onBlur: true)` on text inputs to avoid per-keystroke updates:
-
-<code-snippet name="Reactive field update" lang="php">
-use Filament\Schemas\Components\Utilities\Set;
-use Illuminate\Support\Str;
-
-TextInput::make('title')
-    ->required()
-    ->live(onBlur: true)
-    ->afterStateUpdated(fn (Set $set, ?string $state) => $set(
-        'slug',
-        Str::slug($state ?? ''),
-    )),
-
-TextInput::make('slug')
-    ->required(),
-
-</code-snippet>
-
-Compose layout by nesting `Section` and `Grid`. Children need explicit `->columnSpan()` or `->columnSpanFull()`:
-
-<code-snippet name="Section and Grid layout" lang="php">
-use Filament\Schemas\Components\Grid;
-use Filament\Schemas\Components\Section;
-
-Section::make('Details')
-    ->schema([
-        Grid::make(2)->schema([
-            TextInput::make('first_name')
-                ->columnSpan(1),
-            TextInput::make('last_name')
-                ->columnSpan(1),
-            TextInput::make('bio')
-                ->columnSpanFull(),
-        ]),
-    ]),
-
-</code-snippet>
-
-Use `Repeater` for inline `HasMany` management. `->relationship()` with no args binds to the relationship matching the field name:
-
-<code-snippet name="Repeater for HasMany" lang="php">
-use Filament\Forms\Components\Repeater;
-
-Repeater::make('qualifications')
-    ->relationship()
-    ->schema([
-        TextInput::make('institution')
-            ->required(),
-        TextInput::make('qualification')
-            ->required(),
-    ])
-    ->columns(2),
-
-</code-snippet>
-
-Use `state()` with a `Closure` to compute derived column values:
-
-<code-snippet name="Computed table column value" lang="php">
-use Filament\Tables\Columns\TextColumn;
-
-TextColumn::make('full_name')
-    ->state(fn (User $record): string => "{$record->first_name} {$record->last_name}"),
-
-</code-snippet>
-
-Use `SelectFilter` for enum or relationship filters, and `Filter` with a `->query()` closure for custom logic:
-
-<code-snippet name="Table filters" lang="php">
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
-use Illuminate\Database\Eloquent\Builder;
-
-SelectFilter::make('status')
-    ->options(UserStatus::class),
-
-SelectFilter::make('author')
-    ->relationship('author', 'name'),
-
-Filter::make('verified')
-    ->query(fn (Builder $query) => $query->whereNotNull('email_verified_at')),
-
-</code-snippet>
-
-Actions are buttons that encapsulate optional modal forms and behavior:
-
-<code-snippet name="Action with modal form" lang="php">
-use Filament\Actions\Action;
-
-Action::make('updateEmail')
-    ->schema([
-        TextInput::make('email')
-            ->email()
-            ->required(),
-    ])
-    ->action(fn (array $data, User $record) => $record->update($data)),
-
-</code-snippet>
-
-### Testing
-
-Testing setup (requires `pestphp/pest-plugin-livewire` in `composer.json`):
-
-- Always call `$this->actingAs(User::factory()->create())` before testing panel functionality.
-- For edit pages, pass `['record' => $user->id]`, use `->call('save')` (not `->call('create')`), and do not assert `->assertRedirect()` (edit pages do not redirect after save).
-
-<code-snippet name="Table test" lang="php">
-use function Pest\Livewire\livewire;
-
-livewire(ListUsers::class)
-    ->assertCanSeeTableRecords($users)
-    ->searchTable($users->first()->name)
-    ->assertCanSeeTableRecords($users->take(1))
-    ->assertCanNotSeeTableRecords($users->skip(1));
-
-</code-snippet>
-
-<code-snippet name="Create resource test" lang="php">
-use function Pest\Laravel\assertDatabaseHas;
-
-livewire(CreateUser::class)
-    ->fillForm([
-        'name' => 'Test',
-        'email' => 'test@example.com',
-    ])
-    ->call('create')
-    ->assertNotified()
-    ->assertHasNoFormErrors()
-    ->assertRedirect();
-
-assertDatabaseHas(User::class, [
-    'name' => 'Test',
-    'email' => 'test@example.com',
-]);
-
-</code-snippet>
-
-<code-snippet name="Edit resource test" lang="php">
-livewire(EditUser::class, ['record' => $user->id])
-    ->fillForm(['name' => 'Updated'])
-    ->call('save')
-    ->assertNotified()
-    ->assertHasNoFormErrors();
-
-assertDatabaseHas(User::class, [
-    'id' => $user->id,
-    'name' => 'Updated',
-]);
-
-</code-snippet>
-
-<code-snippet name="Testing validation" lang="php">
-livewire(CreateUser::class)
-    ->fillForm([
-        'name' => null,
-        'email' => 'invalid-email',
-    ])
-    ->call('create')
-    ->assertHasFormErrors([
-        'name' => 'required',
-        'email' => 'email',
-    ])
-    ->assertNotNotified();
-
-</code-snippet>
-
-Use `->callAction(DeleteAction::class)` for page actions, or `->callAction(TestAction::make('name')->table($record))` for table actions:
-
-<code-snippet name="Calling actions" lang="php">
-use Filament\Actions\Testing\TestAction;
-
-livewire(ListUsers::class)
-    ->callAction(TestAction::make('promote')->table($user), [
-        'role' => 'admin',
-    ])
-    ->assertNotified();
-
-</code-snippet>
-
-### Correct Namespaces
-
-- Form fields (`TextInput`, `Select`, `Repeater`, etc.): `Filament\Forms\Components\`
-- Infolist entries (`TextEntry`, `IconEntry`, etc.): `Filament\Infolists\Components\`
-- Layout components (`Grid`, `Section`, `Fieldset`, `Tabs`, `Wizard`, etc.): `Filament\Schemas\Components\`
-- Schema utilities (`Get`, `Set`, etc.): `Filament\Schemas\Components\Utilities\`
-- Table columns (`TextColumn`, `IconColumn`, etc.): `Filament\Tables\Columns\`
-- Table filters (`SelectFilter`, `Filter`, etc.): `Filament\Tables\Filters\`
-- Actions (`DeleteAction`, `CreateAction`, etc.): `Filament\Actions\`. Never use `Filament\Tables\Actions\`, `Filament\Forms\Actions\`, or any other sub-namespace for actions.
-- Icons: `Filament\Support\Icons\Heroicon` enum (e.g., `Heroicon::PencilSquare`)
-
-### Common Mistakes
-
-- **Never assume public file visibility.** File visibility is `private` by default. Always use `->visibility('public')` when public access is needed.
-- **Never assume full-width layout.** `Grid`, `Section`, `Fieldset`, and `Repeater` do not span all columns by default.
-- **Use `Select::make('author_id')->relationship('author', 'name')` for BelongsTo fields.** `BelongsToSelect` does not exist in v4.
-- **`Repeater` uses `->schema()`, not `->fields()`.**
-- **Never add `->dehydrated(false)` to fields that need to be saved.** It strips the value from form state before `->action()` or the save handler runs. Only use it for helper/UI-only fields.
-- **Use correct property types when overriding `Page`, `Resource`, and `Widget` properties.** These properties have union types or changed modifiers that must be preserved:
-  - `$navigationIcon`: `protected static string | BackedEnum | null` (not `?string`)
-  - `$navigationGroup`: `protected static string | UnitEnum | null` (not `?string`)
-  - `$view`: `protected string` (not `protected static string`) on `Page` and `Widget` classes
 
 </laravel-boost-guidelines>

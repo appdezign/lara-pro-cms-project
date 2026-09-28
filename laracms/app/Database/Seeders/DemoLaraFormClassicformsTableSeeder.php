@@ -14,12 +14,12 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_form_classicforms')->delete();
-        
+
         \DB::table('lara_form_classicforms')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 6,
                 'email' => NULL,
@@ -31,7 +31,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 7,
                 'email' => NULL,
@@ -43,7 +43,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 8,
                 'email' => NULL,
@@ -55,7 +55,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 9,
                 'email' => NULL,
@@ -67,7 +67,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 10,
                 'email' => NULL,
@@ -79,7 +79,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 11,
                 'email' => NULL,
@@ -91,7 +91,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 12,
                 'email' => NULL,
@@ -103,7 +103,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 13,
                 'email' => NULL,
@@ -115,7 +115,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 14,
                 'email' => NULL,
@@ -127,7 +127,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 15,
                 'email' => NULL,
@@ -139,7 +139,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 16,
                 'email' => NULL,
@@ -151,7 +151,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 17,
                 'email' => NULL,
@@ -163,7 +163,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 18,
                 'email' => NULL,
@@ -175,7 +175,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 19,
                 'email' => NULL,
@@ -187,7 +187,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 20,
                 'email' => NULL,
@@ -199,7 +199,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 21,
                 'email' => NULL,
@@ -211,7 +211,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 22,
                 'email' => NULL,
@@ -223,7 +223,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 23,
                 'email' => NULL,
@@ -235,7 +235,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 24,
                 'email' => NULL,
@@ -247,7 +247,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 25,
                 'email' => NULL,
@@ -259,7 +259,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 26,
                 'email' => NULL,
@@ -271,7 +271,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 27,
                 'email' => NULL,
@@ -283,7 +283,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 28,
                 'email' => NULL,
@@ -295,7 +295,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 29,
                 'email' => NULL,
@@ -307,7 +307,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 30,
                 'email' => NULL,
@@ -319,7 +319,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 31,
                 'email' => NULL,
@@ -331,7 +331,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 32,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -343,7 +343,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 33,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -355,7 +355,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 34,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -367,7 +367,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 35,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -379,7 +379,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 36,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -391,7 +391,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 37,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -403,7 +403,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 38,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -415,7 +415,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 39,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -427,7 +427,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 40,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -439,7 +439,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 41,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -451,7 +451,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 42,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -463,7 +463,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 43,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -475,7 +475,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 44,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -487,7 +487,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 45,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -499,7 +499,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 46,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -511,7 +511,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 47,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -523,7 +523,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 48,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -535,7 +535,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 49,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -547,7 +547,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 50,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -559,7 +559,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 51,
                 'email' => 's.hoeksma@firmaq.nl',
@@ -572,7 +572,7 @@ class DemoLaraFormClassicformsTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

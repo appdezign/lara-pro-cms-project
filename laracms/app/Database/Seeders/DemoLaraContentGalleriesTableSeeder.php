@@ -14,12 +14,12 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_galleries')->delete();
-        
+
         \DB::table('lara_content_galleries')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -43,7 +43,7 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -68,7 +68,7 @@ class DemoLaraContentGalleriesTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

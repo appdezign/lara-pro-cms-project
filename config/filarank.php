@@ -45,7 +45,7 @@ return [
     */
     'analysis' => [
         'disabled_checks' => [
-			'image-alt-text',
+            'image-alt-text',
         ],
         'site_host' => null,
     ],

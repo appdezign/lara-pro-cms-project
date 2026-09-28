@@ -6,7 +6,6 @@ use Lara\Front\Http\Controllers\Auth\BaseProfileController;
 
 class ProfileController extends BaseProfileController
 {
-
-	//
+    //
 
 }

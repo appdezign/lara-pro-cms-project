@@ -14,12 +14,12 @@ class DemoLaraObjectSeoTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_object_seo')->delete();
-        
+
         \DB::table('lara_object_seo')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'model_type' => 'Lara\\App\\Models\\Blog',
@@ -38,7 +38,7 @@ class DemoLaraObjectSeoTableSeeder extends Seeder
                 'created_at' => '2026-08-09 10:36:17',
                 'updated_at' => '2026-09-08 14:03:07',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'model_type' => 'Lara\\App\\Models\\Blog',
@@ -57,7 +57,7 @@ class DemoLaraObjectSeoTableSeeder extends Seeder
                 'created_at' => '2026-08-09 10:39:24',
                 'updated_at' => '2026-09-10 12:21:00',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'model_type' => 'Lara\\Common\\Models\\Page',
@@ -72,11 +72,11 @@ class DemoLaraObjectSeoTableSeeder extends Seeder
                 'og_image' => 'https://laracms10pro.test/glide/pages/2d790e38-205c-43f9-9706-2786d384019f.jpg?w=1200&h=630&fit=crop&fm=webp&s=f928dfaaf966d30cf79d34d6ed7efba9',
                 'noindex' => 0,
                 'nofollow' => 0,
-                'score' => 73,
+                'score' => 80,
                 'created_at' => '2026-08-10 16:04:03',
-                'updated_at' => '2026-09-12 13:20:13',
+                'updated_at' => '2026-09-14 08:29:55',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'model_type' => 'Lara\\App\\Models\\Blog',
@@ -91,12 +91,31 @@ class DemoLaraObjectSeoTableSeeder extends Seeder
                 'og_image' => 'https://laracms10pro.test/glide/blogs/31243248-37b6-46e5-8291-1121e2ac6872.jpg?w=1200&h=630&fit=crop&fm=webp&s=31e7e664f7ae3d3c74a38c1ac09cfde8',
                 'noindex' => 0,
                 'nofollow' => 0,
-                'score' => 17,
+                'score' => 38,
                 'created_at' => '2026-08-30 18:23:05',
-                'updated_at' => '2026-08-31 07:32:06',
+                'updated_at' => '2026-09-26 11:58:00',
+            ),
+            4 =>
+            array (
+                'id' => 5,
+                'model_type' => 'Lara\\App\\Models\\Blog',
+                'model_id' => 40,
+                'title' => NULL,
+                'description' => NULL,
+                'focus_keyword' => NULL,
+                'additional_keywords' => '""',
+                'is_cornerstone' => 0,
+                'locale' => 'nl',
+                'canonical_url' => NULL,
+                'og_image' => 'https://laracms10.test/glide/blogs/b2bf1552-515d-40f4-99e1-1e10f7a495e2.jpg?w=1200&h=630&fit=crop&fm=webp&s=e0f4d246cc2704f27e7259b2ecfaf99e',
+                'noindex' => 0,
+                'nofollow' => 0,
+                'score' => 44,
+                'created_at' => '2026-09-13 15:20:38',
+                'updated_at' => '2026-09-26 11:58:00',
             ),
         ));
-        
-        
+
+
     }
 }

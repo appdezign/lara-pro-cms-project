@@ -14,12 +14,12 @@ class DemoLaraContentProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_content_products')->delete();
-        
+
         \DB::table('lara_content_products')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -62,7 +62,7 @@ class DemoLaraContentProductsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -106,7 +106,7 @@ class DemoLaraContentProductsTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

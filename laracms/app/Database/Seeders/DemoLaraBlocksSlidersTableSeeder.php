@@ -14,12 +14,12 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_blocks_sliders')->delete();
-        
+
         \DB::table('lara_blocks_sliders')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -53,7 +53,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -87,7 +87,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -121,7 +121,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -155,7 +155,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -189,7 +189,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 7,
                 'user_id' => 3,
@@ -224,7 +224,7 @@ class DemoLaraBlocksSlidersTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

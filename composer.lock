@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b876ffcfe9a3249ddf0dcc79865080a7",
+    "content-hash": "7e24ff312152c3d45ab3b8329191947a",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -73,16 +73,16 @@
         },
         {
             "name": "appdezign/lara-pro-base-theme",
-            "version": "10.6.16",
+            "version": "10.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-base-theme.git",
-                "reference": "40a3892b2de21fdb00e7d8309d6f7225fbf31166"
+                "reference": "a8c381afaedaad8f55cf0aef489f90ca92fe89a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/40a3892b2de21fdb00e7d8309d6f7225fbf31166",
-                "reference": "40a3892b2de21fdb00e7d8309d6f7225fbf31166",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/a8c381afaedaad8f55cf0aef489f90ca92fe89a3",
+                "reference": "a8c381afaedaad8f55cf0aef489f90ca92fe89a3",
                 "shasum": ""
             },
             "require": {
@@ -130,22 +130,22 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.6.16"
+                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.7.0"
             },
-            "time": "2026-09-16T13:35:52+00:00"
+            "time": "2026-09-28T17:39:07+00:00"
         },
         {
             "name": "appdezign/lara-pro-cms",
-            "version": "10.6.16",
+            "version": "10.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-cms.git",
-                "reference": "cf72c50b72283e95945de04e2181510984d7151d"
+                "reference": "1e2ff7779375cd622bc5e843553d5e15d53efd61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/cf72c50b72283e95945de04e2181510984d7151d",
-                "reference": "cf72c50b72283e95945de04e2181510984d7151d",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/1e2ff7779375cd622bc5e843553d5e15d53efd61",
+                "reference": "1e2ff7779375cd622bc5e843553d5e15d53efd61",
                 "shasum": ""
             },
             "require": {
@@ -233,22 +233,22 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.6.16"
+                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.7.0"
             },
-            "time": "2026-09-16T13:35:27+00:00"
+            "time": "2026-09-28T17:37:48+00:00"
         },
         {
             "name": "appdezign/lara-pro-demo-theme",
-            "version": "10.6.16",
+            "version": "10.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-demo-theme.git",
-                "reference": "36a44cdec03249b2f24a846aaaeb38f105912401"
+                "reference": "580419c8eef410a96cac0d678763f2961b1683a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/36a44cdec03249b2f24a846aaaeb38f105912401",
-                "reference": "36a44cdec03249b2f24a846aaaeb38f105912401",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/580419c8eef410a96cac0d678763f2961b1683a4",
+                "reference": "580419c8eef410a96cac0d678763f2961b1683a4",
                 "shasum": ""
             },
             "require": {
@@ -296,9 +296,9 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.6.16"
+                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.7.0"
             },
-            "time": "2026-09-16T13:36:28+00:00"
+            "time": "2026-09-28T17:39:46+00:00"
         },
         {
             "name": "arrilot/laravel-widgets",
@@ -370,16 +370,16 @@
         },
         {
             "name": "awcodes/filament-curator",
-            "version": "v5.3.5",
+            "version": "v5.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/awcodes/filament-curator.git",
-                "reference": "03169f1b2241346c5cdc06dd55aa30de02dc337a"
+                "reference": "8d0e5309fe8ce432de5810ce294629d1d27c38de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/awcodes/filament-curator/zipball/03169f1b2241346c5cdc06dd55aa30de02dc337a",
-                "reference": "03169f1b2241346c5cdc06dd55aa30de02dc337a",
+                "url": "https://api.github.com/repos/awcodes/filament-curator/zipball/8d0e5309fe8ce432de5810ce294629d1d27c38de",
+                "reference": "8d0e5309fe8ce432de5810ce294629d1d27c38de",
                 "shasum": ""
             },
             "require": {
@@ -453,7 +453,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-07T14:59:55+00:00"
+            "time": "2026-09-16T19:15:55+00:00"
         },
         {
             "name": "awcodes/filament-versions",
@@ -8160,16 +8160,16 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "4.x-dev",
+            "version": "4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "40988c506689c11cfc76c18445f7b26819d0d259"
+                "reference": "75d73f48d02797c2c285a7e9f348fadc0102ffe2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/40988c506689c11cfc76c18445f7b26819d0d259",
-                "reference": "40988c506689c11cfc76c18445f7b26819d0d259",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/75d73f48d02797c2c285a7e9f348fadc0102ffe2",
+                "reference": "75d73f48d02797c2c285a7e9f348fadc0102ffe2",
                 "shasum": ""
             },
             "require": {
@@ -8206,7 +8206,6 @@
                 "paragonie/random-lib": "Provides RandomLib for use with the RandomLibAdapter",
                 "ramsey/uuid-doctrine": "Allows the use of Ramsey\\Uuid\\Uuid as Doctrine field type."
             },
-            "default-branch": true,
             "type": "library",
             "extra": {
                 "captainhook": {
@@ -8233,9 +8232,9 @@
             ],
             "support": {
                 "issues": "https://github.com/ramsey/uuid/issues",
-                "source": "https://github.com/ramsey/uuid/tree/4.x"
+                "source": "https://github.com/ramsey/uuid/tree/4.9.4"
             },
-            "time": "2026-09-13T14:33:28+00:00"
+            "time": "2026-09-16T11:39:30+00:00"
         },
         {
             "name": "ryangjchandler/blade-capture-directive",
@@ -14723,16 +14722,16 @@
         },
         {
             "name": "laravel/boost",
-            "version": "v2.9.0",
+            "version": "v2.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/boost.git",
-                "reference": "ebe59d97cbc66b66f735e6ec7ff859233e7934e0"
+                "reference": "2da6cbfdc6399d69b49a2dfb1e4f4eaf6bb419f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/boost/zipball/ebe59d97cbc66b66f735e6ec7ff859233e7934e0",
-                "reference": "ebe59d97cbc66b66f735e6ec7ff859233e7934e0",
+                "url": "https://api.github.com/repos/laravel/boost/zipball/2da6cbfdc6399d69b49a2dfb1e4f4eaf6bb419f0",
+                "reference": "2da6cbfdc6399d69b49a2dfb1e4f4eaf6bb419f0",
                 "shasum": ""
             },
             "require": {
@@ -14785,7 +14784,7 @@
                 "issues": "https://github.com/laravel/boost/issues",
                 "source": "https://github.com/laravel/boost"
             },
-            "time": "2026-09-14T14:40:10+00:00"
+            "time": "2026-09-17T02:40:42+00:00"
         },
         {
             "name": "laravel/mcp",

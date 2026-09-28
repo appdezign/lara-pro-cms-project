@@ -3,48 +3,42 @@
 namespace Lara\App\Http\Controllers\Front\Special;
 
 use App\Http\Controllers\Controller;
-
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-
-use Lara\Admin\Traits\HasCache;
+use Illuminate\Support\Facades\Route;
+use Lara\Admin\Concerns\HasCache;
 
 class CacheController extends Controller
 {
+    use HasCache;
 
-	use HasCache;
+    private const DEFAULT_REDIRECT_ROUTE = 'special.home.show';
 
-	protected $redirectRoute;
-	protected $redirectSlug;
+    protected ?string $redirectRoute = null;
 
-	public function __construct()
-	{
+    protected ?string $redirectSlug = null;
 
-	}
+    public function process(Request $request): RedirectResponse
+    {
 
+        $requestedRoute = $request->string('redirect')->toString();
 
-	public function process(Request $request) {
+        // only honour a route name that actually exists, so a bad or crafted
+        // query string cannot turn this into an unhandled exception
+        $this->redirectRoute = Route::has($requestedRoute)
+            ? $requestedRoute
+            : self::DEFAULT_REDIRECT_ROUTE;
 
-		if($request->has('redirect')) {
+        $slug = $request->string('slug')->toString();
+        $this->redirectSlug = $slug !== '' ? $slug : null;
 
-			$this->redirectRoute = $request->get('redirect');
-			if(!empty($request->get('slug'))) {
-				$this->redirectSlug = $request->get('slug');
-			} else {
-				$this->redirectSlug = null;
-			}
+        static::clearCacheTypes();
 
-		} else {
-			$this->redirectRoute = 'special.home.show';
-			$this->redirectSlug = null;
-		}
+        if (! empty($this->redirectSlug)) {
+            return redirect()->route($this->redirectRoute, ['slug' => $this->redirectSlug]);
+        }
 
-		static::clearCacheTypes();
+        return redirect()->route($this->redirectRoute);
 
-		if(!empty($this->redirectSlug)) {
-			return redirect()->route($this->redirectRoute, ['slug' => $this->redirectSlug]);
-		} else {
-			return redirect()->route($this->redirectRoute);
-		}
-
-	}
+    }
 }

@@ -14,12 +14,12 @@ class DemoCuratorTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('curator')->delete();
-        
+
         \DB::table('curator')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 56,
                 'disk' => 'public',
@@ -41,10 +41,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => '[]',
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 11:57:19',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 57,
                 'disk' => 'public',
@@ -66,10 +66,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 11:57:19',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 58,
                 'disk' => 'public',
@@ -91,10 +91,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 11:57:19',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 59,
                 'disk' => 'public',
@@ -116,10 +116,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 11:57:19',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 60,
                 'disk' => 'public',
@@ -141,10 +141,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 11:57:19',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 65,
                 'disk' => 'public',
@@ -166,10 +166,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:37:15',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 66,
                 'disk' => 'public',
@@ -191,10 +191,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:39:07',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 67,
                 'disk' => 'public',
@@ -216,10 +216,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:39:45',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 68,
                 'disk' => 'public',
@@ -241,10 +241,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:40:24',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 69,
                 'disk' => 'public',
@@ -266,10 +266,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 70,
                 'disk' => 'public',
@@ -291,10 +291,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 71,
                 'disk' => 'public',
@@ -316,10 +316,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 72,
                 'disk' => 'public',
@@ -341,10 +341,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 73,
                 'disk' => 'public',
@@ -366,10 +366,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 74,
                 'disk' => 'public',
@@ -391,10 +391,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 75,
                 'disk' => 'public',
@@ -416,10 +416,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 76,
                 'disk' => 'public',
@@ -441,10 +441,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 12:50:49',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 77,
                 'disk' => 'public',
@@ -466,10 +466,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 14:07:55',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 78,
                 'disk' => 'public',
@@ -491,10 +491,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 14:08:30',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 79,
                 'disk' => 'public',
@@ -516,10 +516,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 14:08:50',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 80,
                 'disk' => 'public',
@@ -541,10 +541,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 14:11:40',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 81,
                 'disk' => 'public',
@@ -566,10 +566,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 14:12:10',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 82,
                 'disk' => 'public',
@@ -591,10 +591,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-19 14:25:54',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 83,
                 'disk' => 'public',
@@ -616,10 +616,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 11:00:02',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 84,
                 'disk' => 'public',
@@ -641,10 +641,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 13:24:05',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 85,
                 'disk' => 'public',
@@ -666,10 +666,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 13:28:02',
-                'updated_at' => '2026-03-10 18:50:38',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 86,
                 'disk' => 'public',
@@ -691,10 +691,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 13:32:04',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 87,
                 'disk' => 'public',
@@ -716,10 +716,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 13:33:45',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 88,
                 'disk' => 'public',
@@ -741,10 +741,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 13:36:23',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 89,
                 'disk' => 'public',
@@ -766,10 +766,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 13:36:45',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 90,
                 'disk' => 'public',
@@ -791,10 +791,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 14:36:39',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 91,
                 'disk' => 'public',
@@ -816,10 +816,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 14:41:07',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 92,
                 'disk' => 'public',
@@ -841,10 +841,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 14:41:07',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 93,
                 'disk' => 'public',
@@ -866,10 +866,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 14:41:07',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 94,
                 'disk' => 'public',
@@ -891,10 +891,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-21 14:41:07',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 95,
                 'disk' => 'public',
@@ -916,10 +916,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:16:22',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 96,
                 'disk' => 'public',
@@ -941,10 +941,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:16:22',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 97,
                 'disk' => 'public',
@@ -966,10 +966,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:16:22',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 98,
                 'disk' => 'public',
@@ -991,10 +991,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:16:22',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 99,
                 'disk' => 'public',
@@ -1016,10 +1016,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:17:45',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 100,
                 'disk' => 'public',
@@ -1041,10 +1041,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:17:45',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 101,
                 'disk' => 'public',
@@ -1066,10 +1066,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:17:58',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 102,
                 'disk' => 'public',
@@ -1091,10 +1091,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:19:31',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 103,
                 'disk' => 'public',
@@ -1116,10 +1116,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:21:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 104,
                 'disk' => 'public',
@@ -1141,10 +1141,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:22:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 105,
                 'disk' => 'public',
@@ -1166,10 +1166,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 106,
                 'disk' => 'public',
@@ -1191,10 +1191,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 107,
                 'disk' => 'public',
@@ -1216,10 +1216,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 108,
                 'disk' => 'public',
@@ -1241,10 +1241,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 109,
                 'disk' => 'public',
@@ -1266,10 +1266,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 110,
                 'disk' => 'public',
@@ -1291,10 +1291,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 111,
                 'disk' => 'public',
@@ -1316,10 +1316,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 112,
                 'disk' => 'public',
@@ -1341,10 +1341,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 113,
                 'disk' => 'public',
@@ -1366,10 +1366,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:25:17',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 114,
                 'disk' => 'public',
@@ -1391,10 +1391,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 115,
                 'disk' => 'public',
@@ -1416,10 +1416,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 116,
                 'disk' => 'public',
@@ -1441,10 +1441,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 117,
                 'disk' => 'public',
@@ -1466,10 +1466,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 118,
                 'disk' => 'public',
@@ -1491,10 +1491,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 119,
                 'disk' => 'public',
@@ -1516,10 +1516,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 120,
                 'disk' => 'public',
@@ -1541,10 +1541,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 121,
                 'disk' => 'public',
@@ -1566,10 +1566,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:26:41',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 122,
                 'disk' => 'public',
@@ -1591,10 +1591,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-24 12:28:05',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 123,
                 'disk' => 'public',
@@ -1616,10 +1616,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-25 16:49:58',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 124,
                 'disk' => 'public',
@@ -1641,10 +1641,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-25 16:50:13',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 125,
                 'disk' => 'public',
@@ -1666,10 +1666,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-25 16:50:36',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 126,
                 'disk' => 'public',
@@ -1691,10 +1691,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2025-12-25 16:57:28',
-                'updated_at' => '2026-02-20 15:44:06',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 127,
                 'disk' => 'public',
@@ -1719,7 +1719,7 @@ class DemoCuratorTableSeeder extends Seeder
                 'updated_at' => '2025-12-26 12:34:47',
                 'in_use' => 0,
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 128,
                 'disk' => 'public',
@@ -1741,10 +1741,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-03-10 08:14:17',
-                'updated_at' => '2026-03-10 08:14:20',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 129,
                 'disk' => 'public',
@@ -1766,10 +1766,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-03-12 12:38:33',
-                'updated_at' => '2026-03-12 12:38:36',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 130,
                 'disk' => 'public',
@@ -1791,10 +1791,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-03-16 13:53:38',
-                'updated_at' => '2026-03-16 13:53:40',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 131,
                 'disk' => 'public',
@@ -1816,35 +1816,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-03-16 13:54:57',
-                'updated_at' => '2026-03-16 13:54:59',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            72 => 
-            array (
-                'id' => 132,
-                'disk' => 'public',
-                'directory' => 'tags',
-                'visibility' => 'public',
-                'name' => 'bd241743-0aa0-448a-b3c3-d8f5af6ec90d',
-                'path' => 'tags/bd241743-0aa0-448a-b3c3-d8f5af6ec90d.jpg',
-                'width' => 1920,
-                'height' => 982,
-                'size' => 544584,
-                'type' => 'image/jpeg',
-                'ext' => 'jpg',
-                'alt' => NULL,
-                'title' => '20230316111338-laracon-us',
-                'description' => NULL,
-                'caption' => NULL,
-                'pretty_name' => NULL,
-                'exif' => '{"FILE":{"FileName":"1y83FaTN9ToNJY0rk7frCuKuc5zUUz-metaMjAyMzAzMTYxMTEzMzgtbGFyYWNvbi11cy5qcGc=-.jpg","FileDateTime":1773669408,"FileSize":544584,"FileType":2,"MimeType":"image\\/jpeg","SectionsFound":""},"COMPUTED":{"html":"width=\\"1920\\" height=\\"982\\"","Height":982,"Width":1920,"IsColor":1}}',
-                'curations' => NULL,
-                'tenant_id' => NULL,
-                'created_at' => '2026-03-16 13:56:51',
-                'updated_at' => '2026-03-16 13:56:51',
-                'in_use' => 0,
-            ),
-            73 => 
+            72 =>
             array (
                 'id' => 133,
                 'disk' => 'public',
@@ -1866,10 +1841,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-03-16 14:03:37',
-                'updated_at' => '2026-03-16 14:03:37',
-                'in_use' => 0,
+                'updated_at' => '2026-09-14 14:41:03',
+                'in_use' => 1,
             ),
-            74 => 
+            73 =>
             array (
                 'id' => 134,
                 'disk' => 'public',
@@ -1891,10 +1866,10 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-03-19 10:46:46',
-                'updated_at' => '2026-03-19 10:46:47',
+                'updated_at' => '2026-09-14 14:41:03',
                 'in_use' => 1,
             ),
-            75 => 
+            74 =>
             array (
                 'id' => 135,
                 'disk' => 'public',
@@ -1916,11 +1891,11 @@ class DemoCuratorTableSeeder extends Seeder
                 'curations' => NULL,
                 'tenant_id' => NULL,
                 'created_at' => '2026-07-30 15:13:36',
-                'updated_at' => '2026-07-30 15:13:36',
-                'in_use' => 1,
+                'updated_at' => '2026-09-14 14:32:17',
+                'in_use' => 0,
             ),
         ));
-        
-        
+
+
     }
 }

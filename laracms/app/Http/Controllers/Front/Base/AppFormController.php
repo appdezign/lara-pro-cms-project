@@ -6,7 +6,6 @@ use Lara\Front\Http\Controllers\Base\FormController;
 
 class AppFormController extends FormController
 {
-
-	//
+    //
 
 }

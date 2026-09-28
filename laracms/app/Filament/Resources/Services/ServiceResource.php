@@ -7,19 +7,18 @@ use Lara\App\Models\Service;
 
 class ServiceResource extends BaseResource
 {
-	protected static ?string $model = Service::class;
+    protected static ?string $model = Service::class;
 
-	protected static bool $shouldRegisterNavigation = true;
+    protected static bool $shouldRegisterNavigation = true;
 
-	public static function getPages(): array
-	{
-		return [
-			'index'   => Pages\ListRecords::route('/'),
-			'create'  => Pages\CreateRecord::route('/create'),
-			'reorder' => Pages\ReorderRecords::route('/reorder'),
-			'view'    => Pages\ViewRecord::route('/{record}'),
-			'edit'    => Pages\EditRecord::route('/{record}/edit'),
-		];
-	}
-
+    public static function getPages(): array
+    {
+        return [
+            'index' => Pages\ListServices::route('/'),
+            'create' => Pages\CreateService::route('/create'),
+            'reorder' => Pages\ReorderServices::route('/reorder'),
+            'view' => Pages\ViewService::route('/{record}'),
+            'edit' => Pages\EditService::route('/{record}/edit'),
+        ];
+    }
 }

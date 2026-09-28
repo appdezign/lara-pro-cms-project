@@ -14,12 +14,12 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lara_form_contactforms')->delete();
-        
+
         \DB::table('lara_form_contactforms')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 25,
                 'comment' => NULL,
@@ -33,7 +33,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 26,
                 'comment' => NULL,
@@ -47,7 +47,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 27,
                 'comment' => NULL,
@@ -61,7 +61,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 28,
                 'comment' => NULL,
@@ -75,7 +75,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 29,
                 'comment' => NULL,
@@ -90,7 +90,7 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'locked_by' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }
