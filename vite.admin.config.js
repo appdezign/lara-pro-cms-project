@@ -26,6 +26,11 @@ export default defineConfig({
 		}),
 		tailwindcss(),
 	],
+	resolve: {
+		// laracms/core and laracms/themes/* are symlinks to ../laracms10pack: resolve
+		// imports from the symlink path, so vendor/ and node_modules/ of this project are found.
+		preserveSymlinks: true,
+	},
 	build: {
 		emptyOutDir: true,
 	},
