@@ -85,6 +85,10 @@
 			"@php artisan package:discover",
 			"@php artisan filament:upgrade",
 			"@php artisan filament:optimize"
+		],
+		"test": [
+			"@php artisan config:clear --ansi",
+			"@php artisan test"
 		]
 	},
     "config": {

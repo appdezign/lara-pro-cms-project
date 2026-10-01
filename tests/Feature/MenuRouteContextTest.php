@@ -33,9 +33,6 @@ use Tests\TestCase;
  */
 class MenuRouteContextTest extends TestCase
 {
-    /** The news item in the test database: the blogs entity, tagless, at "news". */
-    private const NEWS_ROUTE = 'entitytag.blogs.news.index';
-
     protected function tearDown(): void
     {
         putenv(LaravelLocalization::ENV_ROUTE_KEY.'=');
@@ -51,6 +48,47 @@ class MenuRouteContextTest extends TestCase
     }
 
     /**
+     * The blogs list the tests build on: the first tagless blogs item in the menu of the default
+     * locale ("news" in the test database). Looked up instead of named, so the tests also run
+     * against the database of a site.
+     */
+    private function newsMenuItem(): MenuItem
+    {
+        $news = MenuItem::langIs(config('app.locale'))
+            ->typeIs('entity')
+            ->whereNull('tag_id')
+            ->whereNotNull('routename')
+            ->whereHas('entity', fn ($query) => $query->where('resource_slug', 'blogs'))
+            ->orderBy('id')
+            ->first();
+
+        if (! $news) {
+            $this->markTestSkipped('No tagless blogs item in the menu.');
+        }
+
+        return $news;
+    }
+
+    /**
+     * A top-level blogs tag in the language of the news item ("tech" in the test database).
+     */
+    private function blogTag(MenuItem $news): Tag
+    {
+        $tag = Tag::resourceIs('blogs')
+            ->langIs($news->language)
+            ->whereNull('parent_id')
+            ->whereNotNull('route')
+            ->orderBy('id')
+            ->first();
+
+        if (! $tag) {
+            $this->markTestSkipped('No top-level blogs tag.');
+        }
+
+        return $tag;
+    }
+
+    /**
      * A menu item for the same entity and view as the news item, saved with the name the admin
      * menu builder would record.
      *
@@ -58,7 +96,7 @@ class MenuRouteContextTest extends TestCase
      */
     private function makeBlogsMenuItem(string $route, array $attributes = []): MenuItem
     {
-        $news = MenuItem::where('routename', self::NEWS_ROUTE)->firstOrFail();
+        $news = $this->newsMenuItem();
 
         $menuItem = MenuItem::create([
             'language' => $news->language,
@@ -141,7 +179,7 @@ class MenuRouteContextTest extends TestCase
         try {
             $this->rebuildRoutes();
 
-            $newsContext = $this->contextOf(self::NEWS_ROUTE);
+            $newsContext = $this->contextOf($this->newsMenuItem()->routename);
             $archiveContext = $this->contextOf('entitytag.blogs.zz-archive.index');
 
             $this->assertNotSame($newsContext->menuItemId, $archiveContext->menuItemId);
@@ -161,7 +199,7 @@ class MenuRouteContextTest extends TestCase
 
     public function test_a_detail_page_knows_which_menu_item_it_belongs_to(): void
     {
-        $blog = Blog::query()->whereNotNull('slug')->first();
+        $blog = Blog::query()->langIs(config('app.locale'))->whereNotNull('slug')->first();
 
         if (! $blog) {
             $this->markTestSkipped('No blog to show.');
@@ -174,10 +212,13 @@ class MenuRouteContextTest extends TestCase
 
             $this->get('/'.config('app.locale').'/zz-archive/'.$blog->slug.'.html')->assertOk();
 
+            // the error page also answers 200, so check that the detail route matched
+            $this->assertSame('entitytag.blogs.zz-archive.index.show', Route::current()?->getName());
+
             // the active menu item is the one the page was reached through, not the first match
             $activeMenu = app(FrontMenuRepository::class)->getActiveMenuArray(true);
             $this->assertContains($archive->id, $activeMenu);
-            $this->assertNotContains(MenuItem::where('routename', self::NEWS_ROUTE)->value('id'), $activeMenu);
+            $this->assertNotContains($this->newsMenuItem()->id, $activeMenu);
 
             // and its list, for the "back" link and the object links, is its own
             $activeRoute = app(FrontEntityResolver::class)->getLaraActiveRoute('entitytag.blogs.zz-archive.index');
@@ -190,11 +231,8 @@ class MenuRouteContextTest extends TestCase
 
     public function test_a_tagged_menu_item_shows_its_objects_through_the_tagless_menu_item(): void
     {
-        $tag = Tag::where('resource_slug', 'blogs')->where('route', 'tech')->first();
-
-        if (! $tag) {
-            $this->markTestSkipped('No "tech" blog tag in the test database.');
-        }
+        $news = $this->newsMenuItem();
+        $tag = $this->blogTag($news);
 
         $techNews = $this->makeBlogsMenuItem('zz-tech-news', ['tag_id' => $tag->id]);
 
@@ -204,8 +242,8 @@ class MenuRouteContextTest extends TestCase
             $context = $this->contextOf('entitytag.blogs.zz-tech-news.index');
 
             $this->assertSame($techNews->id, $context->menuItemId);
-            $this->assertSame(['tech'], $context->tags);
-            $this->assertSame('entitytag.blogs.news.tech.index.show', $context->singleRoute);
+            $this->assertSame([$tag->route], $context->tags);
+            $this->assertSame(MenuRouteName::make('entitytag', 'blogs', $news->route.'/'.$tag->route, 'index').'.show', $context->singleRoute);
             $this->assertTrue(Route::has($context->singleRoute), 'The single route of a tagged menu item must exist.');
         } finally {
             $techNews->delete();
@@ -220,19 +258,24 @@ class MenuRouteContextTest extends TestCase
             ->setRouter(app('router'))
             ->setContainer(app());
 
-        $context = FrontRouteContext::forRoute($cached->getByName(self::NEWS_ROUTE));
+        $news = $this->newsMenuItem();
+
+        $context = FrontRouteContext::forRoute($cached->getByName($news->routename));
 
         $this->assertNotNull($context);
-        $this->assertSame(MenuItem::where('routename', self::NEWS_ROUTE)->value('id'), $context->menuItemId);
+        $this->assertSame($news->id, $context->menuItemId);
     }
 
     public function test_the_tag_links_of_a_list_come_from_its_context(): void
     {
-        $activeRoute = app(FrontEntityResolver::class)->getLaraActiveRoute(self::NEWS_ROUTE);
+        $news = $this->newsMenuItem();
+        $tag = $this->blogTag($news);
 
-        $this->assertSame(self::NEWS_ROUTE, $activeRoute->getMenuRoute());
-        $this->assertSame('entitytag.blogs.news.tech.index', $activeRoute->getTagRoute('tech'));
-        $this->assertTrue(Route::has($activeRoute->getTagRoute('tech')), 'The tag route of a list must exist.');
+        $activeRoute = app(FrontEntityResolver::class)->getLaraActiveRoute($news->routename);
+
+        $this->assertSame($news->routename, $activeRoute->getMenuRoute());
+        $this->assertSame(MenuRouteName::make('entitytag', 'blogs', $news->route.'/'.$tag->route, 'index'), $activeRoute->getTagRoute($tag->route));
+        $this->assertTrue(Route::has($activeRoute->getTagRoute($tag->route)), 'The tag route of a list must exist.');
     }
 
     /**
@@ -245,7 +288,7 @@ class MenuRouteContextTest extends TestCase
         $cacheDirectory = storage_path('framework/testing-route-cache-'.getmypid());
         File::ensureDirectoryExists($cacheDirectory);
 
-        $previousCachePath = $_SERVER['APP_ROUTES_CACHE'] ?? null;
+        $previousCachePath = env('APP_ROUTES_CACHE');
         $_SERVER['APP_ROUTES_CACHE'] = $_ENV['APP_ROUTES_CACHE'] = $cacheDirectory.'/routes-v7.php';
         putenv('APP_ROUTES_CACHE='.$cacheDirectory.'/routes-v7.php');
 
