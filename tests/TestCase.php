@@ -24,5 +24,11 @@ abstract class TestCase extends BaseTestCase
         }
 
         parent::setUp();
+
+        // route() builds its URLs on APP_URL; without a host (e.g. "https:site.test") every
+        // request to such a URL lands on the wrong route, which fails as a puzzling 302, 404 or 405
+        if (parse_url((string) config('app.url'), PHP_URL_HOST) === null) {
+            $this->fail('APP_URL "'.config('app.url').'" has no host. Fix it in .env, e.g. "https://site.test".');
+        }
     }
 }

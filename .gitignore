@@ -34,4 +34,5 @@
 /*.sh
 /.env
 /.env.plesk
+/.phpunit.result.cache
 !.gitkeep
