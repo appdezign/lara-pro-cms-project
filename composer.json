@@ -89,6 +89,13 @@
 		"test": [
 			"@php artisan config:clear --ansi",
 			"@php artisan test"
+		],
+		"cache": [
+			"@php artisan cache:clear --ansi",
+			"@php artisan config:clear",
+			"@php artisan view:clear",
+			"@php artisan responsecache:clear",
+			"@php artisan lara:route:cache"
 		]
 	},
     "config": {
