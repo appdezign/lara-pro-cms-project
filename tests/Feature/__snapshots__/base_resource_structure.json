@@ -541,6 +541,7 @@
         },
         "form": {
             "fields": [
+                "lara-tabs.caption",
                 "lara-tabs.captiontype",
                 "lara-tabs.language",
                 "lara-tabs.language_children",
