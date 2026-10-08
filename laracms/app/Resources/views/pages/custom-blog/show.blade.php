@@ -1,19 +1,33 @@
 <!-- Test-Non-Livewire -->
 <x-filament-panels::layout>
-    <div class="fi-page-header flex flex-col gap-4-2 sm:flex-row sm:items-center sm:justify-between mb-6">
-        <div>
-            <h1 class="fi-header-heading text-2xl font-bold tracking-tight text-gray-950 dark:text-white sm:text-3xl">
-                Custom Blogs
-            </h1>
+    <div class="fi-page">
+        <div class="fi-page-header-main-ctn">
+            <x-lara-app::admin.page-header :heading="$data->object->title">
+                <x-slot name="actions">
+                    <x-filament::button
+                        tag="a"
+                        color="gray"
+                        :href="route('filament.admin.custom-blog.index')">
+                        Back
+                    </x-filament::button>
+                </x-slot>
+            </x-lara-app::admin.page-header>
+
+            <div class="fi-page-main">
+                <div class="fi-page-content">
+                    <x-filament::section heading="Lead">
+                        <div class="fi-prose">
+                            {!! $data->object->lead !!}
+                        </div>
+                    </x-filament::section>
+
+                    <x-filament::section heading="Body">
+                        <div class="fi-prose">
+                            {!! $data->object->body !!}
+                        </div>
+                    </x-filament::section>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="bg-white p-6 rounded-xl shadow-sm dark:bg-gray-800 p-4">
-        <h3>{{ $data->object->title }}</h3>
-
-        {!! $data->object->lead !!}
-
-        {!! $data->object->body !!}
-
     </div>
 </x-filament-panels::layout>
