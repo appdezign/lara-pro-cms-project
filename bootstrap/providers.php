@@ -5,6 +5,7 @@ use Awcodes\Mason\MasonServiceProvider;
 use Awcodes\RicherEditor\RicherEditorServiceProvider;
 use Lara\Admin\Providers\AdminPanelProvider;
 use Lara\Admin\Providers\LaraAdminServiceProvider;
+use Lara\App\Legacy\Providers\LegacyServiceProvider;
 use Lara\App\Providers\LaraAppServiceProvider;
 use Lara\App\Providers\RouteServiceProvider;
 use Lara\Common\Providers\LaraCommonRouteProvider;
@@ -26,6 +27,7 @@ return [
     LaraCommonServiceProvider::class,
     LaraFrontServiceProvider::class,
     LaraAppServiceProvider::class,
+    LegacyServiceProvider::class,
 
     // Route providers
     LaraCommonRouteProvider::class,

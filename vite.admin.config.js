@@ -20,7 +20,9 @@ export default defineConfig({
 				'laracms/core/resources/css/app.css',
 				'laracms/core/resources/js/app.js',
 				'laracms/core/resources/css/theme.css',
-				'laracms/core/resources/css/lara.scss'
+				'laracms/core/resources/css/lara.scss',
+				// rich text editor of the legacy custom blog example (loaded only on its create and edit pages)
+				'laracms/app/Legacy/Resources/js/tiptap-editor.js',
 			],
 			refresh: true,
 		}),

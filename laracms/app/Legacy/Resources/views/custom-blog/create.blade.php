@@ -2,11 +2,11 @@
 <x-filament-panels::layout>
     <div class="fi-page">
         <div class="fi-page-header-main-ctn">
-            <x-lara-app::admin.page-header heading="New blog">
+            <x-lara-legacy::page-header heading="New blog">
                 <x-slot name="actions">
-                    @include('lara-app::pages.custom-blog._form-actions', ['formId' => 'lara-default-create-form'])
+                    @include('lara-legacy::custom-blog._form-actions', ['formId' => 'lara-default-create-form'])
                 </x-slot>
-            </x-lara-app::admin.page-header>
+            </x-lara-legacy::page-header>
 
             <div class="fi-page-main">
                 <div class="fi-page-content">
@@ -19,8 +19,10 @@
                         novalidate>
                         @csrf
 
-                        @include('lara-app::pages.custom-blog._form')
+                        @include('lara-legacy::custom-blog._form')
                     </form>
+
+                    @vite('laracms/app/Legacy/Resources/js/tiptap-editor.js', 'assets/admin/build')
                 </div>
             </div>
         </div>

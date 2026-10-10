@@ -2,9 +2,11 @@
 <x-filament-panels::layout>
     <div class="fi-page">
         <div class="fi-page-header-main-ctn">
-            <x-lara-app::admin.page-header heading="Custom Blogs">
+            <x-lara-legacy::page-header heading="Custom Blogs">
                 <x-slot name="actions">
-                    @can('create', \Lara\App\Models\Blog::class)
+                    @include('lara-legacy::custom-blog._language-switch', ['clanguage' => $data->clanguage])
+
+                    @can('create', \Lara\App\Legacy\Models\CustomBlog::class)
                         <x-filament::button
                             tag="a"
                             icon="heroicon-m-plus"
@@ -13,7 +15,7 @@
                         </x-filament::button>
                     @endcan
                 </x-slot>
-            </x-lara-app::admin.page-header>
+            </x-lara-legacy::page-header>
 
             <div class="fi-page-main">
                 <div class="fi-page-content">

@@ -2,7 +2,7 @@
 <x-filament-panels::layout>
     <div class="fi-page">
         <div class="fi-page-header-main-ctn">
-            <x-lara-app::admin.page-header :heading="$data->object->title">
+            <x-lara-legacy::page-header :heading="$data->object->title">
                 <x-slot name="actions">
                     <x-filament::button
                         tag="a"
@@ -11,16 +11,10 @@
                         Back
                     </x-filament::button>
                 </x-slot>
-            </x-lara-app::admin.page-header>
+            </x-lara-legacy::page-header>
 
             <div class="fi-page-main">
                 <div class="fi-page-content">
-                    <x-filament::section heading="Lead">
-                        <div class="fi-prose">
-                            {!! $data->object->lead !!}
-                        </div>
-                    </x-filament::section>
-
                     <x-filament::section heading="Body">
                         <div class="fi-prose">
                             {!! $data->object->body !!}
