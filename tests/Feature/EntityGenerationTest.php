@@ -490,6 +490,20 @@ class EntityGenerationTest extends TestCase
         ]));
     }
 
+    /**
+     * Front form requests store the visitor's IP for the spam blacklist. The
+     * column is created with the table, so a request never changes the schema.
+     */
+    public function test_a_form_table_gets_an_ip_address_column(): void
+    {
+        $entity = $this->makeEntityRow(self::FORM_LABEL, 'form');
+
+        $this->builder()->build($entity);
+        $this->builder()->buildTable($entity->refresh());
+
+        $this->assertTrue(Schema::hasColumn(self::FORM_TABLE, 'ipaddress'));
+    }
+
     public function test_the_new_entity_becomes_visible_through_the_registry(): void
     {
         $registry = app(EntityRegistry::class);
