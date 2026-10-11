@@ -181,6 +181,28 @@ class PageVisibilityTest extends TestCase
         $response->assertRedirect(url('/nl/'.self::PAGE_ROUTE));
     }
 
+    public function test_the_preview_skips_a_menu_item_without_a_route(): void
+    {
+        $mainMenuItem = MenuItem::where('route', self::PAGE_ROUTE)->firstOrFail();
+        $otherMenuId = Menu::whereKeyNot($mainMenuItem->menu_id)->orderBy('id')->value('id');
+
+        if (! $otherMenuId || $otherMenuId < $mainMenuItem->menu_id) {
+            $this->markTestSkipped('No second menu after the main menu.');
+        }
+
+        MenuItem::create([
+            ...$mainMenuItem->only(['language', 'type', 'entity_id', 'entity_view_id', 'object_id', 'publish']),
+            'menu_id' => $otherMenuId,
+            'title' => 'zz page top',
+            'route' => 'zz-page-top',
+        ]);
+        $mainMenuItem->update(['route' => '']);
+
+        $response = $this->get(route('content.pages.show', $this->pageId));
+
+        $response->assertRedirect(url('/nl/zz-page-top'));
+    }
+
     /**
      * The route of the menu item stays registered (routes are built for every
      * page menu item); only its publish flag changes.

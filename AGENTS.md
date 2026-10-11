@@ -46,7 +46,7 @@ Lara CMS 10 is a content management system built on Laravel and Filament (admin 
 - Run the suite with `composer test`, which clears the config cache first. A cached config makes `phpunit.xml` settings be ignored, and `Tests\TestCase` then fails every test on purpose.
 - Content factories exist for `Page` and every model in `Lara\App\Models`. They all use `Lara\Common\Database\Factories\Concerns\HasLaraFactory`, which generates the standard columns, lead/body, every custom field type (option fields pick from `field_options`) and belongsTo relations. A belongsTo relation reuses a recycled or existing record in the same language before creating one. A new entity needs its own factory and a `newFactory()` on its model.
 - `BaseResourceStructureTest` compares every resource's form and table with `tests/Feature/__snapshots__/base_resource_structure.json`. After an intended change, rebuild it with `LARA_REBUILD_BASELINE=1 php artisan test --filter=shared_form` and check the diff.
-- Front controllers cannot be feature-tested yet: they set up their state inside `if (!App::runningInConsole())`.
+- Front controllers can be feature-tested: they set up their state when a route is matched (`Route::current()`). Set the routing locale (`LaravelLocalization::ENV_ROUTE_KEY`) before `parent::setUp()`. A test that writes must not call `refreshApplication()`: the rebuilt application uses a new connection outside `DatabaseTransactions` and commits its writes. Tests that must add menu items and rebuild the routes record the highest ids and delete what they added in `tearDown()` (see `FrontFormTest`).
 
 ## Databases
 
