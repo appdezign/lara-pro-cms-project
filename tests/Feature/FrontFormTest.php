@@ -192,6 +192,51 @@ class FrontFormTest extends TestCase
         $this->assertSame($countBefore, Contactform::withTrashed()->count());
     }
 
+    public function test_a_text_longer_than_its_column_is_rejected(): void
+    {
+        Mail::fake();
+        $countBefore = Contactform::withTrashed()->count();
+
+        $response = $this->postJson('/nl/'.self::FORM_ROUTE, [
+            'name' => str_repeat('a', 256),
+            'email' => 'jan@example.com',
+        ]);
+
+        $response->assertUnprocessable()->assertJsonValidationErrors('name');
+        $this->assertSame($countBefore, Contactform::withTrashed()->count());
+    }
+
+    public function test_a_number_too_large_for_its_column_is_rejected(): void
+    {
+        Mail::fake();
+        $this->addFormField('zzguests', 'number', fn (Blueprint $table, string $name) => $table->integer($name)->default(0));
+
+        $response = $this->postJson('/nl/'.self::FORM_ROUTE, [
+            'name' => 'Jan Jansen',
+            'email' => 'jan@example.com',
+            'zzguests' => '99999999999',
+        ]);
+
+        $response->assertUnprocessable()->assertJsonValidationErrors('zzguests');
+    }
+
+    public function test_a_long_spam_value_is_cut_to_its_column_and_still_handled_as_spam(): void
+    {
+        Mail::fake();
+        $telephone = 'www.spam.example offers@spam.example '.str_repeat('x', 210);
+
+        $this->withServerVariables(['REMOTE_ADDR' => '10.1.2.8'])->postJson('/nl/'.self::FORM_ROUTE, [
+            'name' => 'Spammer',
+            'email' => 'jan@example.com',
+            'telephone' => $telephone,
+        ])->assertOk();
+
+        $submission = Contactform::withTrashed()->where('name', 'Spammer')->sole();
+        $this->assertSoftDeleted($submission);
+        $this->assertSame(mb_substr('[SPAM] - '.$telephone, 0, 255), $submission->telephone);
+        $this->assertDatabaseHas('lara_sys_blacklist', ['ipaddress' => '10.1.2.8']);
+    }
+
     public function test_a_date_and_a_time_are_stored(): void
     {
         Mail::fake();
