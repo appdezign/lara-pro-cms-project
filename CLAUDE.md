@@ -30,7 +30,7 @@ Lara CMS 10 is a content management system built on Laravel and Filament (admin 
 
 ## Translations
 
-- Labels use `_q('module::group.tag.key')`, e.g. `_q('lara-app::blogs.column.title')`. Translations are stored in `lara_sys_translations`, not in lang files. A key must have exactly three dot-separated parts after `::`.
+- Labels use `_q('module::group.tag.key')`, e.g. `_q('lara-app::blogs.column.title')`. Translations are managed in `lara_sys_translations`; the admin exports them to `lang/vendor/{module}/{locale}/{resource}.php`, and `_q()` reads those files through the translator. Edit translations in the table, not in the exported files. A missing key falls back to `_key` and is added to the table for every language (outside production). A key must have exactly three dot-separated parts after `::`.
 
 ## Routing
 
