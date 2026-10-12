@@ -79,7 +79,7 @@ class AdminPageDeleteTest extends TestCase
 
     private function makePage(): Page
     {
-        return Page::factory()->create(['title' => 'Zz delete test', 'language' => 'nl', 'cgroup' => 'page']);
+        return Page::factory()->create(['title' => 'Zz delete test', 'language' => 'nl']);
     }
 
     private function addToMenu(Page $page, int $publish = 1): MenuItem
