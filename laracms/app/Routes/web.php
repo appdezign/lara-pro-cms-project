@@ -104,12 +104,6 @@ $laraMenuItemIsRoutable = static function (?MenuItem $menuItem, bool $needsView 
 
 if (! $laraNeedsSetup) {
 
-    // Custom Non-Livewire
-    Route::group(['prefix' => 'admin', 'middleware' => ['web', FilamentAuthenticate::class]], function () {
-        // Custom resource routes
-        Route::resource('custom-blog', 'Admin\CustomBlogController', ['as' => 'admin', 'parameters' => ['custom-blog' => 'id']]);
-    });
-
     // quick cache clear (authenticated panel users only)
     Route::post('cc', 'Front\Special\CacheController@process')
         ->name('special.cache.clear')

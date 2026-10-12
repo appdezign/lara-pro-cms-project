@@ -1334,6 +1334,36 @@ class DemoLaraAuthRoleHasPermissionsTableSeeder extends Seeder
                 'permission_id' => 257,
                 'role_id' => 3,
             ),
+            263 =>
+            array (
+                'permission_id' => 262,
+                'role_id' => 2,
+            ),
+            264 =>
+            array (
+                'permission_id' => 263,
+                'role_id' => 2,
+            ),
+            265 =>
+            array (
+                'permission_id' => 264,
+                'role_id' => 2,
+            ),
+            266 =>
+            array (
+                'permission_id' => 265,
+                'role_id' => 2,
+            ),
+            267 =>
+            array (
+                'permission_id' => 266,
+                'role_id' => 2,
+            ),
+            268 =>
+            array (
+                'permission_id' => 267,
+                'role_id' => 2,
+            ),
         ));
 
 

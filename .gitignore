@@ -12,6 +12,7 @@
 /laracms/core/*
 /laracms/themes/*
 /node_modules/
+/openspec/
 /public/assets/
 /public/css/
 /public/fonts/
