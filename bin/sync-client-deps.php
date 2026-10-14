@@ -98,6 +98,7 @@ info('composer.json and composer.lock written.');
 
 composer($targetDir, 'update --lock --no-interaction');
 composer($targetDir, 'install --no-interaction');
+composer($targetDir, 'build --no-interaction');
 
 foreach ($clientOnly as $extra) {
     composer($targetDir, 'require '.($extra['dev'] ? '--dev ' : '').escapeshellarg($extra['package'].':'.$extra['constraint']).' --no-interaction');
