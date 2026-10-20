@@ -213,6 +213,11 @@ trap - ERR
 
 info "Phase 2: push $MAIN, $TAG and $DEVELOP to $REMOTE"
 
+if [ "$DRY_RUN" -eq 0 ]; then
+    echo "  Commits to push:"
+    git log --oneline --graph --decorate "$MAIN" "$DEVELOP" --not "$REMOTE/$MAIN" "$REMOTE/$DEVELOP" | sed 's/^/    /'
+fi
+
 if [ "$DRY_RUN" -eq 0 ] && [ "$ASSUME_YES" -eq 0 ]; then
     read -r -p "Push? [y/N] " answer
     if [ "$answer" != "y" ] && [ "$answer" != "Y" ]; then
