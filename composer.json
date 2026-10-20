@@ -13,6 +13,7 @@
 	],
     "require": {
 		"php": "^8.4",
+		"achyutn/filament-log-viewer": "^2.5",
 		"appdezign/lara-pro-base-theme": "10.7.7",
 		"appdezign/lara-pro-cms": "10.7.7",
 		"appdezign/lara-pro-demo-theme": "10.7.7",
