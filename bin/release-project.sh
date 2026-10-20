@@ -139,6 +139,10 @@ for b in "$DEVELOP" "$MAIN"; do
     [ "$behind" -eq 0 ] || fail "'$b' is $behind commit(s) behind $REMOTE/$b. Pull first."
 done
 
+# main only changes through releases, so unpushed commits there mean a release that was not pushed.
+ahead="$(git rev-list --count "$REMOTE/$MAIN..$MAIN")"
+[ "$ahead" -eq 0 ] || fail "'$MAIN' has $ahead commit(s) that are not on $REMOTE: a release that was not pushed? Push it or undo it first."
+
 if git rev-parse --quiet --verify "refs/tags/$TAG" > /dev/null; then
     fail "tag $TAG already exists."
 fi
