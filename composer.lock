@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "214b4d75d4ea60b3459bf81b503f0dc7",
+    "content-hash": "65318bf85fe982165ea8c4b62977751d",
     "packages": [
         {
             "name": "achyutn/filament-log-viewer",
@@ -4274,6 +4274,77 @@
                 }
             ],
             "time": "2026-10-05T12:21:16+00:00"
+        },
+        {
+            "name": "jakub-lipinski/consent-for-laravel",
+            "version": "v1.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jakub-lipinski/consent-for-laravel.git",
+                "reference": "4c9a57e0d37bc855aa5b2f7c6ca447ce2e270454"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jakub-lipinski/consent-for-laravel/zipball/4c9a57e0d37bc855aa5b2f7c6ca447ce2e270454",
+                "reference": "4c9a57e0d37bc855aa5b2f7c6ca447ce2e270454",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^12.0 || ^13.0",
+                "illuminate/contracts": "^12.0 || ^13.0",
+                "illuminate/cookie": "^12.0 || ^13.0",
+                "illuminate/database": "^12.0 || ^13.0",
+                "illuminate/http": "^12.0 || ^13.0",
+                "illuminate/routing": "^12.0 || ^13.0",
+                "illuminate/support": "^12.0 || ^13.0",
+                "illuminate/translation": "^12.0 || ^13.0",
+                "illuminate/view": "^12.0 || ^13.0",
+                "php": "^8.3",
+                "spatie/laravel-package-tools": "^1.92",
+                "symfony/http-foundation": "^7.2 || ^8.0"
+            },
+            "require-dev": {
+                "larastan/larastan": "^3.0",
+                "laravel/pint": "^1.27",
+                "orchestra/testbench": "^10.0 || ^11.0",
+                "pestphp/pest": "^3.8 || ^4.0",
+                "pestphp/pest-plugin-laravel": "^3.2 || ^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ConsentForLaravel\\ConsentForLaravel\\ConsentForLaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ConsentForLaravel\\ConsentForLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Lipiński",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Service-based cookie consent for Laravel with versioned preferences and browser script gating.",
+            "keywords": [
+                "consent",
+                "consent-mode",
+                "cookies",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/jakub-lipinski/consent-for-laravel/issues",
+                "source": "https://github.com/jakub-lipinski/consent-for-laravel"
+            },
+            "time": "2026-10-20T20:19:23+00:00"
         },
         {
             "name": "jeffgreco13/filament-breezy",
