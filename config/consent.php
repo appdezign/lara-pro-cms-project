@@ -141,7 +141,8 @@ return [
         // Supported: standard, compact.
         'variant' => 'standard',
 
-        // Supported: bottom-left, bottom-right, bottom-center.'position' => 'bottom-right',
+        // Supported: bottom-left, bottom-right, bottom-center.
+        'position' => 'bottom-right',
 
         // Supported: light, dark, auto (system), inherit (site color-scheme).
         'theme' => 'light',
