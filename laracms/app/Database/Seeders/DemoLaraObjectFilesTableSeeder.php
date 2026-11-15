@@ -278,6 +278,27 @@ class DemoLaraObjectFilesTableSeeder extends Seeder
                 'entity_id' => 40,
                 'entity_files' => '[]',
             ),
+            37 =>
+            array (
+                'id' => 165,
+                'entity_type' => 'Lara\\Common\\Models\\Page',
+                'entity_id' => 55,
+                'entity_files' => '[]',
+            ),
+            38 =>
+            array (
+                'id' => 166,
+                'entity_type' => 'Lara\\Common\\Models\\Page',
+                'entity_id' => 56,
+                'entity_files' => '[]',
+            ),
+            39 =>
+            array (
+                'id' => 167,
+                'entity_type' => 'Lara\\Common\\Models\\Page',
+                'entity_id' => 57,
+                'entity_files' => '[]',
+            ),
         ));
 
 

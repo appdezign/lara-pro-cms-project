@@ -22,7 +22,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 1,
-                'location_id' => 1,
+                'location_id' => 3,
                 'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
@@ -39,7 +39,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Jenny',
                 'created_at' => '2025-07-04 08:06:35',
-                'updated_at' => '2026-08-09 09:57:43',
+                'updated_at' => '2026-10-14 17:44:58',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 17:39:00',
@@ -54,7 +54,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 2,
-                'location_id' => 1,
+                'location_id' => 3,
                 'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
@@ -71,7 +71,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Ralph',
                 'created_at' => '2025-07-04 15:38:39',
-                'updated_at' => '2025-12-24 12:13:20',
+                'updated_at' => '2026-10-14 13:51:49',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-04 15:38:00',
@@ -103,7 +103,7 @@ class DemoLaraContentTeamsTableSeeder extends Seeder
                 'middle_name' => NULL,
                 'first_name' => 'Cameron',
                 'created_at' => '2025-07-09 13:33:20',
-                'updated_at' => '2025-12-24 12:13:31',
+                'updated_at' => '2026-10-14 17:32:55',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-07-09 13:32:00',

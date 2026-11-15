@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('language_parent')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
-            $table->boolean('slug_lock')->nullable();
+            $table->boolean('slug_lock')->default(false);
             $table->text('lead')->nullable();
             $table->text('body')->nullable();
             $table->text('body2')->nullable();

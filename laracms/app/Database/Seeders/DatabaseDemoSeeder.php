@@ -43,6 +43,7 @@ class DatabaseDemoSeeder extends Seeder
         $this->call(DemoLaraContentTeamsTableSeeder::class);
         $this->call(DemoLaraContentTestimonialsTableSeeder::class);
         $this->call(DemoLaraContentVideosTableSeeder::class);
+        $this->call(DemoLaraCustomBlogsTableSeeder::class);
         $this->call(DemoLaraFormClassicformsTableSeeder::class);
         $this->call(DemoLaraFormContactformsTableSeeder::class);
         $this->call(DemoLaraMenuMenuItemsTableSeeder::class);
