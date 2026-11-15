@@ -62,6 +62,26 @@ return [
             ]) : [],
         ],
 
+        /*
+         * Source of the v8 → v10 migration (lara:v8:* commands): a snapshot of the
+         * production v8 database. Use a MySQL user with SELECT rights only.
+         * Not strict, because the v8 schema predates strict mode.
+         */
+        'lara_v8' => [
+            'driver' => 'mysql',
+            'host' => env('LARA_V8_DB_HOST', '127.0.0.1'),
+            'port' => env('LARA_V8_DB_PORT', '3306'),
+            'database' => env('LARA_V8_DB_DATABASE', 'v8_site'),
+            'username' => env('LARA_V8_DB_USERNAME', 'lara_v8_ro'),
+            'password' => env('LARA_V8_DB_PASSWORD', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
