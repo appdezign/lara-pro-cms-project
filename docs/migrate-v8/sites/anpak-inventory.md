@@ -44,38 +44,38 @@ Generated with `php artisan lara:v8:inventory --markdown` on 2026-11-15, source 
 | language | Languages | menu | Lara\Common\Models\Language |
 | headertag | Headertags | seo | Lara\Common\Models\Headertag |
 
-### Custom field types
+### Custom field types (core content types keep their v10 fields)
 
-| v8 type | Fields | Same name in v10 | Used by |
+| v8 type | Fields | v10 type | Used by |
 | --- | --- | --- | --- |
-| string | 41 | yes | application, blog, classicform, contactform, cta, job, larawidget, location, page, portfolio, service, slider, team, testimonial |
-| selectone | 14 | NO | classicform, cta, larawidget, page, slider |
-| date | 7 | yes | application, classicform, event, job |
-| boolean | 6 | NO | blog, classicform, larawidget, page |
-| email | 4 | yes | application, classicform, contactform, job |
-| text | 4 | yes | application, classicform, contactform, slider |
-| custom | 3 | NO | larawidget |
-| time | 2 | yes | event |
-| intunsigned | 2 | NO | larawidget |
-| decimal108 | 2 | NO | location |
-| decimal118 | 2 | NO | location |
-| radio | 1 | yes | classicform |
-| yesno | 1 | NO | classicform |
-| selectone2one | 1 | NO | cta |
-| geolocation | 1 | yes | location |
-| mcemin | 1 | NO | slider |
+| string | 41 | string | application, blog, classicform, contactform, cta, job, larawidget, location, page, portfolio, service, slider, team, testimonial |
+| selectone | 14 | select | classicform, cta, larawidget, page, slider |
+| date | 7 | date | application, classicform, event, job |
+| boolean | 6 | toggle | blog, classicform, larawidget, page |
+| email | 4 | email | application, classicform, contactform, job |
+| text | 4 | textarea | application, classicform, contactform, slider |
+| custom | 3 | core only | larawidget |
+| time | 2 | time | event |
+| intunsigned | 2 | core only | larawidget |
+| decimal108 | 2 | latitude_10_8 | location |
+| decimal118 | 2 | longitude_11_8 | location |
+| radio | 1 | radio | classicform |
+| yesno | 1 | toggle | classicform |
+| selectone2one | 1 | core only | cta |
+| geolocation | 1 | geolocation | location |
+| mcemin | 1 | core only | slider |
 
-### Custom field hooks and states
+### Custom field hooks and states (site content types)
 
-| Kind | v8 value | Fields | Same name in v10 |
+| Kind | v8 value | Fields | v10 value |
 | --- | --- | --- | --- |
-| hook | after | 48 | NO |
-| hook | default | 24 | yes |
-| hook | between | 13 | NO |
-| hook | before | 7 | NO |
-| state | enabled | 66 | yes |
-| state | enabledif | 22 | yes |
-| state | hidden | 4 | yes |
+| hook | default | 24 | default |
+| hook | after | 24 | after-last |
+| hook | between | 6 | after-slug |
+| hook | before | 2 | before-title |
+| state | enabled | 50 | enabled |
+| state | enabledif | 4 | enabledif |
+| state | hidden | 2 | hidden |
 
 ### Relations
 
@@ -211,23 +211,12 @@ Generated with `php artisan lara:v8:inventory --markdown` on 2026-11-15, source 
 | Header tags | 31 |  |
 | Blacklist | 18 |  |
 
-### Findings (no v10 counterpart with the same name, or inconsistent v8 data)
+### Findings (no v10 mapping, a change in behaviour, or inconsistent v8 data)
 
 | # | Finding |
 | --- | --- |
-| 1 | Field type 'selectone' has no v10 type with the same name (14x: classicform.myselect, cta.type, cta.overlaycolor, cta.overlaytransp, larawidget.hook, larawidget.type, larawidget.iconalign, page.template, slider.type, slider.captiontype, slider.overlaycolor, slider.overlaytransp, slider.overlaysize, slider.textposition). |
-| 2 | Field type 'boolean' has no v10 type with the same name (6x: blog.sticky, classicform.myboolean, larawidget.imgreq, larawidget.usecache, larawidget.isglobal, page.ishome). |
-| 3 | Field type 'custom' has no v10 type with the same name (3x: larawidget.relentkey, larawidget.term, larawidget.template). |
-| 4 | Field type 'intunsigned' has no v10 type with the same name (2x: larawidget.maxitems, larawidget.sortorder). |
-| 5 | Field type 'decimal108' has no v10 type with the same name (2x: location.latitude, location.latitude). |
-| 6 | Field type 'decimal118' has no v10 type with the same name (2x: location.longitude, location.longitude). |
-| 7 | Field type 'yesno' has no v10 type with the same name (1x: classicform.myyesno). |
-| 8 | Field type 'selectone2one' has no v10 type with the same name (1x: cta.hook). |
-| 9 | Field type 'mcemin' has no v10 type with the same name (1x: slider.payoff). |
-| 10 | Field hook 'after' has no v10 hook with the same name (48 fields). |
-| 11 | Field hook 'between' has no v10 hook with the same name (13 fields). |
-| 12 | Field hook 'before' has no v10 hook with the same name (7 fields). |
-| 13 | 5 media row(s) of 'doc' point to a file that is only in doc/_archive (the import takes it from there). |
-| 14 | Custom field location.latitude is defined 2 times. |
-| 15 | Custom field location.longitude is defined 2 times. |
+| 1 | Field type 'yesno': the yes/no choice becomes a toggle (classicform.myyesno). |
+| 2 | 5 media row(s) of 'doc' point to a file that is only in doc/_archive (the import takes it from there). |
+| 3 | Custom field location.latitude is defined 2 times. |
+| 4 | Custom field location.longitude is defined 2 times. |
 

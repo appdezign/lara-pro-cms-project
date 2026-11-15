@@ -3,26 +3,18 @@
 namespace App\Console\Commands\LaraV8\Support;
 
 use Illuminate\Support\Collection;
-use Lara\Admin\Enums\CustomFieldType;
-use Lara\Admin\Enums\EntityHook;
 use Lara\Admin\Enums\EntityViewListTypes;
 use Lara\Admin\Enums\EntityViewTags;
 
 /**
  * Describes a v8 site before it is migrated: its content types, custom fields,
  * relations, views, media and other data, and everything that has no v10
- * counterpart with the same name (the "findings").
+ * mapping (V8Map), changes behaviour in v10 or is inconsistent (the "findings").
  *
  * Read-only: it only queries the v8 source.
  */
 class V8Inventory
 {
-    /**
-     * The rule_state options of a v10 custom field
-     * (Lara\Admin\Resources\Entities\RelationManagers\Schemas\CustomFieldForm).
-     */
-    private const V10_RULE_STATES = ['enabled', 'enabledif', 'hidden', 'disabled'];
-
     /**
      * The relation types of v10 (EntityRelationForm).
      */
@@ -58,7 +50,7 @@ class V8Inventory
         $this->checkCustomFields();
 
         $sections[] = [
-            'title' => 'Findings (no v10 counterpart with the same name, or inconsistent v8 data)',
+            'title' => 'Findings (no v10 mapping, a change in behaviour, or inconsistent v8 data)',
             'headers' => ['#', 'Finding'],
             'rows' => $this->findings === []
                 ? [['', 'none']]
@@ -149,49 +141,68 @@ class V8Inventory
         $rows = [];
 
         foreach ($this->customFields()->groupBy('fieldtype')->sortByDesc(fn (Collection $fields): int => $fields->count()) as $type => $fields) {
-            $inV10 = CustomFieldType::tryFrom($type) !== null;
-            $fieldNames = $fields->map(fn (object $field): string => $field->entity_key.'.'.$field->fieldname)->implode(', ');
+            // core content types keep their v10 fields, so only the site's own fields are mapped
+            $siteFields = $fields->reject(fn (object $field): bool => V8Map::isCoreEntity($field->entity_key));
+            $v10Types = $siteFields
+                ->map(fn (object $field): string => V8Map::fieldType($type, $field->group_key === 'form') ?? 'NONE')
+                ->unique();
+            $names = fn (Collection $fields): string => $fields->map(fn (object $field): string => $field->entity_key.'.'.$field->fieldname)->implode(', ');
 
-            if (! $inV10) {
-                $this->findings[] = "Field type '{$type}' has no v10 type with the same name ({$fields->count()}x: {$fieldNames}).";
+            $unmapped = $siteFields->filter(fn (object $field): bool => V8Map::fieldType($type, $field->group_key === 'form') === null);
+
+            if ($unmapped->isNotEmpty()) {
+                $this->findings[] = "Field type '{$type}' has no v10 mapping ({$unmapped->count()}x: {$names($unmapped)}).";
             }
 
-            $rows[] = [$type, $fields->count(), $inV10 ? 'yes' : 'NO', $fields->pluck('entity_key')->unique()->implode(', ')];
+            if ($siteFields->isNotEmpty() && ($change = V8Map::fieldTypeChange($type)) !== null) {
+                $this->findings[] = "Field type '{$type}': {$change} ({$names($siteFields)}).";
+            }
+
+            $rows[] = [
+                $type,
+                $fields->count(),
+                $siteFields->isEmpty() ? 'core only' : $v10Types->implode(', '),
+                $fields->pluck('entity_key')->unique()->implode(', '),
+            ];
         }
 
         return [
-            'title' => 'Custom field types',
-            'headers' => ['v8 type', 'Fields', 'Same name in v10', 'Used by'],
+            'title' => 'Custom field types (core content types keep their v10 fields)',
+            'headers' => ['v8 type', 'Fields', 'v10 type', 'Used by'],
             'rows' => $rows,
         ];
     }
 
     private function fieldHooksAndStates(): array
     {
-        $fields = $this->customFields();
+        $fields = $this->customFields()->reject(fn (object $field): bool => V8Map::isCoreEntity($field->entity_key));
         $rows = [];
 
         foreach ($fields->countBy('fieldhook')->sortDesc() as $hook => $count) {
-            $inV10 = EntityHook::tryFrom($hook) !== null;
-            $rows[] = ['hook', $hook, $count, $inV10 ? 'yes' : 'NO'];
+            $v10 = V8Map::hook($hook);
+            $rows[] = ['hook', $hook, $count, $v10 ?? 'NONE'];
 
-            if (! $inV10) {
-                $this->findings[] = "Field hook '{$hook}' has no v10 hook with the same name ({$count} fields).";
+            if ($v10 === null) {
+                $this->findings[] = "Field hook '{$hook}' has no v10 mapping ({$count} fields).";
             }
         }
 
         foreach ($fields->countBy('fieldstate')->sortDesc() as $state => $count) {
-            $inV10 = in_array($state, self::V10_RULE_STATES, true);
-            $rows[] = ['state', $state, $count, $inV10 ? 'yes' : 'NO'];
+            $v10 = V8Map::ruleState($state);
+            $rows[] = ['state', $state, $count, $v10 ?? 'NONE'];
 
-            if (! $inV10) {
-                $this->findings[] = "Field state '{$state}' has no v10 rule state with the same name ({$count} fields).";
+            if ($v10 === null) {
+                $this->findings[] = "Field state '{$state}' has no v10 mapping ({$count} fields).";
             }
         }
 
+        foreach ($fields->filter(fn (object $field): bool => V8Map::hasMultipleRuleValues($field->condition_value)) as $field) {
+            $this->findings[] = "Custom field {$field->entity_key}.{$field->fieldname} is enabled for several values ('{$field->condition_value}'); v10 compares one value.";
+        }
+
         return [
-            'title' => 'Custom field hooks and states',
-            'headers' => ['Kind', 'v8 value', 'Fields', 'Same name in v10'],
+            'title' => 'Custom field hooks and states (site content types)',
+            'headers' => ['Kind', 'v8 value', 'Fields', 'v10 value'],
             'rows' => $rows,
         ];
     }
@@ -524,9 +535,10 @@ class V8Inventory
         return $this->source->connection()
             ->table('lara_ent_entity_custom_columns as c')
             ->join('lara_ent_entities as e', 'e.id', '=', 'c.entity_id')
+            ->leftJoin('lara_ent_entity_groups as g', 'g.id', '=', 'e.group_id')
             ->orderBy('e.entity_key')
             ->orderBy('c.position')
-            ->get(['c.*', 'e.entity_key']);
+            ->get(['c.*', 'e.entity_key', 'g.key as group_key']);
     }
 
     /**

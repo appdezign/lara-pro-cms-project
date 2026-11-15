@@ -76,7 +76,19 @@ php artisan lara:v8:inventory              # console tables
 php artisan lara:v8:inventory --markdown   # save as docs/migrate-v8/sites/{site}-inventory.md
 ```
 
-It lists the content types (rows per language, trashed, fields, relations), the system screens, custom field types, hooks and states, relations, object relations and media settings, front views, media rows, media files on disk and other data. It ends with the **findings**: v8 values without a v10 counterpart of the same name, and inconsistent v8 data. Compare the findings with the previous sites: a new kind of finding probably needs a new mapping or a fix in the import.
+It lists the content types (rows per language, trashed, fields, relations), the system screens, custom field types, hooks and states, relations, object relations and media settings, front views, media rows, media files on disk and other data. It ends with the **findings**: v8 values without a v10 mapping, mappings that change behaviour, and inconsistent v8 data. Compare the findings with the previous sites: a new kind of finding probably needs a new mapping in `V8Map` or a fix in the import.
+
+## v8 → v10 mapping (`V8Map`)
+
+`app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
+
+- **Core content types** (page, larawidget, cta, slider) keep their v10 configuration (fields, views, code). Only their data is imported, with column renames: larawidget → `widgets` / `lara_blocks_widgets`, `relentkey` → `resource_slug`, `term` → `resource_term`, `imgreq` → `image_required`, `maxitems` → `max_items`, `isglobal` → `is_global`; `customtags` and page `show_in_app` are dropped.
+- **Site content types** are rebuilt from the v8 configuration: `resource_slug` = plural key, model `Lara\App\Models\{Key}`.
+- **Field types**: `text` → `textarea` (v10 `text` is a single line), `mcefull`/`mcemin` → `richeditor`/`richeditormin`, `integer`/`intunsigned` → `number`, `decimal108`/`decimal118` → `latitude_10_8`/`longitude_11_8`, `boolean`/`yesno` → `toggle`, `selectone`/`selectone2one` → `select`, `color` → `colorpicker`, `video` → `string`, `custom` → `textarea`; same name for the rest. Forms use the v10 form field types. Changes in behaviour are reported (`FIELD_TYPE_CHANGES`).
+- **Hooks**: `before` → `before-title`, `between` → `after-slug`, `after` → `after-last`, `default` → `default` (same position in the form). States and operators keep their names. v8 options `{"0":"a","1":"b"}` become `["a","b"]`.
+- A v8 condition with several values (`feature || featuresmall`) is not supported by v10, which compares one value; reported.
+- **Entity settings**: `lara_ent_entity_columns`, `_panels` and `_object_relations` map to the `col_has_*`, `sort_*`, `show_*`, `objrel_*`, `filter_*` and `media_*` columns of `lara_resource_entities`; `max_images > 1` means a gallery; disk `localdisk` → `public`. Settings without a v8 source keep their v10 value or default.
+- **Permissions**: v8 ability `{action}` on `{entity_key}` → v10 `{action}_{entity_key}`; `view` also gives `view_any`, `delete` also `delete_any`. v8 subjects without a v10 permission (headertag, language, redirect, seo, tag) are skipped.
 
 ## v8 facts (v8.2.46)
 
@@ -105,5 +117,5 @@ It lists the content types (rows per language, trashed, fields, relations), the 
 ### anpak.eu (first site, 2026-11)
 
 - Target `anpak1077`, theme `anpak`; plan with all details and decisions: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`.
-- Inventory: `sites/anpak-inventory.md`. 19 content types, 9 v8 field types and 3 hooks without a same-named v10 counterpart, 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition.
+- Inventory: `sites/anpak-inventory.md`. 19 content types (4 core). With `V8Map`, 4 findings remain: `yesno` becomes a toggle (classicform), 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition. One page has a `lead`, which v10 pages do not have (decide in the content import). The v8 role `editor` has no v10 counterpart and no users.
 - The fresh demo install failed on 10.7.13 (an orphan `cities` migration, migrations behind the schema); fixed in 10.7.14. The test config was fixed in 10.7.15.
