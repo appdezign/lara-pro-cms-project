@@ -69,10 +69,24 @@ LARA_V8_MEDIA_PATH=/absolute/path/to/v8/public/assets/media
 
 Check: `php artisan test --compact tests/Feature/LaraV8` (the connection reads, cannot write, and the media path exists).
 
+### 3. Inventory
+
+```bash
+php artisan lara:v8:inventory              # console tables
+php artisan lara:v8:inventory --markdown   # save as docs/migrate-v8/sites/{site}-inventory.md
+```
+
+It lists the content types (rows per language, trashed, fields, relations), the system screens, custom field types, hooks and states, relations, object relations and media settings, front views, media rows, media files on disk and other data. It ends with the **findings**: v8 values without a v10 counterpart of the same name, and inconsistent v8 data. Compare the findings with the previous sites: a new kind of finding probably needs a new mapping or a fix in the import.
+
 ## v8 facts (v8.2.46)
 
-- Media are on disk `localdisk` = `public/assets/media`, one folder per entity key, each with `_trash` and `_archive` subfolders (skip these) and an `.htaccess`.
+- Media are on disk `localdisk` = `public/assets/media`, one folder per entity key, each with `_trash` and `_archive` subfolders and an `.htaccess`.
+- **`_archive` is not a bin**: live records can refer to files that only exist in `{entity}/_archive` (anpak: 5 docs). Look there when a file is not in the entity folder (`V8Source::mediaFile()`). `_trash` is never used.
+- Media folders also hold files no media row refers to (old uploads, deleted media); they are not imported.
 - `lara_object_images.entity_type` holds full v8 class names (`Eve\Models\Blog`, `Lara\Common\Models\Page`); `filename` is relative to the entity folder.
+- v8 stores "no value" as SQL `NULL`, an empty string or the **string `'NULL'`** (e.g. `condition_field`); treat all three as empty (`V8Source::isEmpty()`).
+- A custom field can be defined twice in `lara_ent_entity_custom_columns` (anpak: `location.latitude`, `location.longitude`); import it once.
+- Content tables: pages and entities `lara_content_{plural key}`, blocks `lara_blocks_{plural key}`, forms `lara_form_{plural key}` (`V8Source::contentTable()`). The other entity groups (menu, tag, auth, builder, tools, seo) are system screens, not content types.
 - Tables are `utf8mb3` / `utf8_unicode_ci`; they import fine into MySQL 5.7.
 
 ## Gotchas
@@ -91,4 +105,5 @@ Check: `php artisan test --compact tests/Feature/LaraV8` (the connection reads, 
 ### anpak.eu (first site, 2026-11)
 
 - Target `anpak1077`, theme `anpak`; plan with all details and decisions: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`.
+- Inventory: `sites/anpak-inventory.md`. 19 content types, 9 v8 field types and 3 hooks without a same-named v10 counterpart, 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition.
 - The fresh demo install failed on 10.7.13 (an orphan `cities` migration, migrations behind the schema); fixed in 10.7.14. The test config was fixed in 10.7.15.
