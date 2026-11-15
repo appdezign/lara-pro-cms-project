@@ -237,7 +237,7 @@ class V8MapTest extends TestCase
         $this->assertSame(1, $attributes['media_has_gallery']);
         $this->assertSame(24, $attributes['media_max_gallery']);
         $this->assertSame(0, $attributes['media_has_videofiles']);
-        $this->assertNull($attributes['media_max_videofiles']);
+        $this->assertSame(0, $attributes['media_max_videofiles']);
         $this->assertSame('public', $attributes['media_disk_images']);
     }
 
@@ -252,7 +252,7 @@ class V8MapTest extends TestCase
 
         $this->assertSame(1, $attributes['media_has_featured']);
         $this->assertSame(0, $attributes['media_has_gallery']);
-        $this->assertNull($attributes['media_max_gallery']);
+        $this->assertSame(0, $attributes['media_max_gallery']);
         $this->assertArrayNotHasKey('col_has_lead', $attributes);
     }
 
@@ -262,5 +262,55 @@ class V8MapTest extends TestCase
         $this->assertSame(['create_blog'], V8Map::permissions('create', 'blog'));
         $this->assertSame(['delete_larawidget', 'delete_any_larawidget'], V8Map::permissions('delete', 'larawidget'));
         $this->assertSame([], V8Map::permissions('publish', 'blog'));
+    }
+
+    public function test_v8_admin_actions_are_switched_on(): void
+    {
+        $entity = V8Map::entity((object) ['entity_key' => 'blog', 'title' => 'News', 'group_key' => 'entity', 'entity_controller' => 'BlogsController', 'menu_parent' => 'modules'], null, null, null);
+        $form = V8Map::entity((object) ['entity_key' => 'contactform', 'title' => 'Contact', 'group_key' => 'form', 'entity_controller' => 'ContactformsController', 'menu_parent' => 'forms'], null, null, null);
+
+        foreach (['show_view_action', 'show_edit_action', 'show_delete_action', 'show_restore_action', 'filter_by_trashed'] as $attribute) {
+            $this->assertSame(1, $entity[$attribute], $attribute);
+        }
+
+        $this->assertSame(1, $form['show_view_action']);
+        $this->assertSame(1, $form['show_delete_action']);
+        $this->assertSame(0, $form['show_edit_action']);
+        $this->assertSame(0, $form['filter_by_trashed']);
+    }
+
+    public function test_geolocation_parts_only_with_a_geolocation_field(): void
+    {
+        $fields = [
+            (object) ['fieldname' => 'address', 'fieldtype' => 'string'],
+            (object) ['fieldname' => 'latitude', 'fieldtype' => 'decimal108'],
+            (object) ['fieldname' => 'latitude', 'fieldtype' => 'decimal108'],
+            (object) ['fieldname' => 'opening', 'fieldtype' => 'string'],
+        ];
+
+        $this->assertSame([], V8Map::geolocationParts($fields));
+
+        $fields[] = (object) ['fieldname' => 'geolocation', 'fieldtype' => 'geolocation'];
+
+        $this->assertSame(['address', 'latitude'], V8Map::geolocationParts($fields));
+    }
+
+    public function test_views(): void
+    {
+        $index = V8Map::view((object) ['title' => null, 'method' => 'index', 'filename' => 'index', 'type' => 'grid3', 'showtags' => '_sortbytaxonomy', 'paginate' => 12, 'infinite' => 0, 'prevnext' => 0, 'publish' => 1], 'Galleries');
+        $show = V8Map::view((object) ['title' => 'Detail', 'method' => 'show', 'filename' => 'show', 'type' => '_single', 'showtags' => 'none', 'paginate' => 0, 'infinite' => 0, 'prevnext' => 1, 'publish' => 1], 'Galleries');
+        $form = V8Map::view((object) ['title' => '', 'method' => 'form', 'filename' => 'form', 'type' => '_form', 'showtags' => 'none', 'paginate' => 0, 'infinite' => 0, 'prevnext' => 0, 'publish' => 1], 'Contact');
+
+        $this->assertSame(['Galleries Index', 0, 'grid3', '_sortbytaxonomy', 12], [$index['title'], $index['is_single'], $index['list_type'], $index['showtags'], $index['paginate']]);
+        $this->assertSame(['Detail', 1, '_single', null, null, 1], [$show['title'], $show['is_single'], $show['list_type'], $show['showtags'], $show['paginate'], $show['prevnext']]);
+        $this->assertSame(['Contact Form', 1, null], [$form['title'], $form['is_single'], $form['list_type']]);
+    }
+
+    public function test_group_values_become_a_list(): void
+    {
+        $this->assertSame(['news', 'events'], V8Map::groupValues('["news","events"]'));
+        $this->assertSame(['news', 'events'], V8Map::groupValues('news, events,'));
+        $this->assertNull(V8Map::groupValues(null));
+        $this->assertNull(V8Map::groupValues('NULL'));
     }
 }

@@ -177,6 +177,19 @@ final class V8Map
     ];
 
     /**
+     * When a v8 content type has a geolocation field, these v8 fields are parts of it:
+     * v10 keeps them in the geo_* columns of its geolocation field (v8 field => v10 column).
+     */
+    public const GEO_FIELDS = [
+        'address' => 'geo_address',
+        'pcode' => 'geo_pcode',
+        'city' => 'geo_city',
+        'country' => 'geo_country',
+        'latitude' => 'geo_latitude',
+        'longitude' => 'geo_longitude',
+    ];
+
+    /**
      * v8 ability => v10 permission actions; the permission is "{action}_{entity_key}".
      */
     public const PERMISSION_ACTIONS = [
@@ -324,6 +337,17 @@ final class V8Map
             'position' => $entity->menu_position ?? null,
         ];
 
+        // v8 always offered these in the admin (a show page, edit, delete and a trash bin);
+        // in v10 they are settings that default to off. A v10 form only lists, views and deletes.
+        $isForm = ($entity->group_key ?? null) === 'form';
+        $attributes += [
+            'show_view_action' => 1,
+            'show_edit_action' => (int) ! $isForm,
+            'show_delete_action' => 1,
+            'show_restore_action' => (int) ! $isForm,
+            'filter_by_trashed' => (int) ! $isForm,
+        ];
+
         if ($columns !== null) {
             $hasFilters = (bool) ($panels->has_filters ?? false);
 
@@ -339,7 +363,7 @@ final class V8Map
                 'sort_secondary_field' => V8Source::isEmpty($columns->sort2_field) ? null : $columns->sort2_field,
                 'sort_secondary_order' => V8Source::isEmpty($columns->sort2_order) ? null : $columns->sort2_order,
                 'objrel_has_groups' => (int) $columns->has_groups,
-                'objrel_group_values' => V8Source::isEmpty($columns->group_values) ? null : $columns->group_values,
+                'objrel_group_values' => self::groupValues($columns->group_values),
                 'filter_by_group' => (int) ($hasFilters && $columns->has_groups),
                 'filter_by_status' => (int) ($hasFilters && $columns->has_status),
             ];
@@ -371,13 +395,13 @@ final class V8Map
                 'filter_by_tag' => (int) ($hasFilters && $o->has_tags),
                 'media_has_featured' => (int) $o->has_images,
                 'media_has_gallery' => (int) ($o->has_images && $o->max_images > 1),
-                'media_max_gallery' => $o->has_images && $o->max_images > 1 ? (int) $o->max_images : null,
+                'media_max_gallery' => $o->has_images && $o->max_images > 1 ? (int) $o->max_images : 0,
                 'media_has_videos' => (int) $o->has_videos,
-                'media_max_videos' => $o->has_videos ? (int) $o->max_videos : null,
+                'media_max_videos' => $o->has_videos ? (int) $o->max_videos : 0,
                 'media_has_videofiles' => (int) $o->has_videofiles,
-                'media_max_videofiles' => $o->has_videofiles ? (int) $o->max_videofiles : null,
+                'media_max_videofiles' => $o->has_videofiles ? (int) $o->max_videofiles : 0,
                 'media_has_files' => (int) $o->has_files,
-                'media_max_files' => $o->has_files ? (int) $o->max_files : null,
+                'media_max_files' => $o->has_files ? (int) $o->max_files : 0,
                 'media_disk_images' => self::DISKS[$o->disk_images] ?? null,
                 'media_disk_videos' => self::DISKS[$o->disk_videos] ?? null,
                 'media_disk_files' => self::DISKS[$o->disk_files] ?? null,
@@ -385,6 +409,69 @@ final class V8Map
         }
 
         return $attributes;
+    }
+
+    /**
+     * v8 group values are a JSON list or a comma separated string; v10 keeps a list.
+     *
+     * @return list<string>|null
+     */
+    public static function groupValues(?string $v8Values): ?array
+    {
+        if (V8Source::isEmpty($v8Values)) {
+            return null;
+        }
+
+        $decoded = json_decode($v8Values, true);
+        $values = is_array($decoded) ? $decoded : explode(',', $v8Values);
+        $values = array_values(array_filter(array_map(fn ($value): string => trim((string) $value), $values), fn (string $value): bool => $value !== ''));
+
+        return $values === [] ? null : $values;
+    }
+
+    /**
+     * The v8 fields of a content type that v10 keeps inside its geolocation field:
+     * all GEO_FIELDS, but only when the content type has a geolocation field.
+     *
+     * @param  iterable<object>  $v8Fields  lara_ent_entity_custom_columns rows of one content type
+     * @return list<string>
+     */
+    public static function geolocationParts(iterable $v8Fields): array
+    {
+        $fields = collect($v8Fields);
+
+        if (! $fields->contains(fn (object $field): bool => $field->fieldtype === 'geolocation')) {
+            return [];
+        }
+
+        return $fields->pluck('fieldname')->intersect(array_keys(self::GEO_FIELDS))->unique()->values()->all();
+    }
+
+    /**
+     * The v10 lara_resource_entity_views attributes of a v8 view (lara_ent_entity_views row),
+     * without entity_id. v8 index views keep their list type; show and form views are single.
+     *
+     * @return array<string, mixed>
+     */
+    public static function view(object $v8View, string $entityTitle): array
+    {
+        $isIndex = $v8View->method === 'index';
+
+        return [
+            'title' => $v8View->title ?: $entityTitle.' '.ucfirst($v8View->method),
+            'method' => $v8View->method,
+            'filename' => $v8View->filename,
+            'template' => null,
+            'template_extra_fields' => 0,
+            'is_single' => (int) ! $isIndex,
+            'list_type' => $isIndex ? $v8View->type : ($v8View->method === 'form' ? null : '_single'),
+            'image_required' => 0,
+            'showtags' => V8Source::isEmpty($v8View->showtags) || $v8View->showtags === 'none' ? null : $v8View->showtags,
+            'paginate' => $v8View->paginate ? (int) $v8View->paginate : null,
+            'infinite' => (int) $v8View->infinite,
+            'prevnext' => (int) $v8View->prevnext,
+            'publish' => (int) $v8View->publish,
+        ];
     }
 
     /**

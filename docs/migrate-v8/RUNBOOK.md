@@ -78,6 +78,32 @@ php artisan lara:v8:inventory --markdown   # save as docs/migrate-v8/sites/{site
 
 It lists the content types (rows per language, trashed, fields, relations), the system screens, custom field types, hooks and states, relations, object relations and media settings, front views, media rows, media files on disk and other data. It ends with the **findings**: v8 values without a v10 mapping, mappings that change behaviour, and inconsistent v8 data. Compare the findings with the previous sites: a new kind of finding probably needs a new mapping in `V8Map` or a fix in the import.
 
+### 4. Essential base
+
+```bash
+php artisan lara:v8:prepare-target    # asks for confirmation; --force to skip
+```
+
+Removes the demo content types from `laracms/app` (`Models`, `Entities`, `Policies`, `Filament/Resources`, `Http/Controllers/Front/{Entity,Form}`, `Database/{Factories,Migrations,Seeders}`), runs `composer dump-autoload`, then `migrate:fresh` on the core migrations, `DatabaseCommonSeeder` and `optimize:clear`. Legacy, providers, routes, config, custom blocks and the other front controllers stay. It is also the way to start over: it removes generated site code as well.
+
+After this the full v10 test suite (`composer test`) no longer applies to the site (it targets the demo entities); run `php artisan test --compact tests/Unit/LaraV8 tests/Feature/LaraV8`.
+
+**Never commit** the changes in `laracms/app` (removed demo code, generated site code) to the `v8-migration` branch; they belong to the site, not to the migration tooling.
+
+### 5. Content types
+
+```bash
+php artisan lara:v8:import-entities --dry-run   # plan
+php artisan lara:v8:import-entities             # build; -v shows every step
+php artisan lara:v8:import-entities --update    # apply differences to existing ones
+```
+
+Builds every **site** content type through the admin builder (`HasLaraBuilder`): code, table, custom fields, front views and relations (`HasRelations`, which adds the `belongsTo` side and the foreign key). The v8 title is kept (`createEntity` would rename it after the model). Rerunnable: what exists and matches is reported as `same`; a second run must give only `same`, `info`, `warning` and `todo`. Core content types are not touched.
+
+The `todo` lines are work for a developer, because the builder cannot do it:
+- **Relation methods** in the generated models, e.g. `Location::events()` (hasMany) and `Event::location()` (belongsTo).
+- **Form front controllers**: the router serves a form through `laracms/app/Http/Controllers/Front/Form/{Name}sController.php` (extends `AppFormController`, with `make()`); the builder does not generate it.
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
@@ -111,11 +137,14 @@ It lists the content types (rows per language, trashed, fields, relations), the 
 - `herd link` runs Laravel Boost, which regenerates `CLAUDE.md`, `AGENTS.md` and `.claude/skills`. Revert with `git checkout -- CLAUDE.md AGENTS.md .claude`.
 - `/config/lara-*` is git-ignored in the project, so site-wide migration settings live in `config/v8-migration.php`.
 - `composer test` needs the front assets (Vite manifests) and a `tests/Unit` folder.
+- The project autoloader is optimized (class map): after removing classes run `composer dump-autoload`, or `class_exists()` includes a missing file and throws.
+- A bare essential install (10.7.15) has a front 500 (`getDefaultSeo()` on a missing home page: the essential seed has only an English home page while `nl` is the default) and a 500 on the Pages list (`ListPages::syncPagesWithMenu()` with a menu item whose page is missing). Both disappear once the v8 pages and menus are imported.
 
 ## Sites
 
 ### anpak.eu (first site, 2026-11)
 
 - Target `anpak1077`, theme `anpak`; plan with all details and decisions: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`.
+- Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; todos: `Location::events()`, `Event::location()`, front controllers for contactform, classicform, application.
 - Inventory: `sites/anpak-inventory.md`. 19 content types (4 core). With `V8Map`, 4 findings remain: `yesno` becomes a toggle (classicform), 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition. One page has a `lead`, which v10 pages do not have (decide in the content import). The v8 role `editor` has no v10 counterpart and no users.
 - The fresh demo install failed on 10.7.13 (an orphan `cities` migration, migrations behind the schema); fixed in 10.7.14. The test config was fixed in 10.7.15.
