@@ -91,6 +91,30 @@ class DemoLaraContentServicesTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
+            3 =>
+            array (
+                'id' => 4,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Lorem ipsum',
+                'slug' => 'lorem-ipsum',
+                'slug_lock' => 0,
+                'lead' => '<p></p>',
+                'body' => '<p></p>',
+                'created_at' => '2026-10-11 11:55:08',
+                'updated_at' => '2026-10-20 13:21:21',
+                'deleted_at' => NULL,
+                'publish' => 1,
+                'publish_from' => '2026-10-11 11:54:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'position' => 0,
+                'cgroup' => NULL,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
         ));
 
 

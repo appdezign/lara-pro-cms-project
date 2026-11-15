@@ -14915,6 +14915,54 @@ class DemoLaraSysTranslationsTableSeeder extends Seeder
                 'created_at' => '2026-09-18 18:36:16',
                 'updated_at' => '2026-09-18 18:36:16',
             ),
+            241 =>
+            array (
+                'id' => 2805,
+                'language' => 'en',
+                'module' => 'lara-admin',
+                'resource' => 'widgets',
+                'tag' => 'tablecolumn',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-10-02 17:37:53',
+                'updated_at' => '2026-10-02 17:37:53',
+            ),
+            242 =>
+            array (
+                'id' => 2806,
+                'language' => 'nl',
+                'module' => 'lara-admin',
+                'resource' => 'widgets',
+                'tag' => 'tablecolumn',
+                'key' => 'title',
+                'value' => '_title',
+                'created_at' => '2026-10-02 17:37:53',
+                'updated_at' => '2026-10-02 17:37:53',
+            ),
+            243 =>
+            array (
+                'id' => 2807,
+                'language' => 'en',
+                'module' => 'lara-app',
+                'resource' => 'sliders',
+                'tag' => 'column',
+                'key' => 'caption',
+                'value' => '_caption',
+                'created_at' => '2026-10-02 17:37:58',
+                'updated_at' => '2026-10-02 17:37:58',
+            ),
+            244 =>
+            array (
+                'id' => 2808,
+                'language' => 'nl',
+                'module' => 'lara-app',
+                'resource' => 'sliders',
+                'tag' => 'column',
+                'key' => 'caption',
+                'value' => '_caption',
+                'created_at' => '2026-10-02 17:37:58',
+                'updated_at' => '2026-10-02 17:37:58',
+            ),
         ));
 
 

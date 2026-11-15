@@ -22,7 +22,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 22,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'This Long-Awaited Technology May Finally Change the World',
@@ -34,7 +34,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 15:21:18',
-                'updated_at' => '2026-07-17 09:47:27',
+                'updated_at' => '2026-10-14 17:42:47',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-09 12:00:00',
@@ -49,7 +49,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 23,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'What the Software Stock Slump Means for the Market',
@@ -76,7 +76,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 24,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'Mobile App Generates Data for the Energy Management',
@@ -103,7 +103,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             3 =>
             array (
                 'id' => 25,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'How the Millennial Lifestyle Changes as Service Prices Rise',
@@ -130,7 +130,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             4 =>
             array (
                 'id' => 26,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'Why UX Design Matters and How it Affects Ranking',
@@ -157,7 +157,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             5 =>
             array (
                 'id' => 27,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'This Week in Search: New Limits and Exciting Features',
@@ -184,7 +184,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             6 =>
             array (
                 'id' => 28,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'This Long-Awaited Technology May Finally Change the World',
@@ -211,7 +211,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             7 =>
             array (
                 'id' => 29,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'Inclusive Marketing: Why and How Does it Work?',
@@ -238,7 +238,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             8 =>
             array (
                 'id' => 30,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'How Agile is Your Forecasting Process?',
@@ -265,19 +265,19 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             9 =>
             array (
                 'id' => 31,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'nl',
                 'language_parent' => NULL,
                 'title' => 'Five Effective Landing Page Examples',
                 'slug' => 'five-effective-landing-page-examples',
                 'slug_lock' => 0,
                 'lead' => '<p>Tellus sagittis dolor pellentesque vel porttitor magna aliquet arcu. Interdum risus mauris pulvinar et vel. Morbi tellus, scelerisque vel metus. Scelerisque arcu egestas ac commodo, ac nibh. Pretium ac elit sed nulla nec.</p>',
-                'body' => '<p>Phasellus dapibus enim leo landing page, sed lobortis est feugiat quis. Donec aliquet arcu mi, eget consectetur ex egestas vel. In vitae efficitur felis, sit amet egestas metus. Curabitur eget ipsum est. Nulla sem metus, rhoncus id ornare in, pellentesque vel felis. Aliquam placerat, odio et luctus lacinia, metus tellus scelerisque velit, quis tristique massa lacus et dolor. Aliquam sed elit vitae velit pharetra rutrum. Duis porta sapien purus, nec porta nisi dignissim at. Donec at urna et mauris porta venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;</p><p>Ut pretium, urna sit amet ultricies pulvinar, landing page, nisl lorem tincidunt lorem, non gravida neque odio sit amet urna. Aenean maximus egestas sapien quis mollis. Integer volutpat sem nec ex mollis, in posuere quam ultrices. Sed suscipit, quam at blandit laoreet, dui nisi ultricies nunc, suscipit malesuada felis tellus ut arcu. Donec non rhoncus lectus. Phasellus eu mauris leo. Quisque ac nisl feugiat, scelerisque augue id, condimentum nulla.</p><p>Suspendisse faucibus libero sit amet mi viverra, landing page, eu venenatis purus finibus. Mauris vehicula molestie purus ac vehicula. Ut pharetra posuere eros non malesuada. Curabitur tincidunt eu ex id volutpat. Etiam fringilla risus quis euismod luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse et nisi leo. Proin dictum nulla vel massa faucibus, quis euismod augue dapibus. Donec dapibus metus vel leo fringilla, at egestas velit sagittis. Vestibulum varius purus magna, vel porttitor leo porta eu. Vestibulum bibendum eleifend ultrices. Sed euismod porta nunc, sed pellentesque massa molestie eget. Suspendisse nec justo et risus aliquet rutrum id sed arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>',
+                'body' => '<p>Phasellus dapibus enim leo landing page, sed lobortis est feugiat quis. Donec aliquet arcu mi, eget consectetur ex egestas vel. In vitae efficitur felis, sit amet egestas metus. Curabitur eget ipsum est. Nulla sem metus, rhoncus id ornare in, pellentesque vel felis. Aliquam placerat, odio et luctus lacinia, metus tellus scelerisque velit, quis tristique massa lacus et dolor. Aliquam sed elit vitae velit pharetra rutrum. Duis porta sapien purus, nec porta nisi dignissim at. Donec at urna et mauris porta venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;</p><p>Ut pretium, urna sit amet ultricies pulvinar, landing page, nisl lorem tincidunt lorem, non gravida neque odio sit amet urna. Aenean maximus egestas sapien quis mollis. Integer volutpat sem nec ex mollis, in posuere quam ultrices. Sed suscipit, quam at blandit laoreet, dui nisi ultricies nunc, suscipit malesuada felis tellus ut arcu. Donec non rhoncus lectus. Phasellus eu mauris leo. Quisque ac nisl feugiat, scelerisque augue id, condimentum nulla.</p><p>Suspendisse faucibus libero sit amet mi viverra, landing page, eu venenatis purus finibus. Mauris vehicula molestie purus ac vehicula. Ut pharetra posuere eros non malesuada. Curabitur tincidunt eu ex id volutpat. Etiam fringilla risus quis euismod luctus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse et nisi leo. Proin dictum nulla vel massa faucibus, quis euismod augue dapibus. Donec dapibus metus vel leo fringilla, at egestas velit sagittis. Vestibulum varius purus magna, vel porttitor leo porta eu. Vestibulum bibendum eleifend ultrices. Sed euismod porta nunc, sed pellentesque massa molestie eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>',
                 'body2' => NULL,
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2025-06-01 18:30:14',
-                'updated_at' => '2026-09-19 15:53:01',
+                'updated_at' => '2026-10-10 12:41:41',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2025-05-12 12:00:00',
@@ -292,7 +292,7 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
             10 =>
             array (
                 'id' => 32,
-                'user_id' => 1,
+                'user_id' => 3,
                 'language' => 'en',
                 'language_parent' => NULL,
                 'title' => '[en] This Long-Awaited Technology May Finally Change the World',
@@ -331,10 +331,64 @@ class DemoLaraContentBlogsTableSeeder extends Seeder
                 'sticky' => 0,
                 'source' => NULL,
                 'created_at' => '2026-07-30 15:12:15',
-                'updated_at' => '2026-09-19 14:52:30',
+                'updated_at' => '2026-10-14 13:58:23',
                 'deleted_at' => NULL,
                 'publish' => 1,
                 'publish_from' => '2026-07-30 15:11:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'cgroup' => NULL,
+                'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            12 =>
+            array (
+                'id' => 39,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Unpublished test',
+                'slug' => 'unpublished-test',
+                'slug_lock' => 0,
+                'lead' => '<p></p>',
+                'body' => '<p></p>',
+                'body2' => NULL,
+                'sticky' => 0,
+                'source' => NULL,
+                'created_at' => '2026-10-11 11:48:41',
+                'updated_at' => '2026-10-11 15:33:04',
+                'deleted_at' => '2026-10-11 15:33:04',
+                'publish' => 0,
+                'publish_from' => '2026-10-11 11:47:00',
+                'publish_expire' => 0,
+                'publish_to' => NULL,
+                'publish_hide' => 0,
+                'cgroup' => NULL,
+                'position' => 0,
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
+            13 =>
+            array (
+                'id' => 40,
+                'user_id' => 3,
+                'language' => 'nl',
+                'language_parent' => NULL,
+                'title' => 'Image test',
+                'slug' => 'image-test',
+                'slug_lock' => 0,
+                'lead' => '<p></p>',
+                'body' => '<p></p>',
+                'body2' => NULL,
+                'sticky' => 0,
+                'source' => NULL,
+                'created_at' => '2026-10-13 12:11:02',
+                'updated_at' => '2026-10-18 13:35:27',
+                'deleted_at' => NULL,
+                'publish' => 1,
+                'publish_from' => '2026-10-13 12:10:00',
                 'publish_expire' => 0,
                 'publish_to' => NULL,
                 'publish_hide' => 0,

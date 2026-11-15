@@ -297,18 +297,6 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
             ),
             23 =>
             array (
-                'id' => 29,
-                'entity_type' => 'Lara\\App\\Models\\City',
-                'entity_id' => 1,
-                'remote_url' => NULL,
-                'remote_suffix' => '/nl/api/',
-                'remote_resource' => 'cities',
-                'remote_slug' => 'my-first-city',
-                'created_at' => '2025-10-21 13:11:46',
-                'updated_at' => '2025-10-21 13:11:55',
-            ),
-            24 =>
-            array (
                 'id' => 30,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
                 'entity_id' => 26,
@@ -319,7 +307,7 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'created_at' => '2026-01-08 12:47:37',
                 'updated_at' => '2026-01-08 12:47:37',
             ),
-            25 =>
+            24 =>
             array (
                 'id' => 31,
                 'entity_type' => 'Lara\\Common\\Models\\Page',
@@ -330,6 +318,42 @@ class DemoLaraObjectSyncTableSeeder extends Seeder
                 'remote_slug' => 'classicforms-form-module-nl',
                 'created_at' => '2026-03-19 17:36:03',
                 'updated_at' => '2026-03-19 17:36:15',
+            ),
+            25 =>
+            array (
+                'id' => 32,
+                'entity_type' => 'Lara\\Common\\Models\\Page',
+                'entity_id' => 55,
+                'remote_url' => NULL,
+                'remote_suffix' => '/nl/api/',
+                'remote_resource' => 'pages',
+                'remote_slug' => 'publish-test',
+                'created_at' => '2026-10-11 13:34:09',
+                'updated_at' => '2026-10-11 13:34:11',
+            ),
+            26 =>
+            array (
+                'id' => 33,
+                'entity_type' => 'Lara\\Common\\Models\\Page',
+                'entity_id' => 56,
+                'remote_url' => NULL,
+                'remote_suffix' => '/nl/api/',
+                'remote_resource' => 'pages',
+                'remote_slug' => 'lorem-ipsum-dolor',
+                'created_at' => '2026-10-11 15:48:06',
+                'updated_at' => '2026-10-11 15:48:09',
+            ),
+            27 =>
+            array (
+                'id' => 34,
+                'entity_type' => 'Lara\\Common\\Models\\Page',
+                'entity_id' => 57,
+                'remote_url' => NULL,
+                'remote_suffix' => NULL,
+                'remote_resource' => NULL,
+                'remote_slug' => NULL,
+                'created_at' => '2026-10-11 15:56:51',
+                'updated_at' => '2026-10-11 15:56:51',
             ),
         ));
 

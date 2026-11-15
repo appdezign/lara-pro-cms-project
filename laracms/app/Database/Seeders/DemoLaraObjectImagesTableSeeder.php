@@ -193,7 +193,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 1,
                 'type' => 'featured',
                 'created_at' => '2025-12-24 10:59:39',
-                'updated_at' => '2026-09-08 13:08:30',
+                'updated_at' => '2026-10-09 11:47:34',
             ),
             16 =>
             array (
@@ -908,7 +908,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 1,
                 'type' => 'gallery',
                 'created_at' => '2026-09-16 10:37:50',
-                'updated_at' => '2026-09-17 08:23:47',
+                'updated_at' => '2026-10-11 15:47:22',
             ),
             81 =>
             array (
@@ -919,7 +919,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 2,
                 'type' => 'gallery',
                 'created_at' => '2026-09-16 10:37:50',
-                'updated_at' => '2026-09-17 08:23:47',
+                'updated_at' => '2026-10-11 15:47:22',
             ),
             82 =>
             array (
@@ -930,7 +930,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 3,
                 'type' => 'gallery',
                 'created_at' => '2026-09-16 10:37:50',
-                'updated_at' => '2026-09-17 08:23:47',
+                'updated_at' => '2026-10-11 15:47:22',
             ),
             83 =>
             array (
@@ -941,7 +941,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 4,
                 'type' => 'gallery',
                 'created_at' => '2026-09-16 10:37:50',
-                'updated_at' => '2026-09-17 08:23:47',
+                'updated_at' => '2026-10-11 15:47:22',
             ),
             84 =>
             array (
@@ -952,7 +952,7 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 1,
                 'type' => 'featured',
                 'created_at' => '2026-09-16 11:40:32',
-                'updated_at' => '2026-09-17 08:23:47',
+                'updated_at' => '2026-10-11 15:47:22',
             ),
             85 =>
             array (
@@ -963,7 +963,128 @@ class DemoLaraObjectImagesTableSeeder extends Seeder
                 'order' => 5,
                 'type' => 'gallery',
                 'created_at' => '2026-09-16 11:41:04',
-                'updated_at' => '2026-09-17 08:23:47',
+                'updated_at' => '2026-10-11 15:47:22',
+            ),
+            86 =>
+            array (
+                'id' => 152,
+                'mediable_type' => 'Lara\\Common\\Models\\Slider',
+                'mediable_id' => 8,
+                'media_id' => 88,
+                'order' => 1,
+                'type' => 'featured',
+                'created_at' => '2026-10-09 12:50:49',
+                'updated_at' => '2026-10-09 12:54:44',
+            ),
+            87 =>
+            array (
+                'id' => 153,
+                'mediable_type' => 'Lara\\Common\\Models\\Page',
+                'mediable_id' => 55,
+                'media_id' => 124,
+                'order' => 1,
+                'type' => 'featured',
+                'created_at' => '2026-10-11 13:34:09',
+                'updated_at' => '2026-10-11 13:55:27',
+            ),
+            88 =>
+            array (
+                'id' => 154,
+                'mediable_type' => 'Lara\\Common\\Models\\Page',
+                'mediable_id' => 56,
+                'media_id' => 124,
+                'order' => 1,
+                'type' => 'featured',
+                'created_at' => '2026-10-11 15:48:37',
+                'updated_at' => '2026-10-11 15:48:46',
+            ),
+            89 =>
+            array (
+                'id' => 155,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 66,
+                'order' => 1,
+                'type' => 'featured',
+                'created_at' => '2026-10-14 14:00:00',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            90 =>
+            array (
+                'id' => 156,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 65,
+                'order' => 1,
+                'type' => 'thumb',
+                'created_at' => '2026-10-18 13:35:05',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            91 =>
+            array (
+                'id' => 157,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 65,
+                'order' => 1,
+                'type' => 'gallery',
+                'created_at' => '2026-10-18 13:35:19',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            92 =>
+            array (
+                'id' => 158,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 56,
+                'order' => 2,
+                'type' => 'gallery',
+                'created_at' => '2026-10-18 13:35:19',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            93 =>
+            array (
+                'id' => 159,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 57,
+                'order' => 3,
+                'type' => 'gallery',
+                'created_at' => '2026-10-18 13:35:19',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            94 =>
+            array (
+                'id' => 160,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 58,
+                'order' => 4,
+                'type' => 'gallery',
+                'created_at' => '2026-10-18 13:35:19',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            95 =>
+            array (
+                'id' => 161,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 59,
+                'order' => 5,
+                'type' => 'gallery',
+                'created_at' => '2026-10-18 13:35:19',
+                'updated_at' => '2026-10-18 13:35:25',
+            ),
+            96 =>
+            array (
+                'id' => 162,
+                'mediable_type' => 'Lara\\App\\Models\\Blog',
+                'mediable_id' => 40,
+                'media_id' => 60,
+                'order' => 6,
+                'type' => 'gallery',
+                'created_at' => '2026-10-18 13:35:19',
+                'updated_at' => '2026-10-18 13:35:25',
             ),
         ));
 

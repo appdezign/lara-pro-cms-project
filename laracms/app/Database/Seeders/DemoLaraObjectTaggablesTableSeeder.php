@@ -509,6 +509,20 @@ class DemoLaraObjectTaggablesTableSeeder extends Seeder
                 'entity_type' => 'Lara\\App\\Models\\Blog',
                 'entity_id' => 38,
             ),
+            70 =>
+            array (
+                'id' => 318,
+                'tag_id' => 2073,
+                'entity_type' => 'Lara\\Common\\Models\\Slider',
+                'entity_id' => 8,
+            ),
+            71 =>
+            array (
+                'id' => 319,
+                'tag_id' => 2123,
+                'entity_type' => 'Lara\\App\\Models\\Service',
+                'entity_id' => 4,
+            ),
         ));
 
 

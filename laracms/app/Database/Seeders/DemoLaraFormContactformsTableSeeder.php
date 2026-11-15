@@ -89,6 +89,20 @@ class DemoLaraFormContactformsTableSeeder extends Seeder
                 'locked_at' => NULL,
                 'locked_by' => NULL,
             ),
+            5 =>
+            array (
+                'id' => 30,
+                'comment' => 'test',
+                'telephone' => '0651392621',
+                'email' => 's.hoeksma@firmaq.nl',
+                'name' => 'Sybrand Hoeksma',
+                'created_at' => '2026-10-11 10:56:33',
+                'updated_at' => '2026-10-11 10:56:33',
+                'deleted_at' => NULL,
+                'ipaddress' => '127.0.0.1',
+                'locked_at' => NULL,
+                'locked_by' => NULL,
+            ),
         ));
 
 
