@@ -177,6 +177,9 @@ class ContentImporter
                 $row['slug'] = V8Map::modulePageSlug($row['slug'], $contentKeys);
             }
 
+            // the site's deliberate differences from v8 (v8-overrides.php)
+            $row = SiteOverrides::apply($v10Table, $row);
+
             $id = (int) $row['id'];
             $v8Ids[] = $id;
             $current = $existing[$id] ?? null;

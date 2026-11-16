@@ -7,6 +7,7 @@ use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\MediaImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\ObjectImporter;
+use App\Console\Commands\LaraV8\Support\SiteOverrides;
 use App\Console\Commands\LaraV8\Support\SystemImporter;
 use App\Console\Commands\LaraV8\Support\UrlRewriter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
@@ -90,6 +91,9 @@ class FixtureImportTest extends TestCase
 
     private static ?string $diskPath = null;
 
+    /** A per-test overrides file (absent unless a test writes it). */
+    private static ?string $overridesPath = null;
+
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $mediaReport = [];
 
@@ -127,6 +131,11 @@ class FixtureImportTest extends TestCase
         config(['v8-migration.media_path' => self::$mediaPath, 'filesystems.disks.public.root' => self::$diskPath, 'v8-migration.site_hosts' => ['fixture.test']]);
         Storage::forgetDisk('public');
 
+        // the site's own overrides (v8-overrides.php) never apply to the fixture
+        self::$overridesPath ??= sys_get_temp_dir().'/lara-v8-overrides-'.uniqid().'.php';
+        config(['v8-migration.overrides' => self::$overridesPath]);
+        SiteOverrides::flush();
+
         if (! self::$built) {
             self::$built = true;
             $this->build();
@@ -141,7 +150,7 @@ class FixtureImportTest extends TestCase
             exec('rm -rf '.escapeshellarg(self::$langPath));
         }
 
-        foreach ([self::$mediaPath, self::$diskPath] as $path) {
+        foreach ([self::$mediaPath, self::$diskPath, self::$overridesPath] as $path) {
             if ($path !== null) {
                 exec('rm -rf '.escapeshellarg($path));
             }
@@ -795,5 +804,45 @@ class FixtureImportTest extends TestCase
 
         // restored: verify is clean again
         $this->assertSame([], collect((new Verifier(new V8Source))->run(['counts', 'media']))->where('level', 'error')->all());
+    }
+
+    public function test_a_site_override_is_kept_by_the_import_and_checked_by_verify(): void
+    {
+        File::put(self::$overridesPath, "<?php\n\nreturn [\n    ['table' => 'lara_content_v8fxbooks', 'where' => ['id' => 1], 'set' => ['title' => 'Changed for the site'], 'reason' => 'test'],\n    ['table' => 'lara_content_v8fxbooks', 'where' => ['id' => 999], 'set' => ['title' => 'x'], 'reason' => 'stale'],\n];\n");
+        SiteOverrides::flush();
+
+        try {
+            $first = (new ContentImporter(new V8Source))->run(['v8fxbook']);
+            $second = (new ContentImporter(new V8Source))->run(['v8fxbook'], true);
+            $title = DB::table('lara_content_v8fxbooks')->where('id', 1)->value('title');
+            $report = collect((new Verifier(new V8Source))->run(['sync']));
+        } finally {
+            File::delete(self::$overridesPath);
+            SiteOverrides::flush();
+            (new ContentImporter(new V8Source))->run(['v8fxbook']);
+        }
+
+        $this->assertSame('Changed for the site', $title);
+        $this->assertTrue(collect($first)->contains(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'update'));
+        $this->assertTrue(collect($second)->contains(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'same'), 'A rerun keeps the override.');
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['entity'] === 'sync: content' && $line['level'] === 'ok'), 'The override counts as in sync.');
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['entity'] === 'overrides' && $line['level'] === 'ok' && str_starts_with($line['message'], '1 of 2')));
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['entity'] === 'overrides' && $line['level'] === 'warning' && str_contains($line['message'], 'no such row')), 'A stale override is reported.');
+        $this->assertNotSame('Changed for the site', DB::table('lara_content_v8fxbooks')->where('id', 1)->value('title'), 'Without the override the v8 title is back.');
+    }
+
+    public function test_the_sync_dry_run_runs_every_step_and_changes_nothing(): void
+    {
+        $before = DB::table('lara_content_v8fxbooks')->orderBy('id')->get()->toJson();
+
+        $exit = Artisan::call('lara:v8:sync', ['--dry-run' => true]);
+        $output = Artisan::output();
+
+        $this->assertSame(0, $exit, $output);
+        foreach (['import-entities', 'import-users', 'import-content', 'import-objects', 'import-menus', 'import-settings', 'import-media', 'rewrite-urls', 'verify'] as $step) {
+            $this->assertStringContainsString("▶ lara:v8:{$step}", $output);
+        }
+        $this->assertStringContainsString('Dry run finished: nothing changed.', $output);
+        $this->assertSame($before, DB::table('lara_content_v8fxbooks')->orderBy('id')->get()->toJson());
     }
 }

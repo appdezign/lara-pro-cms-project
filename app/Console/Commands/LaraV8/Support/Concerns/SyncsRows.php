@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\LaraV8\Support\Concerns;
 
+use App\Console\Commands\LaraV8\Support\SiteOverrides;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -37,14 +38,15 @@ trait SyncsRows
             [$table, 'NO'],
         ))->pluck('value', 'name')->all();
 
-        $rows = $rows->map(function (array $row) use ($defaults): array {
+        $rows = $rows->map(function (array $row) use ($defaults, $table): array {
             foreach ($row as $column => $value) {
                 if ($value === null && array_key_exists($column, $defaults)) {
                     $row[$column] = $defaults[$column];
                 }
             }
 
-            return $row;
+            // the site's deliberate differences from v8 (v8-overrides.php)
+            return SiteOverrides::apply($table, $row);
         });
         $counts = ['create' => 0, 'update' => 0, 'same' => 0];
         $wanted = [];

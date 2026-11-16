@@ -263,6 +263,39 @@ Changes nothing. Exits with an error code when a check finds an error.
 
 Run it after the import and again after the final sync. Every warning should be one you can explain (a site override, a content issue to fix in v10).
 
+### 16. Site overrides
+
+Content you change in v10 before go-live is overwritten by the next import, unless it is a site override. Record every deliberate difference from the v8 data in `v8-overrides.php` in the project root (copy `v8-overrides.example.php`; another path: `LARA_V8_OVERRIDES`):
+
+```php
+return [
+    ['table' => 'lara_blocks_widgets', 'where' => ['id' => 591], 'set' => ['hook' => 'home2'], 'reason' => 'ATEX second on the home'],
+    ['table' => 'lara_sys_languages', 'where' => ['code' => 'en'], 'set' => ['publish' => 0], 'reason' => 'English not in use'],
+];
+```
+
+Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRows` and the content import), so a rerun keeps them and `verify` counts them as in sync. `verify` also reports an override whose row no longer exists, or whose values are not in v10 yet. The file is site data: it belongs in the site repository, not on the migration branch.
+
+### 17. Final sync
+
+1. Announce a content freeze on the v8 site (no edits until go-live).
+2. Fresh copy of production, into the same database and media path:
+   ```bash
+   mysql -h127.0.0.1 -uroot -e "DROP DATABASE v8_{site}; CREATE DATABASE v8_{site} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+   mysql -h127.0.0.1 -uroot v8_{site} < {fresh-production-dump}.sql
+   rsync -av --delete {user}@{v8-host}:{v8-root}/public/assets/media/ {LARA_V8_MEDIA_PATH}/
+   ```
+   The read-only grant survives the drop (`GRANT` is per database name).
+3. Dry run, then the sync:
+   ```bash
+   php artisan lara:v8:sync --dry-run
+   php artisan lara:v8:sync
+   ```
+
+`lara:v8:sync` shows the v8 database and its latest change (check that it is the fresh dump), the number of site overrides, then runs in order: `import-entities`, `import-users`, `import-content --fresh`, `import-objects --fresh`, `import-menus --fresh` (route names and route cache), `import-settings --fresh`, `import-media --fresh`, `rewrite-urls` and `verify`. It exits with an error code when a step does. In production it asks first (`--force` skips that).
+
+Not included on purpose: `import-entities --update` (regenerates code: run it by hand when the sync reports an entity difference) and `import-users --prune` (would remove users created in v10).
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).

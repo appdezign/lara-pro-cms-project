@@ -146,6 +146,56 @@ class Verifier
                 $this->add($line['level'] === 'error' ? 'error' : 'warning', "sync: {$step}", "{$line['entity']}: {$line['message']}");
             }
         }
+
+        $this->overrides();
+    }
+
+    /**
+     * Every site override (v8-overrides.php) matches a v10 row that has its values.
+     */
+    private function overrides(): void
+    {
+        $overrides = SiteOverrides::all();
+
+        if ($overrides === []) {
+            $this->add('ok', 'overrides', 'No site overrides ('.SiteOverrides::file().').');
+
+            return;
+        }
+
+        $applied = 0;
+
+        foreach ($overrides as $override) {
+            $label = "{$override['table']} ".json_encode($override['where'] ?? []);
+
+            try {
+                $row = DB::table($override['table'])->where($override['where'] ?? [])->first();
+            } catch (Throwable $e) {
+                $this->add('warning', 'overrides', "{$label}: cannot be checked: ".$e->getMessage());
+
+                continue;
+            }
+
+            if ($row === null || ($override['where'] ?? []) === []) {
+                $this->add('warning', 'overrides', "{$label}: no such row in v10; remove the override or fix its `where`.");
+
+                continue;
+            }
+
+            $differs = array_filter($override['set'] ?? [], fn ($value, string $column): bool => (string) ($row->{$column} ?? '') !== (string) $value, ARRAY_FILTER_USE_BOTH);
+
+            if ($differs !== []) {
+                $this->add('warning', 'overrides', "{$label}: v10 has ".json_encode(array_intersect_key((array) $row, $differs)).', the override sets '.json_encode($differs).'; run the import of that table.');
+
+                continue;
+            }
+
+            $applied++;
+        }
+
+        if ($applied > 0) {
+            $this->add('ok', 'overrides', "{$applied} of ".count($overrides).' site override(s) in place ('.SiteOverrides::file().').');
+        }
     }
 
     /**
