@@ -8,6 +8,7 @@ use App\Console\Commands\LaraV8\Support\MediaImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\ObjectImporter;
 use App\Console\Commands\LaraV8\Support\SystemImporter;
+use App\Console\Commands\LaraV8\Support\UrlRewriter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use Illuminate\Support\Facades\Artisan;
@@ -94,6 +95,12 @@ class FixtureImportTest extends TestCase
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $mediaRerun = [];
 
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $urlReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $urlRerun = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -116,7 +123,7 @@ class FixtureImportTest extends TestCase
         // media: read from a temporary v8 media path, written to a temporary public disk, never the site's storage
         self::$mediaPath ??= sys_get_temp_dir().'/lara-v8-media-'.uniqid();
         self::$diskPath ??= sys_get_temp_dir().'/lara-v8-disk-'.uniqid();
-        config(['v8-migration.media_path' => self::$mediaPath, 'filesystems.disks.public.root' => self::$diskPath]);
+        config(['v8-migration.media_path' => self::$mediaPath, 'filesystems.disks.public.root' => self::$diskPath, 'v8-migration.site_hosts' => ['fixture.test']]);
         Storage::forgetDisk('public');
 
         if (! self::$built) {
@@ -151,6 +158,17 @@ class FixtureImportTest extends TestCase
         DB::purge('lara_v8');
         DB::connection('lara_v8')->unprepared(File::get(base_path('tests/Fixtures/LaraV8/v8_fixture.sql')));
 
+        // the v8 media files of the fixture (the test media path is a temporary folder)
+        File::ensureDirectoryExists(self::$mediaPath.'/v8fxbook/_archive');
+        $jpeg = imagecreatetruecolor(40, 30);
+        imagejpeg($jpeg, self::$mediaPath.'/v8fxbook/cover.jpg');
+        $png = imagecreatetruecolor(20, 10);
+        imagepng($png, self::$mediaPath.'/v8fxbook/inside.png');
+        File::put(self::$mediaPath.'/v8fxbook/_archive/sample.pdf', '%PDF-1.4 fixture');
+        // an editor upload, only referenced in the HTML
+        File::ensureDirectoryExists(self::$mediaPath.'/images/shares');
+        File::put(self::$mediaPath.'/images/shares/Mijn logo.png', 'png');
+
         Artisan::call('migrate:fresh', ['--force' => true, '--path' => 'laracms/core/src/common/Database/Migrations']);
         Artisan::call('db:seed', ['--force' => true, '--class' => '\\Lara\\Common\\Database\\Seeders\\DatabaseCommonSeeder']);
 
@@ -183,16 +201,11 @@ class FixtureImportTest extends TestCase
         self::$systemRerun = (new SystemImporter(new V8Source))->run();
         app()->useLangPath($sitePath);
 
-        // the v8 media files of the fixture (the test media path is a temporary folder)
-        File::ensureDirectoryExists(self::$mediaPath.'/v8fxbook/_archive');
-        $jpeg = imagecreatetruecolor(40, 30);
-        imagejpeg($jpeg, self::$mediaPath.'/v8fxbook/cover.jpg');
-        $png = imagecreatetruecolor(20, 10);
-        imagepng($png, self::$mediaPath.'/v8fxbook/inside.png');
-        File::put(self::$mediaPath.'/v8fxbook/_archive/sample.pdf', '%PDF-1.4 fixture');
-
         self::$mediaReport = (new MediaImporter(new V8Source))->run(fresh: true);
         self::$mediaRerun = (new MediaImporter(new V8Source))->run();
+
+        self::$urlReport = (new UrlRewriter(new V8Source))->run();
+        self::$urlRerun = (new UrlRewriter(new V8Source))->run();
     }
 
     /**
@@ -717,5 +730,31 @@ class FixtureImportTest extends TestCase
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 media row(s) point to a file that is missing')));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Media of v8fxbook records that do not exist in v10')));
         $this->assertDirectoryDoesNotExist(storage_path('app/public/v8fxbooks'));
+    }
+
+    public function test_v8_media_urls_in_the_html_point_to_the_v10_storage(): void
+    {
+        $body = (string) DB::table('lara_content_v8fxbooks')->where('id', 2)->value('body');
+
+        $this->assertStringContainsString('src="/storage/v8fxbooks/cover.jpg"', $body, 'A content type file: where the media import put it.');
+        $this->assertStringContainsString('src="/storage/images/shares/Mijn%20logo.png"', $body, 'An editor upload: copied to the same path.');
+        $this->assertStringContainsString('href="/storage/v8fxbooks/inside.png"', $body, 'An absolute URL to the site itself.');
+        $this->assertStringContainsString('src="/assets/media/images/shares/nope.png"', $body, 'A missing file: left as it is.');
+        $this->assertStringContainsString('href="https://elders.test/assets/media/x.jpg"', $body, 'Another site: left as it is.');
+
+        Storage::disk('public')->assertExists('images/shares/Mijn logo.png');
+    }
+
+    public function test_the_url_rewrite_reports_problems_and_a_second_run_changes_nothing(): void
+    {
+        $warnings = collect(self::$urlReport)->where('level', 'warning')->pluck('message');
+
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Media URL /assets/media/images/shares/nope.png has no file')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Internal link /flyer/?page=1 does not reach a page')));
+        $this->assertFalse($warnings->contains(fn (string $m): bool => str_contains($m, '/robots.txt')), 'A file in public/ is reached.');
+        // the content import already rewrote the media URLs; rewrite-urls only finds the missing file
+        $this->assertTrue(collect(self::$urlReport)->contains(fn (array $line): bool => str_starts_with($line['message'], '0 v8 media URL(s) in 0 row(s) rewritten')));
+        $this->assertTrue(collect(self::$contentRerun)->doesntContain(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'update'), 'A content rerun keeps the rewritten URLs.');
+        $this->assertTrue(collect(self::$urlRerun)->contains(fn (array $line): bool => $line['level'] === 'same' && str_starts_with($line['message'], '0 v8 media URL(s)')));
     }
 }

@@ -20,4 +20,10 @@ return [
      */
     'media_path' => env('LARA_V8_MEDIA_PATH'),
 
+    /*
+     * The host names of the v8 site (comma separated in LARA_V8_SITE_HOSTS, e.g. "anpak.eu"),
+     * so absolute URLs to the site itself are treated as internal (www. is ignored).
+     */
+    'site_hosts' => array_values(array_filter(array_map('trim', explode(',', (string) env('LARA_V8_SITE_HOSTS', ''))))),
+
 ];

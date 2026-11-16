@@ -37,7 +37,12 @@ class ContentImporter
     /** @var list<array{level: string, entity: string, message: string}> */
     private array $report = [];
 
-    public function __construct(private readonly V8Source $source) {}
+    private readonly UrlRewriter $urls;
+
+    public function __construct(private readonly V8Source $source)
+    {
+        $this->urls = new UrlRewriter($source);
+    }
 
     /**
      * @param  list<string>  $only  v8 entity keys; empty for every content type
@@ -144,6 +149,11 @@ class ContentImporter
                     $value = null;
                 } elseif (V8Map::isCoreEntity($key)) {
                     $value = V8Map::coreValue($key, $v8Column, $value);
+                }
+
+                // v8 media URLs in the HTML become v10 storage URLs (the same rewrite as lara:v8:rewrite-urls)
+                if (is_string($value) && str_contains($value, '/assets/media/')) {
+                    $value = $this->urls->rewriteMedia($value, "{$v10Table}.{$v10Column}#{$v8Row->id}", $dryRun);
                 }
 
                 if ($value === '' && in_array($v10Column, $customColumns, true)) {

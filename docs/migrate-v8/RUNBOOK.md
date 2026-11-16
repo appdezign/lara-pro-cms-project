@@ -217,6 +217,19 @@ Run it after `import-content`. Source: `LARA_V8_MEDIA_PATH` (for the final sync:
 - Rerunnable: a file is copied when it is missing on the v10 disk or its size differs. Curator items are never removed; `--fresh` removes links and lists v8 does not have.
 - The images are served through Glide (`/glide/{path}?…`), the files from `/storage/{path}`.
 
+### 13. URLs in the content
+
+```bash
+php artisan lara:v8:rewrite-urls --dry-run
+php artisan lara:v8:rewrite-urls
+```
+
+Set `LARA_V8_SITE_HOSTS` (e.g. `anpak.eu`) so absolute URLs to the site itself count as internal.
+
+- **Media URLs** in the HTML (`src`/`href` in every text column): `/assets/media/{entity key}/{file}` → `/storage/{the path the media import copied it to}`; other v8 media folders (editor uploads such as `images/shares`) are copied to the same path on the public disk → `/storage/images/shares/…` (file names URL-encoded). The **content import applies the same rewrite** while it imports, so a content rerun does not bring the v8 URLs back; `rewrite-urls` is then a check that also catches what the content import could not resolve. A URL whose file is missing is left as it is and reported.
+- **Internal links** (`/{locale}/…`, and absolute URLs to the site hosts) are matched against the v10 routes (without the locale prefix, as v10 registers them per locale) and reported when they only reach the 404 route or a detail page whose slug does not exist; other root paths are checked as files in `public/`. Links are reported, not changed: v8 and v10 menu URLs are the same, so they mostly keep working.
+- An HTTP status check does not work for this: v10 answers an unknown URL with the home page and status 200.
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
@@ -263,6 +276,7 @@ Run it after `import-content`. Source: `LARA_V8_MEDIA_PATH` (for the final sync:
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
 - Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
+- URLs: 18 v8 media URLs rewritten in 18 rows (editor uploads in images/shares → /storage/images/shares, 5 files copied; one doc PDF → /storage/docs/file/…). 2 internal links reported: https://www.anpak.eu/nl/diensten/documenten (old URL, now diensten/downloads) and /flyer/?page=1 (public/flyer not yet copied, theme step).
 - Media: 92 images (all featured; Curator items with dimensions) and 17 files in 16 lists (incl. the 5 docs whose file is only in `_archive`), 1 YouTube video; 109 files (169 MB incl. other site data on the public disk) copied; 1 image with prevent_cropping reported. News page images verified through Glide, a doc PDF through /storage.
 - Settings: company/general from v8 (ANPAK, Heerenveen, GA4 id, phone); 16 system and 5 opengraph settings skipped; 18 blacklisted IPs; 31 header tags reported. Translations: 214 created, 48 updated (site labels such as services → "diensten"/"dienst"), 1272 admin texts skipped, 101 v8 front texts without a v10 key, 96 placeholders skipped.
 - Menus: 3 menus, 29 menu items (34 v8 items minus 4 root items minus item 48 "About" (en, unpublished), whose page 1078 no longer exists); 24 route names rebuilt. 13 module page slugs renamed (team-index-module-nl → teams-index-module-nl …). Front: every page works; services (`_sortbytaxonomy`), downloads (`_sortbytaxonomy`) and jobs give a 500 until the anpak theme has their views.
