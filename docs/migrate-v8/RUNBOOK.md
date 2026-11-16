@@ -230,6 +230,22 @@ Set `LARA_V8_SITE_HOSTS` (e.g. `anpak.eu`) so absolute URLs to the site itself c
 - **Internal links** (`/{locale}/…`, and absolute URLs to the site hosts) are matched against the v10 routes (without the locale prefix, as v10 registers them per locale) and reported when they only reach the 404 route or a detail page whose slug does not exist; other root paths are checked as files in `public/`. Links are reported, not changed: v8 and v10 menu URLs are the same, so they mostly keep working.
 - An HTTP status check does not work for this: v10 answers an unknown URL with the home page and status 200.
 
+### 14. Client theme
+
+A v10 client theme is a folder `laracms/themes/{client}` with `_assets` and `views` only (no provider or composer package), a child of `base`. The theme name is the plain client name (no year suffix).
+
+1. **Check for earlier v10 work first.** If the client already has a v10 theme (anpak: `__lara10_cloudways/_local/anpak10`, repo `appdezign/anpak-eu`), start from that; take the working copy and check it against the current `demo`/`base` (`diff -rq`). Otherwise copy `laracms/themes/demo` to `laracms/themes/{client}`.
+2. `vite.front.client.config.js`: `const THEME_NAME = '{client}';` — and `.env`: `LARA_CLIENT_THEME={client}`.
+3. Fonts: the theme loads Google fonts by name (`@googlefonts('lato')`); register each in `config/google-fonts.php`.
+4. Build and refresh:
+   ```bash
+   npx vite build --config vite.front.client.config.js
+   php artisan optimize:clear && php artisan lara:route:cache
+   ```
+5. Request every menu URL and read the log for the first error of each page.
+
+All of this is site code (theme, Vite config, `.env`, `config/google-fonts.php`): never commit it to the `v8-migration` branch.
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
@@ -276,6 +292,7 @@ Set `LARA_V8_SITE_HOSTS` (e.g. `anpak.eu`) so absolute URLs to the site itself c
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
 - Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
+- Theme: started from the earlier v10 work in `anpak10` (repo `appdezign/anpak-eu`, built on 10.7.13, identical demo/base; working copy incl. the uncommitted consent changes), 166 files; Lato registered in `config/google-fonts.php`. Home, team, pages, news, vacancies, contact render; services, downloads and the English home give a 500 (tag lists / index_sort, task 21).
 - URLs: 18 v8 media URLs rewritten in 18 rows (editor uploads in images/shares → /storage/images/shares, 5 files copied; one doc PDF → /storage/docs/file/…). 2 internal links reported: https://www.anpak.eu/nl/diensten/documenten (old URL, now diensten/downloads) and /flyer/?page=1 (public/flyer not yet copied, theme step).
 - Media: 92 images (all featured; Curator items with dimensions) and 17 files in 16 lists (incl. the 5 docs whose file is only in `_archive`), 1 YouTube video; 109 files (169 MB incl. other site data on the public disk) copied; 1 image with prevent_cropping reported. News page images verified through Glide, a doc PDF through /storage.
 - Settings: company/general from v8 (ANPAK, Heerenveen, GA4 id, phone); 16 system and 5 opengraph settings skipped; 18 blacklisted IPs; 31 header tags reported. Translations: 214 created, 48 updated (site labels such as services → "diensten"/"dienst"), 1272 admin texts skipped, 101 v8 front texts without a v10 key, 96 placeholders skipped.
