@@ -246,7 +246,7 @@ class EntityGenerationTest extends TestCase
     /**
      * @return list<string> absolute paths the generator writes
      */
-    private function generatedPaths(string $model = self::MODEL, string $dir = self::RESOURCE_DIR): array
+    private function generatedPaths(string $model = self::MODEL, string $dir = self::RESOURCE_DIR, string $controllerDir = 'Entity'): array
     {
         $app = base_path('laracms/app/');
 
@@ -254,7 +254,7 @@ class EntityGenerationTest extends TestCase
             $app.'Models/'.$model.'.php',
             $app.'Entities/'.$dir.'Entity.php',
             $app.'Policies/'.$model.'Policy.php',
-            $app.'Http/Controllers/Front/Entity/'.$dir.'Controller.php',
+            $app.'Http/Controllers/Front/'.$controllerDir.'/'.$dir.'Controller.php',
             $app.'Database/Factories/'.$model.'Factory.php',
             $app.'Filament/Resources/'.$dir.'/'.$model.'Resource.php',
         ];
@@ -262,8 +262,8 @@ class EntityGenerationTest extends TestCase
 
     private function cleanUpGeneratedEntity(): void
     {
-        foreach ([[self::MODEL, self::RESOURCE_DIR], [self::FORM_MODEL, self::FORM_DIR]] as [$model, $dir]) {
-            foreach ($this->generatedPaths($model, $dir) as $path) {
+        foreach ([[self::MODEL, self::RESOURCE_DIR, 'Entity'], [self::FORM_MODEL, self::FORM_DIR, 'Form']] as [$model, $dir, $controllerDir]) {
+            foreach ($this->generatedPaths($model, $dir, $controllerDir) as $path) {
                 File::delete($path);
             }
 
@@ -414,6 +414,25 @@ class EntityGenerationTest extends TestCase
 
         $this->assertStringContainsString('Pages\\List'.self::FORM_DIR.'::route', $resource);
         $this->assertStringNotContainsString('CREATEPAGE', $resource, 'An unreplaced stub placeholder was left behind.');
+    }
+
+    /**
+     * Form routes dispatch to Front\Form\{Plural}Controller, so a form's controller
+     * must be generated there, extending the form base controller.
+     */
+    public function test_a_form_entity_generates_its_controller_in_the_form_namespace(): void
+    {
+        $entity = $this->makeEntityRow(self::FORM_LABEL, 'form');
+
+        $this->assertTrue($this->builder()->buildEntitySafely($entity));
+
+        $controllerFile = base_path('laracms/app/Http/Controllers/Front/Form/'.self::FORM_DIR.'Controller.php');
+        $this->assertFileExists($controllerFile);
+        $this->assertFileDoesNotExist(base_path('laracms/app/Http/Controllers/Front/Entity/'.self::FORM_DIR.'Controller.php'));
+
+        $controller = File::get($controllerFile);
+        $this->assertStringContainsString('namespace Lara\App\Http\Controllers\Front\Form;', $controller);
+        $this->assertStringContainsString('extends AppFormController', $controller);
     }
 
     /**
