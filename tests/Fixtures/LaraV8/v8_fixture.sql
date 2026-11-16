@@ -889,4 +889,81 @@ INSERT INTO `lara_sys_translations` (`language`, `module`, `cgroup`, `tag`, `key
 ('nl', 'lara-front', 'default', 'button', 'v8_only', 'alleen v8'),
 ('nl', 'lara-admin', 'default', 'button', 'save', 'opslaan');
 
+CREATE TABLE `lara_object_images` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `filename` text COLLATE utf8_unicode_ci,
+  `mimetype` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `isicon` tinyint(1) NOT NULL DEFAULT '0',
+  `ishero` tinyint(1) NOT NULL DEFAULT '0',
+  `herosize` int(10) unsigned NOT NULL DEFAULT '0',
+  `hide_in_gallery` tinyint(1) NOT NULL DEFAULT '0',
+  `caption` text COLLATE utf8_unicode_ci,
+  `image_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image_alt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `prevent_cropping` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_files` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `filename` text COLLATE utf8_unicode_ci,
+  `mimetype` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `docdate` date DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_videos` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `youtubecode` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_videofiles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cfs_uid` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cfs_ready` tinyint(1) NOT NULL DEFAULT '0',
+  `cfs_thumb_offset` int(10) unsigned NOT NULL DEFAULT '0',
+  `filename` text COLLATE utf8_unicode_ci,
+  `mimetype` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Media (lara:v8:import-media). The files are created by the test in a temporary v8 media path:
+-- v8fxbook/cover.jpg, v8fxbook/inside.png, v8fxbook/_archive/sample.pdf; gone.jpg does not exist.
+-- Image 1: featured, hidden from the gallery → featured. Image 2: no flag → gallery (comes first by position).
+-- Image 3: file missing (skipped). Image 4: record 999 does not exist (skipped).
+
+INSERT INTO `lara_object_images` (`id`, `entity_type`, `entity_id`, `title`, `filename`, `mimetype`, `featured`, `isicon`, `ishero`, `herosize`, `hide_in_gallery`, `caption`, `image_title`, `image_alt`, `prevent_cropping`, `position`) VALUES
+(1, 'Eve\\Models\\V8fxbook', 1, 'cover.jpg', 'cover.jpg', 'image/jpeg', 1, 0, 0, 0, 1, 'Het omslag', 'Omslag', 'Omslag van boek één', 0, 20),
+(2, 'Eve\\Models\\V8fxbook', 1, 'inside.png', 'inside.png', 'image/png', 0, 0, 0, 0, 0, NULL, NULL, NULL, 0, 10),
+(3, 'Eve\\Models\\V8fxbook', 1, 'gone.jpg', 'gone.jpg', 'image/jpeg', 0, 0, 0, 0, 0, NULL, NULL, NULL, 0, 30),
+(4, 'Eve\\Models\\V8fxbook', 999, 'cover.jpg', 'cover.jpg', 'image/jpeg', 1, 0, 0, 0, 1, NULL, NULL, NULL, 0, 40);
+
+INSERT INTO `lara_object_files` (`id`, `entity_type`, `entity_id`, `title`, `filename`, `mimetype`, `docdate`, `created_at`) VALUES
+(1, 'Eve\\Models\\V8fxbook', 1, 'Leesproef', 'sample.pdf', 'application/pdf', '2024-05-01 09:30:00', '2024-05-01 09:30:00');
+
+INSERT INTO `lara_object_videos` (`id`, `entity_type`, `entity_id`, `title`, `youtubecode`, `featured`) VALUES
+(1, 'Eve\\Models\\V8fxbook', 1, 'Trailer', 'dQw4w9WgXcQ', 1);
+
 SET FOREIGN_KEY_CHECKS=1;

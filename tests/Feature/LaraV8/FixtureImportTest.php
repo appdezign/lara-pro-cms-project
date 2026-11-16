@@ -4,6 +4,7 @@ namespace Tests\Feature\LaraV8;
 
 use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
+use App\Console\Commands\LaraV8\Support\MediaImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\ObjectImporter;
 use App\Console\Commands\LaraV8\Support\SystemImporter;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityRelation;
@@ -82,6 +84,16 @@ class FixtureImportTest extends TestCase
 
     private static ?string $langPath = null;
 
+    private static ?string $mediaPath = null;
+
+    private static ?string $diskPath = null;
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $mediaReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $mediaRerun = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -101,6 +113,12 @@ class FixtureImportTest extends TestCase
         DB::purge($default);
         DB::purge('lara_v8');
 
+        // media: read from a temporary v8 media path, written to a temporary public disk, never the site's storage
+        self::$mediaPath ??= sys_get_temp_dir().'/lara-v8-media-'.uniqid();
+        self::$diskPath ??= sys_get_temp_dir().'/lara-v8-disk-'.uniqid();
+        config(['v8-migration.media_path' => self::$mediaPath, 'filesystems.disks.public.root' => self::$diskPath]);
+        Storage::forgetDisk('public');
+
         if (! self::$built) {
             self::$built = true;
             $this->build();
@@ -113,6 +131,12 @@ class FixtureImportTest extends TestCase
 
         if (self::$langPath !== null) {
             exec('rm -rf '.escapeshellarg(self::$langPath));
+        }
+
+        foreach ([self::$mediaPath, self::$diskPath] as $path) {
+            if ($path !== null) {
+                exec('rm -rf '.escapeshellarg($path));
+            }
         }
 
         parent::tearDownAfterClass();
@@ -158,6 +182,17 @@ class FixtureImportTest extends TestCase
         self::$systemReport = (new SystemImporter(new V8Source))->run(fresh: true);
         self::$systemRerun = (new SystemImporter(new V8Source))->run();
         app()->useLangPath($sitePath);
+
+        // the v8 media files of the fixture (the test media path is a temporary folder)
+        File::ensureDirectoryExists(self::$mediaPath.'/v8fxbook/_archive');
+        $jpeg = imagecreatetruecolor(40, 30);
+        imagejpeg($jpeg, self::$mediaPath.'/v8fxbook/cover.jpg');
+        $png = imagecreatetruecolor(20, 10);
+        imagepng($png, self::$mediaPath.'/v8fxbook/inside.png');
+        File::put(self::$mediaPath.'/v8fxbook/_archive/sample.pdf', '%PDF-1.4 fixture');
+
+        self::$mediaReport = (new MediaImporter(new V8Source))->run(fresh: true);
+        self::$mediaRerun = (new MediaImporter(new V8Source))->run();
     }
 
     /**
@@ -614,5 +649,73 @@ class FixtureImportTest extends TestCase
     public function test_header_tags_are_reported(): void
     {
         $this->assertTrue(collect(self::$systemReport)->contains(fn (array $line): bool => str_contains($line['message'], '1 v8 header tag setting(s)')));
+    }
+
+    public function test_the_media_import_has_no_errors_and_a_second_run_copies_and_changes_nothing(): void
+    {
+        $errors = collect(self::$mediaReport)->where('level', 'error');
+        $changes = collect(self::$mediaRerun)->whereNotIn('level', ['same', 'info', 'warning']);
+
+        $this->assertEmpty($errors, $errors->pluck('message')->implode("\n"));
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
+        $this->assertTrue(collect(self::$mediaRerun)->contains('message', 'Copied 0 file(s) to the v10 disks.'));
+    }
+
+    public function test_images_become_curator_items_with_their_v8_name(): void
+    {
+        $items = DB::table('curator')->orderBy('path')->get()->keyBy('path');
+
+        $this->assertSame(['v8fxbooks/cover.jpg', 'v8fxbooks/inside.png'], $items->keys()->all(), 'A missing file and a missing record are skipped.');
+
+        $cover = $items['v8fxbooks/cover.jpg'];
+        $this->assertSame(['public', 'v8fxbooks', 'cover', 'jpg', 'image/jpeg', 40, 30], [$cover->disk, $cover->directory, $cover->name, $cover->ext, $cover->type, (int) $cover->width, (int) $cover->height]);
+        $this->assertSame(['Omslag van boek één', 'Omslag', 'Het omslag', 1], [$cover->alt, $cover->title, $cover->caption, (int) $cover->in_use]);
+
+        Storage::disk('public')->assertExists(['v8fxbooks/cover.jpg', 'v8fxbooks/inside.png']);
+        $this->assertSame(filesize(self::$mediaPath.'/v8fxbook/cover.jpg'), Storage::disk('public')->size('v8fxbooks/cover.jpg'));
+    }
+
+    public function test_image_links_get_their_type_and_order(): void
+    {
+        $links = DB::table('lara_object_images as i')
+            ->join('curator as c', 'c.id', '=', 'i.media_id')
+            ->orderBy('i.type')->orderBy('i.order')
+            ->get(['i.mediable_type', 'i.mediable_id', 'i.type', 'i.order', 'c.path']);
+
+        $this->assertSame([
+            ['Lara\\App\\Models\\V8fxbook', 1, 'featured', 1, 'v8fxbooks/cover.jpg'],
+            ['Lara\\App\\Models\\V8fxbook', 1, 'gallery', 1, 'v8fxbooks/inside.png'],
+        ], $links->map(fn (object $link): array => [$link->mediable_type, (int) $link->mediable_id, $link->type, (int) $link->order, $link->path])->all());
+    }
+
+    public function test_files_and_videos_become_json_lists(): void
+    {
+        $files = json_decode(DB::table('lara_object_files')->where('entity_type', 'Lara\\App\\Models\\V8fxbook')->where('entity_id', 1)->value('entity_files'), true);
+        $videos = json_decode(DB::table('lara_object_videos')->where('entity_type', 'Lara\\App\\Models\\V8fxbook')->where('entity_id', 1)->value('entity_videos'), true);
+
+        $this->assertSame([['doc_date' => '2024-05-01 00:00', 'doc_filename' => 'v8fxbooks/file/sample.pdf', 'doc_original' => 'Leesproef']], $files);
+        Storage::disk('public')->assertExists('v8fxbooks/file/sample.pdf');
+
+        $this->assertSame([['video_title' => 'Trailer', 'youtubecode' => 'dQw4w9WgXcQ']], $videos);
+    }
+
+    public function test_the_image_types_follow_the_v8_flags(): void
+    {
+        $image = fn (array $flags): object => (object) [...['featured' => 0, 'ishero' => 0, 'isicon' => 0, 'hide_in_gallery' => 1], ...$flags];
+
+        $this->assertSame(['featured'], MediaImporter::imageTypes($image(['featured' => 1])));
+        $this->assertSame(['featured', 'gallery'], MediaImporter::imageTypes($image(['featured' => 1, 'hide_in_gallery' => 0])));
+        $this->assertSame(['featured', 'hero'], MediaImporter::imageTypes($image(['featured' => 1, 'ishero' => 1])));
+        $this->assertSame(['icon'], MediaImporter::imageTypes($image(['isicon' => 1])));
+        $this->assertSame(['gallery'], MediaImporter::imageTypes($image([])));
+    }
+
+    public function test_media_problems_are_reported_and_the_site_storage_is_not_touched(): void
+    {
+        $warnings = collect(self::$mediaReport)->where('level', 'warning')->pluck('message');
+
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 media row(s) point to a file that is missing')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Media of v8fxbook records that do not exist in v10')));
+        $this->assertDirectoryDoesNotExist(storage_path('app/public/v8fxbooks'));
     }
 }

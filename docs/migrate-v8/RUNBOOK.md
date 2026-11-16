@@ -202,6 +202,21 @@ php artisan lara:v8:import-settings          # also exports the translations to 
 - **Translations**: the site's labels (v8 module `lara-eve`, per entity key) become `lara-app` labels of the v10 resource: `column` → `column` (with the column renames), `formfield` → `column` (a v8 `column` label wins), `entity_title` → `entity.title` + `navigation.label`, `entity_single`/`entity_plural` → `model.label_single`/`label_plural`, other tags as they are. v8 `lara-front` texts replace the v10 ones with the same key; v8 `lara-admin`/`lara-common` are the v8 admin's own texts and are skipped. v8 placeholders (`_key`) never overwrite. Afterwards the translations are exported to `lang/vendor`, as the admin does.
 - The exported language files in `lang/vendor` are tracked in the project repo: like `laracms/app`, **never commit** them to the `v8-migration` branch.
 
+### 12. Media
+
+```bash
+php artisan lara:v8:import-media --dry-run
+php artisan lara:v8:import-media --fresh
+```
+
+Run it after `import-content`. Source: `LARA_V8_MEDIA_PATH` (for the final sync: an rsync of the production media folder).
+
+- Files keep their **v8 file name** (user decision): images go to `{resource slug}/` on the entity's v10 image disk (`public`), files to `{resource slug}/file/`, video files to `{resource slug}/video/` — the folders the v10 admin uploads to. A file missing in the entity folder is taken from its `_archive`; `_trash` is never used. Unreferenced files on disk are not imported.
+- **Images** become Curator items (`curator`: disk + path, dimensions, size, MIME type, alt/title/caption from v8) and links in `lara_object_images` (`mediable_type`/`mediable_id`, `type`, `order`): v8 `featured`/`ishero`/`isicon` → `featured`/`hero`/`icon`; an image without a flag, or one v8 did not hide from the gallery, also gets `gallery`; the order follows the v8 `position`. v8 `herosize` and `prevent_cropping` have no v10 counterpart (reported).
+- **Files, videos, video files**: v8 keeps one row per file; v10 one row per record with a JSON list (`entity_files`: `doc_date`, `doc_filename`, `doc_original`; `entity_videos`: `video_title`, `youtubecode`; `entity_videofiles`: `vidfile_filename`, `vidfile_original`, `vidfile_date`). Dates are `Y-m-d H:i`. Video files in a cloud file service (`cfs_uid`) are reported.
+- Rerunnable: a file is copied when it is missing on the v10 disk or its size differs. Curator items are never removed; `--fresh` removes links and lists v8 does not have.
+- The images are served through Glide (`/glide/{path}?…`), the files from `/storage/{path}`.
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
@@ -247,6 +262,7 @@ php artisan lara:v8:import-settings          # also exports the translations to 
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
 - Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
+- Media: 92 images (all featured; Curator items with dimensions) and 17 files in 16 lists (incl. the 5 docs whose file is only in `_archive`), 1 YouTube video; 109 files (169 MB incl. other site data on the public disk) copied; 1 image with prevent_cropping reported. News page images verified through Glide, a doc PDF through /storage.
 - Settings: company/general from v8 (ANPAK, Heerenveen, GA4 id, phone); 16 system and 5 opengraph settings skipped; 18 blacklisted IPs; 31 header tags reported. Translations: 214 created, 48 updated (site labels such as services → "diensten"/"dienst"), 1272 admin texts skipped, 101 v8 front texts without a v10 key, 96 placeholders skipped.
 - Menus: 3 menus, 29 menu items (34 v8 items minus 4 root items minus item 48 "About" (en, unpublished), whose page 1078 no longer exists); 24 route names rebuilt. 13 module page slugs renamed (team-index-module-nl → teams-index-module-nl …). Front: every page works; services (`_sortbytaxonomy`), downloads (`_sortbytaxonomy`) and jobs give a 500 until the anpak theme has their views.
 - Objects: 2 taxonomies, 82 tags, 37 taggables, 4 pageables (widgets on page 1), 27 SEO rows (of 57 v8 rows; the rest were empty), layout of page 1 (all values in the demo theme). Reported: 9 tags with a publish_from date, 1 team member with an og title/description.
