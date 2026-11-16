@@ -316,7 +316,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 
 8. Content freeze on the v8 admin (tell the editors; disable logins if possible).
 9. Final sync (step 17) from a fresh production dump and media: `lara:v8:sync --dry-run`, then `lara:v8:sync`; `lara:v8:verify`.
-10. `php artisan optimize:clear && php artisan lara:route:cache`.
+10. `php artisan optimize:clear && php artisan lara:route:cache`. When deploying over an earlier install, also clear its sessions (`storage/framework/sessions/*`, or the `sessions` table): the imported users keep their v8 ids, so an old session can point to another user (anpak: `/admin` gave a 404 in a browser that was still logged in).
 11. DNS / vhost switch to the v10 server; SSL certificate for the domain (and `www`).
 12. Right after: home, every menu item, a detail page per content type, the downloads (PDF), the 404, a form with reCAPTCHA and its mail (`company_email` and the confirmation to the sender), the cookie consent, `robots.txt`, `sitemap.xml` (`schedule:run` once, or wait a day), old URLs that Google has indexed.
 13. Search Console: submit the sitemap; watch the coverage for 404s in the first weeks and add redirects for them in v10.

@@ -49,8 +49,9 @@ rm -rf storage/app/public && tar -xzf ~/anpak1077-media.tgz -C storage/app
 php artisan storage:link
 php artisan migrate:status | grep -i pending      # expected: nothing
 
-# 4. caches
+# 4. caches, and the sessions of the earlier install (their user ids now belong to other users: /admin gave a 404 in a browser that was still logged in)
 php artisan optimize:clear && php artisan lara:route:cache
+rm -f storage/framework/sessions/*               # SESSION_DRIVER=file; with the database driver empty the sessions table
 
 # 5. scheduler (Cloudways: Cron Job Management):  * * * * * cd {app root} && php artisan schedule:run >> /dev/null 2>&1
 
@@ -62,6 +63,7 @@ Notes from the first deploy (2026-11-16):
 
 - Cloudways "Deployment via Git" (dashboard: choose the branch, Pull) works for the code; it keeps the git data outside `public_html`, so `git status` there says "not a git repository". Check the code by its files instead (e.g. `v8-overrides.php`, `app/Console/Commands/LaraV8/SyncCommand.php`, `composer.json` at 10.7.20). It runs no composer, build or artisan command: those stay SSH steps.
 - The server has no Node: upload `anpak1077-assets.tgz` (built locally) and unpack it in `public/`; the media archive likewise.
+- A browser still logged in to the earlier install got a 404 on `/admin` (its session points to a user id that is now a different v8 user); a private window worked. Clear the old sessions when deploying over an earlier install (step 4).
 
 Checks:
 
