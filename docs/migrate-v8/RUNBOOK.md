@@ -246,6 +246,23 @@ A v10 client theme is a folder `laracms/themes/{client}` with `_assets` and `vie
 
 All of this is site code (theme, Vite config, `.env`, `config/google-fonts.php`): never commit it to the `v8-migration` branch.
 
+### 15. Verify
+
+```bash
+php artisan lara:v8:verify            # problems only
+php artisan lara:v8:verify -v         # every check
+php artisan lara:v8:verify --only=counts --only=media
+```
+
+Changes nothing. Exits with an error code when a check finds an error.
+
+- **counts:** rows and published rows per content type and language, v8 against v10. "Published" is what the front shows: for an entity without a status every non-trashed row (v10 ignores its `publish` column then; v8 had none, e.g. clients). Fewer rows than v8 is an error, more is a warning.
+- **sync:** every import step in dry-run mode. Anything it would still create, update or remove is a warning: v10 was changed after the import (e.g. the site overrides), or v8 changed since.
+- **media:** every Curator file, image link (media item and record exist), and file / video-file entry exists on its disk. Missing is an error.
+- **links:** v8 media URLs left in the HTML, and internal links that do not reach a page (the `rewrite-urls` check, dry run).
+
+Run it after the import and again after the final sync. Every warning should be one you can explain (a site override, a content issue to fix in v10).
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).

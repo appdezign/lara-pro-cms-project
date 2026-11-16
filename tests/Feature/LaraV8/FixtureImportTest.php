@@ -11,6 +11,7 @@ use App\Console\Commands\LaraV8\Support\SystemImporter;
 use App\Console\Commands\LaraV8\Support\UrlRewriter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
+use App\Console\Commands\LaraV8\Support\Verifier;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -756,5 +757,43 @@ class FixtureImportTest extends TestCase
         $this->assertTrue(collect(self::$urlReport)->contains(fn (array $line): bool => str_starts_with($line['message'], '0 v8 media URL(s) in 0 row(s) rewritten')));
         $this->assertTrue(collect(self::$contentRerun)->doesntContain(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'update'), 'A content rerun keeps the rewritten URLs.');
         $this->assertTrue(collect(self::$urlRerun)->contains(fn (array $line): bool => $line['level'] === 'same' && str_starts_with($line['message'], '0 v8 media URL(s)')));
+    }
+
+    public function test_verify_finds_no_errors_after_the_import(): void
+    {
+        $report = (new Verifier(new V8Source))->run();
+        $errors = collect($report)->where('level', 'error')->pluck('message');
+
+        $this->assertSame([], $errors->all());
+        $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'ok' && str_contains($line['message'], 'as v8')));
+        $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'curator' && $line['level'] === 'ok'));
+        $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'sync: content' && $line['level'] === 'ok'));
+    }
+
+    public function test_verify_finds_a_missing_row_a_missing_file_and_a_changed_row(): void
+    {
+        $book = (array) DB::table('lara_content_v8fxbooks')->where('id', 1)->first();
+        $image = DB::table('curator')->orderBy('id')->first();
+        $disk = Storage::disk($image->disk);
+        $contents = $disk->get($image->path);
+
+        try {
+            DB::table('lara_content_v8fxbooks')->where('id', 1)->delete();
+            $disk->delete($image->path);
+            DB::table('lara_content_v8fxbooks')->where('id', 2)->update(['title' => 'Changed in v10']);
+
+            $report = collect((new Verifier(new V8Source))->run());
+        } finally {
+            DB::table('lara_content_v8fxbooks')->insert($book);
+            $disk->put($image->path, $contents);
+            (new ContentImporter(new V8Source))->run(['v8fxbook']);
+        }
+
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'error' && str_contains($line['message'], 'v8 has')), 'A row fewer than v8 is an error.');
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['entity'] === 'curator' && $line['level'] === 'error' && str_contains($line['message'], $image->path)), 'A missing media file is an error.');
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['entity'] === 'sync: content' && $line['level'] === 'warning' && str_contains($line['message'], 'would be updated')), 'A row changed in v10 is out of sync.');
+
+        // restored: verify is clean again
+        $this->assertSame([], collect((new Verifier(new V8Source))->run(['counts', 'media']))->where('level', 'error')->all());
     }
 }
