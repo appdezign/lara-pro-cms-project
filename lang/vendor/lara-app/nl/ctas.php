@@ -20,4 +20,7 @@ return [
     'navigation' => [
         'label' => 'call-to-action',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

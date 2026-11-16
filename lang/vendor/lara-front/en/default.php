@@ -14,6 +14,7 @@ return [
         'required' => 'required',
     ],
     'headers' => [
+        'contact_form' => 'get in touch',
         'related_docs' => 'related docs',
         'related_files' => '_related_files',
         'related_pages' => 'related pages',

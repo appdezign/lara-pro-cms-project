@@ -25,4 +25,7 @@ return [
     'navigation' => [
         'label' => 'team',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

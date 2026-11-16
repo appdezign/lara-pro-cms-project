@@ -14,4 +14,7 @@ return [
     'navigation' => [
         'label' => 'Video',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

@@ -53,7 +53,6 @@ return [
         'show_batch' => 'toon batch',
         'show_delete_action' => 'toon delete',
         'show_edit_action' => 'toon edit',
-        'show_opengraph' => 'toon opengraph',
         'show_restore_action' => 'toon restore',
         'show_rich_body' => 'toon rich body',
         'show_rich_lead' => 'toon rich lead',

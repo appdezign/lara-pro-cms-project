@@ -14,6 +14,7 @@ return [
         'required' => 'verplicht',
     ],
     'headers' => [
+        'contact_form' => 'neem contact op',
         'related_docs' => 'gerelateerde documenten',
         'related_files' => 'gerelateerde documenten',
         'related_pages' => 'gerelateerde pagina\'s',

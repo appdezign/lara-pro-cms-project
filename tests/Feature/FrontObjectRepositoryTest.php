@@ -3,11 +3,11 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Http\RedirectResponse;
 use Lara\App\Models\Location;
 use Lara\Front\Http\Lara\FrontActiveRoute;
 use Lara\Front\Services\FrontEntityResolver;
 use Lara\Front\Services\FrontObjectRepository;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\TestCase;
 
 /**
@@ -23,9 +23,9 @@ class FrontObjectRepositoryTest extends TestCase
     {
         Location::factory()->create(['language' => 'nl']);
 
-        $result = $this->repository()->getSingleFrontObject('nl', $this->locations(), 'zz-no-such-location');
+        $this->expectException(NotFoundHttpException::class);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->repository()->getSingleFrontObject('nl', $this->locations(), 'zz-no-such-location');
     }
 
     public function test_a_slug_finds_its_own_object(): void
@@ -42,9 +42,17 @@ class FrontObjectRepositoryTest extends TestCase
     {
         $location = Location::factory()->create(['language' => 'en']);
 
-        $result = $this->repository()->getSingleFrontObject('nl', $this->locations(), $location->slug);
+        $this->expectException(NotFoundHttpException::class);
 
-        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->repository()->getSingleFrontObject('nl', $this->locations(), $location->slug);
+    }
+
+    public function test_the_default_seo_of_a_language_without_a_home_page_comes_from_the_config(): void
+    {
+        $seo = $this->repository()->getDefaultSeo('xx');
+
+        $this->assertSame(config('filarank.site.name'), $seo->title);
+        $this->assertSame(config('filarank.site.og_image'), $seo->image);
     }
 
     public function test_without_a_menu_item_the_list_url_is_the_entity_content_list(): void

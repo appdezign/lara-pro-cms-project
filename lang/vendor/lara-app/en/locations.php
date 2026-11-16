@@ -22,4 +22,7 @@ return [
     'navigation' => [
         'label' => 'locations',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

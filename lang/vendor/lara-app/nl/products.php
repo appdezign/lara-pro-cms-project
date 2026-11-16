@@ -42,4 +42,7 @@ return [
     'navigation' => [
         'label' => 'producten',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

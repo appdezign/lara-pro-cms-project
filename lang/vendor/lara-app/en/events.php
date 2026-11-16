@@ -20,4 +20,8 @@ return [
     'navigation' => [
         'label' => 'events',
     ],
+    'tablecolumn' => [
+        'startdate' => '_startdate',
+        'title' => '_title',
+    ],
 ];

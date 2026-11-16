@@ -17,12 +17,12 @@
 /public/css/
 /public/fonts/
 /public/js/
-/public/storage/
+/public/storage
 /resources/lang/vendor/lara-*
 /resources/views/vendor/lara-*
 /storage/app/analytics/*
-/storage/app/public/_fonts/*
-/storage/app/public/tmp/*
+/storage/app/public/*
+!/storage/app/public/.gitignore
 /storage/debugbar/*
 /storage/framework/cache/*
 /storage/framework/sessions/*
