@@ -67,11 +67,11 @@ Notes from the first deploy (2026-11-16):
 
 Checks:
 
-- [x] Server: PHP 8.4. Scheduler cron: **check**.
-- [x] Code on `v10`, assets uploaded, `.env` (with `CONSENT_GA4_ID`). `APP_NAME=Anpak`: **to set** (titles end in "Laracms10").
+- [x] Server: PHP 8.4, scheduler cron (user, 2026-11-16).
+- [x] Code on `v10`, assets uploaded, `.env` (with `CONSENT_GA4_ID` and `APP_NAME=Anpak`: titles end in "| Anpak").
 - [x] Data loaded, media in place, `storage:link`.
 - [x] Compared with live and with anpak1077 (58 pages): status, headings, text and images identical to anpak1077; only the title suffix differs (`APP_NAME`). On the server: `/flyer/` and `/flyer/?page=1` 200 (Apache serves the folder), theme assets, Glide images (webp), editor images under `/storage`, PDF download, cookie consent with GA4, no English hreflang.
-- [ ] Sitemap: generate once (step 6); live has none (`/nl/sitemap.xml` is an HTML page there).
+- [x] Sitemap generated (step 6): `/sitemap.xml` is XML with 22 URLs (live has none). Tinker prints a harmless notice that it cannot write `~/.config/psysh` on Cloudways. It uses `APP_URL`: generate it again after the switch (or wait for the daily task).
 - [ ] Forms: contact (`/nl/contact`, `/nl/contact-1`) and the classic form; mail goes to `company_email` (an anpak.eu address) in production, to the dev mailer on staging. The applications form is not used (menu item unpublished in v8).
 
 ## Content to settle before the freeze
@@ -83,7 +83,7 @@ Checks:
 
 - [ ] Content freeze on the v8 admin.
 - [ ] Fresh production dump + media rsync → `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify`.
-- [ ] `php artisan optimize:clear && php artisan lara:route:cache`.
+- [ ] `php artisan optimize:clear && php artisan lara:route:cache`; set `APP_URL=https://www.anpak.eu` and `APP_ENV=production` first, then generate the sitemap again (step 6 of staging).
 - [ ] DNS / vhost to v10; SSL for `anpak.eu` and `www.anpak.eu`.
 - [ ] Check: home (slider, 4 services, testimonials, clients, contact band, news), the menu items, a news item, a document download, a team member, the ATEX services, contact form + mail + reCAPTCHA, cookie consent, `robots.txt`, `sitemap.xml`, `/en` (English is unpublished; live gives a 500 today).
 - [ ] Search Console: sitemap; watch 404s. Known: v8 had no redirects; v8 service detail URLs (`/nl/diensten/arbeidshygiene/{slug}.html`) keep working in v10.
