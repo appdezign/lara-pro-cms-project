@@ -750,7 +750,7 @@ class FixtureImportTest extends TestCase
         $warnings = collect(self::$urlReport)->where('level', 'warning')->pluck('message');
 
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Media URL /assets/media/images/shares/nope.png has no file')));
-        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Internal link /flyer/?page=1 does not reach a page')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Internal link /v8-fixture-missing/?page=1 does not reach a page')));
         $this->assertFalse($warnings->contains(fn (string $m): bool => str_contains($m, '/robots.txt')), 'A file in public/ is reached.');
         // the content import already rewrote the media URLs; rewrite-urls only finds the missing file
         $this->assertTrue(collect(self::$urlReport)->contains(fn (array $line): bool => str_starts_with($line['message'], '0 v8 media URL(s) in 0 row(s) rewritten')));
