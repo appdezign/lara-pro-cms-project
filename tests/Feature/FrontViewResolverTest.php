@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Lara\Common\Entities\PagesEntity;
 use Lara\Front\Http\Lara\FrontActiveRoute;
+use Lara\Front\LaraTheme\ContentViewFinder;
 use Lara\Front\LaraTheme\Theme;
 use Lara\Front\Services\FrontViewResolver;
 use Tests\TestCase;
@@ -62,17 +63,32 @@ class FrontViewResolverTest extends TestCase
     }
 
     /**
-     * The resolver decides which theme blade file backs an entity view, and has
-     * to say no for a view that does not exist.
+     * A content view the theme does not have falls back to the base template of
+     * its content group (services has no index_sort view of its own).
      */
-    public function test_it_reports_a_missing_theme_view_file(): void
+    public function test_a_missing_content_view_falls_back_to_its_content_group_template(): void
     {
-        $entity = new PagesEntity;
+        $finder = view()->getFinder();
 
-        $this->assertFalse(
-            $this->resolver()->checkThemeViewFile($entity, 'zz/no/such/view'),
-            'A view path that does not exist must not be reported as present.'
+        $this->assertInstanceOf(ContentViewFinder::class, $finder);
+        $this->assertStringEndsWith(
+            str_replace('/', DIRECTORY_SEPARATOR, 'content/__templates/entity/index/index_sort.blade.php'),
+            $finder->find('content.services.index.index_sort')
         );
+    }
+
+    public function test_a_view_with_its_own_file_does_not_fall_back(): void
+    {
+        $this->assertStringEndsWith(
+            str_replace('/', DIRECTORY_SEPARATOR, 'content/services/index/index_filter.blade.php'),
+            view()->getFinder()->find('content.services.index.index_filter')
+        );
+    }
+
+    public function test_a_view_without_a_template_is_still_missing(): void
+    {
+        $this->assertFalse(view()->exists('content.services.zz_no_such_view'));
+        $this->assertFalse(view()->exists('content.zz_no_such_entity.index'));
     }
 
     public function test_it_resolves_a_view_file_for_a_real_entity_and_route(): void

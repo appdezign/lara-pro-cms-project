@@ -29,4 +29,7 @@ return [
     'navigation' => [
         'label' => 'blokken',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

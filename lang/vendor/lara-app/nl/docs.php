@@ -15,4 +15,7 @@ return [
     'navigation' => [
         'label' => 'documenten',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

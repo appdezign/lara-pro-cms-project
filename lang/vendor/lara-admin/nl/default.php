@@ -117,8 +117,6 @@ return [
         'language_versions' => 'taal versies',
         'layout' => 'layout',
         'main_images' => 'afbeeldingen',
-        'opengraph' => 'opengraph',
-        'opengraph_advanced' => 'opengraph geavanceerd',
         'related' => 'gerelateerd',
         'seo' => 'seo',
         'status' => 'status',
@@ -128,11 +126,13 @@ return [
         'videos' => 'video\'s',
     ],
     'tablecolumn' => [
+        'cgroup' => '_cgroup',
         'id' => 'id',
         'publish' => 'status',
         'publish_from' => 'datum',
         'seo' => 'seo',
         'terms' => 'tags',
+        'user_id' => '_user_id',
     ],
     'tabs' => [
         'content' => 'content',

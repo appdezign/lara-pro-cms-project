@@ -26,4 +26,7 @@ return [
     'navigation' => [
         'label' => 'widgets',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

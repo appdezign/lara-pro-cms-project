@@ -14,6 +14,7 @@ use Lara\Common\Models\Blacklist;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityCustomField;
 use Lara\Common\Models\MenuItem;
+use Lara\Common\Models\Setting;
 use Lara\Common\Routes\MenuRouteName;
 use Lara\Front\Mail\MailConfirmation;
 use Mcamara\LaravelLocalization\LaravelLocalization;
@@ -90,6 +91,26 @@ class FrontFormTest extends TestCase
         $this->get('/nl/'.self::FORM_ROUTE)->assertOk();
 
         $this->assertSame('form.contactforms.'.self::FORM_ROUTE.'.form', Route::current()?->getName());
+    }
+
+    public function test_the_contact_page_shows_the_company_details_and_no_demo_text(): void
+    {
+        $response = $this->get('/nl/'.self::FORM_ROUTE);
+
+        $response->assertOk()
+            ->assertSee(ucfirst(_q('lara-front::default.headers.contact_form')))
+            ->assertDontSee('Get in touch')
+            ->assertDontSee('Schipholweg');
+
+        $telephone = $this->getGlobalSettingValue('company_telephone');
+        if ($telephone) {
+            $response->assertSee($telephone);
+        }
+    }
+
+    private function getGlobalSettingValue(string $key): ?string
+    {
+        return Setting::where('key', $key)->value('value');
     }
 
     public function test_a_valid_submission_stores_every_field_and_queues_both_mails(): void

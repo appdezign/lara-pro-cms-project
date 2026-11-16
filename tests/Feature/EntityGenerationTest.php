@@ -926,6 +926,31 @@ class EntityGenerationTest extends TestCase
         }
     }
 
+    /**
+     * The Filament component cache (filament:optimize) lists the resources; it must not
+     * outlive a new or deleted entity.
+     */
+    public function test_building_and_deleting_an_entity_clears_the_filament_component_cache(): void
+    {
+        $cacheFile = Filament::getPanel('admin')->getComponentCachePath();
+        $hadCache = File::exists($cacheFile);
+        File::ensureDirectoryExists(dirname($cacheFile));
+
+        try {
+            File::put($cacheFile, '<?php return [];');
+            $entity = $this->makeBuiltEntity();
+            $this->assertFileDoesNotExist($cacheFile, 'Building an entity must clear the component cache.');
+
+            File::put($cacheFile, '<?php return [];');
+            $this->assertTrue($this->builder()->deleteEntitySafely($entity));
+            $this->assertFileDoesNotExist($cacheFile, 'Deleting an entity must clear the component cache.');
+        } finally {
+            if (! $hadCache) {
+                File::delete($cacheFile);
+            }
+        }
+    }
+
     public function test_deleting_an_entity_removes_its_files_and_table(): void
     {
         $entity = $this->makeBuiltEntity();

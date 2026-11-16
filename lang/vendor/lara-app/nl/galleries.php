@@ -14,4 +14,7 @@ return [
     'navigation' => [
         'label' => 'fotoalbum',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

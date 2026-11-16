@@ -2,6 +2,7 @@
 
 return [
     'column' => [
+        'caption' => '_caption',
         'captiontype' => 'caption type',
         'overlaycolor' => 'overlay kleur',
         'overlaysize' => 'overlay formaat',
@@ -28,5 +29,8 @@ return [
     ],
     'navigation' => [
         'label' => 'sliders',
+    ],
+    'tablecolumn' => [
+        'title' => '_title',
     ],
 ];
