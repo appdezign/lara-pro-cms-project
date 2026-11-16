@@ -88,7 +88,7 @@ Removes the demo content types from `laracms/app` (`Models`, `Entities`, `Polici
 
 After this the full v10 test suite (`composer test`) no longer applies to the site (it targets the demo entities); run `php artisan test --compact tests/Unit/LaraV8 tests/Feature/LaraV8`.
 
-The migration tests in short: tests marked "skipped without a v8 source" run against the site's own `lara_v8` snapshot and only read. `ImportEntitiesBuildTest` does the real build on two throwaway databases, `lara_v8_fixture` (loaded from `tests/Fixtures/LaraV8/v8_fixture.sql`: three content types `v8fxbook`, `v8fxevent`, `v8fxform` that cover geolocation, duplicates, conditions, a relation and a form) and `lara_v8_build_test` (an essential base); it removes the generated `v8fx…` code afterwards and is skipped when the MySQL user cannot create databases. Extend the fixture when a site shows a new case.
+The migration tests in short: tests marked "skipped without a v8 source" run against the site's own `lara_v8` snapshot and only read. `FixtureImportTest` runs the real imports on two throwaway databases, `lara_v8_fixture` (loaded from `tests/Fixtures/LaraV8/v8_fixture.sql`: three content types `v8fxbook`, `v8fxevent`, `v8fxform` that cover geolocation, duplicates, conditions, a relation and a form) and `lara_v8_build_test` (an essential base); it removes the generated `v8fx…` code afterwards and is skipped when the MySQL user cannot create databases. Extend the fixture when a site shows a new case.
 
 **Never commit** the changes in `laracms/app` (removed demo code, generated site code) to the `v8-migration` branch; they belong to the site, not to the migration tooling.
 
@@ -121,6 +121,21 @@ done
 ```
 
 For each customization, check whether the site still uses it (menu item published, recent submissions or records) before porting it. Port only what is used, preferably as a Legacy module (see `CustomBlog`).
+
+### 7. Users and roles
+
+```bash
+php artisan lara:v8:import-users --dry-run
+php artisan lara:v8:import-users            # -v shows every step; --prune removes v10 users v8 does not have
+```
+
+Run it after `import-entities`: the permissions of the site content types need their policies.
+
+- **Users** keep their v8 id and password hash (written directly, past the `hashed` cast; Laravel rehashes on the next login). v8 `username` → `name` (the login name), v8 `name` → `displayname`, `user_language` → `locale` (empty: the site locale). The v8 users replace the essential `superadmin` of the seed.
+- **The v8 admin** (`is_admin`) gets **only** the v10 role `superadmin`, which passes every check (`Gate::before`).
+- **Roles** are matched by name; a v8 role without users is skipped; a used v8 role that v10 lacks is created (panel access and level from v8).
+- **Permissions**: the import first creates the permissions of every policy, as the Role screen does. For every subject both versions know, a role gets exactly its v8 abilities (`view` → `view` + `view_any`, `delete` → `delete` + `delete_any`); subjects only v10 knows keep the role's v10 permissions. v8 subjects without a v10 policy (headertag, language, redirect, seo, tag) are reported.
+- Site policies are only registered for web requests (`LaraAppServiceProvider`); the import registers them itself. The same is why a console or test check of the admin as a non-superadmin can show 302/403 for site content types while the web is fine.
 
 ## v8 → v10 mapping (`V8Map`)
 
@@ -166,6 +181,7 @@ For each customization, check whether the site still uses it (menu item publishe
 - Target `anpak1077`, theme `anpak`; plan with all details and decisions: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`.
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
+- Users: 9 users imported with their v8 ids; `admin` (id 2) → superadmin only; `helpdesk` (id 3) replaced the essential superadmin; webmasters Lampe and kapma; role `editor` skipped (no users); 5 orphan role assignments (users 6, 12–15). The webmaster lost menu, setting and translation permissions it did not have in v8 either.
 - Custom v8 code: only the Applications form (2-step job application with CV upload, mails, `StoreApplicationRequest`, admin views) is real custom code, and it is switched off on the live site (menu item unpublished, 4 test submissions in Jan 2024): **not ported** (user decision); the form and its data come over as a standard v10 form. Classicforms (demo leftover, custom controller) and Invallerforms (no entity) dropped. Traits, Special controllers and routes are stock v8.
 - Inventory: `sites/anpak-inventory.md`. 19 content types (4 core). With `V8Map`, 4 findings remain: `yesno` becomes a toggle (classicform), 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition. One page has a `lead`, which v10 pages do not have (decide in the content import). The v8 role `editor` has no v10 counterpart and no users.
 - The fresh demo install failed on 10.7.13 (an orphan `cities` migration, migrations behind the schema); fixed in 10.7.14. The test config was fixed in 10.7.15.

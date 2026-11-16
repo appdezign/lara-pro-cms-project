@@ -1,5 +1,5 @@
 -- Lara CMS v8.2.46 fixture for the lara:v8:* tests.
--- Schema: the v8 entity configuration tables, from a v8.2.46 dump (only the users foreign key removed).
+-- Schema: the v8 entity configuration and auth tables, from a v8.2.46 dump (only the groups → users foreign key removed).
 
 SET FOREIGN_KEY_CHECKS=0;
 CREATE TABLE `lara_ent_entities` (
@@ -238,5 +238,144 @@ INSERT INTO `lara_ent_entity_views` (`entity_id`, `title`, `method`, `filename`,
 (102, 'Index', 'index', 'index', 'list', 'none', 0, 0, 0, 1),
 (102, 'Show', 'show', 'show', '_single', 'none', 0, 0, 0, 1),
 (103, 'Form', 'form', 'form', '_form', 'none', 0, 0, 0, 1);
+
+CREATE TABLE `lara_auth_users` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `firstname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `middlename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lastname` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_loggedin` tinyint(1) NOT NULL DEFAULT '0',
+  `last_login` timestamp NULL DEFAULT NULL,
+  `api_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lara_auth_users_email_unique` (`email`),
+  UNIQUE KEY `lara_auth_users_username_unique` (`username`),
+  KEY `lara_auth_users_locked_by_foreign` (`locked_by`),
+  CONSTRAINT `lara_auth_users_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_auth_users_profiles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `dark_mode` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_auth_users_profiles_user_id_foreign` (`user_id`),
+  CONSTRAINT `lara_auth_users_profiles_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_auth_roles` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `level` int(10) unsigned DEFAULT NULL,
+  `scope` int(11) DEFAULT NULL,
+  `has_backend_access` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `lara_auth_roles_name_unique` (`name`),
+  KEY `lara_auth_roles_locked_by_foreign` (`locked_by`),
+  KEY `lara_auth_roles_scope_index` (`scope`),
+  CONSTRAINT `lara_auth_roles_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_auth_abilities` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned DEFAULT NULL,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `only_owned` tinyint(1) NOT NULL DEFAULT '0',
+  `options` longtext COLLATE utf8_unicode_ci,
+  `scope` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `abilities_unique_index` (`name`,`entity_id`,`entity_type`,`only_owned`),
+  KEY `lara_auth_abilities_locked_by_foreign` (`locked_by`),
+  KEY `lara_auth_abilities_scope_index` (`scope`),
+  CONSTRAINT `lara_auth_abilities_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_auth_has_abilities` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `ability_id` bigint(20) unsigned NOT NULL,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `forbidden` tinyint(1) NOT NULL DEFAULT '0',
+  `scope` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_auth_has_abilities_entity_type_entity_id_index` (`entity_type`,`entity_id`),
+  KEY `lara_auth_has_abilities_ability_id_index` (`ability_id`),
+  KEY `lara_auth_has_abilities_scope_index` (`scope`),
+  CONSTRAINT `lara_auth_has_abilities_ability_id_foreign` FOREIGN KEY (`ability_id`) REFERENCES `lara_auth_abilities` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_auth_has_roles` (
+  `role_id` bigint(20) unsigned NOT NULL,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `restricted_to_id` bigint(20) unsigned DEFAULT NULL,
+  `restricted_to_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `scope` int(11) DEFAULT NULL,
+  KEY `lara_auth_has_roles_entity_type_entity_id_index` (`entity_type`,`entity_id`),
+  KEY `lara_auth_has_roles_role_id_index` (`role_id`),
+  KEY `lara_auth_has_roles_scope_index` (`scope`),
+  CONSTRAINT `lara_auth_has_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `lara_auth_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Users, roles and abilities (lara:v8:import-users). Password of every web user: "fixture".
+-- id 3 collides with the superadmin of the essential seed on purpose: the v8 user replaces it.
+-- Role editor has no users (skipped); role clerk does not exist in v10 (created);
+-- user 99 no longer exists (orphan assignment); headertag has no v10 policy.
+
+INSERT INTO `lara_auth_users` (`id`, `type`, `is_admin`, `name`, `firstname`, `middlename`, `lastname`, `username`, `email`, `password`, `user_language`, `api_token`, `created_at`, `updated_at`) VALUES
+(1, 'api', 0, 'API', '', NULL, '', NULL, '', '', NULL, 'fixture-api-token', NULL, NULL),
+(2, 'web', 1, 'Fixture Beheer', 'Fixture', NULL, 'Beheer', 'admin', 'admin@fixture.test', '$2y$10$0gsJGtpSCdYXR/oc9XoLvukGkXnU6pt323pLJA4V1uyCWtl45et1G', 'nl', NULL, '2021-01-01 11:00:00', '2024-01-01 10:00:00'),
+(3, 'web', 0, 'Web Master', 'Web', 'de', 'Master', 'webmaster', 'webmaster@fixture.test', '$2y$10$0gsJGtpSCdYXR/oc9XoLvukGkXnU6pt323pLJA4V1uyCWtl45et1G', NULL, NULL, '2022-01-01 11:00:00', '2024-01-01 10:00:00'),
+(4, 'web', 0, 'Mem Ber', 'Mem', NULL, 'Ber', 'member', 'member@fixture.test', '$2y$10$0gsJGtpSCdYXR/oc9XoLvukGkXnU6pt323pLJA4V1uyCWtl45et1G', 'en', NULL, '2022-01-01 11:00:00', '2024-01-01 10:00:00'),
+(5, 'web', 0, 'Cler K', 'Cler', NULL, 'K', 'clerk', 'clerk@fixture.test', '$2y$10$0gsJGtpSCdYXR/oc9XoLvukGkXnU6pt323pLJA4V1uyCWtl45et1G', 'nl', NULL, '2022-01-01 11:00:00', '2024-01-01 10:00:00');
+
+INSERT INTO `lara_auth_users_profiles` (`id`, `user_id`, `dark_mode`) VALUES (1, 3, 1);
+
+INSERT INTO `lara_auth_roles` (`id`, `name`, `title`, `level`, `has_backend_access`) VALUES
+(1, 'administrator', 'Administrator', 100, 1),
+(2, 'webmaster', 'Webmaster', 90, 1),
+(3, 'editor', 'Editor', 50, 1),
+(4, 'member', 'Member', 10, 0),
+(5, 'clerk', 'Clerk', 40, 1);
+
+INSERT INTO `lara_auth_abilities` (`id`, `name`, `title`, `entity_key`) VALUES
+(1, 'view', 'View', 'v8fxbook'), (2, 'create', 'Create', 'v8fxbook'), (3, 'update', 'Update', 'v8fxbook'), (4, 'delete', 'Delete', 'v8fxbook'),
+(5, 'view', 'View', 'page'), (6, 'view', 'View', 'headertag'), (7, 'view', 'View', 'setting'), (8, 'update', 'Update', 'setting');
+
+INSERT INTO `lara_auth_has_abilities` (`ability_id`, `entity_type`, `entity_id`, `forbidden`) VALUES
+(1, 'lara_auth_roles', 1, 0), (2, 'lara_auth_roles', 1, 0), (3, 'lara_auth_roles', 1, 0), (4, 'lara_auth_roles', 1, 0),
+(5, 'lara_auth_roles', 1, 0), (6, 'lara_auth_roles', 1, 0), (7, 'lara_auth_roles', 1, 0), (8, 'lara_auth_roles', 1, 0),
+(1, 'lara_auth_roles', 2, 0), (3, 'lara_auth_roles', 2, 0), (5, 'lara_auth_roles', 2, 0),
+(1, 'lara_auth_roles', 5, 0);
+
+INSERT INTO `lara_auth_has_roles` (`role_id`, `entity_type`, `entity_id`) VALUES
+(1, 'Lara\\Common\\Models\\User', 2),
+(2, 'Lara\\Common\\Models\\User', 3),
+(4, 'Lara\\Common\\Models\\User', 4),
+(5, 'Lara\\Common\\Models\\User', 5),
+(4, 'Lara\\Common\\Models\\User', 99);
 
 SET FOREIGN_KEY_CHECKS=1;

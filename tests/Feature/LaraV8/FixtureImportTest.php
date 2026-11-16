@@ -3,6 +3,7 @@
 namespace Tests\Feature\LaraV8;
 
 use App\Console\Commands\LaraV8\Support\EntityImporter;
+use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -11,19 +12,22 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityRelation;
+use Lara\Common\Models\User;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Throwable;
 
 /**
- * The real build of lara:v8:import-entities, on throwaway databases:
+ * The real imports (lara:v8:import-entities, lara:v8:import-users), on throwaway databases:
  * - source lara_v8_fixture: the v8 fixture (tests/Fixtures/LaraV8/v8_fixture.sql),
  * - target lara_v8_build_test: an essential base (core migrations + essential seed).
  * The site database and the shared test database are not touched. The builder writes
  * code into laracms/app for the fixture content types (v8fx…), which is removed afterwards.
+ * Every import runs twice; the second run must change nothing.
  *
  * Skipped when the MySQL user cannot create databases.
  */
-class ImportEntitiesBuildTest extends TestCase
+class FixtureImportTest extends TestCase
 {
     private const SOURCE = 'lara_v8_fixture';
 
@@ -38,6 +42,15 @@ class ImportEntitiesBuildTest extends TestCase
 
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $rerun = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $userReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $userRerun = [];
+
+    /** @var list<string> the webmaster permissions of the essential seed, before the user import */
+    private static array $webmasterSeeded = [];
 
     protected function setUp(): void
     {
@@ -85,6 +98,10 @@ class ImportEntitiesBuildTest extends TestCase
 
         self::$report = (new EntityImporter(new V8Source))->run();
         self::$rerun = (new EntityImporter(new V8Source))->run();
+
+        self::$webmasterSeeded = Role::findByName('webmaster', 'web')->permissions()->pluck('name')->all();
+        self::$userReport = (new UserImporter(new V8Source))->run();
+        self::$userRerun = (new UserImporter(new V8Source))->run();
     }
 
     /**
@@ -217,5 +234,81 @@ class ImportEntitiesBuildTest extends TestCase
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "'pages' is defined more than once")));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "'agree' (yesno)")));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "'pages' (intunsigned)")));
+    }
+
+    public function test_the_user_import_has_no_errors_and_a_second_run_changes_nothing(): void
+    {
+        $errors = collect(self::$userReport)->where('level', 'error');
+        $changes = collect(self::$userRerun)->whereNotIn('level', ['same', 'info', 'warning']);
+
+        $this->assertEmpty($errors, $errors->pluck('message')->implode("\n"));
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
+    }
+
+    public function test_users_keep_their_v8_id_and_password_hash(): void
+    {
+        $users = DB::table('lara_auth_users')->orderBy('id')->get()->keyBy('id');
+
+        $this->assertSame([1, 2, 3, 4, 5], $users->keys()->all(), 'The essential superadmin (id 3) is replaced by the v8 user 3.');
+
+        $this->assertSame(['admin', 'Fixture Beheer', 'admin@fixture.test', 'nl'], [$users[2]->name, $users[2]->displayname, $users[2]->email, $users[2]->locale]);
+        $this->assertSame(['webmaster', 'de', config('app.locale')], [$users[3]->name, $users[3]->middlename, $users[3]->locale]);
+        $this->assertSame('en', $users[4]->locale);
+        $this->assertSame(['API', 'fixture-api-token', ''], [$users[1]->name, $users[1]->api_token, $users[1]->email]);
+
+        $this->assertSame('$2y$10$0gsJGtpSCdYXR/oc9XoLvukGkXnU6pt323pLJA4V1uyCWtl45et1G', $users[2]->password);
+        $this->assertTrue(password_verify('fixture', $users[3]->password));
+    }
+
+    public function test_the_v8_admin_only_gets_superadmin_and_the_others_their_v8_role(): void
+    {
+        $roles = fn (int $id): array => User::findOrFail($id)->roles()->pluck('name')->all();
+
+        $this->assertSame(['superadmin'], $roles(2));
+        $this->assertSame(['webmaster'], $roles(3));
+        $this->assertSame(['member'], $roles(4));
+        $this->assertSame(['clerk'], $roles(5));
+        $this->assertSame([], $roles(1));
+    }
+
+    public function test_roles_are_created_for_used_v8_roles_only(): void
+    {
+        $clerk = Role::where('name', 'clerk')->firstOrFail();
+
+        $this->assertSame([1, 40], [(int) $clerk->has_panel_access, (int) $clerk->level]);
+        $this->assertNull(Role::where('name', 'editor')->first(), 'A v8 role without users is skipped.');
+    }
+
+    public function test_role_permissions_follow_v8_for_shared_subjects_and_keep_v10_for_the_rest(): void
+    {
+        $webmaster = Role::findByName('webmaster', 'web')->permissions()->pluck('name');
+        $clerk = Role::findByName('clerk', 'web')->permissions()->pluck('name');
+
+        $this->assertSame(['update_v8fxbook', 'view_any_v8fxbook', 'view_v8fxbook'], $webmaster->filter(fn (string $p): bool => str_ends_with($p, '_v8fxbook'))->sort()->values()->all());
+        $this->assertSame(['view_any_page', 'view_page'], $webmaster->filter(fn (string $p): bool => str_ends_with($p, '_page'))->sort()->values()->all());
+        $this->assertSame([], $webmaster->filter(fn (string $p): bool => str_ends_with($p, '_setting'))->values()->all(), 'v8 knows setting and did not give it to the webmaster.');
+
+        // a subject v8 never mentions keeps the permissions of the essential seed
+        $untouched = fn (array $permissions): array => array_values(array_filter($permissions, fn (string $p): bool => str_ends_with($p, '_translation')));
+        $this->assertSame($untouched(self::$webmasterSeeded), $untouched($webmaster->all()));
+
+        $this->assertSame(['view_any_v8fxbook', 'view_v8fxbook'], $clerk->sort()->values()->all());
+    }
+
+    public function test_the_permissions_of_the_built_content_types_exist(): void
+    {
+        foreach (['view_any_v8fxbook', 'delete_any_v8fxevent', 'create_v8fxform'] as $permission) {
+            $this->assertTrue(DB::table('lara_auth_permissions')->where('name', $permission)->exists(), $permission);
+        }
+    }
+
+    public function test_skipped_abilities_and_orphan_assignments_are_reported(): void
+    {
+        $messages = collect(self::$userReport)->pluck('message');
+
+        $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, "v8 subject 'headertag' has no v10 policy")));
+        $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, 'for user 99, who no longer exists')));
+        $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, "Role 'editor' has no users")));
+        $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, "replaces v10 user 'superadmin'")));
     }
 }
