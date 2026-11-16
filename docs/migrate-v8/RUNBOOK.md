@@ -248,6 +248,7 @@ Run it after `import-content`. Source: `LARA_V8_MEDIA_PATH` (for the final sync:
 - Plain `php artisan migrate` finds nothing: the migrations live in `laracms/core/src/common/Database/Migrations` and `laracms/app/Database/Migrations` and must be run with `--path` (see step 1).
 - `.env.example` on `main` is the stock Laravel file (sqlite, no `LARA_*` keys). Base the `.env` on a working v10 site and replace name, URL, database, key and third-party keys (Google Maps, reCAPTCHA, GA4).
 - `public/storage` on `main` is a committed symlink to a developer folder; `storage:link` replaces it locally. Do not commit that change.
+- `storage/app/public` is not git-ignored in the project repo (standard Laravel has a `.gitignore` there): the imported media show up as untracked files. Never add them to the `v8-migration` branch; a `storage/app/public/.gitignore` on `main` would prevent it.
 - `herd link` runs Laravel Boost, which regenerates `CLAUDE.md`, `AGENTS.md` and `.claude/skills`. Revert with `git checkout -- CLAUDE.md AGENTS.md .claude`.
 - `/config/lara-*` is git-ignored in the project, so site-wide migration settings live in `config/v8-migration.php`.
 - `composer test` needs the front assets (Vite manifests) and a `tests/Unit` folder.
