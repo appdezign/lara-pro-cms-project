@@ -37,9 +37,11 @@ npm ci && npx vite build --config vite.admin.config.js && npx vite build --confi
 #   no Node on the server: upload anpak1077-assets.tgz and run  tar -xzf ~/anpak1077-assets.tgz -C public
 
 # 2. .env (keep APP_KEY and the DB settings of the server)
+#    APP_NAME=Anpak  (the site name in every page title and og:site_name; the earlier attempt had Laracms10)
 #    APP_ENV=staging  APP_DEBUG=false  APP_URL=https://dev.anpak.eu  LARA_CLIENT_THEME=anpak
 #    MAIL_DEV_* (staging sends form mail with the dev mailer)
-#    GOOGLE_MAPS_API_KEY, GOOGLE_MAPS_GEOCODING_API_KEY, GOOGLE_RECAPTCHA_SITE_KEY, GOOGLE_RECAPTCHA_SECRET_KEY, CONSENT_GA4_ID: as the local .env
+#    GOOGLE_MAPS_API_KEY, GOOGLE_MAPS_GEOCODING_API_KEY, GOOGLE_RECAPTCHA_SITE_KEY, GOOGLE_RECAPTCHA_SECRET_KEY: as the local .env
+#    CONSENT_GA4_ID: as the local .env (new in v10: the cookie-consent plugin loads GA4 with it)
 
 # 3. data (upload ~/anpak1077.sql and ~/anpak1077-media.tgz first)
 mysql {db} < ~/anpak1077.sql
@@ -51,16 +53,24 @@ php artisan migrate:status | grep -i pending      # expected: nothing
 php artisan optimize:clear && php artisan lara:route:cache
 
 # 5. scheduler (Cloudways: Cron Job Management):  * * * * * cd {app root} && php artisan schedule:run >> /dev/null 2>&1
+
+# 6. the sitemap once (the scheduler writes public/sitemap.xml daily; until then /sitemap.xml redirects to /nl/sitemap.xml, which shows the home page)
+php artisan tinker --execute '(new \Lara\App\Sitemap\GoogleSitemapGenerator)(["nl"]);'
 ```
+
+Notes from the first deploy (2026-11-16):
+
+- Cloudways "Deployment via Git" (dashboard: choose the branch, Pull) works for the code; it keeps the git data outside `public_html`, so `git status` there says "not a git repository". Check the code by its files instead (e.g. `v8-overrides.php`, `app/Console/Commands/LaraV8/SyncCommand.php`, `composer.json` at 10.7.20). It runs no composer, build or artisan command: those stay SSH steps.
+- The server has no Node: upload `anpak1077-assets.tgz` (built locally) and unpack it in `public/`; the media archive likewise.
 
 Checks:
 
-- [ ] Server: PHP 8.4, the scheduler cron.
-- [ ] Code on `v10`, assets built, `.env` as above.
-- [ ] Data loaded, media in place, `storage:link`.
+- [x] Server: PHP 8.4. Scheduler cron: **check**.
+- [x] Code on `v10`, assets uploaded, `.env` (with `CONSENT_GA4_ID`). `APP_NAME=Anpak`: **to set** (titles end in "Laracms10").
+- [x] Data loaded, media in place, `storage:link`.
+- [x] Compared with live and with anpak1077 (58 pages): status, headings, text and images identical to anpak1077; only the title suffix differs (`APP_NAME`). On the server: `/flyer/` and `/flyer/?page=1` 200 (Apache serves the folder), theme assets, Glide images (webp), editor images under `/storage`, PDF download, cookie consent with GA4, no English hreflang.
+- [ ] Sitemap: generate once (step 6); live has none (`/nl/sitemap.xml` is an HTML page there).
 - [ ] Forms: contact (`/nl/contact`, `/nl/contact-1`) and the classic form; mail goes to `company_email` (an anpak.eu address) in production, to the dev mailer on staging. The applications form is not used (menu item unpublished in v8).
-- [ ] `/flyer/` and `/flyer/?page=1` (static folder in `public/`; locally Herd redirects them to `/nl/flyer`, Apache should serve `index.html`).
-- [ ] Compare with live (task 22 scripts in the scratchpad: `compare.php`, `headings.php`; 58 pages).
 
 ## Content to settle before the freeze
 
