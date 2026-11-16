@@ -24,8 +24,9 @@ trait SyncsRows
      * @param  list<string>  $keyColumns
      * @param  Collection<int, array<string, mixed>>  $rows
      * @param  list<string>  $derived
+     * @param  bool  $reportExtra  false where v10 keeps rows of its own (settings, translations): they are not reported
      */
-    private function sync(string $label, string $table, array $keyColumns, Collection $rows, bool $dryRun, bool $fresh, array $derived = []): void
+    private function sync(string $label, string $table, array $keyColumns, Collection $rows, bool $dryRun, bool $fresh, array $derived = [], bool $reportExtra = true): void
     {
         $keyOf = fn (array|object $row): string => implode('#', array_map(fn (string $column): string => (string) data_get($row, $column), $keyColumns));
         $existing = DB::table($table)->get()->keyBy($keyOf);
@@ -100,7 +101,7 @@ trait SyncsRows
 
         $extra = $existing->keys()->reject(fn (string $key): bool => isset($wanted[$key]))->values();
 
-        if ($extra->isEmpty()) {
+        if ($extra->isEmpty() || (! $fresh && ! $reportExtra)) {
             return;
         }
 

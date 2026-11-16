@@ -90,7 +90,7 @@ After this the full v10 test suite (`composer test`) no longer applies to the si
 
 The migration tests in short: tests marked "skipped without a v8 source" run against the site's own `lara_v8` snapshot and only read. `FixtureImportTest` runs the real imports on two throwaway databases, `lara_v8_fixture` (loaded from `tests/Fixtures/LaraV8/v8_fixture.sql`: three content types `v8fxbook`, `v8fxevent`, `v8fxform` that cover geolocation, duplicates, conditions, a relation and a form) and `lara_v8_build_test` (an essential base); it removes the generated `v8fx…` code afterwards and is skipped when the MySQL user cannot create databases. Extend the fixture when a site shows a new case.
 
-**Never commit** the changes in `laracms/app` (removed demo code, generated site code) to the `v8-migration` branch; they belong to the site, not to the migration tooling.
+**Never commit** the changes in `laracms/app` and `lang/vendor` (removed demo code, generated site code) to the `v8-migration` branch; they belong to the site, not to the migration tooling.
 
 ### 5. Content types
 
@@ -189,6 +189,19 @@ Using the v10 site changes rows the imports wrote; a rerun must not fight that:
 - Opening an edit form locks the record (`locked_at`/`locked_by`); a content rerun clears the locks, which is right during a migration.
 - Opening a v10 index or form page creates its "module page" when it cannot find it. v8 module pages are named `{entity key}-{method}-module-{language}`, v10 ones `{resource slug}-…`: the content import renames them (`V8Map::modulePageSlug()`); `--fresh` removes module pages v10 created before that.
 
+### 11. Settings, languages, blacklist and translations
+
+```bash
+php artisan lara:v8:import-settings --dry-run
+php artisan lara:v8:import-settings          # also exports the translations to lang/vendor
+```
+
+- **Settings** (matched on `cgroup` + `key`): the site's own `company` and `general` values replace the essential seed (address, phone, GA4 id, coordinates); a key v8 holds twice takes the row with a value. `system` (versions, sync timestamps) belongs to v10 and `opengraph` is handled by filarank: both are skipped. v10-only settings are never removed.
+- **Languages** and **blacklist** are copied by id.
+- **Header tags** (v8 heading levels per template) have no v10 counterpart; reported.
+- **Translations**: the site's labels (v8 module `lara-eve`, per entity key) become `lara-app` labels of the v10 resource: `column` → `column` (with the column renames), `formfield` → `column` (a v8 `column` label wins), `entity_title` → `entity.title` + `navigation.label`, `entity_single`/`entity_plural` → `model.label_single`/`label_plural`, other tags as they are. v8 `lara-front` texts replace the v10 ones with the same key; v8 `lara-admin`/`lara-common` are the v8 admin's own texts and are skipped. v8 placeholders (`_key`) never overwrite. Afterwards the translations are exported to `lang/vendor`, as the admin does.
+- The exported language files in `lang/vendor` are tracked in the project repo: like `laracms/app`, **never commit** them to the `v8-migration` branch.
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
@@ -234,6 +247,7 @@ Using the v10 site changes rows the imports wrote; a rerun must not fight that:
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
 - Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
+- Settings: company/general from v8 (ANPAK, Heerenveen, GA4 id, phone); 16 system and 5 opengraph settings skipped; 18 blacklisted IPs; 31 header tags reported. Translations: 214 created, 48 updated (site labels such as services → "diensten"/"dienst"), 1272 admin texts skipped, 101 v8 front texts without a v10 key, 96 placeholders skipped.
 - Menus: 3 menus, 29 menu items (34 v8 items minus 4 root items minus item 48 "About" (en, unpublished), whose page 1078 no longer exists); 24 route names rebuilt. 13 module page slugs renamed (team-index-module-nl → teams-index-module-nl …). Front: every page works; services (`_sortbytaxonomy`), downloads (`_sortbytaxonomy`) and jobs give a 500 until the anpak theme has their views.
 - Objects: 2 taxonomies, 82 tags, 37 taggables, 4 pageables (widgets on page 1), 27 SEO rows (of 57 v8 rows; the rest were empty), layout of page 1 (all values in the demo theme). Reported: 9 tags with a publish_from date, 1 team member with an og title/description.
 - Users: 9 users imported with their v8 ids; `admin` (id 2) → superadmin only; `helpdesk` (id 3) replaced the essential superadmin; webmasters Lampe and kapma; role `editor` skipped (no users); 5 orphan role assignments (users 6, 12–15). The webmaster lost menu, setting and translation permissions it did not have in v8 either.

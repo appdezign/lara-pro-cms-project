@@ -799,4 +799,94 @@ INSERT INTO `lara_menu_redirects` (`id`, `language`, `title`, `redirectfrom`, `r
 (1, 'nl', 'Oude pagina', 'oude-pagina', '/nl/boeken', '301', 1),
 (2, 'nl', 'Tijdelijk', '/tijdelijk', '/nl/contact', '302', 0);
 
+CREATE TABLE `lara_sys_settings` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cgroup` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` text COLLATE utf8_unicode_ci,
+  `locked_by_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_sys_settings_position_index` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_sys_blacklist` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `ipaddress` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_sys_headertags` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cgroup` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `templatefile_id` bigint(20) unsigned NOT NULL,
+  `title_tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `subtitle_tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `list_tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_sys_headertags_templatefile_id_foreign` (`templatefile_id`),
+  KEY `lara_sys_headertags_locked_by_foreign` (`locked_by`),
+  CONSTRAINT `lara_sys_headertags_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `lara_sys_headertags_templatefile_id_foreign` FOREIGN KEY (`templatefile_id`) REFERENCES `lara_sys_templatefiles` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_sys_translations` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `module` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cgroup` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tag` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `value` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Settings, blacklist, header tags and translations (lara:v8:import-settings).
+-- company/general: v8 wins (company_phone is v8-only); company_telephone_clean is defined twice (the one with a value wins);
+-- system and opengraph are not imported. Translations: lara-eve → lara-app (column, entity, formfield, placeholder),
+-- lara-front only for keys v10 knows (default.button.go_back), lara-admin is skipped.
+
+INSERT INTO `lara_sys_settings` (`id`, `title`, `cgroup`, `key`, `value`, `position`) VALUES
+(1, 'Company name', 'company', 'company_name', 'Fixture BV', 1),
+(2, 'City', 'company', 'company_city', 'Haarlem', 2),
+(3, 'Phone', 'company', 'company_telephone_clean', 'NULL', 3),
+(4, 'Phone', 'company', 'company_telephone_clean', '+31201234567', 4),
+(5, 'Phone (v8 only)', 'company', 'company_phone', '020 1234567', 5),
+(6, 'Zoom', 'general', 'google_maps_zoom', '12', 6),
+(7, 'DB version', 'system', 'lara_db_version', '8.2.46', 7),
+(8, 'OG site name', 'opengraph', 'og_site_name', 'Fixture', 8);
+
+INSERT INTO `lara_sys_blacklist` (`id`, `ipaddress`) VALUES (1, '192.0.2.66'), (2, '198.51.100.7');
+
+INSERT INTO `lara_sys_headertags` (`id`, `title`, `cgroup`, `templatefile_id`, `title_tag`, `subtitle_tag`, `list_tag`) VALUES
+(1, 'Page Show', 'module', 1, 'h1', 'h2', 'h3');
+
+INSERT INTO `lara_sys_translations` (`language`, `module`, `cgroup`, `tag`, `key`, `value`) VALUES
+('nl', 'lara-eve', 'v8fxbook', 'entity', 'entity_title', 'boekenkast'),
+('nl', 'lara-eve', 'v8fxbook', 'entity', 'entity_single', 'boek'),
+('nl', 'lara-eve', 'v8fxbook', 'entity', 'entity_plural', 'boeken'),
+('nl', 'lara-eve', 'v8fxbook', 'column', 'subtitle', 'ondertitel'),
+('nl', 'lara-eve', 'v8fxbook', 'column', 'address', 'adres'),
+('nl', 'lara-eve', 'v8fxbook', 'column', 'kind', '_kind'),
+('nl', 'lara-eve', 'v8fxform', 'column', 'name', 'naam (beheer)'),
+('nl', 'lara-eve', 'v8fxform', 'formfield', 'name', 'naam (formulier)'),
+('nl', 'lara-eve', 'v8fxform', 'formfield', 'comment', 'opmerking'),
+('nl', 'lara-eve', 'v8fxform', 'button', 'submit', 'versturen'),
+('nl', 'lara-eve', 'gone', 'column', 'title', 'weg'),
+('nl', 'lara-front', 'default', 'button', 'go_back', 'terug naar het overzicht'),
+('nl', 'lara-front', 'default', 'button', 'v8_only', 'alleen v8'),
+('nl', 'lara-admin', 'default', 'button', 'save', 'opslaan');
+
 SET FOREIGN_KEY_CHECKS=1;

@@ -6,6 +6,7 @@ use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\ObjectImporter;
+use App\Console\Commands\LaraV8\Support\SystemImporter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use Illuminate\Support\Facades\Artisan;
@@ -73,6 +74,14 @@ class FixtureImportTest extends TestCase
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $menuRerun = [];
 
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $systemReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $systemRerun = [];
+
+    private static ?string $langPath = null;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -101,6 +110,10 @@ class FixtureImportTest extends TestCase
     public static function tearDownAfterClass(): void
     {
         self::removeGeneratedCode(dirname(__DIR__, 3).'/laracms/app');
+
+        if (self::$langPath !== null) {
+            exec('rm -rf '.escapeshellarg(self::$langPath));
+        }
 
         parent::tearDownAfterClass();
     }
@@ -136,6 +149,15 @@ class FixtureImportTest extends TestCase
         // what lara:menu:refresh-routenames does: v10 names menu routes after their URL
         DB::table('lara_menu_menu_items')->where('id', 2)->update(['routename' => 'entitytag.v8fxbooks.boeken.index']);
         self::$menuRerun = (new MenuImporter(new V8Source))->run();
+
+        // the translation export writes language files: into a temporary folder, never the site's lang/vendor
+        self::$langPath = sys_get_temp_dir().'/lara-v8-lang-'.uniqid();
+        File::ensureDirectoryExists(self::$langPath);
+        $sitePath = app()->langPath();
+        app()->useLangPath(self::$langPath);
+        self::$systemReport = (new SystemImporter(new V8Source))->run(fresh: true);
+        self::$systemRerun = (new SystemImporter(new V8Source))->run();
+        app()->useLangPath($sitePath);
     }
 
     /**
@@ -522,5 +544,75 @@ class FixtureImportTest extends TestCase
     {
         $this->assertTrue(collect(self::$menuReport)->contains(fn (array $line): bool => str_contains($line['message'], 'Menu 2 (nl): 1 v8 root item(s) dropped')));
         $this->assertTrue(collect(self::$menuReport)->contains(fn (array $line): bool => str_contains($line['message'], "Menu item 7 'Weg' points to page 9999, which does not exist; skipped.")));
+    }
+
+    public function test_the_settings_import_has_no_errors_and_a_second_run_changes_nothing(): void
+    {
+        $errors = collect(self::$systemReport)->where('level', 'error');
+        $changes = collect(self::$systemRerun)->whereNotIn('level', ['same', 'info', 'warning']);
+
+        $this->assertEmpty($errors, $errors->pluck('message')->implode("\n"));
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
+    }
+
+    public function test_the_site_settings_replace_the_seed_and_system_values_stay(): void
+    {
+        $settings = DB::table('lara_sys_settings')->get()->keyBy(fn (object $row): string => $row->cgroup.'.'.$row->key);
+
+        $this->assertSame('Fixture BV', $settings['company.company_name']->value);
+        $this->assertSame('+31201234567', $settings['company.company_telephone_clean']->value, 'Of two v8 rows the one with a value wins.');
+        $this->assertSame('020 1234567', $settings['company.company_phone']->value, 'A v8-only key is added.');
+        $this->assertSame('12', $settings['general.google_maps_zoom']->value);
+        $this->assertNotSame('8.2.46', $settings['system.lara_db_version']->value ?? null, 'System values belong to v10.');
+        $this->assertFalse($settings->has('opengraph.og_site_name'), 'opengraph is handled by filarank.');
+        $this->assertTrue($settings->has('company.company_2fa_app_name'), 'A v10-only setting stays.');
+        $this->assertSame(1, $settings->where('key', 'company_telephone_clean')->count());
+    }
+
+    public function test_the_blacklist_is_imported(): void
+    {
+        $this->assertSame(['192.0.2.66', '198.51.100.7'], DB::table('lara_sys_blacklist')->orderBy('id')->pluck('ipaddress')->all());
+    }
+
+    public function test_site_labels_become_lara_app_translations(): void
+    {
+        $value = fn (string $resource, string $tag, string $key): ?string => DB::table('lara_sys_translations')
+            ->where(['language' => 'nl', 'module' => 'lara-app', 'resource' => $resource, 'tag' => $tag, 'key' => $key])->value('value');
+
+        $this->assertSame('boekenkast', $value('v8fxbooks', 'entity', 'title'));
+        $this->assertSame('boekenkast', $value('v8fxbooks', 'navigation', 'label'));
+        $this->assertSame('boek', $value('v8fxbooks', 'model', 'label_single'));
+        $this->assertSame('boeken', $value('v8fxbooks', 'model', 'label_plural'));
+        $this->assertSame('ondertitel', $value('v8fxbooks', 'column', 'subtitle'));
+        $this->assertSame('adres', $value('v8fxbooks', 'column', 'geo_address'), 'A geolocation part label follows its column.');
+        $this->assertNotSame('_kind', $value('v8fxbooks', 'column', 'kind'), 'A v8 placeholder is not imported.');
+        $this->assertSame('naam (beheer)', $value('v8fxforms', 'column', 'name'), 'A v8 column label wins over the form field label.');
+        $this->assertSame('opmerking', $value('v8fxforms', 'column', 'comment'), 'A form field label becomes the column label.');
+        $this->assertSame('versturen', $value('v8fxforms', 'button', 'submit'));
+        $this->assertNull($value('gones', 'column', 'title'), 'Labels of an entity that is no content type are skipped.');
+    }
+
+    public function test_front_texts_only_for_known_keys_and_no_admin_texts(): void
+    {
+        $front = fn (string $key): ?string => DB::table('lara_sys_translations')
+            ->where(['language' => 'nl', 'module' => 'lara-front', 'resource' => 'default', 'tag' => 'button', 'key' => $key])->value('value');
+
+        $this->assertSame('terug naar het overzicht', $front('go_back'));
+        $this->assertNull($front('v8_only'));
+        $this->assertNotSame('opslaan', DB::table('lara_sys_translations')->where(['language' => 'nl', 'module' => 'lara-admin', 'resource' => 'default', 'tag' => 'button', 'key' => 'save'])->value('value'));
+    }
+
+    public function test_the_translations_are_exported_to_the_temporary_lang_folder(): void
+    {
+        $file = self::$langPath.'/vendor/lara-app/nl/v8fxbooks.php';
+
+        $this->assertFileExists($file);
+        $this->assertSame('boek', (require $file)['model']['label_single']);
+        $this->assertFileDoesNotExist(base_path('lang/vendor/lara-app/nl/v8fxbooks.php'), 'The site lang folder is not touched.');
+    }
+
+    public function test_header_tags_are_reported(): void
+    {
+        $this->assertTrue(collect(self::$systemReport)->contains(fn (array $line): bool => str_contains($line['message'], '1 v8 header tag setting(s)')));
     }
 }
