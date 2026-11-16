@@ -1,6 +1,6 @@
 # anpak.eu: go-live checklist
 
-v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`) → v10 (`anpak1077`, Lara CMS 10.7.20). General steps: runbook step 18. Status 2026-11-16: everything up to staging is done locally; the items marked **open** need the user.
+v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`) → v10 (`anpak1077`, Lara CMS 10.7.20). General steps: runbook step 18. Status 2026-11-16: staging (https://dev.anpak.eu) done and checked; next: the switch.
 
 ## Repositories
 
@@ -72,7 +72,7 @@ Checks:
 - [x] Data loaded, media in place, `storage:link`.
 - [x] Compared with live and with anpak1077 (58 pages): status, headings, text and images identical to anpak1077; only the title suffix differs (`APP_NAME`). On the server: `/flyer/` and `/flyer/?page=1` 200 (Apache serves the folder), theme assets, Glide images (webp), editor images under `/storage`, PDF download, cookie consent with GA4, no English hreflang.
 - [x] Sitemap generated (step 6): `/sitemap.xml` is XML with 22 URLs (live has none). Tinker prints a harmless notice that it cannot write `~/.config/psysh` on Cloudways. It uses `APP_URL`: generate it again after the switch (or wait for the daily task).
-- [ ] Forms: contact (`/nl/contact`, `/nl/contact-1`) and the classic form. In production the webmaster mail goes to `company_email` (an anpak.eu address) with the `smtp` mailer; on staging to `config('lara.admin_company_email')` with the dev mailer (`MAIL_DEV_*`). The first test failed with `View [email.contactforms.webmaster] not found`: the anpak mail views are now in `email/contactforms` and `email/classicforms` (v10 `dcaf4b1`); pull, `php artisan view:clear`, test again. The applications form is not used (menu item unpublished in v8).
+- [x] Forms: contact (`/nl/contact`, `/nl/contact-1`) and the classic form; mail works on dev.anpak.eu (user, 2026-11-16). In production the webmaster mail goes to `company_email` (an anpak.eu address) with the `smtp` mailer; on staging to `config('lara.admin_company_email')` with the dev mailer (`MAIL_DEV_*`). The first test failed with `View [email.contactforms.webmaster] not found`: the anpak mail views are now in `email/contactforms` and `email/classicforms` (v10 `dcaf4b1`); pull, `php artisan view:clear`, test again. The applications form is not used (menu item unpublished in v8).
 
 ## Content to settle before the freeze
 
