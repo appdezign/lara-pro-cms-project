@@ -24,9 +24,8 @@ use Tests\TestCase;
  *    every localised URL falls through to the catch-all. This is the same
  *    mechanism lara:route:cache uses to build one cache file per locale.
  *
- *  - Every assertion has to check which route actually matched. The CMS renders
- *    its error page with a 200 status, so "assertOk()" alone passes even when
- *    the request quietly landed on the 404 catch-all.
+ *  - Every assertion checks which route actually matched, so a page that lands
+ *    on the 404 catch-all is reported with the route it should have matched.
  */
 class FrontendRenderTest extends TestCase
 {
@@ -172,7 +171,7 @@ class FrontendRenderTest extends TestCase
     {
         $response = $this->get('/'.$this->locale().'/zz-no-such-page');
 
-        $response->assertOk();
+        $response->assertNotFound();
 
         $this->assertSame('error.show.404', Route::current()?->getName());
     }

@@ -117,8 +117,6 @@ return [
         'language_versions' => 'language versions',
         'layout' => 'layout',
         'main_images' => 'main images',
-        'opengraph' => 'opengraph',
-        'opengraph_advanced' => 'opengraph advanced',
         'related' => 'related',
         'seo' => 'seo',
         'status' => 'status',
@@ -128,11 +126,13 @@ return [
         'videos' => 'videos',
     ],
     'tablecolumn' => [
+        'cgroup' => '_cgroup',
         'id' => '_id',
         'publish' => '_publish',
         'publish_from' => '_publish_from',
         'seo' => '_seo',
         'terms' => '_terms',
+        'user_id' => '_user_id',
     ],
     'tabs' => [
         'content' => 'content',

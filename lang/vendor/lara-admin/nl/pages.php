@@ -20,4 +20,7 @@ return [
     'navigation' => [
         'label' => 'pagina\'s',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

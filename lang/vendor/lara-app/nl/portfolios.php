@@ -15,4 +15,7 @@ return [
     'navigation' => [
         'label' => 'portfolio',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

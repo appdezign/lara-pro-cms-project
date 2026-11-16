@@ -135,21 +135,21 @@ class PublishVisibilityTest extends TestCase
         $this->assertSame('special.home.show', Route::current()?->getName());
     }
 
-    public function test_an_unknown_slug_redirects_to_the_error_page(): void
+    public function test_an_unknown_slug_is_not_found(): void
     {
         $item = $this->blogMenuItem();
         $suffix = $item->entity->objrel_has_terms ? '.html' : '';
 
         $response = $this->get('/nl/'.$item->route.'/zz-no-such-blog'.$suffix);
 
-        $response->assertRedirect(route('error.show.404', '404'));
+        $response->assertNotFound();
     }
 
-    public function test_an_unknown_page_id_redirects_to_the_error_page(): void
+    public function test_an_unknown_page_id_is_not_found(): void
     {
         $response = $this->get(route('content.pages.show', 999999));
 
-        $response->assertRedirect(route('error.show.404', '404'));
+        $response->assertNotFound();
     }
 
     public function test_a_logged_in_user_can_preview_a_scheduled_blog(): void
@@ -168,7 +168,7 @@ class PublishVisibilityTest extends TestCase
 
         $response = $this->get($this->previewUrl($blog));
 
-        $response->assertRedirect(route('error.show.404', '404'));
+        $response->assertNotFound();
     }
 
     public function test_the_preview_of_a_visible_blog_redirects_to_its_public_url(): void

@@ -17,4 +17,7 @@ return [
     'navigation' => [
         'label' => 'testimonials',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

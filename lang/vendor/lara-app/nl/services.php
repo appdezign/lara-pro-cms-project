@@ -16,4 +16,7 @@ return [
     'navigation' => [
         'label' => 'diensten',
     ],
+    'tablecolumn' => [
+        'title' => '_title',
+    ],
 ];

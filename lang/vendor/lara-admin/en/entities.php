@@ -53,7 +53,6 @@ return [
         'show_batch' => 'show batch',
         'show_delete_action' => 'show delete',
         'show_edit_action' => 'show edit',
-        'show_opengraph' => 'show opengraph',
         'show_restore_action' => 'restore action',
         'show_rich_body' => 'show rich body',
         'show_rich_lead' => 'show rich lead',

@@ -25,4 +25,8 @@ return [
     'placeholder' => [
         'tag_none' => 'geen tag',
     ],
+    'target' => [
+        '_blank' => '__blank',
+        '_self' => '__self',
+    ],
 ];
