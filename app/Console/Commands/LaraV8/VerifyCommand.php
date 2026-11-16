@@ -13,11 +13,11 @@ use Throwable;
 class VerifyCommand extends Command
 {
     protected $signature = 'lara:v8:verify
-        {--only=* : Run only these checks: counts, sync, media, links}';
+        {--only=* : Run only these checks: counts, sync, media, links, tags}';
 
     protected $description = 'Verify the v8 migration: counts, sync with v8, media files and links';
 
-    private const CHECKS = ['counts', 'sync', 'media', 'links'];
+    private const CHECKS = ['counts', 'sync', 'media', 'links', 'tags'];
 
     public function handle(Verifier $verifier): int
     {

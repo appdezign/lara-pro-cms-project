@@ -681,12 +681,17 @@ INSERT INTO `lara_object_taxonomies` (`id`, `title`, `slug`, `has_hierarchy`, `i
 INSERT INTO `lara_object_tags` (`id`, `language`, `taxonomy_id`, `entity_key`, `title`, `slug`, `publish`, `publish_from`, `parent_id`, `lft`, `rgt`, `depth`) VALUES
 (11, 'nl', 1, 'v8fxbook', 'root', 'root-v8fxbook', 1, NULL, NULL, 1, 4, NULL),
 (12, 'nl', 1, 'v8fxbook', 'Romans', 'romans', 1, '2024-01-01 10:00:00', 11, 2, 3, 1),
-(13, 'nl', 1, 'larawidget', 'Home', 'home', 1, NULL, NULL, 1, 2, 0);
+(13, 'nl', 1, 'larawidget', 'Home', 'home', 1, NULL, NULL, 1, 2, 0),
+(14, 'en', 1, 'v8fxbook', '[EN] root', 'en-root-v8fxbook', 1, NULL, NULL, 1, 6, 0),
+(15, 'en', 1, 'v8fxbook', 'History', 'history', 1, NULL, 14, 2, 5, 1),
+(16, 'en', 1, 'v8fxbook', 'Ancient', 'ancient', 1, NULL, 15, 3, 4, 2),
+(17, 'nl', 2, 'v8fxbook', 'root', 'root-v8fxbook-tag', 1, NULL, NULL, 1, 2, 0);
 
 INSERT INTO `lara_object_taggables` (`id`, `tag_id`, `entity_type`, `entity_id`) VALUES
 (1, 12, 'Eve\\Models\\V8fxbook', 1),
 (2, 12, 'Eve\\Models\\V8fxbook', 2),
-(3, 12, 'Eve\\Models\\V8fxbook', 999);
+(3, 12, 'Eve\\Models\\V8fxbook', 999),
+(4, 17, 'Eve\\Models\\V8fxbook', 1);
 
 INSERT INTO `lara_object_pageables` (`id`, `page_id`, `entity_type`, `entity_id`) VALUES
 (1, 19, 'Lara\\Common\\Models\\Cta', 99);

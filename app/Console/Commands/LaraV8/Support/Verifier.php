@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\Tag;
 use Throwable;
 
 /**
@@ -17,6 +18,7 @@ use Throwable;
  * 3. Media: every Curator file, image link and file / video-file entry exists on its disk.
  * 4. Links: the v8 media URLs left in the HTML and the internal links that do not reach a
  *    page (UrlRewriter, dry run).
+ * 5. Tags: no v8 root tag in v10, and every tag tree is a valid nested set.
  *
  * Levels: ok, warning, error. Errors are missing content or files; differences that an
  * import would resolve are warnings.
@@ -32,7 +34,7 @@ class Verifier
     public function __construct(private readonly V8Source $source) {}
 
     /**
-     * @param  list<string>  $checks  counts, sync, media, links; empty for all
+     * @param  list<string>  $checks  counts, sync, media, links, tags; empty for all
      * @return list<array{level: string, entity: string, message: string}>
      */
     public function run(array $checks = []): array
@@ -51,6 +53,9 @@ class Verifier
         }
         if ($all || in_array('links', $checks, true)) {
             $this->links();
+        }
+        if ($all || in_array('tags', $checks, true)) {
+            $this->tags();
         }
 
         return $this->report;
@@ -275,6 +280,31 @@ class Verifier
 
         if ($problems === 0) {
             $this->add('ok', 'links', 'No v8 media URLs left; every internal link reaches a page.');
+        }
+    }
+
+    /**
+     * v10 has no root tag (the import drops the v8 roots), and kalnoy/nestedset needs valid trees.
+     */
+    private function tags(): void
+    {
+        $roots = DB::table('lara_object_tags')->whereNull('parent_id')->get()
+            ->filter(fn (object $tag): bool => ObjectImporter::isV8RootTag($tag));
+
+        if ($roots->isEmpty()) {
+            $this->add('ok', 'tags', 'No v8 root tags.');
+        } else {
+            $this->add('warning', 'tags', "{$roots->count()} v8 root tag(s) in v10 (#".$roots->pluck('id')->take(5)->implode(', #').'); rerun lara:v8:import-objects --fresh, or check the reported roots with objects.');
+        }
+
+        $invalid = DB::table('lara_object_tags')->select(['resource_slug', 'language', 'taxonomy_id'])->distinct()->get()
+            ->filter(fn (object $scope): bool => array_sum(Tag::scoped((array) $scope)->countErrors()) > 0)
+            ->map(fn (object $scope): string => "{$scope->resource_slug} [{$scope->language}] taxonomy {$scope->taxonomy_id}");
+
+        if ($invalid->isEmpty()) {
+            $this->add('ok', 'tags', 'Every tag tree is a valid nested set.');
+        } else {
+            $this->add('error', 'tags', "Invalid tag tree(s): {$invalid->implode('; ')}.");
         }
     }
 

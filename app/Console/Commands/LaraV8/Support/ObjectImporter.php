@@ -3,6 +3,7 @@
 namespace App\Console\Commands\LaraV8\Support;
 
 use App\Console\Commands\LaraV8\Support\Concerns\SyncsRows;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Lara\Front\LaraTheme\Theme;
 use Throwable;
@@ -60,22 +61,127 @@ class ObjectImporter
         $this->sync('taxonomies', 'lara_object_taxonomies', ['id'], $rows, $dryRun, $fresh);
     }
 
+    /**
+     * v8 keeps every tag tree (one per resource, language and taxonomy) under a root tag; v10 has
+     * none: its tags start at the top level. The v8 roots are not imported and their children move
+     * up one level (see treeWithoutRoots()).
+     */
     private function tags(bool $dryRun, bool $fresh): void
     {
-        $v8Tags = $this->source->connection()->table('lara_object_tags')->orderBy('id')->get();
+        $db = $this->source->connection();
+        $v8Tags = $db->table('lara_object_tags')->orderBy('id')->get();
         $published = $v8Tags->filter(fn (object $tag): bool => ! V8Source::isEmpty($tag->publish_from) || ! V8Source::isEmpty($tag->publish_to))->count();
 
         if ($published > 0) {
             $this->add('warning', 'tags', "{$published} v8 tag(s) have a publish_from/publish_to date; v10 tags have none, so the dates are not imported.");
         }
 
-        $rows = $v8Tags->map(function (object $tag): array {
-            $row = collect((array) $tag)->except(['entity_key', 'publish_from', 'publish_to'])->all();
+        $referenced = $db->table('lara_object_taggables')->pluck('tag_id')
+            ->merge($db->table('lara_menu_menu_items')->whereNotNull('tag_id')->pluck('tag_id'))
+            ->map(fn ($id): int => (int) $id)
+            ->unique()
+            ->values()
+            ->all();
 
-            return [...$row, 'resource_slug' => V8Map::resourceSlug($tag->entity_key), 'locked_at' => null, 'locked_by' => null];
-        });
+        $tree = self::treeWithoutRoots($v8Tags, $referenced);
+
+        if ($tree['dropped'] !== []) {
+            $this->add('info', 'tags', count($tree['dropped']).' v8 root tag(s) not imported; v10 has no root tag, so their children are top-level tags.');
+        }
+
+        foreach ($tree['kept'] as $id) {
+            $this->add('warning', 'tags', "v8 root tag #{$id} has objects or menu items; imported as a top-level tag.");
+        }
+
+        $rows = $v8Tags
+            ->filter(fn (object $tag): bool => isset($tree['nodes'][(int) $tag->id]))
+            ->map(function (object $tag) use ($tree): array {
+                $row = collect((array) $tag)->except(['entity_key', 'publish_from', 'publish_to'])->all();
+
+                return [
+                    ...$row,
+                    ...$tree['nodes'][(int) $tag->id],
+                    'resource_slug' => V8Map::resourceSlug($tag->entity_key),
+                    'locked_at' => null,
+                    'locked_by' => null,
+                ];
+            })
+            ->values();
 
         $this->sync('tags', 'lara_object_tags', ['id'], $rows, $dryRun, $fresh);
+    }
+
+    /**
+     * The v10 tag trees: v8 root tags dropped, their children moved up one level, and
+     * parent_id/depth/lft/rgt rebuilt per resource, language and taxonomy in v8 order.
+     *
+     * A v8 root is a top-level tag titled "root" (in another language "[EN] root"). A root that
+     * taggables or menu items point to is kept as a top-level tag (reported).
+     *
+     * @param  Collection<int, object>  $tags  v8 tags
+     * @param  list<int>  $referenced  ids of the tags that taggables or menu items point to
+     * @return array{nodes: array<int, array{parent_id: ?int, depth: int, lft: int, rgt: int}>, dropped: list<int>, kept: list<int>}
+     */
+    public static function treeWithoutRoots(Collection $tags, array $referenced): array
+    {
+        $referenced = array_flip($referenced);
+        $nodes = [];
+        $dropped = [];
+        $kept = [];
+
+        $scopes = $tags->groupBy(fn (object $tag): string => $tag->entity_key.'|'.$tag->language.'|'.$tag->taxonomy_id);
+
+        foreach ($scopes as $scope) {
+            $scope = $scope->sortBy(fn (object $tag): string => sprintf('%010d-%010d', (int) $tag->lft, (int) $tag->id))->values();
+            $ids = array_flip($scope->pluck('id')->map(fn ($id): int => (int) $id)->all());
+            $children = $scope->groupBy(fn (object $tag): string => $tag->parent_id === null ? '' : (string) (int) $tag->parent_id);
+            $topLevel = [];
+
+            // top level: tags without a parent, or whose parent is not in this tree
+            foreach ($scope as $tag) {
+                if ($tag->parent_id !== null && isset($ids[(int) $tag->parent_id])) {
+                    continue;
+                }
+
+                if (! self::isV8RootTag($tag)) {
+                    $topLevel[] = $tag;
+                } elseif (isset($referenced[(int) $tag->id])) {
+                    $kept[] = (int) $tag->id;
+                    $topLevel[] = $tag;
+                } else {
+                    $dropped[] = (int) $tag->id;
+                    array_push($topLevel, ...($children[(string) (int) $tag->id] ?? collect())->all());
+                }
+            }
+
+            $counter = 0;
+
+            $walk = function (object $tag, ?int $parentId, int $depth) use (&$walk, &$nodes, &$counter, $children): void {
+                $id = (int) $tag->id;
+                $nodes[$id] = ['parent_id' => $parentId, 'depth' => $depth, 'lft' => ++$counter, 'rgt' => 0];
+
+                foreach ($children[(string) $id] ?? [] as $child) {
+                    $walk($child, $id, $depth + 1);
+                }
+
+                $nodes[$id]['rgt'] = ++$counter;
+            };
+
+            foreach ($topLevel as $tag) {
+                $walk($tag, null, 0);
+            }
+        }
+
+        return ['nodes' => $nodes, 'dropped' => $dropped, 'kept' => $kept];
+    }
+
+    /**
+     * Whether a top-level v8 tag is the root of its tree: v8 names it "root", in another
+     * language with a prefix ("[EN] root"), and gives it a slug such as root-2 or en-root-1.
+     */
+    public static function isV8RootTag(object $tag): bool
+    {
+        return preg_match('/^(\[[a-z]{2}\]\s*)?root$/i', trim((string) $tag->title)) === 1;
     }
 
     /**

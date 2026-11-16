@@ -498,21 +498,34 @@ class FixtureImportTest extends TestCase
         $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
     }
 
-    public function test_tags_get_a_resource_slug_and_keep_their_tree(): void
+    public function test_tags_get_a_resource_slug_and_keep_their_tree_without_the_v8_root(): void
     {
         $tags = DB::table('lara_object_tags')->orderBy('id')->get()->keyBy('id');
+        $node = fn (int $id): array => [$tags[$id]->parent_id === null ? null : (int) $tags[$id]->parent_id, (int) $tags[$id]->lft, (int) $tags[$id]->rgt, (int) $tags[$id]->depth];
 
-        $this->assertSame([11, 12, 13], $tags->keys()->all());
-        $this->assertSame(['v8fxbooks', 0], [$tags[11]->resource_slug, (int) $tags[11]->depth], 'A NULL depth gets the column default.');
-        $this->assertSame(['v8fxbooks', 11, 2, 3, 1], [$tags[12]->resource_slug, (int) $tags[12]->parent_id, (int) $tags[12]->lft, (int) $tags[12]->rgt, (int) $tags[12]->depth]);
+        $this->assertSame([12, 13, 15, 16, 17], $tags->keys()->all(), 'The v8 roots 11 (root) and 14 ([EN] root) are not imported.');
+        $this->assertSame('v8fxbooks', $tags[12]->resource_slug);
+        $this->assertSame([null, 1, 2, 0], $node(12), 'A child of the root becomes a top-level tag.');
+        $this->assertSame([null, 1, 2, 0], $node(13), 'A top-level tag that is not a root is kept.');
         $this->assertSame('widgets', $tags[13]->resource_slug);
+        $this->assertSame([null, 1, 4, 0], $node(15));
+        $this->assertSame([15, 2, 3, 1], $node(16), 'Deeper tags move up one level.');
+        $this->assertSame([null, 1, 2, 0], $node(17), 'A root with objects is kept as a top-level tag.');
+    }
+
+    public function test_dropped_and_kept_root_tags_are_reported(): void
+    {
+        $report = collect(self::$objectReport);
+
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['level'] === 'info' && str_contains($line['message'], '2 v8 root tag(s) not imported')));
+        $this->assertTrue($report->contains(fn (array $line): bool => $line['level'] === 'warning' && str_contains($line['message'], 'v8 root tag #17 has objects or menu items')));
     }
 
     public function test_links_get_the_v10_model_class(): void
     {
         $taggables = DB::table('lara_object_taggables')->orderBy('id')->get();
 
-        $this->assertSame([1, 2], $taggables->pluck('id')->map(fn ($id) => (int) $id)->all(), 'A link to a record that does not exist is skipped.');
+        $this->assertSame([1, 2, 4], $taggables->pluck('id')->map(fn ($id) => (int) $id)->all(), 'A link to a record that does not exist is skipped.');
         $this->assertSame(['Lara\\App\\Models\\V8fxbook'], $taggables->pluck('entity_type')->unique()->values()->all());
 
         $pageable = DB::table('lara_object_pageables')->first();
@@ -777,6 +790,8 @@ class FixtureImportTest extends TestCase
         $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'v8fxbook' && $line['level'] === 'ok' && str_contains($line['message'], 'as v8')));
         $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'curator' && $line['level'] === 'ok'));
         $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'sync: content' && $line['level'] === 'ok'));
+        $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'tags' && $line['level'] === 'ok' && str_contains($line['message'], 'valid nested set')));
+        $this->assertTrue(collect($report)->contains(fn (array $line): bool => $line['entity'] === 'tags' && $line['level'] === 'warning' && str_contains($line['message'], '1 v8 root tag(s) in v10 (#17)')), 'The kept root with objects is reported.');
     }
 
     public function test_verify_finds_a_missing_row_a_missing_file_and_a_changed_row(): void
