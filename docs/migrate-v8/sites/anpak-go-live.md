@@ -5,7 +5,7 @@ v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`) → v10 (`anpak1077`, Lara CMS
 ## Before (staging)
 
 - [ ] Server: the Cloudways app of the earlier v10 attempt, **https://dev.anpak.eu** (user, 2026-11-16): check PHP 8.4, its database and the scheduler cron (`schedule:run`: Google sitemap daily, media sync hourly, Google Analytics).
-- [ ] Site code in the site repository **`appdezign/anpak-eu`** (user, 2026-11-16; the repo of the earlier `anpak10` attempt): the generated `laracms/app` (19 content types), `laracms/themes/anpak`, `v8-overrides.php` (4 overrides), `public/flyer`, `config/google-fonts.php` (Lato), `config/filarank.php` (title separator ` | `), `vite.front.client.config.js` (`THEME_NAME = 'anpak'`).
+- [ ] Site code in the site repository **`appdezign/anpak-eu`** (user, 2026-11-16; the repo of the earlier `anpak10` attempt): the generated `laracms/app` (19 content types), `laracms/themes/anpak`, `v8-overrides.php` (5 overrides), `public/flyer`, `config/google-fonts.php` (Lato), `config/filarank.php` (title separator ` | `), `vite.front.client.config.js` (`THEME_NAME = 'anpak'`).
 - [ ] `.env`: `APP_DEBUG=false`, `LARA_CLIENT_THEME=anpak`, mail (`MAIL_DEV_*` for staging, `MAIL_*` smtp for production), the **Google Maps, reCAPTCHA and GA4 keys from the local `.env`** (they are anpak's live keys), `LARA_V8_DB_*` (read-only user), `LARA_V8_MEDIA_PATH`, `LARA_V8_SITE_HOSTS=anpak.eu`.
 - [ ] Build: `composer install --no-dev -o`, `npm ci`, admin and client builds, `php artisan storage:link` (the repo has `public/storage` committed as a symlink to another machine's path).
 - [ ] Data: fresh production dump + media rsync, `lara:v8:sync`, `lara:v8:verify` → expected: no errors, no warnings.
