@@ -328,6 +328,17 @@ class V8MapTest extends TestCase
         $this->assertSame('lead', V8Map::contentColumn('blog', 'lead', false));
     }
 
+    public function test_module_page_slugs_get_the_resource_slug(): void
+    {
+        $keys = ['team', 'gallery', 'contactform'];
+
+        $this->assertSame('teams-index-module-nl', V8Map::modulePageSlug('team-index-module-nl', $keys));
+        $this->assertSame('galleries-index-module-en', V8Map::modulePageSlug('gallery-index-module-en', $keys));
+        $this->assertSame('contactforms-form-module-nl', V8Map::modulePageSlug('contactform-form-module-nl', $keys));
+        $this->assertSame('user-profile-module-nl', V8Map::modulePageSlug('user-profile-module-nl', $keys), 'Not a content type: unchanged.');
+        $this->assertSame('over-ons', V8Map::modulePageSlug('over-ons', $keys));
+    }
+
     public function test_a_widget_names_its_content_type_by_resource_slug(): void
     {
         $this->assertSame('blogs', V8Map::coreValue('larawidget', 'relentkey', 'blog'));

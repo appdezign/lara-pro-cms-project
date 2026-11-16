@@ -4,6 +4,7 @@ namespace Tests\Feature\LaraV8;
 
 use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
+use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\ObjectImporter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
@@ -66,6 +67,12 @@ class FixtureImportTest extends TestCase
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $objectRerun = [];
 
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $menuReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $menuRerun = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -118,10 +125,17 @@ class FixtureImportTest extends TestCase
         self::$userRerun = (new UserImporter(new V8Source))->run();
 
         self::$contentReport = (new ContentImporter(new V8Source))->run(fresh: true);
+        // what v10 does when a record is saved (e.g. by the Pages list): only updated_at changes
+        DB::table('lara_content_v8fxbooks')->where('id', 1)->update(['updated_at' => now()]);
         self::$contentRerun = (new ContentImporter(new V8Source))->run();
 
         self::$objectReport = (new ObjectImporter(new V8Source))->run(fresh: true);
         self::$objectRerun = (new ObjectImporter(new V8Source))->run();
+
+        self::$menuReport = (new MenuImporter(new V8Source))->run(fresh: true);
+        // what lara:menu:refresh-routenames does: v10 names menu routes after their URL
+        DB::table('lara_menu_menu_items')->where('id', 2)->update(['routename' => 'entitytag.v8fxbooks.boeken.index']);
+        self::$menuRerun = (new MenuImporter(new V8Source))->run();
     }
 
     /**
@@ -370,7 +384,8 @@ class FixtureImportTest extends TestCase
 
         $pages = DB::table('lara_content_pages')->orderBy('id')->get()->keyBy('id');
 
-        $this->assertSame([19, 1125], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
+        $this->assertSame([19, 1125, 2001], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
+        $this->assertSame('v8fxbooks-index-module-nl', $pages[2001]->slug, 'v10 finds a module page by the resource slug in its slug.');
         $this->assertSame('Home', $pages[19]->title, 'A v8 page with the id of an essential page replaces it.');
         $this->assertSame(['<p>Intro</p>', '<p>Tekst</p>', 'Arbeidshygiëne'], [$pages[1125]->body2, $pages[1125]->body, $pages[1125]->title]);
     }
@@ -452,5 +467,60 @@ class FixtureImportTest extends TestCase
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 record(s) have a v8 opengraph title or description')));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "'no_such_layout' is not a content option of the active theme")));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 related objects (lara_object_related) are not imported')));
+    }
+
+    public function test_the_menu_import_has_no_errors_and_a_second_run_keeps_the_v10_route_names(): void
+    {
+        $errors = collect(self::$menuReport)->where('level', 'error');
+        $changes = collect(self::$menuRerun)->whereNotIn('level', ['same', 'info', 'warning']);
+
+        $this->assertEmpty($errors, $errors->pluck('message')->implode("\n"));
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
+        $this->assertSame('entitytag.v8fxbooks.boeken.index', DB::table('lara_menu_menu_items')->where('id', 2)->value('routename'), 'A rerun keeps the route name v10 rebuilt.');
+    }
+
+    public function test_the_v8_menu_trees_are_flattened(): void
+    {
+        $items = DB::table('lara_menu_menu_items')->orderBy('menu_id')->orderBy('lft')->get()->keyBy('id');
+
+        $this->assertSame([1, 2, 3, 4, 6], $items->keys()->sort()->values()->all(), 'The footer root item and the essential items are gone.');
+
+        $shape = fn (int $id): array => [(int) $items[$id]->is_home, $items[$id]->parent_id === null ? null : (int) $items[$id]->parent_id, (int) $items[$id]->depth, (int) $items[$id]->lft, (int) $items[$id]->rgt, (int) $items[$id]->position];
+
+        $this->assertSame([1, null, 0, 1, 2, 1001], $shape(1), 'The v8 home root is the first top-level item.');
+        $this->assertSame([0, null, 0, 3, 6, 1002], $shape(2), 'Its children move up to the top level.');
+        $this->assertSame([0, 2, 1, 4, 5, 1003], $shape(3));
+        $this->assertSame([0, null, 0, 7, 8, 1004], $shape(4));
+        $this->assertSame([0, null, 0, 1, 2, 1001], $shape(6), 'The children of a footer root item are the top level.');
+        $this->assertNull($items[1]->route, 'The home page has no route.');
+    }
+
+    public function test_menu_items_point_to_the_v10_entities_and_views(): void
+    {
+        $items = DB::table('lara_menu_menu_items')->get()->keyBy('id');
+        $entity = fn (string $slug): int => (int) Entity::where('resource_slug', $slug)->value('id');
+        $view = fn (string $slug, string $method): int => (int) DB::table('lara_resource_entity_views')->where('entity_id', $entity($slug))->where('method', $method)->orderBy('id')->value('id');
+
+        $this->assertSame([$entity('v8fxbooks'), $view('v8fxbooks', 'index'), 12], [(int) $items[3]->entity_id, (int) $items[3]->entity_view_id, (int) $items[3]->tag_id]);
+        $this->assertSame([$entity('v8fxforms'), $view('v8fxforms', 'form')], [(int) $items[4]->entity_id, (int) $items[4]->entity_view_id]);
+
+        $standard = (int) DB::table('lara_resource_entity_views')->where('entity_id', $entity('pages'))->where('template', 'standard')->value('id');
+        $this->assertSame([$entity('pages'), $standard, 19], [(int) $items[1]->entity_id, (int) $items[1]->entity_view_id, (int) $items[1]->object_id], 'A page item gets the show view of the page template.');
+        $this->assertSame(0, (int) $items[6]->publish);
+    }
+
+    public function test_menus_and_redirects_are_imported(): void
+    {
+        $this->assertSame(['main', 'footer'], DB::table('lara_menu_menus')->orderBy('id')->pluck('slug')->all());
+
+        $redirects = DB::table('seo_redirects')->orderBy('id')->get();
+        $this->assertSame(['/oude-pagina', '/nl/boeken', 301, 1], [$redirects[0]->from_path, $redirects[0]->to_path, (int) $redirects[0]->status, (int) $redirects[0]->active]);
+        $this->assertSame(['/tijdelijk', 302, 0], [$redirects[1]->from_path, (int) $redirects[1]->status, (int) $redirects[1]->active]);
+    }
+
+    public function test_dropped_root_items_are_reported(): void
+    {
+        $this->assertTrue(collect(self::$menuReport)->contains(fn (array $line): bool => str_contains($line['message'], 'Menu 2 (nl): 1 v8 root item(s) dropped')));
+        $this->assertTrue(collect(self::$menuReport)->contains(fn (array $line): bool => str_contains($line['message'], "Menu item 7 'Weg' points to page 9999, which does not exist; skipped.")));
     }
 }

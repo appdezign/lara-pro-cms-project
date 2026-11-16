@@ -26,6 +26,14 @@ class ContentImporter
 {
     private const LOCK_COLUMNS = ['locked_at', 'locked_by'];
 
+    /**
+     * Columns v10 derives itself: imported for new rows, not overwritten on existing ones.
+     * Page home flag, position and menu route follow the menu (ListPages::syncPagesWithMenu()).
+     */
+    private const DERIVED_COLUMNS = [
+        'page' => ['ishome', 'position', 'menuroute'],
+    ];
+
     /** @var list<array{level: string, entity: string, message: string}> */
     private array $report = [];
 
@@ -113,6 +121,7 @@ class ContentImporter
         }
 
         $customColumns = [...$entity->customfields()->pluck('field_name')->all(), ...array_values(V8Map::GEO_FIELDS), 'geo_location'];
+        $contentKeys = $this->source->contentEntities()->pluck('entity_key')->all();
 
         // v8 NULL in a v10 column that is NOT NULL with a default (e.g. position): the default
         $defaults = collect(DB::select(
@@ -153,18 +162,26 @@ class ContentImporter
                 $reassigned++;
             }
 
+            // v10 finds a module page (intro/SEO of an index or form) by the resource slug in its slug
+            if ($key === 'page' && ($row['cgroup'] ?? null) === 'module' && isset($row['slug'])) {
+                $row['slug'] = V8Map::modulePageSlug($row['slug'], $contentKeys);
+            }
+
             $id = (int) $row['id'];
             $v8Ids[] = $id;
             $current = $existing[$id] ?? null;
 
+            // an existing row keeps what v10 derives itself (e.g. the page home flag and position from the menu)
+            $update = $current === null ? $row : array_diff_key($row, array_flip(self::DERIVED_COLUMNS[$key] ?? []));
+
             if ($current === null) {
                 $counts['create']++;
                 $inserts[] = $row;
-            } elseif ($this->differs($current, $row)) {
+            } elseif ($this->differs($current, $update)) {
                 $counts['update']++;
 
                 if (! $dryRun) {
-                    DB::table($v10Table)->where('id', $id)->update($row);
+                    DB::table($v10Table)->where('id', $id)->update($update);
                 }
             } else {
                 $counts['same']++;
@@ -266,6 +283,11 @@ class ContentImporter
     private function differs(object $current, array $row): bool
     {
         foreach ($row as $column => $value) {
+            // updated_at alone is no difference: v10 touches it when a record is saved
+            if ($column === 'updated_at') {
+                continue;
+            }
+
             $old = $current->{$column} ?? null;
 
             if (($old === null) !== ($value === null) || (string) $old !== (string) $value) {

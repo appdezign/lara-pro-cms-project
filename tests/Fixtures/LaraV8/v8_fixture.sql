@@ -444,6 +444,7 @@ CREATE TABLE `lara_blocks_ctas` (
 -- Core content types page and cta: they keep their v10 configuration; only their data is imported.
 -- Page 19 collides with a page of the essential seed (updated); essential page 5 is removed by --fresh.
 -- Page 1125 has a lead (→ body2, warning: template standard shows no extra body fields).
+-- Page 2001 is a module page: its slug gets the resource slug (v8fxbook-… → v8fxbooks-…).
 -- CTA 99 is live with the Bootstrap colour primary (→ brand); CTA 98 is unpublished.
 
 INSERT INTO `lara_ent_entities` (`id`, `group_id`, `title`, `entity_model_class`, `entity_key`, `entity_controller`, `resource_routes`, `has_front_auth`, `menu_parent`, `menu_position`) VALUES
@@ -537,7 +538,8 @@ INSERT INTO `lara_form_v8fxforms` (`id`, `title`, `name`, `email`, `comment`, `a
 
 INSERT INTO `lara_content_pages` (`id`, `user_id`, `language_parent`, `language`, `title`, `template`, `ishome`, `menuroute`, `slug`, `slug_lock`, `lead`, `body`, `created_at`, `updated_at`, `publish`, `publish_from`, `show_in_app`, `cgroup`, `position`) VALUES
 (19, 2, NULL, 'nl', 'Home', 'standard', 1, '/', 'home', 0, NULL, '<p>Welkom</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', 1),
-(1125, 2, NULL, 'nl', 'Arbeidshygiëne', 'standard', 0, NULL, 'arbeidshygiene', 0, '<p>Intro</p>', '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', NULL);
+(1125, 2, NULL, 'nl', 'Arbeidshygiëne', 'standard', 0, NULL, 'arbeidshygiene', 0, '<p>Intro</p>', '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', NULL),
+(2001, 2, NULL, 'nl', 'Onze boeken', 'standard', 0, NULL, 'v8fxbook-index-module-nl', 0, NULL, '<p>Intro van de boekenlijst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'module', NULL);
 
 INSERT INTO `lara_blocks_ctas` (`id`, `user_id`, `language`, `title`, `overlaytransp`, `overlaycolor`, `type`, `hook`, `linkurl`, `linktext`, `slug`, `body`, `created_at`, `updated_at`, `deleted_at`, `publish`) VALUES
 (99, 2, 'nl', 'Neem contact op', '80', 'primary', 'parallax', 'homeparallax1', '/contact', 'Contact', 'neem-contact-op', '<p>Bel ons</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', NULL, 1),
@@ -704,5 +706,97 @@ INSERT INTO `lara_object_layout` (`id`, `entity_type`, `entity_id`, `layout_key`
 
 INSERT INTO `lara_object_related` (`id`, `entity_key`, `object_id`, `related_entity_key`, `related_model_class`, `related_object_id`) VALUES
 (1, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 1);
+
+CREATE TABLE `lara_menu_menus` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_menu_menus_locked_by_foreign` (`locked_by`),
+  CONSTRAINT `lara_menu_menus_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_menu_menu_items` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `menu_id` bigint(20) unsigned NOT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tag_id` bigint(20) unsigned DEFAULT NULL,
+  `route` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `routename` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `route_has_auth` tinyint(1) NOT NULL DEFAULT '0',
+  `entity_id` bigint(20) unsigned DEFAULT NULL,
+  `entity_view_id` bigint(20) unsigned DEFAULT NULL,
+  `object_id` bigint(20) unsigned DEFAULT NULL,
+  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locked_by_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `parent_id` bigint(20) unsigned DEFAULT NULL,
+  `lft` bigint(20) unsigned DEFAULT NULL,
+  `rgt` bigint(20) unsigned DEFAULT NULL,
+  `depth` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_menu_menu_items_menu_id_foreign` (`menu_id`),
+  KEY `lara_menu_menu_items_entity_id_foreign` (`entity_id`),
+  KEY `lara_menu_menu_items_entity_view_id_foreign` (`entity_view_id`),
+  KEY `lara_menu_menu_items_parent_id_index` (`parent_id`),
+  KEY `lara_menu_menu_items_lft_index` (`lft`),
+  KEY `lara_menu_menu_items_rgt_index` (`rgt`),
+  CONSTRAINT `lara_menu_menu_items_entity_id_foreign` FOREIGN KEY (`entity_id`) REFERENCES `lara_ent_entities` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `lara_menu_menu_items_entity_view_id_foreign` FOREIGN KEY (`entity_view_id`) REFERENCES `lara_ent_entity_views` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `lara_menu_menu_items_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `lara_menu_menus` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_menu_redirects` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `redirectfrom` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `redirectto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `redirecttype` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `auto_generated` tinyint(1) NOT NULL DEFAULT '0',
+  `locked_by_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `has_error` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Menus (lara:v8:import-menus).
+-- v8 builds each menu per language as a tree under one root: in the main menu the home page,
+-- in the footer a 'root' item. v10 has no single root (see MenuImporter).
+-- Footer item 7 points to a page that does not exist (skipped).
+-- Views: the fixture views above got ids 1–5 (v8fxbook index/show, v8fxevent index/show, v8fxform form);
+-- view 6 is the page show view.
+
+INSERT INTO `lara_ent_entity_views` (`id`, `entity_id`, `title`, `method`, `filename`, `type`, `showtags`, `paginate`, `infinite`, `prevnext`, `publish`) VALUES
+(6, 1, 'Show', 'show', 'show', '_single', 'none', 0, 0, 0, 1);
+
+INSERT INTO `lara_menu_menus` (`id`, `title`, `slug`, `slug_lock`) VALUES
+(1, 'Main', 'main', 1), (2, 'Footer', 'footer', 0);
+
+INSERT INTO `lara_menu_menu_items` (`id`, `language`, `menu_id`, `title`, `slug`, `slug_lock`, `type`, `tag_id`, `route`, `routename`, `route_has_auth`, `entity_id`, `entity_view_id`, `object_id`, `url`, `locked_by_admin`, `publish`, `parent_id`, `lft`, `rgt`, `depth`) VALUES
+(1, 'nl', 1, 'Home', 'home', 0, 'page', NULL, NULL, 'special.home.show', 0, 1, 6, 19, NULL, 0, 1, NULL, 1, 8, NULL),
+(2, 'nl', 1, 'Boeken', 'boeken', 0, 'entity', NULL, 'boeken', 'entitytag.v8fxbook.index', 0, 101, 1, NULL, NULL, 0, 1, 1, 2, 5, 1),
+(3, 'nl', 1, 'Romans', 'romans', 0, 'entity', 12, 'boeken/romans', 'entitytag.v8fxbook.index', 0, 101, 1, NULL, NULL, 0, 1, 2, 3, 4, 2),
+(4, 'nl', 1, 'Contact', 'contact', 0, 'form', NULL, 'contact', 'form.v8fxform.form', 0, 103, 5, NULL, NULL, 0, 1, 1, 6, 7, 1),
+(5, 'nl', 2, 'Footer', 'footer', 0, 'root', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 6, NULL),
+(6, 'nl', 2, 'Arbeidshygiëne', 'arbeidshygiene', 0, 'page', NULL, 'arbeidshygiene', 'entity.page.show.1125', 0, 1, 6, 1125, NULL, 0, 0, 5, 2, 3, 1),
+(7, 'nl', 2, 'Weg', 'weg', 0, 'page', NULL, 'weg', 'entity.page.show.9999', 0, 1, 6, 9999, NULL, 0, 1, 5, 4, 5, 1);
+
+INSERT INTO `lara_menu_redirects` (`id`, `language`, `title`, `redirectfrom`, `redirectto`, `redirecttype`, `publish`) VALUES
+(1, 'nl', 'Oude pagina', 'oude-pagina', '/nl/boeken', '301', 1),
+(2, 'nl', 'Tijdelijk', '/tijdelijk', '/nl/contact', '302', 0);
 
 SET FOREIGN_KEY_CHECKS=1;

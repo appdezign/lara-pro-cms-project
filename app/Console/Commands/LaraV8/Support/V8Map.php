@@ -200,6 +200,22 @@ final class V8Map
     }
 
     /**
+     * A module page (the intro/SEO page of an index or form) is found by its slug:
+     * v8 "{entity key}-{method}-module-{language}", v10 "{resource slug}-{method}-module-{language}"
+     * (FrontObjectRepository::getModulePageBySlug()). Other slugs are unchanged.
+     *
+     * @param  list<string>  $contentKeys  the v8 content entity keys
+     */
+    public static function modulePageSlug(string $slug, array $contentKeys): string
+    {
+        if (preg_match('/^([a-z][a-z0-9]*)-([a-z]+)-module-([a-z]{2,5})$/', $slug, $m) !== 1 || ! in_array($m[1], $contentKeys, true)) {
+            return $slug;
+        }
+
+        return self::resourceSlug($m[1])."-{$m[2]}-module-{$m[3]}";
+    }
+
+    /**
      * The v10 column of a v8 content column: the core renames (V8Map::column(), e.g. page
      * lead → body2), and for a content type with a geolocation field its v8 parts (address,
      * latitude, …) → geo_* and the geolocation mode (auto/manual) → geo_location.

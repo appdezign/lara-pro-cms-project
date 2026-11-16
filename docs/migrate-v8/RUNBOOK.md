@@ -148,7 +148,7 @@ php artisan lara:v8:import-content           # later runs only write what differ
 Run it after `import-entities` and `import-users`. Every v8 content type (pages, entities, blocks, forms) goes into the table of its v10 entity, with the v8 ids.
 
 - **Columns**: core renames (widget `relentkey` → `resource_slug`, …), page `lead` → `body2` (user decision; the import warns when the page's template shows no extra body fields — switch it to e.g. the landing template), and for a content type with a geolocation field `address`/`pcode`/`city`/`country`/`latitude`/`longitude` → `geo_*`, `geolocation` (auto/manual) → `geo_location`. Columns without a v10 counterpart are reported with the number of values lost (v8 form `title`, a copy of the sender's name; page `show_in_app`; widget `customtags`).
-- **Values**: core values translated (`primary` → `brand`, widget content type key → resource slug), `''` → `null` in custom fields, a v8 `NULL` in a v10 column that is `NOT NULL` with a default gets the default, record locks are dropped, a row of a user that no longer exists goes to the v8 admin.
+- **Values**: core values translated (`primary` → `brand`, widget content type key → resource slug), `''` → `null` in custom fields, a v8 `NULL` in a v10 column that is `NOT NULL` with a default gets the default, module page slugs get the resource slug, record locks are dropped, a row of a user that no longer exists goes to the v8 admin.
 - Foreign keys are checked after the import (the import runs with foreign key checks off, because the order of the tables is free); broken references are reported.
 - Until the menus are imported, the admin Pages list gives a 500: the essential menu still points to pages that `--fresh` removed (`ListPages::syncPagesWithMenu()`).
 
@@ -165,6 +165,29 @@ Run it after `import-content` (links to records that do not exist in v10 are ski
 - **SEO**: v8 `lara_object_seo` and `lara_object_opengraph` become one filarank row per record (`model_type`/`model_id`): title, description (max. 500), focus keyword, keywords as a JSON list, `locale` from the record's language, `og_image`. v10 has no og title or description (it uses the SEO ones); those are reported. Empty v8 rows are not imported.
 - **Layout**: v8 keeps one row per setting (`layout_key`/`layout_value`); v10 one row per record with a column per section (header, hero, pagetitle, content, share, cta, footer). Values the active theme's `_layout.xml` does not offer are imported and reported; check them when the client theme is built.
 - **Related objects and remote sync** are stored very differently in v10 and are reported, not converted (anpak has none). Implement the conversion when a site uses them; the inventory shows the counts.
+
+### 10. Menus and redirects
+
+```bash
+php artisan lara:v8:import-menus --dry-run
+php artisan lara:v8:import-menus --fresh     # also rebuilds the route names and the route cache
+```
+
+Run it after `import-content` and `import-objects`.
+
+- v8 builds every menu (per language) as a tree under one root: the home page in the main menu, a `root` item in the others. v10 has no single root: the home page (`is_home`) and the other top-level items are siblings at depth 0, with `position` 1001, 1002, … in tree order. The import flattens the trees: `root` items are dropped, the home root becomes the first top-level item, their children move up one level, and `lft`/`rgt`/`depth`/`position` are rebuilt.
+- Menu items keep their v8 id; `entity_id` and `entity_view_id` (v8 ids) become the v10 ids; a page item gets the show view of the page's template. A page item whose page does not exist is skipped when nothing hangs below it (the v10 Pages list crashes on it), otherwise kept with a warning.
+- Route names: the import writes the v8 names for new items, then runs `lara:menu:refresh-routenames` and `lara:route:cache` (`--no-routes` to skip). A rerun never overwrites a route name v10 rebuilt.
+- Redirects: `lara_menu_redirects` → `seo_redirects` (from_path, to_path, status 301/302/307/308, active = publish).
+- After this the front works for every page and every content type that has a view in the theme; content types without one give a 500 until the client theme has their views (see the theme steps).
+
+### Reruns and v10 runtime changes
+
+Using the v10 site changes rows the imports wrote; a rerun must not fight that:
+- `updated_at` alone is never a difference (v10 touches it on every save, e.g. the Pages list saves all pages).
+- Page `ishome`/`position`/`menuroute` and menu item `routename` are derived by v10; they are imported for new rows only.
+- Opening an edit form locks the record (`locked_at`/`locked_by`); a content rerun clears the locks, which is right during a migration.
+- Opening a v10 index or form page creates its "module page" when it cannot find it. v8 module pages are named `{entity key}-{method}-module-{language}`, v10 ones `{resource slug}-…`: the content import renames them (`V8Map::modulePageSlug()`); `--fresh` removes module pages v10 created before that.
 
 ## v8 → v10 mapping (`V8Map`)
 
@@ -211,6 +234,7 @@ Run it after `import-content` (links to records that do not exist in v10 are ski
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
 - Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
+- Menus: 3 menus, 29 menu items (34 v8 items minus 4 root items minus item 48 "About" (en, unpublished), whose page 1078 no longer exists); 24 route names rebuilt. 13 module page slugs renamed (team-index-module-nl → teams-index-module-nl …). Front: every page works; services (`_sortbytaxonomy`), downloads (`_sortbytaxonomy`) and jobs give a 500 until the anpak theme has their views.
 - Objects: 2 taxonomies, 82 tags, 37 taggables, 4 pageables (widgets on page 1), 27 SEO rows (of 57 v8 rows; the rest were empty), layout of page 1 (all values in the demo theme). Reported: 9 tags with a publish_from date, 1 team member with an og title/description.
 - Users: 9 users imported with their v8 ids; `admin` (id 2) → superadmin only; `helpdesk` (id 3) replaced the essential superadmin; webmasters Lampe and kapma; role `editor` skipped (no users); 5 orphan role assignments (users 6, 12–15). The webmaster lost menu, setting and translation permissions it did not have in v8 either.
 - Custom v8 code: only the Applications form (2-step job application with CV upload, mails, `StoreApplicationRequest`, admin views) is real custom code, and it is switched off on the live site (menu item unpublished, 4 test submissions in Jan 2024): **not ported** (user decision); the form and its data come over as a standard v10 form. Classicforms (demo leftover, custom controller) and Invallerforms (no entity) dropped. Traits, Special controllers and routes are stock v8.
