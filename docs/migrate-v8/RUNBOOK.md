@@ -88,6 +88,8 @@ Removes the demo content types from `laracms/app` (`Models`, `Entities`, `Polici
 
 After this the full v10 test suite (`composer test`) no longer applies to the site (it targets the demo entities); run `php artisan test --compact tests/Unit/LaraV8 tests/Feature/LaraV8`.
 
+The migration tests in short: tests marked "skipped without a v8 source" run against the site's own `lara_v8` snapshot and only read. `ImportEntitiesBuildTest` does the real build on two throwaway databases, `lara_v8_fixture` (loaded from `tests/Fixtures/LaraV8/v8_fixture.sql`: three content types `v8fxbook`, `v8fxevent`, `v8fxform` that cover geolocation, duplicates, conditions, a relation and a form) and `lara_v8_build_test` (an essential base); it removes the generated `v8fx…` code afterwards and is skipped when the MySQL user cannot create databases. Extend the fixture when a site shows a new case.
+
 **Never commit** the changes in `laracms/app` (removed demo code, generated site code) to the `v8-migration` branch; they belong to the site, not to the migration tooling.
 
 ### 5. Content types
