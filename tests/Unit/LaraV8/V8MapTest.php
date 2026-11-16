@@ -315,6 +315,27 @@ class V8MapTest extends TestCase
         $this->assertSame('primary', V8Map::coreValue('larawidget', 'overlaycolor', 'primary'));
     }
 
+    public function test_content_columns(): void
+    {
+        $this->assertSame('body2', V8Map::contentColumn('page', 'lead', false));
+        $this->assertNull(V8Map::contentColumn('page', 'show_in_app', false));
+        $this->assertSame('resource_slug', V8Map::contentColumn('larawidget', 'relentkey', false));
+
+        $this->assertSame('geo_address', V8Map::contentColumn('location', 'address', true));
+        $this->assertSame('geo_latitude', V8Map::contentColumn('location', 'latitude', true));
+        $this->assertSame('geo_location', V8Map::contentColumn('location', 'geolocation', true));
+        $this->assertSame('address', V8Map::contentColumn('application', 'address', false), 'Without a geolocation field an address is an ordinary field.');
+        $this->assertSame('lead', V8Map::contentColumn('blog', 'lead', false));
+    }
+
+    public function test_a_widget_names_its_content_type_by_resource_slug(): void
+    {
+        $this->assertSame('blogs', V8Map::coreValue('larawidget', 'relentkey', 'blog'));
+        $this->assertSame('galleries', V8Map::coreValue('larawidget', 'relentkey', 'gallery'));
+        $this->assertSame('', V8Map::coreValue('larawidget', 'relentkey', ''));
+        $this->assertNull(V8Map::coreValue('larawidget', 'relentkey', null));
+    }
+
     public function test_group_values_become_a_list(): void
     {
         $this->assertSame(['news', 'events'], V8Map::groupValues('["news","events"]'));

@@ -1,6 +1,7 @@
 -- Lara CMS v8.2.46 fixture for the lara:v8:* tests.
 -- Schema: the v8 entity configuration and auth tables, from a v8.2.46 dump (only the groups → users foreign key removed).
 
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS=0;
 CREATE TABLE `lara_ent_entities` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -377,5 +378,169 @@ INSERT INTO `lara_auth_has_roles` (`role_id`, `entity_type`, `entity_id`) VALUES
 (4, 'Lara\\Common\\Models\\User', 4),
 (5, 'Lara\\Common\\Models\\User', 5),
 (4, 'Lara\\Common\\Models\\User', 99);
+
+CREATE TABLE `lara_content_pages` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `language_parent` bigint(20) unsigned DEFAULT NULL,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `template` text COLLATE utf8_unicode_ci,
+  `ishome` tinyint(1) NOT NULL DEFAULT '0',
+  `menuroute` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `lead` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `publish_from` timestamp NULL DEFAULT NULL,
+  `show_in_app` tinyint(1) NOT NULL DEFAULT '0',
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  `cgroup` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_content_pages_locked_by_foreign` (`locked_by`),
+  KEY `lara_content_pages_user_id_foreign` (`user_id`),
+  KEY `lara_content_pages_slug_index` (`slug`),
+  KEY `lara_content_pages_position_index` (`position`),
+  CONSTRAINT `lara_content_pages_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `lara_content_pages_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_blocks_ctas` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `language_parent` bigint(20) unsigned DEFAULT NULL,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `overlaytransp` text COLLATE utf8_unicode_ci,
+  `overlaycolor` text COLLATE utf8_unicode_ci,
+  `type` text COLLATE utf8_unicode_ci,
+  `hook` text COLLATE utf8_unicode_ci,
+  `linkurl` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `linktext` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `body` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `publish_from` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_blocks_ctas_locked_by_foreign` (`locked_by`),
+  KEY `lara_blocks_ctas_user_id_foreign` (`user_id`),
+  KEY `lara_blocks_ctas_slug_index` (`slug`),
+  CONSTRAINT `lara_blocks_ctas_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `lara_blocks_ctas_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Content (lara:v8:import-content).
+-- Core content types page and cta: they keep their v10 configuration; only their data is imported.
+-- Page 19 collides with a page of the essential seed (updated); essential page 5 is removed by --fresh.
+-- Page 1125 has a lead (→ body2, warning: template standard shows no extra body fields).
+-- CTA 99 is live with the Bootstrap colour primary (→ brand); CTA 98 is unpublished.
+
+INSERT INTO `lara_ent_entities` (`id`, `group_id`, `title`, `entity_model_class`, `entity_key`, `entity_controller`, `resource_routes`, `has_front_auth`, `menu_parent`, `menu_position`) VALUES
+(1, 1, 'Pages', 'Lara\\Common\\Models\\Page', 'page', 'PagesController', 1, 0, 'root', 103),
+(31, 2, 'Call-to-action', 'Lara\\Common\\Models\\Cta', 'cta', 'CtasController', 1, 0, 'blocks', 330);
+
+
+CREATE TABLE `lara_content_v8fxbooks` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `language_parent` bigint(20) unsigned DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `subtitle` varchar(255) DEFAULT NULL,
+  `sticky` tinyint(1) NOT NULL DEFAULT '0',
+  `kind` text,
+  `note` text,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(255) DEFAULT NULL,
+  `geolocation` varchar(255) DEFAULT NULL,
+  `latitude` decimal(10,8) DEFAULT NULL,
+  `pages` int(10) unsigned DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `lead` text,
+  `body` text,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `publish_hide` tinyint(1) NOT NULL DEFAULT '0',
+  `publish_from` timestamp NULL DEFAULT NULL,
+  `publish_to` timestamp NULL DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `lara_content_v8fxevents` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `v8fxbook_id` bigint(20) unsigned DEFAULT NULL,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `language_parent` bigint(20) unsigned DEFAULT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `startdate` date DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `body` text,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `publish_from` timestamp NULL DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+CREATE TABLE `lara_form_v8fxforms` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `comment` text,
+  `agree` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  `ipaddress` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Book 1: geolocation parts, an empty select value, a NULL position, a record lock.
+-- Book 2: an English translation of book 1 by a user that no longer exists, in the trash.
+INSERT INTO `lara_content_v8fxbooks` (`id`, `user_id`, `language_parent`, `language`, `title`, `subtitle`, `sticky`, `kind`, `note`, `address`, `city`, `geolocation`, `latitude`, `pages`, `slug`, `lead`, `body`, `created_at`, `updated_at`, `deleted_at`, `publish`, `publish_from`, `position`, `locked_at`, `locked_by`) VALUES
+(1, 2, NULL, 'nl', 'Boek één', 'Ondertitel', 1, '', NULL, 'Grote Markt 1', 'Haarlem', 'manual', 52.38108000, 120, 'boek-een', '<p>Intro</p>', '<p>Tekst</p>', '2024-01-01 10:00:00', '2024-02-01 10:00:00', NULL, 1, '2024-01-01 10:00:00', NULL, '2024-02-01 10:00:00', 2),
+(2, 77, 1, 'en', 'Book one', NULL, 0, 'poetry', 'A note', NULL, NULL, NULL, NULL, NULL, 'book-one', NULL, NULL, '2024-01-02 10:00:00', '2024-02-02 10:00:00', '2024-03-01 10:00:00', 0, NULL, 3, NULL, NULL);
+
+-- Event 1 points to a book that does not exist (reported after the import).
+INSERT INTO `lara_content_v8fxevents` (`id`, `v8fxbook_id`, `user_id`, `language`, `title`, `startdate`, `slug`, `created_at`, `updated_at`, `publish`, `position`) VALUES
+(1, 999, 2, 'nl', 'Lezing', '2024-05-01', 'lezing', '2024-04-01 10:00:00', '2024-04-01 10:00:00', 1, 0);
+
+-- The v8 form title is a copy of the name; v10 forms have no title.
+INSERT INTO `lara_form_v8fxforms` (`id`, `title`, `name`, `email`, `comment`, `agree`, `created_at`, `updated_at`, `ipaddress`) VALUES
+(1, 'Jan Jansen', 'Jan Jansen', 'jan@fixture.test', '', 1, '2024-06-01 10:00:00', '2024-06-01 10:00:00', '192.0.2.1');
+
+INSERT INTO `lara_content_pages` (`id`, `user_id`, `language_parent`, `language`, `title`, `template`, `ishome`, `menuroute`, `slug`, `slug_lock`, `lead`, `body`, `created_at`, `updated_at`, `publish`, `publish_from`, `show_in_app`, `cgroup`, `position`) VALUES
+(19, 2, NULL, 'nl', 'Home', 'standard', 1, '/', 'home', 0, NULL, '<p>Welkom</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', 1),
+(1125, 2, NULL, 'nl', 'Arbeidshygiëne', 'standard', 0, NULL, 'arbeidshygiene', 0, '<p>Intro</p>', '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', NULL);
+
+INSERT INTO `lara_blocks_ctas` (`id`, `user_id`, `language`, `title`, `overlaytransp`, `overlaycolor`, `type`, `hook`, `linkurl`, `linktext`, `slug`, `body`, `created_at`, `updated_at`, `deleted_at`, `publish`) VALUES
+(99, 2, 'nl', 'Neem contact op', '80', 'primary', 'parallax', 'homeparallax1', '/contact', 'Contact', 'neem-contact-op', '<p>Bel ons</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', NULL, 1),
+(98, 2, 'en', 'Old demo', '', 'black', 'parallax', 'homeparalax2', '', '', 'old-demo', NULL, '2023-01-01 10:00:00', '2024-01-01 10:00:00', NULL, 0);
 
 SET FOREIGN_KEY_CHECKS=1;

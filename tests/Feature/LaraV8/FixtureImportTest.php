@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\LaraV8;
 
+use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
@@ -51,6 +52,12 @@ class FixtureImportTest extends TestCase
 
     /** @var list<string> the webmaster permissions of the essential seed, before the user import */
     private static array $webmasterSeeded = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $contentReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $contentRerun = [];
 
     protected function setUp(): void
     {
@@ -102,6 +109,9 @@ class FixtureImportTest extends TestCase
         self::$webmasterSeeded = Role::findByName('webmaster', 'web')->permissions()->pluck('name')->all();
         self::$userReport = (new UserImporter(new V8Source))->run();
         self::$userRerun = (new UserImporter(new V8Source))->run();
+
+        self::$contentReport = (new ContentImporter(new V8Source))->run(fresh: true);
+        self::$contentRerun = (new ContentImporter(new V8Source))->run();
     }
 
     /**
@@ -310,5 +320,67 @@ class FixtureImportTest extends TestCase
         $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, 'for user 99, who no longer exists')));
         $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, "Role 'editor' has no users")));
         $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, "replaces v10 user 'superadmin'")));
+    }
+
+    public function test_the_content_import_has_no_errors_and_a_second_run_changes_nothing(): void
+    {
+        $errors = collect(self::$contentReport)->where('level', 'error');
+        $changes = collect(self::$contentRerun)->whereNotIn('level', ['same', 'info', 'warning']);
+
+        $this->assertEmpty($errors, $errors->pluck('message')->implode("\n"));
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
+    }
+
+    public function test_content_rows_keep_their_id_and_are_mapped(): void
+    {
+        $books = DB::table('lara_content_v8fxbooks')->orderBy('id')->get()->keyBy('id');
+
+        $this->assertSame([1, 2], $books->keys()->all());
+
+        $one = $books[1];
+        $this->assertSame(['Boek één', 'Ondertitel', 1, '<p>Intro</p>', '<p>Tekst</p>'], [$one->title, $one->subtitle, (int) $one->sticky, $one->lead, $one->body]);
+        $this->assertSame(['Grote Markt 1', 'Haarlem', 'manual', '52.38108000'], [$one->geo_address, $one->geo_city, $one->geo_location, (string) $one->geo_latitude], 'Geolocation parts go into the geo_* columns.');
+        $this->assertSame(120, (int) $one->pages);
+        $this->assertNull($one->kind, 'An empty custom field value becomes null.');
+        $this->assertSame(0, (int) $one->position, 'A v8 NULL in a NOT NULL column gets the column default.');
+        $this->assertNull($one->locked_by, 'Record locks are not imported.');
+        $this->assertNull($one->locked_at);
+
+        $two = $books[2];
+        $this->assertSame([1, 'en', 'poetry', 'A note', '2024-03-01 10:00:00'], [(int) $two->language_parent, $two->language, $two->kind, $two->note, $two->deleted_at]);
+        $this->assertSame(2, (int) $two->user_id, 'A row of a user that no longer exists goes to the v8 admin.');
+    }
+
+    public function test_core_content_is_translated_and_the_page_lead_goes_to_body2(): void
+    {
+        $ctas = DB::table('lara_blocks_ctas')->get()->keyBy('id');
+
+        $this->assertSame(['brand', 'homeparallax1'], [$ctas[99]->overlaycolor, $ctas[99]->hook]);
+        $this->assertSame(['black', 'homeparalax2'], [$ctas[98]->overlaycolor, $ctas[98]->hook], 'A value of an unpublished record is imported unchanged.');
+
+        $pages = DB::table('lara_content_pages')->orderBy('id')->get()->keyBy('id');
+
+        $this->assertSame([19, 1125], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
+        $this->assertSame('Home', $pages[19]->title, 'A v8 page with the id of an essential page replaces it.');
+        $this->assertSame(['<p>Intro</p>', '<p>Tekst</p>', 'Arbeidshygiëne'], [$pages[1125]->body2, $pages[1125]->body, $pages[1125]->title]);
+    }
+
+    public function test_form_submissions_are_imported_without_title(): void
+    {
+        $form = DB::table('lara_form_v8fxforms')->first();
+
+        $this->assertSame(['Jan Jansen', 'jan@fixture.test', 1, '192.0.2.1'], [$form->name, $form->email, (int) $form->agree, $form->ipaddress]);
+        $this->assertNull($form->comment);
+        $this->assertNotContains('title', Schema::getColumnListing('lara_form_v8fxforms'));
+    }
+
+    public function test_content_problems_are_reported(): void
+    {
+        $warnings = collect(self::$contentReport)->where('level', 'warning')->pluck('message');
+
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'lara_form_v8fxforms.title has no v10 column; 1 value')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "Page 1125 'Arbeidshygiëne': the v8 lead is in body2")));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'belonged to a v8 user that no longer exists')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'lara_content_v8fxevents.v8fxbook_id point to a v8fxbook that does not exist')));
     }
 }

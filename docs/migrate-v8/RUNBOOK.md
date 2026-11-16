@@ -137,6 +137,21 @@ Run it after `import-entities`: the permissions of the site content types need t
 - **Permissions**: the import first creates the permissions of every policy, as the Role screen does. For every subject both versions know, a role gets exactly its v8 abilities (`view` → `view` + `view_any`, `delete` → `delete` + `delete_any`); subjects only v10 knows keep the role's v10 permissions. v8 subjects without a v10 policy (headertag, language, redirect, seo, tag) are reported.
 - Site policies are only registered for web requests (`LaraAppServiceProvider`); the import registers them itself. The same is why a console or test check of the admin as a non-superadmin can show 302/403 for site content types while the web is fine.
 
+### 8. Content
+
+```bash
+php artisan lara:v8:import-content --dry-run
+php artisan lara:v8:import-content --fresh   # first time: also removes v10 rows v8 does not have (the pages of the essential seed)
+php artisan lara:v8:import-content           # later runs only write what differs
+```
+
+Run it after `import-entities` and `import-users`. Every v8 content type (pages, entities, blocks, forms) goes into the table of its v10 entity, with the v8 ids.
+
+- **Columns**: core renames (widget `relentkey` → `resource_slug`, …), page `lead` → `body2` (user decision; the import warns when the page's template shows no extra body fields — switch it to e.g. the landing template), and for a content type with a geolocation field `address`/`pcode`/`city`/`country`/`latitude`/`longitude` → `geo_*`, `geolocation` (auto/manual) → `geo_location`. Columns without a v10 counterpart are reported with the number of values lost (v8 form `title`, a copy of the sender's name; page `show_in_app`; widget `customtags`).
+- **Values**: core values translated (`primary` → `brand`, widget content type key → resource slug), `''` → `null` in custom fields, a v8 `NULL` in a v10 column that is `NOT NULL` with a default gets the default, record locks are dropped, a row of a user that no longer exists goes to the v8 admin.
+- Foreign keys are checked after the import (the import runs with foreign key checks off, because the order of the tables is free); broken references are reported.
+- Until the menus are imported, the admin Pages list gives a 500: the essential menu still points to pages that `--fresh` removed (`ListPages::syncPagesWithMenu()`).
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
@@ -181,6 +196,7 @@ Run it after `import-entities`: the permissions of the site content types need t
 - Target `anpak1077`, theme `anpak`; plan with all details and decisions: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`.
 - Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
 - Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
+- Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
 - Users: 9 users imported with their v8 ids; `admin` (id 2) → superadmin only; `helpdesk` (id 3) replaced the essential superadmin; webmasters Lampe and kapma; role `editor` skipped (no users); 5 orphan role assignments (users 6, 12–15). The webmaster lost menu, setting and translation permissions it did not have in v8 either.
 - Custom v8 code: only the Applications form (2-step job application with CV upload, mails, `StoreApplicationRequest`, admin views) is real custom code, and it is switched off on the live site (menu item unpublished, 4 test submissions in Jan 2024): **not ported** (user decision); the form and its data come over as a standard v10 form. Classicforms (demo leftover, custom controller) and Invallerforms (no entity) dropped. Traits, Special controllers and routes are stock v8.
 - Inventory: `sites/anpak-inventory.md`. 19 content types (4 core). With `V8Map`, 4 findings remain: `yesno` becomes a toggle (classicform), 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition. One page has a `lead`, which v10 pages do not have (decide in the content import). The v8 role `editor` has no v10 counterpart and no users.

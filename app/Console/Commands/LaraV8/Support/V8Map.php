@@ -147,7 +147,7 @@ final class V8Map
             'resource_slug' => 'pages',
             'model_class' => Page::class,
             'table' => 'lara_content_pages',
-            'columns' => ['show_in_app' => null],
+            'columns' => ['show_in_app' => null, 'lead' => 'body2'],
         ],
         'larawidget' => [
             'resource_slug' => 'widgets',
@@ -191,7 +191,31 @@ final class V8Map
      */
     public static function coreValue(string $entityKey, string $v8Column, mixed $value): mixed
     {
+        // a v8 widget names its content type by entity key ("blog"), v10 by resource slug ("blogs")
+        if ($entityKey === 'larawidget' && $v8Column === 'relentkey' && ! V8Source::isEmpty($value)) {
+            return self::resourceSlug((string) $value);
+        }
+
         return self::CORE_VALUES[$entityKey][$v8Column][$value] ?? $value;
+    }
+
+    /**
+     * The v10 column of a v8 content column: the core renames (V8Map::column(), e.g. page
+     * lead → body2), and for a content type with a geolocation field its v8 parts (address,
+     * latitude, …) → geo_* and the geolocation mode (auto/manual) → geo_location.
+     * Null when the column is not imported.
+     */
+    public static function contentColumn(string $entityKey, string $v8Column, bool $hasGeolocation): ?string
+    {
+        if ($hasGeolocation && isset(self::GEO_FIELDS[$v8Column])) {
+            return self::GEO_FIELDS[$v8Column];
+        }
+
+        if ($hasGeolocation && $v8Column === 'geolocation') {
+            return 'geo_location';
+        }
+
+        return self::column($entityKey, $v8Column);
     }
 
     /**
