@@ -361,7 +361,7 @@ class EntityImporter
 
             if ($relation !== null) {
                 $this->add('same', $key, "{$label} exists.");
-                $this->checkRelationMethods($key, $entity, $related, $v8Relation->type);
+                $this->ensureRelationMethods($key, $entity, $related, $v8Relation->type, $relation->foreign_key, $dryRun);
 
                 continue;
             }
@@ -380,8 +380,10 @@ class EntityImporter
                 'is_filter' => (int) $v8Relation->is_filter,
             ])->save();
 
+            // the methods first, so checkRelations() finds them in the models
+            $this->ensureRelationMethods($key, $entity, $related, $v8Relation->type, $v8Relation->foreign_key, $dryRun);
+
             static::checkRelations($entity->refresh());
-            // also on the related side, which reports the missing belongsTo method of its model
             static::checkRelations($related->refresh());
 
             // the belongsTo side gets the filter setting of its v8 counterpart
@@ -401,25 +403,47 @@ class EntityImporter
             $this->add('create', $key, "{$label} created, with belongsTo {$key} on {$relatedKey} (foreign key {$v8Relation->foreign_key}).");
 
             foreach ($this->mailbox->takeMessages() as $message) {
-                $this->add('todo', $key, $message);
+                // a model class loaded before its method was added still reports it as missing
+                if (! str_starts_with($message, 'Relation not found in model')) {
+                    $this->add('todo', $key, $message);
+                }
             }
         }
     }
 
     /**
-     * The model methods a relation needs (the builder does not generate them):
-     * hasMany → {related resource_slug}() on the model, belongsTo → {label_single}() on the related model.
+     * The model methods a relation needs, which the builder leaves to a developer; they are
+     * added to the generated site models when missing (user decision 2026-11-16, option A):
+     * hasMany/hasOne → {related resource_slug|label_single}() on the model,
+     * belongsTo → {label_single}() on the related model, both on the foreign key.
      */
-    private function checkRelationMethods(string $key, Entity $entity, Entity $related, string $type): void
+    private function ensureRelationMethods(string $key, Entity $entity, Entity $related, string $type, string $foreignKey, bool $dryRun): void
     {
         $methods = [
-            [$entity->model_class, $type === 'hasMany' ? $related->resource_slug : $related->label_single, $type],
-            [$related->model_class, $entity->label_single, 'belongsTo'],
+            [$entity->model_class, $type === 'hasMany' ? $related->resource_slug : $related->label_single, $type, $related->model_class],
+            [$related->model_class, $entity->label_single, 'belongsTo', $entity->model_class],
         ];
 
-        foreach ($methods as [$modelClass, $method, $relationType]) {
-            if (! method_exists($modelClass, $method)) {
-                $this->add('todo', $key, "Add the {$relationType} method {$modelClass}::{$method}().");
+        foreach ($methods as [$modelClass, $method, $relationType, $relatedClass]) {
+            $file = RelationMethodWriter::modelFile($modelClass, base_path('laracms/app'));
+            $signature = "{$modelClass}::{$method}() ({$relationType})";
+
+            if ($file === null) {
+                if (! method_exists($modelClass, $method)) {
+                    $this->add('todo', $key, "Add the relation method {$signature}; it is not a generated site model.");
+                }
+
+                continue;
+            }
+
+            if (RelationMethodWriter::hasMethod($file, $method)) {
+                $this->add('same', $key, "Relation method {$signature} exists.");
+            } elseif ($dryRun) {
+                $this->add('update', $key, "Relation method {$signature} would be added.");
+            } elseif (RelationMethodWriter::add($file, $method, $relationType, $relatedClass, $foreignKey)) {
+                $this->add('update', $key, "Relation method {$signature} added.");
+            } else {
+                $this->add('error', $key, "Relation method {$signature} could not be added to {$file}.");
             }
         }
     }
