@@ -190,6 +190,25 @@ class Verifier
                 continue;
             }
 
+            // replace: the old text is gone from the column and the new text is there
+            $notReplaced = [];
+
+            foreach ($override['replace'] ?? [] as $column => $pairs) {
+                foreach ((array) $pairs as $old => $new) {
+                    $value = (string) ($row->{$column} ?? '');
+
+                    if (($old !== '' && str_contains($value, (string) $old)) || ((string) $new !== '' && ! str_contains($value, (string) $new))) {
+                        $notReplaced[] = "{$column}: '{$old}' → '{$new}'";
+                    }
+                }
+            }
+
+            if ($notReplaced !== []) {
+                $this->add('warning', 'overrides', "{$label}: not replaced yet (".implode('; ', $notReplaced).'); run the import of that table.');
+
+                continue;
+            }
+
             $applied++;
         }
 

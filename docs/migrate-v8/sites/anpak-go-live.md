@@ -4,18 +4,18 @@ v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`) → v10 (`anpak1077`, Lara CMS
 
 ## Before (staging)
 
-- [ ] **open** Server: a Cloudways staging app with PHP 8.4, its database and the scheduler cron (`schedule:run`: Google sitemap daily, media sync hourly, Google Analytics).
-- [ ] **open** Site code in the site repository (decision needed: `appdezign/anpak-eu`, the repo of the earlier `anpak10` test, or a new one): the generated `laracms/app` (19 content types), `laracms/themes/anpak`, `v8-overrides.php` (4 overrides), `public/flyer`, `config/google-fonts.php` (Lato), `config/filarank.php` (title separator ` | `), `vite.front.client.config.js` (`THEME_NAME = 'anpak'`).
-- [ ] **open** `.env`: `APP_DEBUG=false`, `LARA_CLIENT_THEME=anpak`, mail (`MAIL_DEV_*` for staging, `MAIL_*` smtp for production), anpak's own **Google Maps, reCAPTCHA and GA4 keys** (the local `.env` has the dev keys), `LARA_V8_DB_*` (read-only user), `LARA_V8_MEDIA_PATH`, `LARA_V8_SITE_HOSTS=anpak.eu`.
+- [ ] Server: the Cloudways app of the earlier v10 attempt, **https://dev.anpak.eu** (user, 2026-11-16): check PHP 8.4, its database and the scheduler cron (`schedule:run`: Google sitemap daily, media sync hourly, Google Analytics).
+- [ ] Site code in the site repository **`appdezign/anpak-eu`** (user, 2026-11-16; the repo of the earlier `anpak10` attempt): the generated `laracms/app` (19 content types), `laracms/themes/anpak`, `v8-overrides.php` (4 overrides), `public/flyer`, `config/google-fonts.php` (Lato), `config/filarank.php` (title separator ` | `), `vite.front.client.config.js` (`THEME_NAME = 'anpak'`).
+- [ ] `.env`: `APP_DEBUG=false`, `LARA_CLIENT_THEME=anpak`, mail (`MAIL_DEV_*` for staging, `MAIL_*` smtp for production), the **Google Maps, reCAPTCHA and GA4 keys from the local `.env`** (they are anpak's live keys), `LARA_V8_DB_*` (read-only user), `LARA_V8_MEDIA_PATH`, `LARA_V8_SITE_HOSTS=anpak.eu`.
 - [ ] Build: `composer install --no-dev -o`, `npm ci`, admin and client builds, `php artisan storage:link` (the repo has `public/storage` committed as a symlink to another machine's path).
-- [ ] Data: fresh production dump + media rsync, `lara:v8:sync`, `lara:v8:verify` → expected: no errors, 1 warning (below).
+- [ ] Data: fresh production dump + media rsync, `lara:v8:sync`, `lara:v8:verify` → expected: no errors, no warnings.
 - [ ] Forms: contact (`/nl/contact`, `/nl/contact-1`) and the classic form; mail goes to `company_email` (an anpak.eu address) in production, to the dev mailer on staging. The applications form is not used (menu item unpublished in v8).
 - [ ] `/flyer/` and `/flyer/?page=1` (static folder in `public/`; locally Herd redirects them to `/nl/flyer`, Apache should serve `index.html`).
 - [ ] Compare with live (task 22 scripts in the scratchpad: `compare.php`, `headings.php`; 58 pages).
 
 ## Content to settle before the freeze
 
-- [ ] News #517 links to `https://www.anpak.eu/nl/diensten/documenten` (old URL; the menu has `/nl/diensten/downloads`): change the link in v10 **and** record it in `v8-overrides.php`, or add a redirect. This is the only verify warning.
+- [x] News #517 linked to `https://www.anpak.eu/nl/diensten/documenten` (old URL): replaced by `/nl/diensten/downloads` with a `replace` override in `v8-overrides.php` (user decision, 2026-11-16). Verify: no warnings.
 - [ ] Any other content changed in v10 before go-live: record it in `v8-overrides.php`, or the final sync overwrites it.
 
 ## Switch

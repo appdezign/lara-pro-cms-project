@@ -12,8 +12,10 @@ namespace App\Console\Commands\LaraV8\Support;
  * site data and returns a list of:
  *
  *     ['table' => 'lara_blocks_widgets', 'where' => ['id' => 591], 'set' => ['hook' => 'home2'], 'reason' => '...']
+ *     ['table' => 'lara_content_blogs', 'where' => ['id' => 517], 'replace' => ['body' => ['/old-url' => '/new-url']], 'reason' => '...']
  *
- * `where` matches the imported row (all columns equal, compared as strings).
+ * `where` matches the imported row (all columns equal, compared as strings). `set` replaces
+ * column values; `replace` replaces text inside a column (e.g. one link in a body).
  */
 class SiteOverrides
 {
@@ -62,6 +64,12 @@ class SiteOverrides
         foreach (self::all() as $override) {
             if (($override['table'] ?? null) === $table && self::matches($override['where'] ?? [], $row)) {
                 $row = array_merge($row, $override['set'] ?? []);
+
+                foreach ($override['replace'] ?? [] as $column => $pairs) {
+                    if (is_string($row[$column] ?? null)) {
+                        $row[$column] = strtr($row[$column], array_map('strval', (array) $pairs));
+                    }
+                }
             }
         }
 

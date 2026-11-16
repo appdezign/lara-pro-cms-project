@@ -274,6 +274,8 @@ return [
 ];
 ```
 
+`set` replaces column values; `replace` replaces text inside a column, e.g. one old link in a body: `'replace' => ['body' => ['/nl/old' => '/nl/new']]`.
+
 Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRows` and the content import), so a rerun keeps them and `verify` counts them as in sync. `verify` also reports an override whose row no longer exists, or whose values are not in v10 yet. The file is site data: it belongs in the site repository, not on the migration branch.
 
 ### 17. Final sync

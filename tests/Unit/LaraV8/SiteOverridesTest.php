@@ -42,6 +42,16 @@ class SiteOverridesTest extends TestCase
         $this->assertSame(['hook' => 'home1'], SiteOverrides::apply('widgets', ['hook' => 'home1']), 'A row without the where column does not match.');
     }
 
+    public function test_replace_changes_text_inside_a_column(): void
+    {
+        File::put($this->file, "<?php\n\nreturn [\n    ['table' => 'blogs', 'where' => ['id' => 517], 'replace' => ['body' => ['/old' => '/new']]],\n];\n");
+        SiteOverrides::flush();
+
+        $this->assertSame(['id' => 517, 'body' => '<a href="/new">/new</a>'], SiteOverrides::apply('blogs', ['id' => 517, 'body' => '<a href="/old">/old</a>']));
+        $this->assertSame(['id' => 517, 'body' => null], SiteOverrides::apply('blogs', ['id' => 517, 'body' => null]), 'A NULL column stays NULL.');
+        $this->assertSame(['id' => 1, 'body' => '/old'], SiteOverrides::apply('blogs', ['id' => 1, 'body' => '/old']));
+    }
+
     public function test_an_empty_where_matches_nothing(): void
     {
         $this->assertFalse(SiteOverrides::matches([], ['id' => 1]));
