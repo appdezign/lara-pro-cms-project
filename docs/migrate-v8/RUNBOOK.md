@@ -362,22 +362,70 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 - `composer test` needs the front assets (Vite manifests) and a `tests/Unit` folder.
 - The project autoloader is optimized (class map): after removing classes run `composer dump-autoload`, or `class_exists()` includes a missing file and throws.
 - A bare essential install (10.7.15) has a front 500 (`getDefaultSeo()` on a missing home page: the essential seed has only an English home page while `nl` is the default) and a 500 on the Pages list (`ListPages::syncPagesWithMenu()` with a menu item whose page is missing). Both disappear once the v8 pages and menus are imported.
+- **Keep the site and the tooling in separate working trees.** The site repo's `v10` branch tracks the generated `laracms/app`, the client theme and `v8-overrides.php`; `v8-migration` does not. `git checkout v8-migration` in the site's working tree removes the site code (and puts the demo `laracms/app` back). Use a git worktree for `v8-migration`, commit tooling there, then merge it into the site branch.
+- Widgets cache their HTML (slider, entity widgets): after changing a widget view run `php artisan cache:clear`, not only `view:clear`.
+- Tailwind 4 orders arbitrary breakpoints by value only within one unit: `min-[1200px]:` ends up before `md:` (rem), so `md:` wins. Write arbitrary breakpoints in rem (`min-[75rem]:`) like the theme's own.
+- A client theme can redefine the type scale (`--text-4xl: 2rem` in anpak): use exact sizes (`text-[36px]`) when matching v8.
+- Core looks for form mail views at `email.{resource slug}.webmaster|confirm`; v8-style folders (`email/contactform`) are not found and there is no fallback (base theme item).
+- Outside `APP_ENV=production` form mail goes with the `dev` mailer to `config('lara.admin_company_email')`, and reCAPTCHA is not checked.
+- The imported users keep their v8 ids: a session of an earlier install can point to another user (`/admin` gave a 404 in a browser still logged in). Clear the sessions when deploying over an earlier install.
+- `APP_NAME` is the site name in every page title and `og:site_name`; `CONSENT_GA4_ID` is needed by the cookie-consent plugin.
+- Cloudways "Deployment via Git" keeps the git data outside `public_html` (`git status` there: "not a git repository") and runs no composer, build or artisan command; the servers have no Node, so upload `public/assets`.
+- An HTTP status check cannot find broken links: v10 answers unknown URLs with the home page and status 200. Use route matching (`rewrite-urls`, `verify`).
 
 ## Sites
 
 ### anpak.eu (first site, 2026-11)
 
-- Target `anpak1077`, theme `anpak`; plan with all details and decisions: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`.
-- Core field values: cta `overlaycolor` `primary` → `brand` (live CTA #99); `ctas.hook` got the option `homeparallax1` (the only hook the anpak theme uses, on the home page); `homeparalax1`, `homeparalax2`, `homeparallax2` are only on unpublished or trashed CTAs and were not added. The theme needs widget template `service` (4 widgets).
-- Content types: 15 site content types built (12 entities, 3 forms) plus the relation location → events; relation methods `Location::events()` and `Event::location()` added by the import (the form controllers were todos until v10.7.18).
-- Content: all 19 content types imported (277 rows incl. 43 contact submissions); `--fresh` removed the essential page 5; page 1125 "Arbeidshygiëne" got its placeholder lead `blabla` in `body2` (template standard, warning). Lost, as decided: the form titles (copies of the sender name).
-- Theme: started from the earlier v10 work in `anpak10` (repo `appdezign/anpak-eu`, built on 10.7.13, identical demo/base; working copy incl. the uncommitted consent changes), 166 files; Lato registered in `config/google-fonts.php`. Home, team, pages, news, vacancies, contact render; services, downloads and the English home give a 500 (tag lists / index_sort, task 21).
-- URLs: 18 v8 media URLs rewritten in 18 rows (editor uploads in images/shares → /storage/images/shares, 5 files copied; one doc PDF → /storage/docs/file/…). 2 internal links reported: https://www.anpak.eu/nl/diensten/documenten (old URL, now diensten/downloads) and /flyer/?page=1 (public/flyer not yet copied, theme step).
-- Media: 92 images (all featured; Curator items with dimensions) and 17 files in 16 lists (incl. the 5 docs whose file is only in `_archive`), 1 YouTube video; 109 files (169 MB incl. other site data on the public disk) copied; 1 image with prevent_cropping reported. News page images verified through Glide, a doc PDF through /storage.
-- Settings: company/general from v8 (ANPAK, Heerenveen, GA4 id, phone); 16 system and 5 opengraph settings skipped; 18 blacklisted IPs; 31 header tags reported. Translations: 214 created, 48 updated (site labels such as services → "diensten"/"dienst"), 1272 admin texts skipped, 101 v8 front texts without a v10 key, 96 placeholders skipped.
-- Menus: 3 menus, 29 menu items (34 v8 items minus 4 root items minus item 48 "About" (en, unpublished), whose page 1078 no longer exists); 24 route names rebuilt. 13 module page slugs renamed (team-index-module-nl → teams-index-module-nl …). Front: every page works; services (`_sortbytaxonomy`), downloads (`_sortbytaxonomy`) and jobs give a 500 until the anpak theme has their views.
-- Objects: 2 taxonomies, 82 tags, 37 taggables, 4 pageables (widgets on page 1), 27 SEO rows (of 57 v8 rows; the rest were empty), layout of page 1 (all values in the demo theme). Reported: 9 tags with a publish_from date, 1 team member with an og title/description.
-- Users: 9 users imported with their v8 ids; `admin` (id 2) → superadmin only; `helpdesk` (id 3) replaced the essential superadmin; webmasters Lampe and kapma; role `editor` skipped (no users); 5 orphan role assignments (users 6, 12–15). The webmaster lost menu, setting and translation permissions it did not have in v8 either.
-- Custom v8 code: only the Applications form (2-step job application with CV upload, mails, `StoreApplicationRequest`, admin views) is real custom code, and it is switched off on the live site (menu item unpublished, 4 test submissions in Jan 2024): **not ported** (user decision); the form and its data come over as a standard v10 form. Classicforms (demo leftover, custom controller) and Invallerforms (no entity) dropped. Traits, Special controllers and routes are stock v8.
-- Inventory: `sites/anpak-inventory.md`. 19 content types (4 core). With `V8Map`, 4 findings remain: `yesno` becomes a toggle (classicform), 5 docs whose file is only in `_archive`, a duplicate latitude/longitude definition. One page has a `lead`, which v10 pages do not have (decide in the content import). The v8 role `editor` has no v10 counterpart and no users.
-- The fresh demo install failed on 10.7.13 (an orphan `cities` migration, migrations behind the schema); fixed in 10.7.14. The test config was fixed in 10.7.15.
+v8.2.46 (`anpak8246`, Bootstrap theme `anpak2024`) → Lara CMS 10.7.20 (`anpak1077`, theme `anpak`). Site repository: `appdezign/anpak-eu`, branch `v10`; staging https://dev.anpak.eu. Plan with every decision and detail: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`; go-live list: `sites/anpak-go-live.md`; inventory: `sites/anpak-inventory.md`.
+
+**Time.** Elapsed time between the commits of each step, including waiting for decisions and core releases; the tooling was written during this first site, so the next sites should be much faster.
+
+| Steps | What | Time |
+|---|---|---|
+| 1–3 | v10 target, v8 snapshot, inventory | ½ day (two broken core releases: 10.7.13 fresh install, 10.7.14 test config) |
+| 4–5 | essential base, content types (`prepare-target`, `import-entities`) | ½ day (form regression in 10.7.17, fixed in 10.7.18) |
+| 6–9 | custom code, users, content, objects | 45 min |
+| 10–13 | menus, settings, media, URLs | 1 h |
+| 14 | client theme: from the earlier v10 attempt, gaps, tag lists, page-by-page comparison | 1½ h (core fix 10.7.19, language URLs 10.7.20) |
+| 15–17 | verify, site overrides, sync | 30 min |
+| 18 | staging on dev.anpak.eu | 1½ h with the user deploying (session, `APP_NAME`, mail views) |
+
+For a next site with the tooling in place, plan roughly: 1–3 h for the import (steps 1–13, mostly reading the reports and deciding), and most of the time for the theme (step 14), depending on how far the v8 theme differs from the base.
+
+**Results.**
+
+- Content: 19 content types (4 core, 12 entities, 3 forms), 277 rows with their v8 ids; 9 users (`admin` → superadmin only, `helpdesk` replaced the essential superadmin, role `editor` skipped: no users); 2 taxonomies, 82 tags, 37 taggables, 4 pageables, 27 SEO rows; 3 menus, 29 items, 13 module page slugs renamed; settings, 18 blacklisted IPs, 214 + 48 translations; 92 images, 17 files, 1 video; 18 media URLs rewritten in the HTML (editor uploads in `images/shares`, one doc PDF).
+- Compared with the live site: 58 pages (every menu item, every Dutch detail page, `/en`, an unknown URL) on titles, headings, text and images, desktop and mobile. Content pages, news, links and vacancies: 99–100 % text match.
+- `lara:v8:verify`: ok 36, no warnings. Tests: 120.
+
+**Mappings and options added for anpak** (now part of `V8Map` / the tooling):
+
+- CTA overlay `primary` → `brand`; slider overlay `primary` → `brand1`; `ctas.hook` option `homeparallax1` (only values used by live records are added).
+- Page `lead` → `body2` (1 page; the template must show extra body fields).
+- Widget `relentkey` → resource slug; widget template `service`.
+- Module page slugs `{entity key}-…-module-{lang}` → `{resource slug}-…`.
+- SEO titles: a trailing site name is stripped (v10 adds it).
+- Media: v8 file names kept; files only in `_archive` found.
+- Status: v8 clients have no `publish` column; v10 stores 0 and ignores it (verify counts every row as published for entities without a status).
+
+**Decisions** (see the plan for the reasoning):
+
+- Not ported: the Applications form (2-step job application, switched off on live); its data comes over as a standard form. Dropped: Classicforms' custom controller, Invallerforms (no entity), the form titles (copies of the sender name).
+- English unpublished (live `/en` is a 500 and nothing links to it).
+- Layout always matches live, also where the earlier v10 theme differed.
+- Site overrides (`v8-overrides.php`, 5): the four home services in a 2×2 grid in live order (widgets #591, #2, #3 → `home2`–`home4`), English unpublished, the old documents link in news #517.
+- Base/core fixes found here are listed in the plan; the core ones are in 10.7.14–10.7.20, the base theme items (tag-list partial, `brand` overlays, services `index_sort`, contact demo text, mail view folders) follow after the migration.
+
+**Theme work** (`laracms/themes/anpak`, beyond the earlier v10 attempt):
+
+- Home: parallax CTA (`_widgets/cta/paralax`), slider sizes and heights as v8 (`hero-hN` = `Nvh`; caption 24/36/48/60 px), 3 news items with links, services in live order.
+- Lists sorted by tag (services, downloads): v8's tag-list partial (no root, no empty tags, uses core's `childobjectcount`), services `index_sort` and the alternating service layout.
+- Detail pages: documents (description and download as v8), team (full name), contact (v8 layout, no demo text).
+- Mail views in `email/contactforms` and `email/classicforms`; `brand` overlay classes; menu right-aligned; title separator ` | `; Lato.
+
+**Gotchas met on anpak** (the general ones are in Gotchas above):
+
+- The earlier v10 theme was built on 10.7.13; its demo/base were identical to 10.7.18, so it could be taken over as it was.
+- `/flyer/` (a static folder in `public/`) is redirected to `/nl/flyer` by Herd's nginx but served by Apache on Cloudways.
+- The live site has no sitemap and answers unknown URLs with the home page (status 200); v10 does the same for unknown URLs.
