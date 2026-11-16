@@ -4,6 +4,7 @@ namespace Tests\Feature\LaraV8;
 
 use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
+use App\Console\Commands\LaraV8\Support\ObjectImporter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use Illuminate\Support\Facades\Artisan;
@@ -59,6 +60,12 @@ class FixtureImportTest extends TestCase
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $contentRerun = [];
 
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $objectReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> */
+    private static array $objectRerun = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -112,6 +119,9 @@ class FixtureImportTest extends TestCase
 
         self::$contentReport = (new ContentImporter(new V8Source))->run(fresh: true);
         self::$contentRerun = (new ContentImporter(new V8Source))->run();
+
+        self::$objectReport = (new ObjectImporter(new V8Source))->run(fresh: true);
+        self::$objectRerun = (new ObjectImporter(new V8Source))->run();
     }
 
     /**
@@ -382,5 +392,65 @@ class FixtureImportTest extends TestCase
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "Page 1125 'Arbeidshygiëne': the v8 lead is in body2")));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'belonged to a v8 user that no longer exists')));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'lara_content_v8fxevents.v8fxbook_id point to a v8fxbook that does not exist')));
+    }
+
+    public function test_the_object_import_has_no_errors_and_a_second_run_changes_nothing(): void
+    {
+        $errors = collect(self::$objectReport)->where('level', 'error');
+        $changes = collect(self::$objectRerun)->whereNotIn('level', ['same', 'info', 'warning']);
+
+        $this->assertEmpty($errors, $errors->pluck('message')->implode("\n"));
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
+    }
+
+    public function test_tags_get_a_resource_slug_and_keep_their_tree(): void
+    {
+        $tags = DB::table('lara_object_tags')->orderBy('id')->get()->keyBy('id');
+
+        $this->assertSame([11, 12, 13], $tags->keys()->all());
+        $this->assertSame(['v8fxbooks', 0], [$tags[11]->resource_slug, (int) $tags[11]->depth], 'A NULL depth gets the column default.');
+        $this->assertSame(['v8fxbooks', 11, 2, 3, 1], [$tags[12]->resource_slug, (int) $tags[12]->parent_id, (int) $tags[12]->lft, (int) $tags[12]->rgt, (int) $tags[12]->depth]);
+        $this->assertSame('widgets', $tags[13]->resource_slug);
+    }
+
+    public function test_links_get_the_v10_model_class(): void
+    {
+        $taggables = DB::table('lara_object_taggables')->orderBy('id')->get();
+
+        $this->assertSame([1, 2], $taggables->pluck('id')->map(fn ($id) => (int) $id)->all(), 'A link to a record that does not exist is skipped.');
+        $this->assertSame(['Lara\\App\\Models\\V8fxbook'], $taggables->pluck('entity_type')->unique()->values()->all());
+
+        $pageable = DB::table('lara_object_pageables')->first();
+        $this->assertSame([19, 'Lara\\Common\\Models\\Cta', 99], [(int) $pageable->page_id, $pageable->entity_type, (int) $pageable->entity_id]);
+    }
+
+    public function test_seo_and_opengraph_become_one_filarank_row(): void
+    {
+        $seo = DB::table('lara_object_seo')->get();
+
+        $this->assertCount(1, $seo, 'Empty SEO rows and an og title without SEO are not imported.');
+
+        $book = $seo->first();
+        $this->assertSame(['Lara\\App\\Models\\V8fxbook', 1, 'Boek één | Fixture', 'Over het boek', 'boek', 'nl', 'og-boek.jpg'], [$book->model_type, (int) $book->model_id, $book->title, $book->description, $book->focus_keyword, $book->locale, $book->og_image]);
+        $this->assertSame(['boeken', 'lezen', 'romans'], json_decode($book->additional_keywords, true));
+    }
+
+    public function test_layout_settings_become_one_row_per_record(): void
+    {
+        $layout = DB::table('lara_object_layout')->get();
+
+        $this->assertCount(1, $layout);
+        $this->assertSame(['Lara\\Common\\Models\\Page', 19, 'hero_slider_70', 'hidden', 'no_such_layout', null], [$layout[0]->entity_type, (int) $layout[0]->entity_id, $layout[0]->hero, $layout[0]->pagetitle, $layout[0]->content, $layout[0]->footer]);
+    }
+
+    public function test_object_problems_are_reported(): void
+    {
+        $warnings = collect(self::$objectReport)->where('level', 'warning')->pluck('message');
+
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 tag(s) have a publish_from/publish_to date')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 taggables row(s) point to a record')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 record(s) have a v8 opengraph title or description')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "'no_such_layout' is not a content option of the active theme")));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 related objects (lara_object_related) are not imported')));
     }
 }

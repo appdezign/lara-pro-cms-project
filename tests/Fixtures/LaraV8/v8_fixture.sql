@@ -543,4 +543,166 @@ INSERT INTO `lara_blocks_ctas` (`id`, `user_id`, `language`, `title`, `overlaytr
 (99, 2, 'nl', 'Neem contact op', '80', 'primary', 'parallax', 'homeparallax1', '/contact', 'Contact', 'neem-contact-op', '<p>Bel ons</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', NULL, 1),
 (98, 2, 'en', 'Old demo', '', 'black', 'parallax', 'homeparalax2', '', '', 'old-demo', NULL, '2023-01-01 10:00:00', '2024-01-01 10:00:00', NULL, 0);
 
+CREATE TABLE `lara_object_taxonomies` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `has_hierarchy` tinyint(1) NOT NULL DEFAULT '0',
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  `position` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_object_taxonomies_locked_by_foreign` (`locked_by`),
+  KEY `lara_object_taxonomies_position_index` (`position`),
+  CONSTRAINT `lara_object_taxonomies_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_tags` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `language` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `language_parent` bigint(20) unsigned DEFAULT NULL,
+  `taxonomy_id` bigint(20) unsigned NOT NULL,
+  `entity_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
+  `lead` text COLLATE utf8_unicode_ci,
+  `body` text COLLATE utf8_unicode_ci,
+  `route` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `locked_by_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  `publish_from` timestamp NULL DEFAULT NULL,
+  `publish_to` timestamp NULL DEFAULT NULL,
+  `parent_id` bigint(20) unsigned DEFAULT NULL,
+  `lft` bigint(20) unsigned DEFAULT NULL,
+  `rgt` bigint(20) unsigned DEFAULT NULL,
+  `depth` bigint(20) unsigned DEFAULT NULL,
+  `locked_at` timestamp NULL DEFAULT NULL,
+  `locked_by` bigint(20) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_object_tags_taxonomy_id_foreign` (`taxonomy_id`),
+  KEY `lara_object_tags_locked_by_foreign` (`locked_by`),
+  KEY `lara_object_tags_parent_id_index` (`parent_id`),
+  KEY `lara_object_tags_lft_index` (`lft`),
+  KEY `lara_object_tags_rgt_index` (`rgt`),
+  KEY `lara_object_tags_depth_index` (`depth`),
+  CONSTRAINT `lara_object_tags_locked_by_foreign` FOREIGN KEY (`locked_by`) REFERENCES `lara_auth_users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `lara_object_tags_taxonomy_id_foreign` FOREIGN KEY (`taxonomy_id`) REFERENCES `lara_object_taxonomies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_taggables` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `tag_id` bigint(20) unsigned NOT NULL,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_object_taggables_entity_type_entity_id_index` (`entity_type`,`entity_id`),
+  KEY `lara_object_taggables_tag_id_index` (`tag_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_pageables` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `page_id` bigint(20) unsigned NOT NULL,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `lara_object_pageables_entity_type_entity_id_index` (`entity_type`,`entity_id`),
+  KEY `lara_object_pageables_page_id_index` (`page_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_seo` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `seo_focus` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `seo_title` text COLLATE utf8_unicode_ci,
+  `seo_description` text COLLATE utf8_unicode_ci,
+  `seo_keywords` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_opengraph` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `og_title` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `og_description` text COLLATE utf8_unicode_ci,
+  `og_image` text COLLATE utf8_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_layout` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `layout_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `layout_value` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_related` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `object_id` bigint(20) unsigned NOT NULL,
+  `related_entity_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `related_model_class` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `related_object_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `lara_object_sync` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `entity_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `entity_id` bigint(20) unsigned NOT NULL,
+  `remote_url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `remote_suffix` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ent_key` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Objects (lara:v8:import-objects).
+-- Tag 11 is a root with depth NULL (→ the column default); tag 12 has a publish_from date (reported).
+-- Taggable 3 points to a book that does not exist (skipped). Pageable 1 links CTA 99 to page 19.
+-- SEO: book 1 has SEO (keywords → JSON list) and opengraph; page 1125 only an og title (reported).
+-- Layout: page 19 with a value the theme does not offer (reported). One related row (reported).
+
+INSERT INTO `lara_object_taxonomies` (`id`, `title`, `slug`, `has_hierarchy`, `is_default`, `position`) VALUES
+(1, 'Category', 'category', 1, 1, 1), (2, 'Tag', 'tag', 0, 0, 2);
+
+INSERT INTO `lara_object_tags` (`id`, `language`, `taxonomy_id`, `entity_key`, `title`, `slug`, `publish`, `publish_from`, `parent_id`, `lft`, `rgt`, `depth`) VALUES
+(11, 'nl', 1, 'v8fxbook', 'root', 'root-v8fxbook', 1, NULL, NULL, 1, 4, NULL),
+(12, 'nl', 1, 'v8fxbook', 'Romans', 'romans', 1, '2024-01-01 10:00:00', 11, 2, 3, 1),
+(13, 'nl', 1, 'larawidget', 'Home', 'home', 1, NULL, NULL, 1, 2, 0);
+
+INSERT INTO `lara_object_taggables` (`id`, `tag_id`, `entity_type`, `entity_id`) VALUES
+(1, 12, 'Eve\\Models\\V8fxbook', 1),
+(2, 12, 'Eve\\Models\\V8fxbook', 2),
+(3, 12, 'Eve\\Models\\V8fxbook', 999);
+
+INSERT INTO `lara_object_pageables` (`id`, `page_id`, `entity_type`, `entity_id`) VALUES
+(1, 19, 'Lara\\Common\\Models\\Cta', 99);
+
+INSERT INTO `lara_object_seo` (`id`, `entity_type`, `entity_id`, `seo_focus`, `seo_title`, `seo_description`, `seo_keywords`, `created_at`, `updated_at`) VALUES
+(1, 'Eve\\Models\\V8fxbook', 1, 'boek', 'Boek één | Fixture', 'Over het boek', 'boeken, lezen , ,romans', '2024-01-01 10:00:00', '2024-01-01 10:00:00'),
+(2, 'Eve\\Models\\V8fxbook', 2, '', '', '', '', NULL, NULL);
+
+INSERT INTO `lara_object_opengraph` (`id`, `entity_type`, `entity_id`, `og_title`, `og_description`, `og_image`) VALUES
+(1, 'Eve\\Models\\V8fxbook', 1, '', '', 'og-boek.jpg'),
+(2, 'Lara\\Common\\Models\\Page', 1125, 'Share me', '', '');
+
+INSERT INTO `lara_object_layout` (`id`, `entity_type`, `entity_id`, `layout_key`, `layout_value`) VALUES
+(1, 'Lara\\Common\\Models\\Page', 19, 'hero', 'hero_slider_70'),
+(2, 'Lara\\Common\\Models\\Page', 19, 'pagetitle', 'hidden'),
+(3, 'Lara\\Common\\Models\\Page', 19, 'content', 'no_such_layout');
+
+INSERT INTO `lara_object_related` (`id`, `entity_key`, `object_id`, `related_entity_key`, `related_model_class`, `related_object_id`) VALUES
+(1, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 1);
+
 SET FOREIGN_KEY_CHECKS=1;
