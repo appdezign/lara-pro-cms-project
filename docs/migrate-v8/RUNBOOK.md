@@ -296,6 +296,33 @@ Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRo
 
 Not included on purpose: `import-entities --update` (regenerates code: run it by hand when the sync reports an entity difference) and `import-users --prune` (would remove users created in v10).
 
+### 18. Go-live
+
+Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill in the site's facts.
+
+**Before (staging)**
+
+1. Server: PHP 8.4 (`composer.json` requires `^8.4`), a database, the cron for the Laravel scheduler (`* * * * * php artisan schedule:run`: sitemap daily, media sync hourly, Google Analytics), Apache serving `public/` (a folder with `index.html` such as `public/flyer` is served directly; Herd's nginx does not, so check it here).
+2. Site code: the project with the generated `laracms/app`, the client theme, `v8-overrides.php` and the site config (fonts, title separator). This is site code, not the migration branch.
+3. `.env`: `APP_ENV=production` only on production (see 6), `APP_DEBUG=false`, `APP_URL`, `LARA_CLIENT_THEME={client}`, the mail settings, the site's **own** keys (Google Maps, reCAPTCHA, GA4: never the dev keys), the `LARA_V8_*` source connection (read-only user) and media path.
+4. Build: `composer install --no-dev -o`, `npm ci`, the admin and client Vite builds, `php artisan storage:link` (replace a committed `public/storage` symlink).
+5. Data: import from a fresh production dump + media rsync (steps 2 and 4–13, or the sync of step 17 on a copy of the local v10 database), then `lara:v8:verify`: no errors, every warning explained.
+6. Forms: v10 sends form mail with the `dev` mailer (`MAIL_DEV_*`) unless `APP_ENV=production`, and then to `company_email` with the `smtp` mailer; reCAPTCHA is only checked in production. On staging, submit every published form and check the mail on the dev mailer; check reCAPTCHA right after the switch.
+7. Compare with live once more (step 22 scripts: titles, headings, text; desktop and mobile).
+
+**Switch**
+
+8. Content freeze on the v8 admin (tell the editors; disable logins if possible).
+9. Final sync (step 17) from a fresh production dump and media: `lara:v8:sync --dry-run`, then `lara:v8:sync`; `lara:v8:verify`.
+10. `php artisan optimize:clear && php artisan lara:route:cache`.
+11. DNS / vhost switch to the v10 server; SSL certificate for the domain (and `www`).
+12. Right after: home, every menu item, a detail page per content type, the downloads (PDF), the 404, a form with reCAPTCHA and its mail (`company_email` and the confirmation to the sender), the cookie consent, `robots.txt`, `sitemap.xml` (`schedule:run` once, or wait a day), old URLs that Google has indexed.
+13. Search Console: submit the sitemap; watch the coverage for 404s in the first weeks and add redirects for them in v10.
+
+**Fallback**
+
+14. Keep the v8 site and its database read-only for a few weeks (another vhost, no public DNS). Switching back is a DNS change; content edited in v10 after the switch would have to be redone in v8.
+
 ## v8 → v10 mapping (`V8Map`)
 
 `app/Console/Commands/LaraV8/Support/V8Map.php` holds every translation of v8 configuration; it covers all values the v8.2.46 core knows, so it should not need changes per site. Unit tests: `tests/Unit/LaraV8/V8MapTest.php` (they also fail when a v10 release renames a field type, hook or nav group).
