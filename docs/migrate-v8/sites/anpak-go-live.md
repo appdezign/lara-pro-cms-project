@@ -2,13 +2,62 @@
 
 v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`) → v10 (`anpak1077`, Lara CMS 10.7.20). General steps: runbook step 18. Status 2026-11-16: everything up to staging is done locally; the items marked **open** need the user.
 
-## Before (staging)
+## Repositories
 
-- [ ] Server: the Cloudways app of the earlier v10 attempt, **https://dev.anpak.eu** (user, 2026-11-16): check PHP 8.4, its database and the scheduler cron (`schedule:run`: Google sitemap daily, media sync hourly, Google Analytics).
-- [ ] Site code in the site repository **`appdezign/anpak-eu`** (user, 2026-11-16; the repo of the earlier `anpak10` attempt): the generated `laracms/app` (19 content types), `laracms/themes/anpak`, `v8-overrides.php` (5 overrides), `public/flyer`, `config/google-fonts.php` (Lato), `config/filarank.php` (title separator ` | `), `vite.front.client.config.js` (`THEME_NAME = 'anpak'`).
-- [ ] `.env`: `APP_DEBUG=false`, `LARA_CLIENT_THEME=anpak`, mail (`MAIL_DEV_*` for staging, `MAIL_*` smtp for production), the **Google Maps, reCAPTCHA and GA4 keys from the local `.env`** (they are anpak's live keys), `LARA_V8_DB_*` (read-only user), `LARA_V8_MEDIA_PATH`, `LARA_V8_SITE_HOSTS=anpak.eu`.
-- [ ] Build: `composer install --no-dev -o`, `npm ci`, admin and client builds, `php artisan storage:link` (the repo has `public/storage` committed as a symlink to another machine's path).
-- [ ] Data: fresh production dump + media rsync, `lara:v8:sync`, `lara:v8:verify` → expected: no errors, no warnings.
+- **`appdezign/anpak-eu`, branch `v10`** (pushed 2026-11-16, `71b0ad2`): the site. The project at 10.7.20, the migration tooling, the generated `laracms/app` (19 content types), `laracms/themes/anpak`, `lang/vendor`, `v8-overrides.php` (5 overrides), `public/flyer`, Lato (`config/google-fonts.php`), title separator ` | ` (`config/filarank.php`), `THEME_NAME = 'anpak'`. Not in git: `storage/app/public` (media) and `public/storage` (run `storage:link`). `main` keeps the earlier attempt until go-live; `v10` and `main` have unrelated histories, so at go-live make `v10` the default branch (or reset `main` to it) instead of merging.
+- **`appdezign/lara-pro-cms-project`, branch `v8-migration`**: the tooling and the runbook. Tooling changes go there first, then `git merge v8-migration` into `v10`.
+- Locally `anpak1077` stays on `v10` (switching it to `v8-migration` removes the site code from the working tree); `../anpak1077-v8-migration` is a git worktree of `v8-migration`.
+
+## Staging: dev.anpak.eu
+
+Approach: the migration runs **locally** (where it is tested); the server gets the v10 database and the media. The server needs no v8 database and no `LARA_V8_*`. The final sync works the same way.
+
+Locally (in `anpak1077`, on `v10`):
+
+```bash
+php artisan lara:v8:verify                       # no errors, no warnings
+mysqldump -h127.0.0.1 -uroot --single-transaction --routines anpak1077 > ~/anpak1077.sql
+tar -czf ~/anpak1077-media.tgz -C storage/app public
+npx vite build --config vite.admin.config.js && npx vite build --config vite.front.base.config.js && npx vite build --config vite.front.client.config.js
+tar -czf ~/anpak1077-assets.tgz -C public assets   # only needed if the server has no Node
+```
+
+On the server (SSH as the application user, in the app root `public_html`):
+
+```bash
+# 0. backup of the earlier attempt
+mysqldump {db} > ~/backup-dev-anpak-$(date +%F).sql && tar -czf ~/backup-dev-anpak-files-$(date +%F).tgz .env storage/app/public
+
+# 1. code
+git fetch origin && git status                    # commit nothing; note local changes first
+git checkout -B v10 origin/v10
+php -v                                            # 8.4 (Cloudways: Application Settings → PHP version)
+composer install --no-dev -o
+npm ci && npx vite build --config vite.admin.config.js && npx vite build --config vite.front.base.config.js && npx vite build --config vite.front.client.config.js
+#   no Node on the server: upload anpak1077-assets.tgz and run  tar -xzf ~/anpak1077-assets.tgz -C public
+
+# 2. .env (keep APP_KEY and the DB settings of the server)
+#    APP_ENV=staging  APP_DEBUG=false  APP_URL=https://dev.anpak.eu  LARA_CLIENT_THEME=anpak
+#    MAIL_DEV_* (staging sends form mail with the dev mailer)
+#    GOOGLE_MAPS_API_KEY, GOOGLE_MAPS_GEOCODING_API_KEY, GOOGLE_RECAPTCHA_SITE_KEY, GOOGLE_RECAPTCHA_SECRET_KEY, CONSENT_GA4_ID: as the local .env
+
+# 3. data (upload ~/anpak1077.sql and ~/anpak1077-media.tgz first)
+mysql {db} < ~/anpak1077.sql
+rm -rf storage/app/public && tar -xzf ~/anpak1077-media.tgz -C storage/app
+php artisan storage:link
+php artisan migrate:status | grep -i pending      # expected: nothing
+
+# 4. caches
+php artisan optimize:clear && php artisan lara:route:cache
+
+# 5. scheduler (Cloudways: Cron Job Management):  * * * * * cd {app root} && php artisan schedule:run >> /dev/null 2>&1
+```
+
+Checks:
+
+- [ ] Server: PHP 8.4, the scheduler cron.
+- [ ] Code on `v10`, assets built, `.env` as above.
+- [ ] Data loaded, media in place, `storage:link`.
 - [ ] Forms: contact (`/nl/contact`, `/nl/contact-1`) and the classic form; mail goes to `company_email` (an anpak.eu address) in production, to the dev mailer on staging. The applications form is not used (menu item unpublished in v8).
 - [ ] `/flyer/` and `/flyer/?page=1` (static folder in `public/`; locally Herd redirects them to `/nl/flyer`, Apache should serve `index.html`).
 - [ ] Compare with live (task 22 scripts in the scratchpad: `compare.php`, `headings.php`; 58 pages).
