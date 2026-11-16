@@ -113,7 +113,7 @@ class DemoLaraContentPagesTableSeeder extends Seeder
                 'slug' => 'meet-lara',
                 'slug_lock' => 0,
                 'body' => '<p>Lara CMS erat pharetra sed at fringilla etiam nullam platea fringilla. Gravida sodales sit mauris amet massa justo. Egestas ipsum amet tortor hendrerit amet phasellus adipiscing. Eget porta posuere <a href="https://firmaq.nl/nl/diensten/content-management" target="_blank">pellentesque</a> sed commodo gravida dignissim dignissim iaculis. <a href="https://laracms10.test/nl/services">Elementum</a> nibh duis at in.</p>',
-                'ishome' => 0,
+                'ishome' => 1,
                 'body3' => NULL,
                 'body2' => '<p></p>',
                 'menuroute' => '/lorem-ipsum',

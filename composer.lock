@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ff8270182abd5a9b6208dee8bf33f61",
+    "content-hash": "231e3e45b922589908f4cbbcb408e52a",
     "packages": [
         {
             "name": "achyutn/filament-log-viewer",
@@ -159,16 +159,16 @@
         },
         {
             "name": "appdezign/lara-pro-base-theme",
-            "version": "10.7.15",
+            "version": "10.7.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-base-theme.git",
-                "reference": "9d720f6044a7d1c6c7ac840e8736ad48fe023135"
+                "reference": "faf115fcc882b8056ed7100933887a8977a1ee49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/9d720f6044a7d1c6c7ac840e8736ad48fe023135",
-                "reference": "9d720f6044a7d1c6c7ac840e8736ad48fe023135",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-base-theme/zipball/faf115fcc882b8056ed7100933887a8977a1ee49",
+                "reference": "faf115fcc882b8056ed7100933887a8977a1ee49",
                 "shasum": ""
             },
             "require": {
@@ -216,23 +216,23 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.7.15"
+                "source": "https://github.com/appdezign/lara-pro-base-theme/tree/v10.7.16"
             },
-            "time": "2026-11-15T19:26:48+00:00",
-            "published-time": "2026-11-15T19:26:59+00:00"
+            "time": "2026-11-16T09:21:58+00:00",
+            "published-time": "2026-11-16T09:22:10+00:00"
         },
         {
             "name": "appdezign/lara-pro-cms",
-            "version": "10.7.15",
+            "version": "10.7.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-cms.git",
-                "reference": "69e089fcbfcada567df6be4450b56dba784a832f"
+                "reference": "c9fee7bb82093b1d38b428682e350580f3dbd5b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/69e089fcbfcada567df6be4450b56dba784a832f",
-                "reference": "69e089fcbfcada567df6be4450b56dba784a832f",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-cms/zipball/c9fee7bb82093b1d38b428682e350580f3dbd5b4",
+                "reference": "c9fee7bb82093b1d38b428682e350580f3dbd5b4",
                 "shasum": ""
             },
             "require": {
@@ -322,23 +322,23 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.7.15"
+                "source": "https://github.com/appdezign/lara-pro-cms/tree/v10.7.16"
             },
-            "time": "2026-11-15T19:26:48+00:00",
-            "published-time": "2026-11-15T19:26:53+00:00"
+            "time": "2026-11-16T09:21:57+00:00",
+            "published-time": "2026-11-16T09:22:04+00:00"
         },
         {
             "name": "appdezign/lara-pro-demo-theme",
-            "version": "10.7.15",
+            "version": "10.7.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appdezign/lara-pro-demo-theme.git",
-                "reference": "e2e875f7835c6f11cbdc9168e1c0bc38bab3562f"
+                "reference": "fc0e8abe57dbe7b193c684ef92f6cce651c477f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/e2e875f7835c6f11cbdc9168e1c0bc38bab3562f",
-                "reference": "e2e875f7835c6f11cbdc9168e1c0bc38bab3562f",
+                "url": "https://api.github.com/repos/appdezign/lara-pro-demo-theme/zipball/fc0e8abe57dbe7b193c684ef92f6cce651c477f4",
+                "reference": "fc0e8abe57dbe7b193c684ef92f6cce651c477f4",
                 "shasum": ""
             },
             "require": {
@@ -386,10 +386,10 @@
                 "lara"
             ],
             "support": {
-                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.7.15"
+                "source": "https://github.com/appdezign/lara-pro-demo-theme/tree/v10.7.16"
             },
-            "time": "2026-11-15T19:26:49+00:00",
-            "published-time": "2026-11-15T19:27:05+00:00"
+            "time": "2026-11-16T09:21:58+00:00",
+            "published-time": "2026-11-16T09:22:17+00:00"
         },
         {
             "name": "arrilot/laravel-widgets",

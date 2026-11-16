@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use Lara\Admin\Concerns\HasLaraBuilder;
 use Lara\Admin\Livewire\BackupColumns;
 use Lara\Admin\Resources\Entities\Pages\EditEntity;
+use Lara\Admin\Resources\Forms\Pages\ListForms;
 use Lara\Common\Entities\EntityFieldName;
 use Lara\Common\Entities\EntityLabel;
 use Lara\Common\Entities\EntityRegistry;
@@ -157,6 +158,11 @@ class EntityGenerationTest extends TestCase
             public function dropBackup(Entity $entity, string $key): bool
             {
                 return self::dropBackupColumn($entity, $key);
+            }
+
+            public function deleteEntitySafely(Entity $entity): bool
+            {
+                return self::deleteEntity($entity);
             }
         };
     }
@@ -885,5 +891,82 @@ class EntityGenerationTest extends TestCase
         Livewire::test(EditEntity::class, ['record' => $entity->id])
             ->assertOk()
             ->assertSeeLivewire(BackupColumns::class);
+    }
+
+    /**
+     * @param  list<string>  $paths
+     */
+    private function assertEntityIsGone(Entity $entity, string $table, string $resourceDir, array $paths): void
+    {
+        $this->assertNull(Entity::find($entity->id), 'The entity row must be deleted.');
+        $this->assertFalse(Schema::hasTable($table), 'The entity table must be dropped.');
+        $this->assertDirectoryDoesNotExist(base_path('laracms/app/Filament/Resources/'.$resourceDir));
+
+        foreach ($paths as $path) {
+            $this->assertFileDoesNotExist($path);
+        }
+    }
+
+    public function test_deleting_an_entity_removes_its_files_and_table(): void
+    {
+        $entity = $this->makeBuiltEntity();
+
+        $this->assertTrue($this->builder()->deleteEntitySafely($entity));
+
+        $this->assertEntityIsGone($entity, self::TABLE, self::RESOURCE_DIR, $this->generatedPaths());
+        $this->assertNull(app(EntityRegistry::class)->find(self::PLURAL));
+    }
+
+    /**
+     * The table is dropped, so an entity with records - also soft deleted ones - is not deleted.
+     */
+    public function test_an_entity_with_records_is_not_deleted(): void
+    {
+        $entity = $this->makeBuiltEntity();
+        DB::table(self::TABLE)->insert([
+            'user_id' => User::role('superadmin')->value('id'),
+            'title' => 'trashed row',
+            'deleted_at' => now(),
+        ]);
+
+        $this->assertFalse($this->builder()->deleteEntitySafely($entity));
+
+        $this->assertNotNull(Entity::find($entity->id));
+        $this->assertSame(1, DB::table(self::TABLE)->count());
+        foreach ($this->generatedPaths() as $path) {
+            $this->assertFileExists($path);
+        }
+    }
+
+    public function test_a_delete_that_fails_halfway_puts_the_files_and_table_back(): void
+    {
+        $entity = $this->makeBuiltEntity();
+
+        // the files are moved aside, then renaming the table fails
+        $this->failSchemaCall('rename');
+
+        $this->assertFalse($this->builder()->deleteEntitySafely($entity));
+
+        $this->assertNotNull(Entity::find($entity->id));
+        $this->assertTrue(Schema::hasTable(self::TABLE));
+        foreach ($this->generatedPaths() as $path) {
+            $this->assertFileExists($path);
+        }
+        $this->assertFileExists(base_path('laracms/app/Filament/Resources/'.self::RESOURCE_DIR.'/Pages/'.self::PAGE_CLASSES[0].'.php'));
+    }
+
+    public function test_the_forms_table_deletes_a_form_with_its_files_and_table(): void
+    {
+        $form = $this->makeEntityRow(self::FORM_LABEL, 'form');
+        $this->assertTrue($this->builder()->buildEntitySafely($form));
+        $form->refresh();
+
+        $this->actingAs(User::role('superadmin')->firstOrFail());
+        Filament::setCurrentPanel('admin');
+
+        Livewire::test(ListForms::class)
+            ->callAction(TestAction::make('delete')->table($form));
+
+        $this->assertEntityIsGone($form, self::FORM_TABLE, self::FORM_DIR, $this->generatedPaths(self::FORM_MODEL, self::FORM_DIR));
     }
 }
