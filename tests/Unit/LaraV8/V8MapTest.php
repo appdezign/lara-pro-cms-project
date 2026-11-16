@@ -328,6 +328,18 @@ class V8MapTest extends TestCase
         $this->assertSame('lead', V8Map::contentColumn('blog', 'lead', false));
     }
 
+    public function test_a_trailing_site_name_is_removed_from_seo_titles(): void
+    {
+        $this->assertSame('Process Safety', V8Map::seoTitle('Process Safety | Anpak', 'Anpak'));
+        $this->assertSame('Nieuws', V8Map::seoTitle('Nieuws | ANPAK', 'Anpak'));
+        $this->assertSame('Team', V8Map::seoTitle('Team - Anpak ', 'Anpak'));
+        $this->assertSame('Over ons', V8Map::seoTitle('Over ons — Anpak', 'Anpak'));
+        $this->assertSame('Uitbreiding van ANPAK', V8Map::seoTitle('Uitbreiding van ANPAK', 'Anpak'), 'Part of the sentence, no separator: kept.');
+        $this->assertSame('| Anpak', V8Map::seoTitle('| Anpak', 'Anpak'), 'Nothing would be left: kept.');
+        $this->assertNull(V8Map::seoTitle(null, 'Anpak'));
+        $this->assertSame('Team | Anpak', V8Map::seoTitle('Team | Anpak', ''));
+    }
+
     public function test_module_page_slugs_get_the_resource_slug(): void
     {
         $keys = ['team', 'gallery', 'contactform'];

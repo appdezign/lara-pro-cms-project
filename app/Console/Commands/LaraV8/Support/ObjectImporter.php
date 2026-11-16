@@ -132,7 +132,7 @@ class ObjectImporter
             [$v8Class, $id] = explode('#', $key);
             $class = $this->v10Class($v8Class);
 
-            $title = $this->text($s->seo_title ?? null);
+            $title = V8Map::seoTitle($this->text($s->seo_title ?? null), (string) config('filarank.site.name'));
             $description = $this->text($s->seo_description ?? null);
             $focus = $this->text($s->seo_focus ?? null);
             $keywords = $this->keywords($s->seo_keywords ?? null);

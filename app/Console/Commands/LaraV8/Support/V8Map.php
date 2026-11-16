@@ -200,6 +200,22 @@ final class V8Map
     }
 
     /**
+     * v8 SEO titles often end with the site name ("… | Anpak"); v10 appends it itself
+     * (filarank title_separator + site name), so a trailing site name is removed
+     * (user decision 2026-11-16). Case-insensitive; separators | - – — : .
+     */
+    public static function seoTitle(?string $title, string $siteName): ?string
+    {
+        if ($title === null || trim($siteName) === '') {
+            return $title;
+        }
+
+        $stripped = preg_replace('/\s*[|\-–—:]\s*'.preg_quote(trim($siteName), '/').'\s*$/iu', '', $title);
+
+        return $stripped === '' || $stripped === null ? $title : $stripped;
+    }
+
+    /**
      * A module page (the intro/SEO page of an index or form) is found by its slug:
      * v8 "{entity key}-{method}-module-{language}", v10 "{resource slug}-{method}-module-{language}"
      * (FrontObjectRepository::getModulePageBySlug()). Other slugs are unchanged.

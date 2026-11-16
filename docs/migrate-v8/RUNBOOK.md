@@ -162,7 +162,7 @@ php artisan lara:v8:import-objects --fresh
 Run it after `import-content` (links to records that do not exist in v10 are skipped).
 
 - **Taxonomies, tags, taggables, pageables** keep their v8 ids. Tag `entity_key` → `resource_slug` (plural; larawidget → widgets); v8 class names (`Eve\Models\Blog`, `Lara\Common\Models\Larawidget`) → the v10 model classes. Tag `publish_from`/`publish_to` have no v10 column (reported).
-- **SEO**: v8 `lara_object_seo` and `lara_object_opengraph` become one filarank row per record (`model_type`/`model_id`): title, description (max. 500), focus keyword, keywords as a JSON list, `locale` from the record's language, `og_image`. v10 has no og title or description (it uses the SEO ones); those are reported. Empty v8 rows are not imported.
+- **SEO**: v8 `lara_object_seo` and `lara_object_opengraph` become one filarank row per record (`model_type`/`model_id`): title (without a trailing site name such as "| Anpak": v10 appends " — {site name}" itself; user decision), description (max. 500), focus keyword, keywords as a JSON list, `locale` from the record's language, `og_image`. v10 has no og title or description (it uses the SEO ones); those are reported. Empty v8 rows are not imported.
 - **Layout**: v8 keeps one row per setting (`layout_key`/`layout_value`); v10 one row per record with a column per section (header, hero, pagetitle, content, share, cta, footer). Values the active theme's `_layout.xml` does not offer are imported and reported; check them when the client theme is built.
 - **Related objects and remote sync** are stored very differently in v10 and are reported, not converted (anpak has none). Implement the conversion when a site uses them; the inventory shows the counts.
 
