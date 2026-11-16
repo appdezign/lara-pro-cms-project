@@ -306,6 +306,15 @@ class V8MapTest extends TestCase
         $this->assertSame(['Contact Form', 1, null], [$form['title'], $form['is_single'], $form['list_type']]);
     }
 
+    public function test_core_values_are_translated_where_v10_renamed_them(): void
+    {
+        $this->assertSame('brand', V8Map::coreValue('cta', 'overlaycolor', 'primary'));
+        $this->assertSame('brand1', V8Map::coreValue('slider', 'overlaycolor', 'primary'));
+        $this->assertSame('black', V8Map::coreValue('cta', 'overlaycolor', 'black'));
+        $this->assertSame('primary', V8Map::coreValue('cta', 'type', 'primary'));
+        $this->assertSame('primary', V8Map::coreValue('larawidget', 'overlaycolor', 'primary'));
+    }
+
     public function test_group_values_become_a_list(): void
     {
         $this->assertSame(['news', 'events'], V8Map::groupValues('["news","events"]'));

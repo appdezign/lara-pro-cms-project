@@ -67,7 +67,47 @@ class EntityImporter
             $this->importRelations($v8, $dryRun);
         }
 
+        $this->importCoreOptions($only, $dryRun);
+
         return $this->report;
+    }
+
+    /**
+     * Core content types keep their v10 fields; values their live v8 records use but the
+     * v10 options lack are added to those options (CoreFieldValues), through the builder.
+     *
+     * @param  list<string>  $only
+     */
+    private function importCoreOptions(array $only, bool $dryRun): void
+    {
+        foreach ((new CoreFieldValues($this->source))->fields() as $row) {
+            $key = $row['entity_key'];
+
+            if (($only !== [] && ! in_array($key, $only, true)) || $row['add'] === []) {
+                continue;
+            }
+
+            $field = $row['field'];
+            $label = "Option field '{$field->field_name}' of core entity '{$field->entity->resource_slug}'";
+            $added = implode(', ', $row['add']);
+
+            if ($dryRun) {
+                $this->add('update', $key, "{$label}: would get the option(s) {$added}.");
+
+                continue;
+            }
+
+            $previous = $field->getAttributes();
+            $field->forceFill(['field_options' => [...(array) $field->field_options, ...$row['add']]])->save();
+
+            if (static::buildCustomField($field, $previous)) {
+                $this->add('update', $key, "{$label}: added the option(s) {$added} (used by live v8 records).");
+            } else {
+                $this->add('error', $key, "{$label}: the options could not be saved: ".implode(' | ', $this->mailbox->takeMessages()));
+            }
+
+            $this->addBuilderMessages($key);
+        }
     }
 
     /**

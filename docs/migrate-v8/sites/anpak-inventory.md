@@ -1,6 +1,6 @@
 # Inventory: anpak.eu (v8.2.46)
 
-Generated with `php artisan lara:v8:inventory --markdown` on 2026-11-15, source `v8_anpak` (production dump of 2026-11-14).
+Generated with `php artisan lara:v8:inventory --markdown` on 2026-11-16, source `v8_anpak` (production dump of 2026-11-14), target `anpak1077` on v10.7.18.
 
 ### Content types
 
@@ -107,6 +107,27 @@ Generated with `php artisan lara:v8:inventory --markdown` on 2026-11-15, source 
 | job | seo |  |  | files 1 | localdisk |
 | application |  |  |  | files 1 | localdisk |
 | client |  |  |  | images 1 | localdisk |
+
+### Core field values (v8 data, translated, against the v10 options of the target site)
+
+| Entity | v10 field | v8 column | Live records | Other records | Added to options by import-entities |
+| --- | --- | --- | --- | --- | --- |
+| larawidget | hook | hook | home1 (2), home2 (1), home3 (1) | footer1 (1), footer2 (1), home1 (1), home10 (1), home2 (1), home3 (1), home4 (1), home5 (1), home6 (1), home7 (1), home8 (1), home9 (1) | — |
+| larawidget | iconalign | iconalign | — | left (6), top (3) | — |
+| larawidget | resource_slug | relentkey | — | — | dynamic (get_entity_resources): check the theme |
+| larawidget | resource_term | term | — | — | dynamic (get_entity_terms): check the theme |
+| larawidget | template | template | service (4) | default (12) | dynamic (get_widget_templates): check the theme |
+| larawidget | type | type | text (4) | icon (9), text (3) | — |
+| cta | hook | hook | homeparallax1 (1) | homeparalax1 (1), homeparalax2 (1), homeparallax1 (1), homeparallax2 (1), newsletter (1) | — |
+| cta | overlaycolor | overlaycolor | brand (1) | black (3), brand (2) | — |
+| cta | overlaytransp | overlaytransp | 80 (1) | 40 (2), 60 (2) | — |
+| cta | type | type | parallax (1) | parallax (4), solid (1) | — |
+| slider | captiontype | captiontype | block (4), fade (1) | — | — |
+| slider | overlaycolor | overlaycolor | black (8) | — | — |
+| slider | overlaysize | overlaysize | full (8) | — | — |
+| slider | overlaytransp | overlaytransp | 10 (1), 30 (1), 40 (4) | — | — |
+| slider | textposition | textposition | center (8) | — | — |
+| slider | type | type | caption (1), image (5), payoff (8) | — | — |
 
 ### Front views
 
@@ -216,7 +237,10 @@ Generated with `php artisan lara:v8:inventory --markdown` on 2026-11-15, source 
 | # | Finding |
 | --- | --- |
 | 1 | Field type 'yesno': the yes/no choice becomes a toggle (classicform.myyesno). |
-| 2 | 5 media row(s) of 'doc' point to a file that is only in doc/_archive (the import takes it from there). |
-| 3 | Custom field location.latitude is defined 2 times. |
-| 4 | Custom field location.longitude is defined 2 times. |
+| 2 | cta.hook: 'homeparalax1' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 3 | cta.hook: 'homeparalax2' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 4 | cta.hook: 'homeparallax2' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 5 | 5 media row(s) of 'doc' point to a file that is only in doc/_archive (the import takes it from there). |
+| 6 | Custom field location.latitude is defined 2 times. |
+| 7 | Custom field location.longitude is defined 2 times. |
 

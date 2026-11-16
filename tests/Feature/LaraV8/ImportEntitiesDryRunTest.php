@@ -53,12 +53,20 @@ class ImportEntitiesDryRunTest extends TestCase
 
     public function test_every_site_content_type_is_planned_and_no_core_one(): void
     {
-        $planned = collect($this->dryRun())->pluck('entity')->unique();
+        $report = collect($this->dryRun());
+        $planned = $report->pluck('entity')->unique();
 
         foreach ($this->source->contentEntities() as $entity) {
-            V8Map::isCoreEntity($entity->entity_key)
-                ? $this->assertNotContains($entity->entity_key, $planned, "Core content type {$entity->entity_key} must keep its v10 configuration.")
-                : $this->assertContains($entity->entity_key, $planned, "Site content type {$entity->entity_key} is not planned.");
+            if (! V8Map::isCoreEntity($entity->entity_key)) {
+                $this->assertContains($entity->entity_key, $planned, "Site content type {$entity->entity_key} is not planned.");
+
+                continue;
+            }
+
+            // a core content type keeps its v10 configuration; at most option values are added
+            foreach ($report->where('entity', $entity->entity_key) as $line) {
+                $this->assertStringStartsWith('Option field ', $line['message'], "Core content type {$entity->entity_key} must keep its v10 configuration.");
+            }
         }
     }
 

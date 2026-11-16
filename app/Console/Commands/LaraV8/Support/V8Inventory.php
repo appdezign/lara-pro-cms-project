@@ -41,6 +41,7 @@ class V8Inventory
             $this->fieldHooksAndStates(),
             $this->relations(),
             $this->objectRelations(),
+            $this->coreFieldValues(),
             $this->views(),
             $this->media(),
             $this->mediaFiles(),
@@ -446,6 +447,45 @@ class V8Inventory
             scandir($path) ?: [],
             fn (string $name): bool => ! str_starts_with($name, '.') && is_dir("{$path}/{$name}"),
         ));
+    }
+
+    /**
+     * Core content types keep their v10 fields, so their v8 data must fit the v10 options
+     * (read from the target site, not changed). See CoreFieldValues for the rules.
+     */
+    private function coreFieldValues(): array
+    {
+        $section = [
+            'title' => 'Core field values (v8 data, translated, against the v10 options of the target site)',
+            'headers' => ['Entity', 'v10 field', 'v8 column', 'Live records', 'Other records', 'Added to options by import-entities'],
+            'rows' => [],
+        ];
+
+        $list = fn (array $counts): string => collect($counts)->map(fn (int $n, string $value): string => "{$value} ({$n})")->implode(', ') ?: '—';
+
+        foreach ((new CoreFieldValues($this->source))->fields() as $row) {
+            $field = $row['field'];
+            $key = $row['entity_key'];
+
+            foreach ($row['add'] as $value) {
+                $this->findings[] = "{$key}.{$row['v8_column']}: '{$value}' is used by {$row['live'][$value]} live record(s) and is not a v10 option; import-entities adds it to {$field->entity->resource_slug}.{$field->field_name}.";
+            }
+
+            foreach ($row['not_added'] as $value) {
+                $this->findings[] = "{$key}.{$row['v8_column']}: '{$value}' is only used by unpublished or trashed records ({$row['other'][$value]}x); not added as an option, the value is imported unchanged.";
+            }
+
+            $section['rows'][] = [
+                $key,
+                $field->field_name,
+                $row['v8_column'],
+                $list($row['live']),
+                $list($row['other']),
+                $row['dynamic'] ? 'dynamic ('.$field->field_options[0].'): check the theme' : (implode(', ', $row['add']) ?: '—'),
+            ];
+        }
+
+        return $section;
     }
 
     private function otherData(): array

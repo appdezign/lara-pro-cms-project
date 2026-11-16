@@ -177,6 +177,24 @@ final class V8Map
     ];
 
     /**
+     * v8 values of core content type fields that v10 names differently
+     * (v8 entity key => v8 column => v8 value => v10 value). v8 themes are Bootstrap
+     * ("primary"); the v10 themes call the main colour "brand" (sliders: brand1–3).
+     */
+    public const CORE_VALUES = [
+        'cta' => ['overlaycolor' => ['primary' => 'brand']],
+        'slider' => ['overlaycolor' => ['primary' => 'brand1']],
+    ];
+
+    /**
+     * The v10 value of a v8 core field value; unchanged when v10 does not rename it.
+     */
+    public static function coreValue(string $entityKey, string $v8Column, mixed $value): mixed
+    {
+        return self::CORE_VALUES[$entityKey][$v8Column][$value] ?? $value;
+    }
+
+    /**
      * When a v8 content type has a geolocation field, these v8 fields are parts of it:
      * v10 keeps them in the geo_* columns of its geolocation field (v8 field => v10 column).
      */
