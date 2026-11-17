@@ -420,6 +420,16 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
 - **Two manual server steps, every site** (they are in no repo): enable `tmpfile`, `highlight_file` and `fpassthru` in the Cloudways PHP settings next to PHP 8.4, and upload the Google Analytics service-account file to `storage/app/analytics/service-account-lara-dash.json` (otherwise the admin dashboard errors on the first deploy).
 - Cloudways "Deployment via Git" keeps the git data outside `public_html` (`git status` there: "not a git repository") and runs no composer, build or artisan command; the servers have no Node, so the built assets are committed (see Built assets in git).
 - An HTTP status check cannot find broken links: v10 answers unknown URLs with the home page and status 200. Use route matching (`rewrite-urls`, `verify`).
+- **After go-live, make the site repo the only remote.** A site starts as a clone of `lara-pro-cms-project`, so `origin` is the project repo and the site repo is added next to it, and every project tag (`v10.*`) comes along. A branch that still tracks `origin`, or a `git push --tags`/`--follow-tags`, then sends the site's commits or release tags to the project repo (anpak: tags `v2.0.3` and `v2.0.4` landed in `lara-pro-cms-project` and had to be deleted there). Once the site repo has its own `main`/`develop`, in every clone of the site:
+  ```bash
+  git remote remove site                                  # if the site repo was added as `site`
+  git remote set-url origin https://github.com/appdezign/{site-repo}.git
+  git fetch origin --prune
+  git branch -u origin/develop develop && git branch -u origin/main main
+  git config gitflow.origin origin                        # git flow pushes to this remote
+  git tag -l 'v10.*' | xargs git tag -d                   # project tags; release versions come from composer.json
+  ```
+  A `v8-migration` branch in the clone then tracks a branch the site repo does not have: unset its upstream (`git branch --unset-upstream v8-migration`) and commit tooling fixes from a clone of the project repo. A worktree record can outlive its folder's link: if `git branch -d` says a branch is checked out in a folder that belongs to another clone (its `.git` file points elsewhere), remove only the stale record (`.git/worktrees/{name}`), then `git worktree prune`.
 
 ## Sites
 
