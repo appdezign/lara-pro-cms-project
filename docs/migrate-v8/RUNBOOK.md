@@ -310,7 +310,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 2. Site code: the project with the generated `laracms/app`, the client theme, `v8-overrides.php` and the site config (fonts, title separator). This is site code, not the migration branch.
 3. `.env`: `APP_NAME` (the site name in every page title), `APP_ENV=production` only on production (see 7), `APP_DEBUG=false`, `APP_URL`, `LARA_CLIENT_THEME={client}`, the mail settings, the site's Google Maps, reCAPTCHA and GA4 keys, and `CONSENT_GA4_ID` (GA4 for the cookie-consent plugin). `LARA_V8_*` only if the import runs on the server (see 6).
 4. **Google Analytics credentials, by hand:** upload the service-account file to `storage/app/analytics/service-account-lara-dash.json` (`config/analytics.php`). It holds a private key, so it is in no repo (`storage/app/analytics/*` is git-ignored); without it the admin dashboard gives an error on the first deploy.
-5. Build: `composer install --no-dev -o`, `npm ci`, the admin and client Vite builds (no Node on the server: build locally and upload `public/assets`), `php artisan storage:link` (replace a committed `public/storage` symlink).
+5. Build: the servers have no Node, so **the built assets are committed in the site repo** (see Built assets in git below); on the server only `composer install --no-dev -o` and `php artisan storage:link` (replace a committed `public/storage` symlink).
 6. Data: run the import locally (steps 2 and 4–13, or the sync of step 17), `lara:v8:verify` (no errors, every warning explained), then move the v10 database (`mysqldump`) and `storage/app/public` to the server, without `storage/app/public/_fonts` (`tar -czf media.tgz --exclude public/_fonts -C storage/app public`). On the server run `php artisan google-fonts:fetch` after `APP_URL` is set: the fonts stylesheet holds absolute URLs of the site that fetched it. The server then needs no v8 database. (Running the import on the server works too, with the `LARA_V8_*` settings and a v8 database there.) Generate the sitemap once: `php artisan tinker --execute '(new \Lara\App\Sitemap\GoogleSitemapGenerator)(["{locale}"]);'`.
 7. Forms: v10 sends form mail with the `dev` mailer (`MAIL_DEV_*`) unless `APP_ENV=production`, and then to `company_email` with the `smtp` mailer; reCAPTCHA is only checked in production. On staging, submit every published form and check the mail on the dev mailer; check reCAPTCHA right after the switch.
 8. Compare with live once more (step 22 scripts: titles, headings, text; desktop and mobile).
@@ -327,6 +327,20 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 **Fallback**
 
 15. Keep the v8 site and its database read-only for a few weeks (another vhost, no public DNS). Switching back is a DNS change; content edited in v10 after the switch would have to be redone in v8.
+
+### Built assets in git
+
+The site repo tracks `public/assets/admin` and `public/assets/themes/{base,client}`, so a pull always brings code and assets that belong together (anpak since 2026-11-17; before that, uploading `public/assets` by hand led to a 500 when a branch switch removed it).
+
+- `.gitignore`: instead of `/public/assets/`, ignore only `/public/assets/filament/` (composer's `filament:upgrade` regenerates it on the server; tracked, it would dirty the server's working tree and block the next pull) and `/public/assets/themes/demo/` (unused).
+- Build in the **release branch**, never in feature branches (the hashed names would conflict): `git flow release start {version}`, then
+  ```bash
+  npx vite build --config vite.admin.config.js && npx vite build --config vite.front.base.config.js && npx vite build --config vite.front.client.config.js
+  git add public/assets && git commit -m "Build assets"
+  ```
+  then `git flow release finish`. The builds empty their output folder, so removed files show as deletions. A conflict in `public/assets` is resolved by building again, not by merging.
+- Deploy: pull `main`, `composer install --no-dev -o`, `composer cache`.
+- **The first pull that adds the tracked assets** meets the same files untracked on the server; git refuses to overwrite them. Move the uploaded copies aside first (`mv public/assets/admin public/assets/themes/{base,client} ~/assets-before-tracking/`), pull, check the site, then delete the copies.
 
 ## v8 → v10 mapping (`V8Map`)
 
@@ -378,7 +392,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 - `APP_NAME` is the site name in every page title and `og:site_name`; `CONSENT_GA4_ID` is needed by the cookie-consent plugin.
 - **Switching the server to an unrelated branch deletes files the old branch tracked.** If the server's git holds an earlier attempt whose branch tracked `public/assets` (or `public/storage/*`, demo files in `storage/app/public`), moving the deploy to the v10 branch removes those paths, including the built assets uploaded over them: every Laravel page then answers 500 (no Vite manifest), static files still 200 (anpak: after resetting `main` to the v10 branch and switching Cloudways to `main`). Switch the server's branch first and upload `public/assets` after, or unpack the assets archive again after the switch; then `optimize:clear` and `lara:route:cache`. Before the switch, list what would go: `git ls-tree -r --name-only {old branch} | sort > old; git ls-tree -r --name-only {new branch} | sort > new; comm -23 old new | git check-ignore --no-index --stdin`.
 - **Two manual server steps, every site** (they are in no repo): enable `tmpfile`, `highlight_file` and `fpassthru` in the Cloudways PHP settings next to PHP 8.4, and upload the Google Analytics service-account file to `storage/app/analytics/service-account-lara-dash.json` (otherwise the admin dashboard errors on the first deploy).
-- Cloudways "Deployment via Git" keeps the git data outside `public_html` (`git status` there: "not a git repository") and runs no composer, build or artisan command; the servers have no Node, so upload `public/assets`.
+- Cloudways "Deployment via Git" keeps the git data outside `public_html` (`git status` there: "not a git repository") and runs no composer, build or artisan command; the servers have no Node, so the built assets are committed (see Built assets in git).
 - An HTTP status check cannot find broken links: v10 answers unknown URLs with the home page and status 200. Use route matching (`rewrite-urls`, `verify`).
 
 ## Sites
