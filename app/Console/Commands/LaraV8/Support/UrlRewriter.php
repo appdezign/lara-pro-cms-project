@@ -38,6 +38,9 @@ class UrlRewriter
     /** @var array<string, true> the public-disk paths copied (or, in a dry run, to be copied) */
     private array $copied = [];
 
+    /** @var array<string, array<string, string>>|null v8 entity key => file name => sub-folder ('file/', 'video/') */
+    private ?array $subfolders = null;
+
     public function __construct(private readonly V8Source $source) {}
 
     /**
@@ -157,18 +160,11 @@ class UrlRewriter
         $storage = Storage::disk('public');
         [$folder, $file] = array_pad(explode('/', $path, 2), 2, '');
 
-        // a file of a content type: where the media import put it
+        // a file of a content type: where the media import puts it (also before that import has run:
+        // a document or video file of a record goes to file/ or video/, anything else to the folder itself)
         if ($file !== '' && ! str_contains($file, '/') && isset($this->slugs()[$folder])) {
-            foreach (['', 'file/', 'video/'] as $sub) {
-                $candidate = $this->slugs()[$folder].'/'.$sub.$file;
-
-                if ($storage->exists($candidate)) {
-                    return $candidate;
-                }
-            }
-
             $source = $this->source->mediaFile($folder, $file);
-            $target = $this->slugs()[$folder].'/'.$file;
+            $target = $this->slugs()[$folder].'/'.($this->subfolders()[$folder][$file] ?? '').$file;
         } else {
             // an editor upload or another folder: the same path on the public disk
             $source = rtrim((string) config('v8-migration.media_path'), '/').'/'.$path;
@@ -191,6 +187,36 @@ class UrlRewriter
         }
 
         return $target;
+    }
+
+    /**
+     * The v8 files and video files per content type, with the sub-folder the media import copies
+     * them to (MediaImporter: {resource slug}/file/, {resource slug}/video/).
+     *
+     * @return array<string, array<string, string>>
+     */
+    private function subfolders(): array
+    {
+        if ($this->subfolders !== null) {
+            return $this->subfolders;
+        }
+
+        $keys = $this->source->contentEntities()->pluck('entity_key', 'entity_model_class')->all();
+        $this->subfolders = [];
+
+        foreach (['lara_object_videofiles' => 'video/', 'lara_object_files' => 'file/'] as $table => $sub) {
+            if (! $this->source->hasTable($table)) {
+                continue;
+            }
+
+            foreach ($this->source->connection()->table($table)->get(['entity_type', 'filename']) as $row) {
+                if (isset($keys[$row->entity_type]) && ! V8Source::isEmpty($row->filename)) {
+                    $this->subfolders[$keys[$row->entity_type]][$row->filename] = $sub;
+                }
+            }
+        }
+
+        return $this->subfolders;
     }
 
     /**

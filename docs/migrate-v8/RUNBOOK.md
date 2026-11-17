@@ -298,6 +298,8 @@ Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRo
 
 `lara:v8:sync` shows the v8 database and its latest change (check that it is the fresh dump), the number of site overrides, then runs in order: `import-entities`, `import-users`, `import-content --fresh`, `import-objects --fresh`, `import-menus --fresh` (route names and route cache), `import-settings --fresh`, `import-media --fresh`, `rewrite-urls` and `verify`. It exits with an error code when a step does. In production it asks first (`--force` skips that).
 
+A step that reports an error **stops the sync**: the later steps run with `--fresh` and would remove v10 rows (for example the media links of a content type whose records were not imported). The output names the step and the ones not run; fix the error and run the sync again. A dry run always runs every step.
+
 Not included on purpose: `import-entities --update` (regenerates code: run it by hand when the sync reports an entity difference) and `import-users --prune` (would remove users created in v10).
 
 ### 18. Go-live

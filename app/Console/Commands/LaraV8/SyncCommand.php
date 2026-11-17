@@ -12,6 +12,8 @@ use Throwable;
  * The final sync: brings an imported v10 site up to date with v8 by running every import
  * step in order, each with --fresh (v10 rows that v8 no longer has are removed), then the URL
  * rewrite and lara:v8:verify. The site overrides (v8-overrides.php) are applied by the imports.
+ * A step that reports an error stops the sync: the later --fresh steps would remove v10 rows
+ * (e.g. the media links of a content type whose records were not imported). A dry run runs on.
  *
  * Before it: load a fresh dump of the production v8 database into the lara_v8 connection and
  * rsync the production media to LARA_V8_MEDIA_PATH (see the runbook).
@@ -66,14 +68,26 @@ class SyncCommand extends Command
         $this->info('Site overrides: '.count(SiteOverrides::all()).' ('.SiteOverrides::file().').');
 
         $failed = [];
+        $skipped = [];
 
         foreach (self::STEPS as $command => $options) {
+            if ($failed !== [] && ! $dryRun) {
+                $skipped[] = $command;
+
+                continue;
+            }
+
             $this->newLine();
             $this->line("<comment>▶ {$command}</comment>".($dryRun ? ' (dry run)' : ''));
 
             if ($this->call($command, $options + ($dryRun ? ['--dry-run' => true] : [])) !== self::SUCCESS) {
                 $failed[] = $command;
             }
+        }
+
+        if ($skipped !== []) {
+            $this->newLine();
+            $this->error("Stopped after the error in {$failed[0]}; not run: ".implode(', ', $skipped).'. Fix the error and run the sync again.');
         }
 
         $this->newLine();

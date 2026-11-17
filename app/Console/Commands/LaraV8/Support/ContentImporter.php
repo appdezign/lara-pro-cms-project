@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands\LaraV8\Support;
 
+use App\Console\Commands\LaraV8\Support\Concerns\SyncsRows;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Lara\Common\Models\Entity;
@@ -16,7 +17,8 @@ use Throwable;
  *
  * - Columns: V8Map::contentColumn() (core renames, page lead → body2, geolocation parts → geo_*).
  * - Values: core values translated (V8Map::coreValue()), '' → null in custom fields,
- *   record locks dropped, a user_id of a missing user → the v8 admin.
+ *   record locks dropped, a user_id of a missing user → the v8 admin (or, when that user was
+ *   not imported, the first v10 superadmin).
  * - Rerunnable: only rows that differ are written. v10 rows that v8 does not have are
  *   reported, and removed with $fresh (e.g. the pages of the essential seed).
  *
@@ -24,6 +26,8 @@ use Throwable;
  */
 class ContentImporter
 {
+    use SyncsRows;
+
     private const LOCK_COLUMNS = ['locked_at', 'locked_by'];
 
     /**
@@ -51,8 +55,8 @@ class ContentImporter
     public function run(array $only = [], bool $dryRun = false, bool $fresh = false): array
     {
         $this->report = [];
-        $users = DB::table('lara_auth_users')->pluck('id')->all();
-        $fallbackUser = $this->source->connection()->table('lara_auth_users')->where('is_admin', 1)->orderBy('id')->value('id') ?? min($users ?: [null]);
+        $users = DB::table('lara_auth_users')->pluck('id')->map(fn ($id): int => (int) $id)->all();
+        $fallbackUser = $this->fallbackUser($users);
 
         // the rows come from a consistent v8 database and keep their ids; foreign keys are
         // checked afterwards and reported, so the order of the tables does not matter
@@ -129,10 +133,7 @@ class ContentImporter
         $contentKeys = $this->source->contentEntities()->pluck('entity_key')->all();
 
         // v8 NULL in a v10 column that is NOT NULL with a default (e.g. position): the default
-        $defaults = collect(DB::select(
-            'select column_name as name, column_default as value from information_schema.columns where table_schema = database() and table_name = ? and is_nullable = ? and column_default is not null',
-            [$v10Table, 'NO'],
-        ))->pluck('value', 'name')->all();
+        $defaults = $this->columnDefaults($v10Table);
         $existing = DB::table($v10Table)->get()->keyBy('id');
         $v8Ids = [];
         $counts = ['create' => 0, 'update' => 0, 'same' => 0];
@@ -232,6 +233,38 @@ class ContentImporter
         if ($key === 'page') {
             $this->checkPageBody2($v8Table);
         }
+    }
+
+    /**
+     * The user for rows whose v8 user does not exist: the first v8 admin that was imported,
+     * otherwise the first v10 superadmin, otherwise the first v10 user (null without users).
+     *
+     * @param  list<int>  $users  ids of the v10 users
+     */
+    private function fallbackUser(array $users): ?int
+    {
+        $v8Admins = $this->source->connection()->table('lara_auth_users')->where('is_admin', 1)->orderBy('id')->pluck('id')->map(fn ($id): int => (int) $id);
+        $admin = $v8Admins->first(fn (int $id): bool => in_array($id, $users, true));
+
+        if ($admin !== null) {
+            return $admin;
+        }
+
+        $roles = (string) config('permission.table_names.roles');
+        $assigned = (string) config('permission.table_names.model_has_roles');
+        $superadmin = DB::table($assigned)
+            ->join($roles, "{$roles}.id", '=', "{$assigned}.role_id")
+            ->where("{$roles}.name", 'superadmin')
+            ->whereIn("{$assigned}.model_id", $users ?: [0])
+            ->min("{$assigned}.model_id");
+
+        $fallback = $superadmin !== null ? (int) $superadmin : ($users === [] ? null : min($users));
+
+        if ($v8Admins->isNotEmpty()) {
+            $this->add('warning', 'users', 'The v8 admin (user '.$v8Admins->first().') was not imported; rows of a missing user go to user '.($fallback ?? '(none)').'.');
+        }
+
+        return $fallback;
     }
 
     /**

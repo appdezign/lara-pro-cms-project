@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 /**
  * Writes imported rows to a v10 table: only the rows that differ, with the column default for a
  * v8 NULL in a NOT NULL column, and reports the v10 rows that v8 does not have (removed with $fresh).
+ * Rows with the same key as an earlier row are reported and skipped (the first one wins).
  *
  * The using class reports through add(level, entity, message).
  */
@@ -29,14 +30,12 @@ trait SyncsRows
      */
     private function sync(string $label, string $table, array $keyColumns, Collection $rows, bool $dryRun, bool $fresh, array $derived = [], bool $reportExtra = true): void
     {
-        $keyOf = fn (array|object $row): string => implode('#', array_map(fn (string $column): string => (string) data_get($row, $column), $keyColumns));
+        // the key values as strings (as before), JSON-encoded so a '#' in a value cannot collide
+        $keyOf = fn (array|object $row): string => json_encode(array_map(fn (string $column): string => (string) data_get($row, $column), $keyColumns), JSON_UNESCAPED_UNICODE);
         $existing = DB::table($table)->get()->keyBy($keyOf);
 
         // v8 NULL in a v10 column that is NOT NULL with a default (e.g. tags.depth): the default
-        $defaults = collect(DB::select(
-            'select column_name as name, column_default as value from information_schema.columns where table_schema = database() and table_name = ? and is_nullable = ? and column_default is not null',
-            [$table, 'NO'],
-        ))->pluck('value', 'name')->all();
+        $defaults = $this->columnDefaults($table);
 
         $rows = $rows->map(function (array $row) use ($defaults, $table): array {
             foreach ($row as $column => $value) {
@@ -48,6 +47,15 @@ trait SyncsRows
             // the site's deliberate differences from v8 (v8-overrides.php)
             return SiteOverrides::apply($table, $row);
         });
+
+        // two v8 rows for one v10 row (e.g. one image file used twice in a content type): the first wins
+        $unique = $rows->unique($keyOf)->values();
+
+        if ($unique->count() < $rows->count()) {
+            $this->add('warning', $label, "{$table}: ".($rows->count() - $unique->count()).' row(s) have the same key ('.implode(', ', $keyColumns).') as an earlier row; the first one is used.');
+            $rows = $unique;
+        }
+
         $counts = ['create' => 0, 'update' => 0, 'same' => 0];
         $wanted = [];
 
@@ -109,10 +117,12 @@ trait SyncsRows
 
         if ($fresh && ! $dryRun) {
             foreach ($extra as $key) {
+                // by the values of the v10 row itself (a NULL key column matches with whereNull)
                 $query = DB::table($table);
 
-                foreach (array_combine($keyColumns, explode('#', $key)) as $column => $value) {
-                    $query->where($column, $value);
+                foreach ($keyColumns as $column) {
+                    $value = $existing[$key]->{$column};
+                    $value === null ? $query->whereNull($column) : $query->where($column, $value);
                 }
 
                 $query->delete();
@@ -122,6 +132,48 @@ trait SyncsRows
         } else {
             $this->add('differs', $label, "{$table}: {$extra->count()} row(s) that v8 does not have; kept (remove with --fresh).");
         }
+    }
+
+    /**
+     * The defaults of the NOT NULL columns of a v10 table, as values. information_schema holds
+     * the default as SQL: MariaDB quotes string literals ('public'). An expression default
+     * (CURRENT_TIMESTAMP, current_timestamp()) is no value and is left out: filling in the
+     * current time would make the row differ on every run (no imported table has one).
+     *
+     * @return array<string, mixed>
+     */
+    private function columnDefaults(string $table): array
+    {
+        $defaults = [];
+
+        foreach (DB::select(
+            'select column_name as name, column_default as value from information_schema.columns where table_schema = database() and table_name = ? and is_nullable = ? and column_default is not null',
+            [$table, 'NO'],
+        ) as $column) {
+            $value = self::columnDefaultValue((string) $column->value);
+
+            if ($value !== null) {
+                $defaults[$column->name] = $value;
+            }
+        }
+
+        return $defaults;
+    }
+
+    /**
+     * The value of a column default as information_schema gives it; null for no value.
+     */
+    private static function columnDefaultValue(string $sql): ?string
+    {
+        if (preg_match("/^'(.*)'$/s", $sql, $m)) {
+            return str_replace("''", "'", $m[1]);
+        }
+
+        if (preg_match('/^current_timestamp(\(\d*\))?$/i', $sql) || strtoupper($sql) === 'NULL') {
+            return null;
+        }
+
+        return $sql;
     }
 
     private function normalize(mixed $value): string

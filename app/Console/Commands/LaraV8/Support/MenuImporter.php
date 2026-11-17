@@ -97,7 +97,9 @@ class MenuImporter
                 $position++;
 
                 $entityId = $item->entity_id ? ($entities[$item->entity_id] ?? null) : null;
-                $viewId = $item->entity_view_id ? $this->viewId($views, (int) $item->entity_view_id, $pageTemplates[$item->object_id] ?? null) : null;
+                // the page template only for page items: the object_id of an entity or tag item is no page id
+                $pageTemplate = $item->type === 'page' ? ($pageTemplates[$item->object_id] ?? null) : null;
+                $viewId = $item->entity_view_id ? $this->viewId($views, (int) $item->entity_view_id, $pageTemplate) : null;
 
                 if ($item->entity_id && $entityId === null) {
                     $this->add('warning', 'menu items', "Menu item {$item->id} '{$item->title}': v8 entity {$item->entity_id} has no v10 entity.");
@@ -258,7 +260,7 @@ class MenuImporter
         [$entityId, $method, $filename] = $views[$v8ViewId];
         $candidates = EntityView::where('entity_id', $entityId)->where('method', $method)->orderBy('id')->get();
 
-        $view = $candidates->firstWhere('template', $pageTemplate)
+        $view = ($pageTemplate !== null ? $candidates->firstWhere('template', $pageTemplate) : null)
             ?? $candidates->firstWhere('filename', $filename)
             ?? $candidates->first();
 

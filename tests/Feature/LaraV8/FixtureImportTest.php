@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\LaraV8;
 
+use App\Console\Commands\LaraV8\Support\Concerns\SyncsRows;
 use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\MediaImporter;
@@ -13,6 +14,7 @@ use App\Console\Commands\LaraV8\Support\UrlRewriter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use App\Console\Commands\LaraV8\Support\Verifier;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -22,6 +24,7 @@ use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityRelation;
 use Lara\Common\Models\User;
+use ReflectionMethod;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 use Throwable;
@@ -767,6 +770,8 @@ class FixtureImportTest extends TestCase
         $this->assertStringContainsString('href="/storage/v8fxbooks/inside.png"', $body, 'An absolute URL to the site itself.');
         $this->assertStringContainsString('src="/assets/media/images/shares/nope.png"', $body, 'A missing file: left as it is.');
         $this->assertStringContainsString('href="https://elders.test/assets/media/x.jpg"', $body, 'Another site: left as it is.');
+        $this->assertStringContainsString('href="/storage/v8fxbooks/file/sample.pdf"', $body, 'A document of a record: in file/, where the media import puts it, also though the content import runs first.');
+        Storage::disk('public')->assertMissing('v8fxbooks/sample.pdf');
 
         Storage::disk('public')->assertExists('images/shares/Mijn logo.png');
     }
@@ -862,5 +867,104 @@ class FixtureImportTest extends TestCase
         }
         $this->assertStringContainsString('Dry run finished: nothing changed.', $output);
         $this->assertSame($before, DB::table('lara_content_v8fxbooks')->orderBy('id')->get()->toJson());
+    }
+
+    public function test_rows_with_the_same_key_are_written_once_and_fresh_removes_rows_by_their_own_values(): void
+    {
+        Schema::dropIfExists('v8fx_sync_test');
+        Schema::create('v8fx_sync_test', function ($table): void {
+            $table->id();
+            $table->string('path')->nullable();
+            $table->string('note')->nullable();
+        });
+
+        $syncer = new class
+        {
+            use SyncsRows;
+
+            /** @var list<array{level: string, entity: string, message: string}> */
+            public array $report = [];
+
+            public function write(Collection $rows, bool $fresh = false): void
+            {
+                $this->sync('test', 'v8fx_sync_test', ['path'], $rows, false, $fresh);
+            }
+
+            private function add(string $level, string $entity, string $message): void
+            {
+                $this->report[] = ['level' => $level, 'entity' => $entity, 'message' => $message];
+            }
+        };
+
+        $syncer->write(collect([['path' => 'a#1.jpg', 'note' => 'first'], ['path' => 'a#1.jpg', 'note' => 'second'], ['path' => 'b.jpg', 'note' => 'b']]));
+
+        $this->assertSame(['first'], DB::table('v8fx_sync_test')->where('path', 'a#1.jpg')->pluck('note')->all(), 'Two rows with one key: written once, the first wins.');
+        $this->assertTrue(collect($syncer->report)->contains(fn (array $line): bool => $line['level'] === 'warning' && str_contains($line['message'], '1 row(s) have the same key')));
+
+        DB::table('v8fx_sync_test')->insert(['path' => null, 'note' => 'v10 only']);
+        $syncer->write(collect([['path' => 'b.jpg', 'note' => 'b']]), fresh: true);
+
+        $this->assertSame(['b.jpg'], DB::table('v8fx_sync_test')->pluck('path')->all(), 'Fresh removes a key with a # and a NULL key.');
+
+        Schema::drop('v8fx_sync_test');
+    }
+
+    public function test_column_defaults_are_read_as_values(): void
+    {
+        $parse = (new class
+        {
+            use SyncsRows;
+
+            public function parse(string $sql): ?string
+            {
+                return self::columnDefaultValue($sql);
+            }
+
+            private function add(string $level, string $entity, string $message): void {}
+        })->parse(...);
+
+        $this->assertSame('0', $parse('0'), 'MySQL: the plain value.');
+        $this->assertSame('public', $parse("'public'"), 'MariaDB: a quoted string literal.');
+        $this->assertSame("it's", $parse("'it''s'"));
+        $this->assertNull($parse('CURRENT_TIMESTAMP'), 'An expression default is no value.');
+        $this->assertNull($parse('current_timestamp()'));
+        $this->assertNull($parse('NULL'));
+    }
+
+    public function test_rows_of_a_missing_user_go_to_an_imported_admin(): void
+    {
+        $importer = new ContentImporter(new V8Source);
+        $fallback = (new ReflectionMethod($importer, 'fallbackUser'))->invoke(...);
+        $v8Admin = (int) DB::connection('lara_v8')->table('lara_auth_users')->where('is_admin', 1)->orderBy('id')->value('id');
+        $users = DB::table('lara_auth_users')->pluck('id')->map(fn ($id): int => (int) $id)->all();
+
+        $this->assertSame($v8Admin, $fallback($importer, $users), 'The v8 admin when it was imported.');
+
+        $others = array_values(array_diff($users, [$v8Admin]));
+        $chosen = $fallback($importer, $others);
+
+        $this->assertNotSame($v8Admin, $chosen, 'Never a user that was not imported.');
+        $this->assertContains($chosen, $others);
+        $this->assertNull($fallback($importer, []));
+    }
+
+    public function test_the_sync_stops_after_a_failing_step(): void
+    {
+        $v8 = new V8Source;
+        $entity = $v8->contentEntities()->firstWhere('entity_key', 'v8fxbook');
+        $table = $v8->contentTable($entity->entity_key, $entity->group_key);
+        DB::connection('lara_v8')->statement("RENAME TABLE `{$table}` TO `{$table}_away`");
+
+        try {
+            $exit = Artisan::call('lara:v8:sync');
+            $output = Artisan::output();
+        } finally {
+            DB::connection('lara_v8')->statement("RENAME TABLE `{$table}_away` TO `{$table}`");
+        }
+
+        $this->assertSame(1, $exit, $output);
+        $this->assertStringContainsString('Stopped after the error in', $output);
+        $this->assertStringNotContainsString('▶ lara:v8:import-media', $output, 'The --fresh media step does not run after the failure.');
+        $this->assertStringContainsString('▶ lara:v8:verify', $output, 'Verify still reports.');
     }
 }
