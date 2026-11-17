@@ -2,7 +2,7 @@
 .com.greenworldsoft.syncfolderspro
 /.idea/
 /.junie/
-/_dev/
+/.lara/
 /bin/lara*
 /bin/readme.md
 /bootstrap/cache/*
