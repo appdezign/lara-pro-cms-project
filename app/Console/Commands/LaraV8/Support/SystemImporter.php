@@ -5,6 +5,7 @@ namespace App\Console\Commands\LaraV8\Support;
 use App\Console\Commands\LaraV8\Support\Concerns\SyncsRows;
 use Illuminate\Support\Facades\DB;
 use Lara\Admin\Resources\Translations\Concerns\HasTranslations;
+use Symfony\Component\Finder\Finder;
 
 /**
  * Imports the v8 settings, languages, blacklist and translations.
@@ -14,8 +15,9 @@ use Lara\Admin\Resources\Translations\Concerns\HasTranslations;
  *   v10-only settings are never removed.
  * - Translations: the site's labels (v8 module lara-eve) become lara-app labels of the v10
  *   resource (column, entity → entity/navigation/model, formfield → column, …); v8 lara-front
- *   texts replace the v10 ones with the same key; v8 lara-admin/lara-common are the v8 admin's
- *   own texts and are skipped. v8 placeholders ("_key") never overwrite. Afterwards the
+ *   texts replace the v10 ones with the same key, and are added for keys the v10 code uses
+ *   (lara-front::group.tag.key in laracms/) but the v10 seed lacks; v8 lara-admin/lara-common
+ *   are the v8 admin's own texts and are skipped. v8 placeholders ("_key") never overwrite. Afterwards the
  *   translations are exported to lang/vendor, as the admin does.
  * - Header tags (heading levels per template) have no v10 counterpart and are reported.
  */
@@ -130,26 +132,38 @@ class SystemImporter
             }
         }
 
-        // front texts: only keys the v10 theme knows
+        // front texts: keys the v10 database knows, and keys the v10 code uses that its seed lacks
         $v10Front = DB::table('lara_sys_translations')->where('module', 'lara-front')->get()
             ->mapWithKeys(fn (object $row): array => [$this->translationKey($row->language, 'lara-front', $row->resource, $row->tag, $row->key) => true]);
-        $unknownFront = 0;
+        $usedFront = $this->frontKeysUsedInCode();
+        $unknownFront = [];
+        $addedFront = [];
 
         foreach ($v8->where('module', 'lara-front') as $row) {
             $key = $this->translationKey($row->language, 'lara-front', $row->cgroup, $row->tag, $row->key);
+            $name = "{$row->cgroup}.{$row->tag}.{$row->key}";
 
-            if (! isset($v10Front[$key])) {
-                $unknownFront++;
+            if (! isset($v10Front[$key]) && ! isset($usedFront[$name])) {
+                $unknownFront[$name] = true;
             } elseif (! $this->isPlaceholder($row->value)) {
                 $rows += [$key => $row->value];
+
+                if (! isset($v10Front[$key])) {
+                    $addedFront[$name] = true;
+                }
             }
         }
 
         $admin = $v8->whereIn('module', ['lara-admin', 'lara-common'])->count();
         $this->add('info', 'translations', "{$admin} v8 admin translation(s) (lara-admin, lara-common) not imported; v10 has its own admin texts.");
 
-        if ($unknownFront > 0) {
-            $this->add('info', 'translations', "{$unknownFront} v8 front text(s) (lara-front) have no key in v10 and are not imported.");
+        if ($addedFront !== []) {
+            $this->add('info', 'translations', count($addedFront).' v8 front text(s) (lara-front) imported for keys the v10 code uses but the v10 seed lacks: '.implode(', ', array_keys($addedFront)).'.');
+        }
+
+        if ($unknownFront !== []) {
+            ksort($unknownFront);
+            $this->add('info', 'translations', count($unknownFront).' v8 front text(s) (lara-front) have no key in v10 and are not used by the v10 code; not imported: '.implode(', ', array_keys($unknownFront)).'.');
         }
 
         if ($placeholders > 0) {
@@ -164,6 +178,25 @@ class SystemImporter
 
         // never fresh: the v10 translations of the admin and the theme stay
         $this->sync('translations', 'lara_sys_translations', ['language', 'module', 'resource', 'tag', 'key'], $translationRows, $dryRun, false, reportExtra: false);
+    }
+
+    /**
+     * The lara-front keys ("group.tag.key") the v10 code uses: core, themes and app under laracms/.
+     *
+     * @return array<string, true>
+     */
+    private function frontKeysUsedInCode(): array
+    {
+        $keys = [];
+        $finder = Finder::create()->files()->name('*.php')->in(base_path('laracms'))->followLinks()->ignoreUnreadableDirs();
+
+        foreach ($finder as $file) {
+            if (preg_match_all('/lara-front::([a-z0-9_]+\.[a-z0-9_]+\.[a-z0-9_]+)/i', $file->getContents(), $matches)) {
+                $keys += array_fill_keys($matches[1], true);
+            }
+        }
+
+        return $keys;
     }
 
     /**

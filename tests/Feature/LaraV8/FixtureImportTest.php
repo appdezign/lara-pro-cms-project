@@ -663,13 +663,16 @@ class FixtureImportTest extends TestCase
         $this->assertNull($value('gones', 'column', 'title'), 'Labels of an entity that is no content type are skipped.');
     }
 
-    public function test_front_texts_only_for_known_keys_and_no_admin_texts(): void
+    public function test_front_texts_for_known_or_used_keys_and_no_admin_texts(): void
     {
-        $front = fn (string $key): ?string => DB::table('lara_sys_translations')
-            ->where(['language' => 'nl', 'module' => 'lara-front', 'resource' => 'default', 'tag' => 'button', 'key' => $key])->value('value');
+        $front = fn (string $key, string $tag = 'button'): ?string => DB::table('lara_sys_translations')
+            ->where(['language' => 'nl', 'module' => 'lara-front', 'resource' => 'default', 'tag' => $tag, 'key' => $key])->value('value');
+        $messages = collect(self::$systemReport)->where('entity', 'translations')->pluck('message');
 
         $this->assertSame('terug naar het overzicht', $front('go_back'));
+        $this->assertSame('vink aan dat u geen robot bent', $front('error_recaptcha_not_checked', 'form'), 'A key the v10 views use is imported even without a v10 seed row.');
         $this->assertNull($front('v8_only'));
+        $this->assertTrue($messages->contains(fn (string $m): bool => str_contains($m, 'not imported: default.button.v8_only')), 'Skipped front texts are named.');
         $this->assertNotSame('opslaan', DB::table('lara_sys_translations')->where(['language' => 'nl', 'module' => 'lara-admin', 'resource' => 'default', 'tag' => 'button', 'key' => 'save'])->value('value'));
     }
 

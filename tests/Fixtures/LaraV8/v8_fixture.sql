@@ -861,7 +861,8 @@ CREATE TABLE `lara_sys_translations` (
 -- Settings, blacklist, header tags and translations (lara:v8:import-settings).
 -- company/general: v8 wins (company_phone is v8-only); company_telephone_clean is defined twice (the one with a value wins);
 -- system and opengraph are not imported. Translations: lara-eve → lara-app (column, entity, formfield, placeholder),
--- lara-front only for keys v10 knows (default.button.go_back), lara-admin is skipped.
+-- lara-front for keys v10 knows (default.button.go_back) or its code uses without a seed row (default.form.error_recaptcha_not_checked,
+-- used by the base form views), not for v8-only keys (default.button.v8_only); lara-admin is skipped.
 
 INSERT INTO `lara_sys_settings` (`id`, `title`, `cgroup`, `key`, `value`, `position`) VALUES
 (1, 'Company name', 'company', 'company_name', 'Fixture BV', 1),
@@ -892,6 +893,7 @@ INSERT INTO `lara_sys_translations` (`language`, `module`, `cgroup`, `tag`, `key
 ('nl', 'lara-eve', 'gone', 'column', 'title', 'weg'),
 ('nl', 'lara-front', 'default', 'button', 'go_back', 'terug naar het overzicht'),
 ('nl', 'lara-front', 'default', 'button', 'v8_only', 'alleen v8'),
+('nl', 'lara-front', 'default', 'form', 'error_recaptcha_not_checked', 'vink aan dat u geen robot bent'),
 ('nl', 'lara-admin', 'default', 'button', 'save', 'opslaan');
 
 CREATE TABLE `lara_object_images` (
