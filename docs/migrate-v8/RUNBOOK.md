@@ -392,6 +392,30 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
 - `spatie/laravel-google-fonts` writes `storage/app/public/_fonts/{hash}/fonts.css` with absolute font URLs of the site that fetched it (`APP_URL`). Copied to another server it still loads the fonts from there; with the local `*.test` URL Chrome asks "wants to access other apps and services on this device" (anpak, after go-live). Never copy `_fonts`; run `php artisan google-fonts:fetch` on each server after setting `APP_URL`.
 - **Never edit `lang/vendor` directly.** Translations live in `lara_sys_translations`; the admin export (and `lara:v8:import-settings`) empties `lang/vendor/{module}/{locale}` and rewrites it from the database, so a hand edit is lost on the next export. Add or change the translation in the admin (or `Translation::updateOrCreate()`), export, and commit the exported files; on a live site the production database needs the same row. Keys missing from the v10 seed show as `_key` (`_error_recaptcha_not_checked`), and only where the view renders: the reCAPTCHA hint appears only with `APP_ENV=production`, so staging never shows it.
 - `APP_NAME` is the site name in every page title and `og:site_name`; `CONSENT_GA4_ID` is needed by the cookie-consent plugin.
+- **Deploying over an earlier install leaves untracked files behind.** A pull never removes files git does not track: old sessions (see above), uploaded assets, `config/lara-*.php` and generated code in `laracms/app` (models, entities, Filament resources and controllers of content types this site does not have). Filament loads every resource in `laracms/app/Filament/Resources`; a leftover whose content type is not in the database (anpak dev: the demo `Products`) makes the admin menu fail with `ModelNotFoundException`, so every logged-in `/admin` request answers 404, also in a private window and with `APP_DEBUG=true` (Laravel shows its plain 404 page for it). The server has no `git` (Cloudways keeps it outside `public_html`), so check the content-type folders against the site's content types, in the app folder:
+  ```bash
+  cd laracms/app
+  ok='Blog|Doc|Service|Team'   # the site's content types, singular and plural prefixes (anpak: 15)
+  for d in Filament/Resources Models Entities Policies Database/Factories Database/Migrations Database/Seeders Http/Controllers/Front/Entity Http/Controllers/Front/Form; do ls -1 "$d" 2>/dev/null | grep -Ev "^($ok)" | sed "s#^#$d/#"; done
+  cd ../..
+  ```
+  Move what it lists to `storage/app/old-app/`, then `composer dump-autoload -o` (the class map still points to them), `php artisan optimize:clear` and `composer cache`. Old `config/lara-*.php` files override core's defaults: compare them with core and remove them when they hold nothing site-specific.
+- **A 404 that debug mode does not explain:** send the request through the app as a user and print the exception. Laravel does not log 404s, and tinker may print nothing on Cloudways (it cannot write `~/.config/psysh`), so use a small script in the app folder, `storage/app/check-admin.php`:
+  ```php
+  <?php
+  require __DIR__.'/../../vendor/autoload.php';
+  $app = require __DIR__.'/../../bootstrap/app.php';
+  $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+  $user = isset($argv[1]) ? Lara\Common\Models\User::where('email', $argv[1])->first() : Lara\Common\Models\User::role('superadmin')->orderBy('id')->first();
+  $app['auth']->guard('web')->setUser($user);
+  $response = $app->make(Illuminate\Contracts\Http\Kernel::class)->handle(Illuminate\Http\Request::create('/admin', 'GET'));
+  echo 'user '.$user->id.' status '.$response->getStatusCode().PHP_EOL;
+  if ($e = $response->exception ?? null) {
+      echo get_class($e).': '.$e->getMessage().' in '.$e->getFile().':'.$e->getLine().PHP_EOL;
+      foreach (array_slice($e->getTrace(), 0, 15) as $f) { echo '  '.($f['file'] ?? '?').':'.($f['line'] ?? '?').' '.($f['class'] ?? '').($f['type'] ?? '').$f['function'].PHP_EOL; }
+  }
+  ```
+  `php storage/app/check-admin.php [email]` (default: the first superadmin); remove the script afterwards.
 - **Switching the server to an unrelated branch deletes files the old branch tracked.** If the server's git holds an earlier attempt whose branch tracked `public/assets` (or `public/storage/*`, demo files in `storage/app/public`), moving the deploy to the v10 branch removes those paths, including the built assets uploaded over them: every Laravel page then answers 500 (no Vite manifest), static files still 200 (anpak: after resetting `main` to the v10 branch and switching Cloudways to `main`). Switch the server's branch first and upload `public/assets` after, or unpack the assets archive again after the switch; then `optimize:clear` and `lara:route:cache`. Before the switch, list what would go: `git ls-tree -r --name-only {old branch} | sort > old; git ls-tree -r --name-only {new branch} | sort > new; comm -23 old new | git check-ignore --no-index --stdin`.
 - **Two manual server steps, every site** (they are in no repo): enable `tmpfile`, `highlight_file` and `fpassthru` in the Cloudways PHP settings next to PHP 8.4, and upload the Google Analytics service-account file to `storage/app/analytics/service-account-lara-dash.json` (otherwise the admin dashboard errors on the first deploy).
 - Cloudways "Deployment via Git" keeps the git data outside `public_html` (`git status` there: "not a git repository") and runs no composer, build or artisan command; the servers have no Node, so the built assets are committed (see Built assets in git).
