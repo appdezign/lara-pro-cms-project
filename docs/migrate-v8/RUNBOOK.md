@@ -242,7 +242,7 @@ A v10 client theme is a folder `laracms/themes/{client}` with `_assets` and `vie
 4. Build and refresh:
    ```bash
    npx vite build --config vite.front.client.config.js
-   php artisan optimize:clear && php artisan lara:route:cache
+   php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache
    ```
 5. Request every menu URL and read the log for the first error of each page.
 
@@ -318,7 +318,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 
 8. Content freeze on the v8 admin (tell the editors; disable logins if possible).
 9. Final sync (step 17) from a fresh production dump and media: `lara:v8:sync --dry-run`, then `lara:v8:sync`; `lara:v8:verify`.
-10. Set the production `APP_URL`, then `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch` (the fonts stylesheet was written with the staging URL), then `php artisan optimize:clear && php artisan lara:route:cache`. When deploying over an earlier install, also clear its sessions (`storage/framework/sessions/*`, or the `sessions` table): the imported users keep their v8 ids, so an old session can point to another user (anpak: `/admin` gave a 404 in a browser that was still logged in).
+10. Set the production `APP_URL`, then `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch` (the fonts stylesheet was written with the staging URL), then `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache` (or `composer cache`). When deploying over an earlier install, also clear its sessions (`storage/framework/sessions/*`, or the `sessions` table): the imported users keep their v8 ids, so an old session can point to another user (anpak: `/admin` gave a 404 in a browser that was still logged in).
 11. DNS / vhost switch to the v10 server; SSL certificate for the domain (and `www`).
 12. Right after: home, every menu item, a detail page per content type, the downloads (PDF), the 404, a form with reCAPTCHA and its mail (`company_email` and the confirmation to the sender), the cookie consent, `robots.txt`, `sitemap.xml` (`schedule:run` once, or wait a day), old URLs that Google has indexed.
 13. Search Console: submit the sitemap; watch the coverage for 404s in the first weeks and add redirects for them in v10.
@@ -365,6 +365,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 - The project autoloader is optimized (class map): after removing classes run `composer dump-autoload`, or `class_exists()` includes a missing file and throws.
 - A bare essential install (10.7.15) has a front 500 (`getDefaultSeo()` on a missing home page: the essential seed has only an English home page while `nl` is the default) and a 500 on the Pages list (`ListPages::syncPagesWithMenu()` with a menu item whose page is missing). Both disappear once the v8 pages and menus are imported.
 - **Keep the site and the tooling in separate working trees.** The site repo's `v10` branch tracks the generated `laracms/app`, the client theme and `v8-overrides.php`; `v8-migration` does not. `git checkout v8-migration` in the site's working tree removes the site code (and puts the demo `laracms/app` back). Use a git worktree for `v8-migration`, commit tooling there, then merge it into the site branch.
+- **Clear the response cache after every deploy.** Front pages are cached whole for anonymous visitors (`spatie/laravel-responsecache`, a day on anpak: `RESPONSE_CACHE_LIFETIME`; header `X-Cache-Status: HIT`). `optimize:clear` only empties it when it shares the cache store with the app, so run `php artisan responsecache:clear` (part of `composer cache`) too. Otherwise a fixed page keeps serving the old version (anpak: the untranslated reCAPTCHA hint after the fix was live). When checking a deploy with curl, look at `X-Cache-Status` or add a query string.
 - Widgets cache their HTML (slider, entity widgets): after changing a widget view run `php artisan cache:clear`, not only `view:clear`.
 - Tailwind 4 orders arbitrary breakpoints by value only within one unit: `min-[1200px]:` ends up before `md:` (rem), so `md:` wins. Write arbitrary breakpoints in rem (`min-[75rem]:`) like the theme's own.
 - A client theme can redefine the type scale (`--text-4xl: 2rem` in anpak): use exact sizes (`text-[36px]`) when matching v8.
