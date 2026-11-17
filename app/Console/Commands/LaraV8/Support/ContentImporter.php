@@ -131,14 +131,8 @@ class ContentImporter
 
         $customColumns = [...$entity->customfields()->pluck('field_name')->all(), ...array_values(V8Map::GEO_FIELDS), 'geo_location'];
         $contentKeys = $this->source->contentEntities()->pluck('entity_key')->all();
-
-        // v8 NULL in a v10 column that is NOT NULL with a default (e.g. position): the default
-        $defaults = $this->columnDefaults($v10Table);
-        $existing = DB::table($v10Table)->get()->keyBy('id');
-        $v8Ids = [];
-        $counts = ['create' => 0, 'update' => 0, 'same' => 0];
+        $rows = collect();
         $reassigned = 0;
-        $inserts = [];
 
         foreach ($this->source->connection()->table($v8Table)->orderBy('id')->cursor() as $v8Row) {
             $row = [];
@@ -161,10 +155,6 @@ class ContentImporter
                     $value = null;
                 }
 
-                if ($value === null && array_key_exists($v10Column, $defaults)) {
-                    $value = $defaults[$v10Column];
-                }
-
                 $row[$v10Column] = $value;
             }
 
@@ -178,56 +168,16 @@ class ContentImporter
                 $row['slug'] = V8Map::modulePageSlug($row['slug'], $contentKeys);
             }
 
-            // the site's deliberate differences from v8 (v8-overrides.php)
-            $row = SiteOverrides::apply($v10Table, $row);
-
-            $id = (int) $row['id'];
-            $v8Ids[] = $id;
-            $current = $existing[$id] ?? null;
-
-            // an existing row keeps what v10 derives itself (e.g. the page home flag and position from the menu)
-            $update = $current === null ? $row : array_diff_key($row, array_flip(self::DERIVED_COLUMNS[$key] ?? []));
-
-            if ($current === null) {
-                $counts['create']++;
-                $inserts[] = $row;
-            } elseif ($this->differs($current, $update)) {
-                $counts['update']++;
-
-                if (! $dryRun) {
-                    DB::table($v10Table)->where('id', $id)->update($update);
-                }
-            } else {
-                $counts['same']++;
-            }
-
-            if (count($inserts) >= 100 && ! $dryRun) {
-                DB::table($v10Table)->insert($inserts);
-                $inserts = [];
-            }
+            $rows->push($row);
         }
 
-        if ($inserts !== [] && ! $dryRun) {
-            DB::table($v10Table)->insert($inserts);
-        }
-
-        $level = $counts['create'] + $counts['update'] > 0 ? ($counts['update'] > 0 ? 'update' : 'create') : 'same';
-        $verb = $dryRun ? 'would be ' : '';
-        $this->add($level, $key, "{$v8Table} → {$v10Table}: ".count($v8Ids)." v8 row(s); {$counts['create']} {$verb}created, {$counts['update']} {$verb}updated, {$counts['same']} unchanged.");
+        // column defaults for a v8 NULL, the site overrides, and only the rows that differ:
+        // the shared sync (SyncsRows); an existing row keeps what v10 derives itself
+        // (e.g. the page home flag and position from the menu)
+        $this->sync($key, $v10Table, ['id'], $rows, $dryRun, $fresh, self::DERIVED_COLUMNS[$key] ?? [], from: $v8Table);
 
         if ($reassigned > 0) {
             $this->add('warning', $key, "{$reassigned} row(s) belonged to a v8 user that no longer exists; assigned to user {$fallbackUser}.");
-        }
-
-        $extra = $existing->keys()->map(fn ($id): int => (int) $id)->diff($v8Ids)->values();
-
-        if ($extra->isNotEmpty()) {
-            if ($fresh && ! $dryRun) {
-                DB::table($v10Table)->whereIn('id', $extra->all())->delete();
-                $this->add('update', $key, "{$v10Table}: removed {$extra->count()} row(s) that v8 does not have (ids ".$extra->implode(', ').').');
-            } else {
-                $this->add('differs', $key, "{$v10Table}: {$extra->count()} row(s) that v8 does not have (ids ".$extra->implode(', ').'); kept (remove with --fresh).');
-            }
         }
 
         if ($key === 'page') {
@@ -321,27 +271,6 @@ class ContentImporter
                 $this->add('warning', $entityKey, "{$broken} row(s) of {$table}.{$relation->foreign_key} point to a {$related->label_single} that does not exist.");
             }
         }
-    }
-
-    /**
-     * @param  array<string, mixed>  $row
-     */
-    private function differs(object $current, array $row): bool
-    {
-        foreach ($row as $column => $value) {
-            // updated_at alone is no difference: v10 touches it when a record is saved
-            if ($column === 'updated_at') {
-                continue;
-            }
-
-            $old = $current->{$column} ?? null;
-
-            if (($old === null) !== ($value === null) || (string) $old !== (string) $value) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private function add(string $level, string $entity, string $message): void

@@ -906,6 +906,13 @@ class FixtureImportTest extends TestCase
 
         $this->assertSame(['b.jpg'], DB::table('v8fx_sync_test')->pluck('path')->all(), 'Fresh removes a key with a # and a NULL key.');
 
+        // JSON comes back from MySQL with spaces after the separators: no change
+        DB::table('v8fx_sync_test')->insert(['path' => 'c.json', 'note' => '{"a": 1, "b": [1, 2]}']);
+        $syncer->report = [];
+        $syncer->write(collect([['path' => 'b.jpg', 'note' => 'b'], ['path' => 'c.json', 'note' => '{"a":1,"b":[1,2]}']]));
+
+        $this->assertTrue(collect($syncer->report)->contains(fn (array $line): bool => str_contains($line['message'], '0 created, 0 updated, 2 unchanged')), 'Equal JSON with other spacing is unchanged.');
+
         Schema::drop('v8fx_sync_test');
     }
 

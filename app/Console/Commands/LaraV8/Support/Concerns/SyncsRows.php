@@ -27,8 +27,9 @@ trait SyncsRows
      * @param  Collection<int, array<string, mixed>>  $rows
      * @param  list<string>  $derived
      * @param  bool  $reportExtra  false where v10 keeps rows of its own (settings, translations): they are not reported
+     * @param  string|null  $from  the v8 table, named in the report
      */
-    private function sync(string $label, string $table, array $keyColumns, Collection $rows, bool $dryRun, bool $fresh, array $derived = [], bool $reportExtra = true): void
+    private function sync(string $label, string $table, array $keyColumns, Collection $rows, bool $dryRun, bool $fresh, array $derived = [], bool $reportExtra = true, ?string $from = null): void
     {
         // the key values as strings (as before), JSON-encoded so a '#' in a value cannot collide
         $keyOf = fn (array|object $row): string => json_encode(array_map(fn (string $column): string => (string) data_get($row, $column), $keyColumns), JSON_UNESCAPED_UNICODE);
@@ -58,6 +59,7 @@ trait SyncsRows
 
         $counts = ['create' => 0, 'update' => 0, 'same' => 0];
         $wanted = [];
+        $inserts = [];
 
         foreach ($rows as $row) {
             $key = $keyOf($row);
@@ -67,8 +69,15 @@ trait SyncsRows
             if ($current === null) {
                 $counts['create']++;
 
+                // inserted in batches, per set of columns (an override can add a column to one row)
                 if (! $dryRun) {
-                    DB::table($table)->insert($row);
+                    $columns = implode(',', array_keys($row));
+                    $inserts[$columns][] = $row;
+
+                    if (count($inserts[$columns]) >= 100) {
+                        DB::table($table)->insert($inserts[$columns]);
+                        $inserts[$columns] = [];
+                    }
                 }
 
                 continue;
@@ -105,11 +114,17 @@ trait SyncsRows
             }
         }
 
+        foreach (array_filter($inserts) as $batch) {
+            DB::table($table)->insert($batch);
+        }
+
         $verb = $dryRun ? 'would be ' : '';
         $level = $counts['update'] > 0 ? 'update' : ($counts['create'] > 0 ? 'create' : 'same');
-        $this->add($level, $label, "{$table}: {$rows->count()} row(s); {$counts['create']} {$verb}created, {$counts['update']} {$verb}updated, {$counts['same']} unchanged.");
+        $this->add($level, $label, ($from !== null ? "{$from} → " : '')."{$table}: {$rows->count()} row(s); {$counts['create']} {$verb}created, {$counts['update']} {$verb}updated, {$counts['same']} unchanged.");
 
         $extra = $existing->keys()->reject(fn (string $key): bool => isset($wanted[$key]))->values();
+        // with an id key, the report names the rows
+        $ids = $keyColumns === ['id'] && $extra->count() <= 50 ? ' (ids '.$extra->map(fn (string $key): string => (string) $existing[$key]->id)->implode(', ').')' : '';
 
         if ($extra->isEmpty() || (! $fresh && ! $reportExtra)) {
             return;
@@ -128,9 +143,9 @@ trait SyncsRows
                 $query->delete();
             }
 
-            $this->add('update', $label, "{$table}: removed {$extra->count()} row(s) that v8 does not have.");
+            $this->add('update', $label, "{$table}: removed {$extra->count()} row(s) that v8 does not have{$ids}.");
         } else {
-            $this->add('differs', $label, "{$table}: {$extra->count()} row(s) that v8 does not have; kept (remove with --fresh).");
+            $this->add('differs', $label, "{$table}: {$extra->count()} row(s) that v8 does not have{$ids}; kept (remove with --fresh).");
         }
     }
 
