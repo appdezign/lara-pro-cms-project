@@ -27,6 +27,9 @@ class MenuImporter
     /** @var list<array{level: string, entity: string, message: string}> */
     private array $report = [];
 
+    /** @var array<string, Collection<int, EntityView>>|null v10 entity id#method => views (read once per run) */
+    private ?array $v10Views = null;
+
     public function __construct(private readonly V8Source $source) {}
 
     /**
@@ -35,6 +38,7 @@ class MenuImporter
     public function run(bool $dryRun = false, bool $fresh = false): array
     {
         $this->report = [];
+        $this->v10Views = null;
 
         $this->menus($dryRun, $fresh);
         $this->items($dryRun, $fresh);
@@ -258,7 +262,9 @@ class MenuImporter
         }
 
         [$entityId, $method, $filename] = $views[$v8ViewId];
-        $candidates = EntityView::where('entity_id', $entityId)->where('method', $method)->orderBy('id')->get();
+        // the v10 views, read once: entity id#method => views
+        $this->v10Views ??= EntityView::orderBy('id')->get()->groupBy(fn (EntityView $view): string => $view->entity_id.'#'.$view->method)->all();
+        $candidates = $this->v10Views[$entityId.'#'.$method] ?? collect();
 
         $view = ($pageTemplate !== null ? $candidates->firstWhere('template', $pageTemplate) : null)
             ?? $candidates->firstWhere('filename', $filename)

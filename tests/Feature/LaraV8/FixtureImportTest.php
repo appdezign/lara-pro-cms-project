@@ -869,6 +869,25 @@ class FixtureImportTest extends TestCase
         $this->assertSame($before, DB::table('lara_content_v8fxbooks')->orderBy('id')->get()->toJson());
     }
 
+    public function test_a_rerun_takes_the_image_dimensions_from_curator_while_the_file_is_unchanged(): void
+    {
+        $row = DB::table('curator')->where('path', 'v8fxbooks/cover.jpg')->first();
+        $curatorLine = fn (array $report): string => (string) collect($report)->first(fn (array $line): bool => $line['entity'] === 'curator')['message'];
+
+        try {
+            DB::table('curator')->where('id', $row->id)->update(['width' => 1]);
+            $unchanged = (new MediaImporter(new V8Source))->run(dryRun: true);
+
+            DB::table('curator')->where('id', $row->id)->update(['size' => $row->size + 1]);
+            $changed = (new MediaImporter(new V8Source))->run(dryRun: true);
+        } finally {
+            DB::table('curator')->where('id', $row->id)->update(['width' => $row->width, 'size' => $row->size]);
+        }
+
+        $this->assertStringContainsString('0 would be updated', $curatorLine($unchanged), 'Same file size: the stored width is used, the image is not read again.');
+        $this->assertStringContainsString('1 would be updated', $curatorLine($changed), 'Another file size: the image is read again.');
+    }
+
     public function test_rows_with_the_same_key_are_written_once_and_fresh_removes_rows_by_their_own_values(): void
     {
         Schema::dropIfExists('v8fx_sync_test');

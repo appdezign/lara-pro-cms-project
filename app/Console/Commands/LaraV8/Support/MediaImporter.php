@@ -35,6 +35,12 @@ class MediaImporter
     /** @var array<string, ?Entity> v8 entity key => v10 entity */
     private array $targets = [];
 
+    /** @var array<string, array<int, true>> v10 table => record ids (read once per table) */
+    private array $recordIds = [];
+
+    /** @var array<string, object> disk#path => the existing curator row (width, height, size, type) */
+    private array $curatorRows = [];
+
     private int $copied = 0;
 
     private int $missing = 0;
@@ -49,7 +55,11 @@ class MediaImporter
         $this->report = [];
         $this->copied = 0;
         $this->missing = 0;
+        $this->recordIds = [];
+        $this->targets = [];
         $this->entities = $this->source->contentEntities()->keyBy('entity_model_class')->all();
+        $this->curatorRows = DB::table('curator')->get(['disk', 'path', 'width', 'height', 'size', 'type'])
+            ->keyBy(fn (object $row): string => $row->disk.'#'.$row->path)->all();
 
         $this->images($dryRun, $fresh);
         $this->files($dryRun, $fresh);
@@ -86,11 +96,13 @@ class MediaImporter
             $disk = $target->media_disk_images ?: 'public';
             $path = $target->resource_slug.'/'.$image->filename;
 
-            if (! $this->copy($entity->entity_key, $image->filename, $disk, $path, $dryRun)) {
+            $source = $this->copy($entity->entity_key, $image->filename, $disk, $path, $dryRun);
+
+            if ($source === null) {
                 continue;
             }
 
-            $curator->push($this->curatorRow($image, $disk, $target->resource_slug, $path));
+            $curator->push($this->curatorRow($image, $source, $disk, $target->resource_slug, $path));
 
             foreach ($this->imageTypes($image) as $type) {
                 $links[$target->model_class.'#'.$recordId.'#'.$type][] = ['path' => $disk.'#'.$path, 'v8' => $image];
@@ -150,13 +162,22 @@ class MediaImporter
     }
 
     /**
+     * The curator row of a v8 image. Width, height and type come from the existing row when the
+     * file size is unchanged, so a rerun does not read every image again.
+     *
+     * @param  string  $source  the v8 file (found by copy())
      * @return array<string, mixed>
      */
-    private function curatorRow(object $image, string $disk, string $directory, string $path): array
+    private function curatorRow(object $image, string $source, string $disk, string $directory, string $path): array
     {
         $ext = strtolower(pathinfo($image->filename, PATHINFO_EXTENSION));
-        $source = $this->source->mediaFile($this->entities[$image->entity_type]->entity_key, $image->filename);
-        $dimensions = $source ? @getimagesize($source) : false;
+        $size = filesize($source);
+        $existing = $this->curatorRows[$disk.'#'.$path] ?? null;
+        $known = $existing !== null && (int) $existing->size === $size && $existing->width !== null;
+        $dimensions = $known ? [(int) $existing->width, (int) $existing->height] : @getimagesize($source);
+        $type = V8Source::isEmpty($image->mimetype)
+            ? ($known && ! V8Source::isEmpty($existing->type) ? $existing->type : (mime_content_type($source) ?: 'application/octet-stream'))
+            : $image->mimetype;
 
         return [
             'disk' => $disk,
@@ -166,8 +187,8 @@ class MediaImporter
             'path' => $path,
             'width' => $dimensions ? $dimensions[0] : null,
             'height' => $dimensions ? $dimensions[1] : null,
-            'size' => $source ? filesize($source) : null,
-            'type' => V8Source::isEmpty($image->mimetype) ? ($source ? (mime_content_type($source) ?: 'application/octet-stream') : 'application/octet-stream') : $image->mimetype,
+            'size' => $size,
+            'type' => $type,
             'ext' => $ext,
             'alt' => V8Source::isEmpty($image->image_alt) ? null : $image->image_alt,
             'title' => V8Source::isEmpty($image->image_title) ? null : $image->image_title,
@@ -183,7 +204,7 @@ class MediaImporter
         $this->jsonLists('files', 'lara_object_files', 'entity_files', 'media_disk_files', $dryRun, $fresh, function (object $file, Entity $target, string $entityKey, string $disk) use ($dryRun): ?array {
             $path = $target->resource_slug.'/file/'.$file->filename;
 
-            if (! $this->copy($entityKey, $file->filename, $disk, $path, $dryRun)) {
+            if ($this->copy($entityKey, $file->filename, $disk, $path, $dryRun) === null) {
                 return null;
             }
 
@@ -218,7 +239,7 @@ class MediaImporter
 
             $path = $target->resource_slug.'/video/'.$video->filename;
 
-            if (! $this->copy($entityKey, $video->filename, $disk, $path, $dryRun)) {
+            if ($this->copy($entityKey, $video->filename, $disk, $path, $dryRun) === null) {
                 return null;
             }
 
@@ -279,7 +300,12 @@ class MediaImporter
             return null;
         }
 
-        $target = $this->targets[$entity->entity_key] ??= Entity::where('resource_slug', V8Map::resourceSlug($entity->entity_key))->first();
+        // cached, also when there is no v10 entity (null)
+        if (! array_key_exists($entity->entity_key, $this->targets)) {
+            $this->targets[$entity->entity_key] = Entity::where('resource_slug', V8Map::resourceSlug($entity->entity_key))->first();
+        }
+
+        $target = $this->targets[$entity->entity_key];
 
         if ($target === null) {
             $this->addOnce('warning', 'media', "Media of '{$entity->entity_key}', which has no v10 entity; skipped.");
@@ -287,13 +313,7 @@ class MediaImporter
             return null;
         }
 
-        try {
-            $exists = DB::table($target->model_class::getTableName())->where('id', $row->entity_id)->exists();
-        } catch (Throwable) {
-            $exists = false;
-        }
-
-        if (! $exists) {
+        if (! isset($this->recordIds($target)[(int) $row->entity_id])) {
             $this->addOnce('warning', 'media', "Media of {$entity->entity_key} records that do not exist in v10; skipped.");
 
             return null;
@@ -303,22 +323,48 @@ class MediaImporter
     }
 
     /**
-     * Copy a v8 media file to the v10 disk when it is missing there or its size differs.
+     * The ids of the records of a v10 entity, read with one query per table.
+     *
+     * @return array<int, true>
      */
-    private function copy(string $entityKey, string $filename, string $disk, string $path, bool $dryRun): bool
+    private function recordIds(Entity $target): array
+    {
+        try {
+            $table = $target->model_class::getTableName();
+        } catch (Throwable) {
+            return [];
+        }
+
+        if (! array_key_exists($table, $this->recordIds)) {
+            try {
+                $this->recordIds[$table] = DB::table($table)->pluck('id')->mapWithKeys(fn ($id): array => [(int) $id => true])->all();
+            } catch (Throwable) {
+                $this->recordIds[$table] = [];
+            }
+        }
+
+        return $this->recordIds[$table];
+    }
+
+    /**
+     * Copy a v8 media file to the v10 disk when it is missing there or its size differs.
+     *
+     * @return string|null the v8 file, or null when it is missing
+     */
+    private function copy(string $entityKey, string $filename, string $disk, string $path, bool $dryRun): ?string
     {
         $source = $this->source->mediaFile($entityKey, $filename);
 
         if ($source === null) {
             $this->missing++;
 
-            return false;
+            return null;
         }
 
         $storage = Storage::disk($disk);
 
         if ($storage->exists($path) && $storage->size($path) === filesize($source)) {
-            return true;
+            return $source;
         }
 
         $this->copied++;
@@ -329,7 +375,7 @@ class MediaImporter
             is_resource($stream) && fclose($stream);
         }
 
-        return true;
+        return $source;
     }
 
     private function minutes(?string $date): ?string

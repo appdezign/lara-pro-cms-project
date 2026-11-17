@@ -5,6 +5,7 @@ namespace App\Console\Commands\LaraV8\Support;
 use App\Console\Commands\LaraV8\Support\Concerns\SyncsRows;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Lara\Front\LaraTheme\Theme;
 use Throwable;
 
@@ -29,6 +30,9 @@ class ObjectImporter
     /** @var array<string, string> v10 model class => v10 table */
     private array $tables = [];
 
+    /** @var array<string, array<int, ?string>> v10 table => record id => language (read once per table) */
+    private array $records = [];
+
     public function __construct(private readonly V8Source $source) {}
 
     /**
@@ -37,6 +41,7 @@ class ObjectImporter
     public function run(bool $dryRun = false, bool $fresh = false): array
     {
         $this->report = [];
+        $this->records = [];
         $this->classes = $this->source->entities()
             ->filter(fn (object $entity): bool => $this->source->isContentGroup($entity->group_key))
             ->mapWithKeys(fn (object $entity): array => [$entity->entity_model_class => V8Map::modelClass($entity->entity_key)])
@@ -371,20 +376,39 @@ class ObjectImporter
 
     private function recordExists(string $class, int $id): bool
     {
-        $table = $this->table($class);
-
-        return $table !== null && DB::table($table)->where('id', $id)->exists();
+        return array_key_exists($id, $this->records($class));
     }
 
     private function recordLanguage(string $class, int $id): ?string
     {
+        return $this->records($class)[$id] ?? null;
+    }
+
+    /**
+     * The records of a v10 content table, id => language (null without a language column),
+     * read with one query per table instead of one per v8 row.
+     *
+     * @return array<int, ?string>
+     */
+    private function records(string $class): array
+    {
         $table = $this->table($class);
 
-        try {
-            return $table ? DB::table($table)->where('id', $id)->value('language') : null;
-        } catch (Throwable) {
-            return null;
+        if ($table === null) {
+            return [];
         }
+
+        if (! array_key_exists($table, $this->records)) {
+            try {
+                $this->records[$table] = Schema::hasColumn($table, 'language')
+                    ? DB::table($table)->pluck('language', 'id')->mapWithKeys(fn ($language, $id): array => [(int) $id => $language])->all()
+                    : DB::table($table)->pluck('id')->mapWithKeys(fn ($id): array => [(int) $id => null])->all();
+            } catch (Throwable) {
+                $this->records[$table] = [];
+            }
+        }
+
+        return $this->records[$table];
     }
 
     /**
