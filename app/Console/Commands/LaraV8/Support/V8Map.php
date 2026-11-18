@@ -113,6 +113,16 @@ final class V8Map
     ];
 
     /**
+     * The v10 disk of a v8 media disk. An empty v8 disk means v8's default disk, localdisk
+     * (seerden: doc has files but no disk_files; a null v10 disk breaks the admin form);
+     * an unknown disk has no v10 disk (null, reported by the inventory).
+     */
+    public static function disk(?string $v8Disk): ?string
+    {
+        return self::DISKS[V8Source::isEmpty($v8Disk) ? 'localdisk' : $v8Disk] ?? null;
+    }
+
+    /**
      * v8 entity group => v10 cgroup, for the content groups.
      */
     public const CGROUPS = [
@@ -476,9 +486,9 @@ final class V8Map
                 'media_max_videofiles' => $o->has_videofiles ? (int) $o->max_videofiles : 0,
                 'media_has_files' => (int) $o->has_files,
                 'media_max_files' => $o->has_files ? (int) $o->max_files : 0,
-                'media_disk_images' => self::DISKS[$o->disk_images] ?? null,
-                'media_disk_videos' => self::DISKS[$o->disk_videos] ?? null,
-                'media_disk_files' => self::DISKS[$o->disk_files] ?? null,
+                'media_disk_images' => self::disk($o->disk_images),
+                'media_disk_videos' => self::disk($o->disk_videos),
+                'media_disk_files' => self::disk($o->disk_files),
             ];
         }
 

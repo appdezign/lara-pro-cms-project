@@ -256,6 +256,24 @@ class V8MapTest extends TestCase
         $this->assertArrayNotHasKey('col_has_lead', $attributes);
     }
 
+    public function test_an_empty_v8_disk_is_the_v8_default_disk(): void
+    {
+        $this->assertSame('public', V8Map::disk('localdisk'));
+        $this->assertSame('public', V8Map::disk(null));
+        $this->assertSame('public', V8Map::disk(''));
+        $this->assertSame('public', V8Map::disk('NULL'));
+        $this->assertNull(V8Map::disk('s3'));
+
+        $attributes = V8Map::entity(
+            (object) ['entity_key' => 'doc', 'title' => 'Docs', 'group_key' => 'entity', 'entity_controller' => 'DocsController', 'menu_parent' => 'modules', 'menu_position' => 220, 'has_front_auth' => 0],
+            null,
+            null,
+            (object) ['has_seo' => 0, 'has_opengraph' => 0, 'has_layout' => 0, 'has_related' => 0, 'is_relatable' => 1, 'has_tags' => 1, 'has_sync' => 0, 'has_images' => 0, 'has_videos' => 0, 'has_videofiles' => 0, 'has_files' => 1, 'max_images' => 1, 'max_videos' => 1, 'max_videofiles' => 1, 'max_files' => 1, 'disk_images' => null, 'disk_videos' => null, 'disk_files' => null],
+        );
+
+        $this->assertSame('public', $attributes['media_disk_files'], 'seerden: doc has files but no disk_files.');
+    }
+
     public function test_abilities_become_permissions(): void
     {
         $this->assertSame(['view_blog', 'view_any_blog'], V8Map::permissions('view', 'blog'));
