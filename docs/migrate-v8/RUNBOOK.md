@@ -379,6 +379,8 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
 - A custom field can be defined twice in `lara_ent_entity_custom_columns` (anpak: `location.latitude`, `location.longitude`); import it once.
 - Content tables: pages and entities `lara_content_{plural key}`, blocks `lara_blocks_{plural key}`, forms `lara_form_{plural key}` (`V8Source::contentTable()`). The other entity groups (menu, tag, auth, builder, tools, seo) are system screens, not content types.
 - Tables are `utf8mb3` / `utf8_unicode_ci`; they import fine into MySQL 5.7.
+- Sites carry **demo leftover content types** from the v8 demo (seerden: city, product, sponsor, story; anpak had their language groups only): `menu_position` NULL, so not in the v8 admin menu, with no or only "Lorem ipsum" records. Leave them out with `LARA_V8_SKIP_ENTITIES` (step 3).
+- `information_schema.tables.table_rows` is an estimate (InnoDB): it said 0 for seerden's story and city, which have 1 row each. Count with `COUNT(*)` or read the inventory.
 
 ## Gotchas
 
