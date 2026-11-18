@@ -14,7 +14,7 @@ Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301
 ## Open before staging
 
 - [ ] **Staging server** (user, later): which server/URL (e.g. `dev.seerdencommunicatie.nl`).
-- [ ] **Keys** for `.env`: seerden's own Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`), reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`, for the domain), `CONSENT_GA4_ID` (GA4 of the site: `G-0B6CD217XK`, setting `ga4_id`). Check that the local `.env` values are seerden's and not copied from another site.
+- [x] **Keys** (user, 2026-11-18): the Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`), reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`) and GA4 keys (`CONSENT_GA4_ID`; setting `ga4_id` `G-0B6CD217XK`) in the local `.env` are seerden's own: copy them to each server's `.env`.
 - [ ] **Mail**: the production `MAIL_*` settings (form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`) and `MAIL_FROM_*`; `MAIL_DEV_*` for staging.
 - [x] **`APP_NAME="Seerden Communicatie"`** (user, 2026-11-18): the suffix of every page title (" — Seerden Communicatie") and `og:site_name`; live titles have no suffix (decision: keep v10's suffix). Set locally; set it on each server.
 
