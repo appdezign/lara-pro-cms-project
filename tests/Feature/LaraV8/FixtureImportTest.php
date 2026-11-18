@@ -1144,4 +1144,31 @@ class FixtureImportTest extends TestCase
         $this->assertFalse(collect(self::$rerun)->contains(fn (array $l): bool => $l['entity'] === 'page' && str_contains($l['message'], "'subtitle'")), 'A rerun leaves the built field alone.');
         $this->assertFalse(collect(self::$rerun)->contains(fn (array $l): bool => $l['entity'] === 'page' && in_array($l['level'], ['create', 'update', 'differs', 'error'], true)), "v10's own page fields are never touched.");
     }
+
+    public function test_derived_page_columns_are_kept_on_a_rerun_and_written_with_fresh(): void
+    {
+        $v8 = DB::connection('lara_v8')->table('lara_content_pages')->where('id', 19)->first(['ishome', 'position', 'menuroute']);
+        // what the essential seed (page 19 is its English home) or the v10 Pages list leaves behind
+        DB::table('lara_content_pages')->where('id', 19)->update(['ishome' => 0, 'position' => 9001, 'menuroute' => '/v10']);
+
+        try {
+            (new ContentImporter(new V8Source))->run(['page']);
+            $this->assertSame([0, 9001, '/v10'], $this->derived(19), 'A rerun keeps what v10 derived.');
+
+            (new ContentImporter(new V8Source))->run(['page'], fresh: true);
+            $this->assertSame([(int) $v8->ishome, (int) $v8->position, $v8->menuroute], $this->derived(19), 'With --fresh the v8 values are written.');
+        } finally {
+            (new ContentImporter(new V8Source))->run(['page'], fresh: true);
+        }
+    }
+
+    /**
+     * @return array{int, int, ?string}
+     */
+    private function derived(int $id): array
+    {
+        $page = DB::table('lara_content_pages')->where('id', $id)->first(['ishome', 'position', 'menuroute']);
+
+        return [(int) $page->ishome, (int) $page->position, $page->menuroute];
+    }
 }

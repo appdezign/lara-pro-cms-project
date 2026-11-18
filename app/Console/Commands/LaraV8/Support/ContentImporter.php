@@ -33,6 +33,9 @@ class ContentImporter
     /**
      * Columns v10 derives itself: imported for new rows, not overwritten on existing ones.
      * Page home flag, position and menu route follow the menu (ListPages::syncPagesWithMenu()).
+     * With --fresh (the first import, the final sync) they are written from v8 too: a v8 page can
+     * have the id of an essential seed page, whose values are not v10's own (seerden: v8 page 19
+     * "Team" kept the seed's ishome = 1, a second home page until the Pages list was opened).
      */
     private const DERIVED_COLUMNS = [
         'page' => ['ishome', 'position', 'menuroute'],
@@ -195,7 +198,7 @@ class ContentImporter
         // column defaults for a v8 NULL, the site overrides, and only the rows that differ:
         // the shared sync (SyncsRows); an existing row keeps what v10 derives itself
         // (e.g. the page home flag and position from the menu)
-        $this->sync($key, $v10Table, ['id'], $rows, $dryRun, $fresh, self::DERIVED_COLUMNS[$key] ?? [], from: $v8Table);
+        $this->sync($key, $v10Table, ['id'], $rows, $dryRun, $fresh, $fresh ? [] : (self::DERIVED_COLUMNS[$key] ?? []), from: $v8Table);
 
         if ($reassigned > 0) {
             $this->add('warning', $key, "{$reassigned} row(s) belonged to a v8 user that no longer exists; assigned to user {$fallbackUser}.");

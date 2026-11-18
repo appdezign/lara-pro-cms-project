@@ -198,7 +198,7 @@ Run it after `import-content` and `import-objects`.
 
 Using the v10 site changes rows the imports wrote; a rerun must not fight that:
 - `updated_at` alone is never a difference (v10 touches it on every save, e.g. the Pages list saves all pages).
-- Page `ishome`/`position`/`menuroute` and menu item `routename` are derived by v10; they are imported for new rows only.
+- Page `ishome`/`position`/`menuroute` and menu item `routename` are derived by v10; they are imported for new rows only. With `import-content --fresh` (first import, final sync) the page columns are written from v8 as well: a v8 page can have the id of an essential seed page (seerden: v8 page 19 "Team" kept the seed's `ishome = 1` and was a second home page until the admin Pages list re-derived it).
 - Opening an edit form locks the record (`locked_at`/`locked_by`); a content rerun clears the locks, which is right during a migration.
 - Opening a v10 index or form page creates its "module page" when it cannot find it. v8 module pages are named `{entity key}-{method}-module-{language}`, v10 ones `{resource slug}-…`: the content import renames them (`V8Map::modulePageSlug()`); `--fresh` removes module pages v10 created before that.
 
