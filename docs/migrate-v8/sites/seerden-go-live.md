@@ -1,6 +1,6 @@
 # seerdencommunicatie.nl: go-live checklist
 
-v8.2.46 (`seerden8246`, production db `xxqektecpc`, theme `seerden`) → v10 (`seerden10723`, Lara CMS 10.7.23, theme `seerden`). General steps: runbook step 18. Status 2026-11-18: import, theme and the comparison with live done locally; next: staging (server to be decided).
+v8.2.46 (`seerden8246`, production db `xxqektecpc`, theme `seerden`) → v10 (`seerden10723`, Lara CMS 10.7.23, theme `seerden`). General steps: runbook step 18. Status 2026-11-18: import, theme and the comparison with live done locally; next: staging on https://dev.seerdencommunicatie.nl.
 
 Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301 to `www`). Plan with every decision: `seerden8246/.ai/plans/2026-11-18-migrate-v8-to-v10.md`; inventory: `sites/seerden-inventory.md`.
 
@@ -13,7 +13,7 @@ Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301
 
 ## Open before staging
 
-- [ ] **Staging server** (user, later): which server/URL (e.g. `dev.seerdencommunicatie.nl`).
+- [x] **Staging** (user, 2026-11-18): https://dev.seerdencommunicatie.nl (on 2026-11-18 still a placeholder page, nginx).
 - [x] **Keys** (user, 2026-11-18): the Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`), reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`) and GA4 keys (`CONSENT_GA4_ID`; setting `ga4_id` `G-0B6CD217XK`) in the local `.env` are seerden's own: copy them to each server's `.env`.
 - [ ] **Mail**: the production `MAIL_*` settings (form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`) and `MAIL_FROM_*`; `MAIL_DEV_*` for staging.
 - [x] **`APP_NAME="Seerden Communicatie"`** (user, 2026-11-18): the suffix of every page title (" — Seerden Communicatie") and `og:site_name`; live titles have no suffix (decision: keep v10's suffix). Set locally; set it on each server.
@@ -41,7 +41,7 @@ php -v                                            # 8.4
 composer install --no-dev -o                      # assets are in git; no Node needed
 
 # 2. .env (keep APP_KEY and the DB settings of the server)
-#    APP_NAME="Seerden Communicatie"  APP_ENV=staging  APP_DEBUG=false  APP_URL=https://{staging host}  LARA_CLIENT_THEME=seerden
+#    APP_NAME="Seerden Communicatie"  APP_ENV=staging  APP_DEBUG=false  APP_URL=https://dev.seerdencommunicatie.nl  LARA_CLIENT_THEME=seerden
 #    MAIL_DEV_*, the keys above, CONSENT_GA4_ID
 
 # 3. data (upload ~/seerden10723.sql and ~/seerden10723-media.tgz first)
