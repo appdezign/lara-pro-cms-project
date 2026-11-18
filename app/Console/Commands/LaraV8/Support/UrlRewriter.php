@@ -139,7 +139,8 @@ class UrlRewriter
                 return $all;
             }
 
-            $target = $this->mediaTarget(rawurldecode($path), $dryRun);
+            // the browser decodes HTML entities in an attribute (seerden: Co&ouml;rdinator → Coördinator), then the URL
+            $target = $this->mediaTarget(rawurldecode(html_entity_decode($path, ENT_QUOTES | ENT_HTML5, 'UTF-8')), $dryRun);
 
             if ($target === null) {
                 $this->unresolved[$url][] = $where;

@@ -185,6 +185,8 @@ class FixtureImportTest extends TestCase
         // an editor upload, only referenced in the HTML
         File::ensureDirectoryExists(self::$mediaPath.'/images/shares');
         File::put(self::$mediaPath.'/images/shares/Mijn logo.png', 'png');
+        // an upload whose name the v8 editor wrote with HTML entities in the URL (Co&ouml;rdinator)
+        File::put(self::$mediaPath.'/images/shares/Coördinator Fryslân.png', 'png');
 
         Artisan::call('migrate:fresh', ['--force' => true, '--path' => 'laracms/core/src/common/Database/Migrations']);
         Artisan::call('db:seed', ['--force' => true, '--class' => '\\Lara\\Common\\Database\\Seeders\\DatabaseCommonSeeder']);
@@ -836,6 +838,7 @@ class FixtureImportTest extends TestCase
         $this->assertStringContainsString('src="/storage/images/shares/Mijn%20logo.png"', $body, 'An editor upload: copied to the same path.');
         $this->assertStringContainsString('href="/storage/v8fxbooks/inside.png"', $body, 'An absolute URL to the site itself.');
         $this->assertStringContainsString('src="/assets/media/images/shares/nope.png"', $body, 'A missing file: left as it is.');
+        $this->assertStringContainsString('src="/storage/images/shares/Co%C3%B6rdinator%20Frysl%C3%A2n.png"', $body, 'HTML entities in the URL are decoded, as a browser does.');
         $this->assertStringContainsString('href="https://elders.test/assets/media/x.jpg"', $body, 'Another site: left as it is.');
         $this->assertStringContainsString('href="/storage/v8fxbooks/file/sample.pdf"', $body, 'A document of a record: in file/, where the media import puts it, also though the content import runs first.');
         Storage::disk('public')->assertMissing('v8fxbooks/sample.pdf');
