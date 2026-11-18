@@ -11,8 +11,9 @@ use Throwable;
 
 /**
  * Imports the objects attached to v8 content: taxonomies, tags, taggables, pageables,
- * SEO (v8 seo + opengraph → the filarank table) and layout (v8 key/value rows → one v10 row
- * per record). v8 class names (Eve\Models\Blog) become the v10 model classes.
+ * SEO (v8 seo + opengraph → the filarank table), layout (v8 key/value rows → one v10 row
+ * per record) and related objects (v8 one row per link → one v10 row per record with JSON
+ * lists). v8 class names (Eve\Models\Blog) become the v10 model classes.
  *
  * Rerunnable: only rows that differ are written; with $fresh, v10 rows that v8 does not
  * have are removed. Run lara:v8:import-content first.
@@ -61,6 +62,7 @@ class ObjectImporter
         $this->morphRows('pageables', 'lara_object_pageables', ['page_id'], $dryRun, $fresh);
         $this->seo($dryRun, $fresh);
         $this->layout($dryRun, $fresh);
+        $this->related($dryRun, $fresh);
         $this->notConverted();
         $this->reportSkipped();
 
@@ -367,12 +369,99 @@ class ObjectImporter
     }
 
     /**
-     * Related objects and remote sync are stored very differently in v10 (JSON lists, other
-     * columns); they are reported until a site actually uses them.
+     * v8 keeps one row per related object (entity_key + object_id → related_entity_key +
+     * related_object_id); v10 one row per record with three JSON lists, as the admin's related
+     * section writes them: pages (page_object_id), entity objects (object_id + resource_slug)
+     * and module pages (the v8 'menuitem' targets: module_page_menu_id). Ids are kept, so the
+     * targets keep theirs. Menu items are imported after the objects, so a menu item target is
+     * checked in v8 (it must exist and not be a root, which the menu import drops).
+     *
+     * v10 creates a row with three empty lists when a record is saved; such a row means "nothing
+     * related", so it is kept and not reported as a row v8 does not have.
+     */
+    private function related(bool $dryRun, bool $fresh): void
+    {
+        $db = $this->source->connection();
+        $v8Classes = $this->source->contentEntities()->pluck('entity_model_class', 'entity_key')->all();
+        $menuItems = $db->table('lara_menu_menu_items')->pluck('type', 'id')->all();
+        $lists = [];
+        $orphans = 0;
+
+        foreach ($db->table('lara_object_related')->orderBy('id')->get() as $row) {
+            if ($this->source->isSkipped($row->entity_key) || $this->source->isSkipped($row->related_entity_key)) {
+                $this->countSkipped('related');
+
+                continue;
+            }
+
+            $class = isset($v8Classes[$row->entity_key]) ? $this->v10Class($v8Classes[$row->entity_key]) : null;
+
+            if ($class === null || ! $this->recordExists($class, (int) $row->object_id)) {
+                $orphans++;
+
+                continue;
+            }
+
+            $target = (int) $row->related_object_id;
+            $targetKey = (string) $row->related_entity_key;
+            $targetClass = isset($v8Classes[$targetKey]) ? $this->v10Class($v8Classes[$targetKey]) : null;
+
+            [$list, $item] = match (true) {
+                $targetKey === 'menuitem' => isset($menuItems[$target]) && $menuItems[$target] !== 'root'
+                    ? ['related_entities', ['module_page_menu_id' => $target]]
+                    : [null, null],
+                $targetKey === 'page' => $targetClass !== null && $this->recordExists($targetClass, $target)
+                    ? ['related_page_objects', ['page_object_id' => $target]]
+                    : [null, null],
+                default => $targetClass !== null && $this->recordExists($targetClass, $target)
+                    ? ['related_entity_objects', ['object_id' => $target, 'resource_slug' => V8Map::resourceSlug($targetKey)]]
+                    : [null, null],
+            };
+
+            if ($list === null) {
+                $this->add('warning', 'related', "Related #{$row->id}: {$row->entity_key} {$row->object_id} → {$targetKey} {$target}, which does not exist in v10".($targetKey === 'menuitem' ? ' (or is a v8 menu root)' : '').'; skipped.');
+
+                continue;
+            }
+
+            $key = $class.'#'.$row->object_id;
+            $lists[$key] ??= ['related_page_objects' => [], 'related_entity_objects' => [], 'related_entities' => []];
+
+            if (! in_array($item, $lists[$key][$list], true)) {
+                $lists[$key][$list][] = $item;
+            }
+        }
+
+        if ($orphans > 0) {
+            $this->add('warning', 'related', "{$orphans} v8 related row(s) belong to a record or content type that does not exist in v10; skipped.");
+        }
+
+        $rows = collect($lists)->map(function (array $record, string $key): array {
+            [$class, $id] = explode('#', $key);
+
+            return [
+                'entity_type' => $class,
+                'entity_id' => (int) $id,
+                ...array_map(fn (array $items): string => json_encode($items, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), $record),
+            ];
+        })->values();
+
+        // v10's own empty rows (a record saved in the admin): unchanged, never removed or reported
+        $empty = DB::table('lara_object_related')->get()
+            ->filter(fn (object $row): bool => ! isset($lists[$row->entity_type.'#'.$row->entity_id])
+                && collect(['related_page_objects', 'related_entity_objects', 'related_entities'])->every(fn (string $column): bool => in_array(json_decode((string) $row->{$column}, true), [null, []], true)))
+            ->map(fn (object $row): array => (array) $row);
+
+        $this->sync('related', 'lara_object_related', ['entity_type', 'entity_id'], $rows->merge($empty->values()), $dryRun, $fresh, from: 'lara_object_related');
+    }
+
+    /**
+     * Remote sync settings are stored very differently in v10; they are reported until a site
+     * actually uses them.
      */
     private function notConverted(): void
     {
-        foreach (['lara_object_related' => 'related objects', 'lara_object_sync' => 'remote sync settings'] as $table => $what) {
+        foreach (['lara_object_sync' => 'remote sync settings'] as $table => $what) {
             $count = $this->source->connection()->table($table)->count();
 
             if ($count > 0) {

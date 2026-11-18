@@ -199,11 +199,27 @@ trait SyncsRows
 
         $string = (string) $value;
 
-        // JSON columns come back with spaces after the separators
+        // JSON columns come back with spaces after the separators and with the object keys in
+        // MySQL's own order (shorter keys first), so objects are compared with sorted keys
         if (Str::startsWith($string, ['[', '{']) && ($decoded = json_decode($string, true)) !== null) {
-            return json_encode($decoded, JSON_UNESCAPED_UNICODE);
+            return json_encode(self::sortJsonKeys($decoded), JSON_UNESCAPED_UNICODE);
         }
 
         return $string;
+    }
+
+    private static function sortJsonKeys(mixed $value): mixed
+    {
+        if (! is_array($value)) {
+            return $value;
+        }
+
+        $value = array_map(fn (mixed $item): mixed => self::sortJsonKeys($item), $value);
+
+        if (! array_is_list($value)) {
+            ksort($value);
+        }
+
+        return $value;
     }
 }

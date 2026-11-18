@@ -566,7 +566,70 @@ class FixtureImportTest extends TestCase
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 taggables row(s) point to a record')));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 record(s) have a v8 opengraph title or description')));
         $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, "'no_such_layout' is not a content option of the active theme")));
-        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 related objects (lara_object_related) are not imported')));
+        $this->assertFalse($warnings->contains(fn (string $m): bool => str_contains($m, 'lara_object_related) are not imported')), 'Related objects are converted now.');
+    }
+
+    public function test_related_objects_become_one_row_per_record_with_three_lists(): void
+    {
+        $related = DB::table('lara_object_related')->get()->keyBy(fn (object $row): string => class_basename($row->entity_type).' '.$row->entity_id);
+        $lists = fn (string $key): array => collect(['related_page_objects', 'related_entity_objects', 'related_entities'])
+            ->mapWithKeys(fn (string $column): array => [$column => json_decode($related[$key]->{$column}, true)])->all();
+
+        $this->assertSame(['Page 19', 'V8fxbook 1'], $related->keys()->sort()->values()->all(), 'One row per record; no row for the missing book or the skipped leftover.');
+        $this->assertSame(Entity::where('resource_slug', 'v8fxbooks')->value('model_class'), $related['V8fxbook 1']->entity_type);
+        $this->assertSame([
+            'related_page_objects' => [['page_object_id' => 19]],
+            'related_entity_objects' => [['object_id' => 1, 'resource_slug' => 'v8fxevents']],
+            'related_entities' => [['module_page_menu_id' => 2]],
+        ], $lists('V8fxbook 1'), 'The duplicate page link is written once; the menu root and the missing event are left out.');
+        $this->assertSame([
+            'related_page_objects' => [['page_object_id' => 1125]],
+            'related_entity_objects' => [],
+            'related_entities' => [],
+        ], $lists('Page 19'), 'Every list is present, also when empty (the front loops over all three).');
+    }
+
+    public function test_related_problems_are_reported_and_a_rerun_keeps_v10_empty_rows(): void
+    {
+        $warnings = collect(self::$objectReport)->where('level', 'warning')->pluck('message');
+
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Related #5: v8fxbook 1 → menuitem 5, which does not exist in v10 (or is a v8 menu root)')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, 'Related #6: v8fxbook 1 → v8fxevent 999, which does not exist in v10')));
+        $this->assertTrue($warnings->contains(fn (string $m): bool => str_contains($m, '1 v8 related row(s) belong to a record or content type that does not exist in v10')));
+        $this->assertTrue(collect(self::$objectReport)->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], '1 related')), 'The leftover link counts as skipped.');
+        $this->assertTrue(collect(self::$objectRerun)->contains(fn (array $l): bool => $l['entity'] === 'related' && $l['level'] === 'same'), 'A rerun changes nothing (MySQL reorders the JSON keys).');
+
+        // what v10 does when a record without related objects is saved in the admin: an empty row
+        $empty = ['entity_type' => 'Lara\\Common\\Models\\Page', 'entity_id' => 1125, 'related_page_objects' => '[]', 'related_entity_objects' => '[]', 'related_entities' => '[]'];
+        DB::table('lara_object_related')->insert($empty);
+
+        try {
+            $rerun = collect((new ObjectImporter(new V8Source))->run(fresh: true))->where('entity', 'related');
+            $this->assertTrue(DB::table('lara_object_related')->where('entity_id', 1125)->where('entity_type', $empty['entity_type'])->exists(), 'A v10 empty row is kept, also with --fresh.');
+            $this->assertSame(['same'], $rerun->whereNotIn('level', ['warning'])->pluck('level')->unique()->values()->all(), 'and is not reported as a row v8 does not have.');
+        } finally {
+            DB::table('lara_object_related')->where('entity_id', 1125)->where('entity_type', $empty['entity_type'])->delete();
+        }
+    }
+
+    public function test_verify_checks_the_related_targets_and_the_entity_setting(): void
+    {
+        $this->assertSame([], collect((new Verifier(new V8Source))->run(['related']))->whereIn('level', ['error', 'warning'])->values()->all());
+
+        DB::table('lara_menu_menu_items')->where('id', 2)->update(['id' => 902]);
+        $pages = Entity::where('resource_slug', 'pages')->firstOrFail();
+        $setting = $pages->objrel_has_related;
+        $pages->forceFill(['objrel_has_related' => 0])->saveQuietly();
+
+        try {
+            $report = collect((new Verifier(new V8Source))->run(['related']));
+        } finally {
+            DB::table('lara_menu_menu_items')->where('id', 902)->update(['id' => 2]);
+            $pages->forceFill(['objrel_has_related' => $setting])->saveQuietly();
+        }
+
+        $this->assertTrue($report->contains(fn (array $l): bool => $l['level'] === 'error' && str_contains($l['message'], 'V8fxbook 1 → menu item 2')));
+        $this->assertTrue($report->contains(fn (array $l): bool => $l['level'] === 'warning' && str_contains($l['message'], 'pages has related objects, but objrel_has_related is off')));
     }
 
     public function test_the_menu_import_has_no_errors_and_a_second_run_keeps_the_v10_route_names(): void
@@ -1046,7 +1109,7 @@ class FixtureImportTest extends TestCase
         $sections = collect($inventory->sections())->keyBy('title');
 
         $skipped = $sections->first(fn (array $section): bool => str_starts_with($section['title'], 'Skipped content types'));
-        $this->assertSame([['v8fxleftover', 'Fixture Leftovers', 1, 1, 1, 1, 1, 0, 0]], $skipped['rows']);
+        $this->assertSame([['v8fxleftover', 'Fixture Leftovers', 1, 1, 1, 1, 1, 1, 0]], $skipped['rows']);
 
         $content = $sections['Content types']['rows'];
         $this->assertNotContains('v8fxleftover', array_column($content, 0));

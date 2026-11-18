@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Lara\Common\Models\Entity;
+use Lara\Common\Models\Page;
 use Lara\Common\Models\Tag;
 use Throwable;
 
@@ -34,7 +35,7 @@ class Verifier
     public function __construct(private readonly V8Source $source) {}
 
     /**
-     * @param  list<string>  $checks  counts, sync, media, links, tags; empty for all
+     * @param  list<string>  $checks  counts, sync, media, links, tags, related; empty for all
      * @return list<array{level: string, entity: string, message: string}>
      */
     public function run(array $checks = []): array
@@ -56,6 +57,9 @@ class Verifier
         }
         if ($all || in_array('tags', $checks, true)) {
             $this->tags();
+        }
+        if ($all || in_array('related', $checks, true)) {
+            $this->related();
         }
 
         return $this->report;
@@ -305,6 +309,61 @@ class Verifier
             $this->add('ok', 'tags', 'Every tag tree is a valid nested set.');
         } else {
             $this->add('error', 'tags', "Invalid tag tree(s): {$invalid->implode('; ')}.");
+        }
+    }
+
+    /**
+     * Every related object in v10 points to a record, page or menu item that exists (the front
+     * skips what it cannot find without a sign), and a content type with related objects shows
+     * them (objrel_has_related). Menu items are imported after the objects, so this is the place
+     * where a module page target is checked in v10.
+     */
+    private function related(): void
+    {
+        $missing = collect();
+        $owners = [];
+        $list = fn (object $row, string $column): array => (array) (json_decode((string) $row->{$column}, true) ?: []);
+
+        foreach (DB::table('lara_object_related')->orderBy('id')->get() as $row) {
+            $owner = class_basename((string) $row->entity_type)." {$row->entity_id}";
+
+            if (! $this->recordExists((string) $row->entity_type, (int) $row->entity_id)) {
+                $missing->push("{$owner} itself");
+            }
+
+            foreach ($list($row, 'related_page_objects') as $item) {
+                if (! $this->recordExists(Page::class, (int) ($item['page_object_id'] ?? 0))) {
+                    $missing->push("{$owner} → page ".($item['page_object_id'] ?? '?'));
+                }
+            }
+
+            foreach ($list($row, 'related_entity_objects') as $item) {
+                $class = Entity::where('resource_slug', (string) ($item['resource_slug'] ?? ''))->value('model_class');
+
+                if ($class === null || ! $this->recordExists($class, (int) ($item['object_id'] ?? 0))) {
+                    $missing->push("{$owner} → ".($item['resource_slug'] ?? '?').' '.($item['object_id'] ?? '?'));
+                }
+            }
+
+            foreach ($list($row, 'related_entities') as $item) {
+                if (! DB::table('lara_menu_menu_items')->where('id', (int) ($item['module_page_menu_id'] ?? 0))->exists()) {
+                    $missing->push("{$owner} → menu item ".($item['module_page_menu_id'] ?? '?'));
+                }
+            }
+
+            if ($list($row, 'related_page_objects') !== [] || $list($row, 'related_entity_objects') !== [] || $list($row, 'related_entities') !== []) {
+                $owners[(string) $row->entity_type] = true;
+            }
+        }
+
+        $this->result('related', 'Related objects and their targets', $missing);
+
+        foreach (array_keys($owners) as $class) {
+            $entity = Entity::where('model_class', $class)->first();
+
+            if ($entity !== null && ! $entity->objrel_has_related) {
+                $this->add('warning', 'related', "{$entity->resource_slug} has related objects, but objrel_has_related is off, so the front does not show them.");
+            }
         }
     }
 

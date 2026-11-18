@@ -208,8 +208,8 @@ INSERT INTO `lara_ent_entity_panels` (`entity_id`, `has_search`, `has_batch`, `h
 (103, 0, 0, 0, 0, 0, 0, 0);
 
 INSERT INTO `lara_ent_entity_object_relations` (`entity_id`, `has_seo`, `has_opengraph`, `has_layout`, `has_related`, `is_relatable`, `has_tags`, `tag_default`, `has_sync`, `has_images`, `has_videos`, `has_videofiles`, `has_files`, `max_images`, `max_videos`, `max_videofiles`, `max_files`, `disk_images`, `disk_videos`, `disk_files`) VALUES
-(101, 1, 1, 0, 0, 0, 1, NULL, 0, 1, 0, 0, 1, 12, 1, 1, 3, 'localdisk', 'localdisk', 'localdisk'),
-(102, 0, 0, 0, 0, 0, 0, '', 0, 1, 0, 0, 0, 1, 1, 1, 1, 'localdisk', 'localdisk', 'localdisk'),
+(101, 1, 1, 0, 1, 0, 1, NULL, 0, 1, 0, 0, 1, 12, 1, 1, 3, 'localdisk', 'localdisk', 'localdisk'),
+(102, 0, 0, 0, 0, 1, 0, '', 0, 1, 0, 0, 0, 1, 1, 1, 1, 'localdisk', 'localdisk', 'localdisk'),
 (103, 0, 0, 0, 0, 0, 0, '', 0, 0, 0, 0, 0, 1, 1, 1, 1, 'localdisk', 'localdisk', 'localdisk');
 
 INSERT INTO `lara_ent_entity_custom_columns` (`entity_id`, `fieldtitle`, `fieldname`, `fieldtype`, `fieldhook`, `fielddata`, `primary`, `required`, `fieldstate`, `condition_field`, `condition_operator`, `condition_value`, `position`) VALUES
@@ -695,7 +695,9 @@ CREATE TABLE `lara_object_sync` (
 -- Tag 11 is a root with depth NULL (→ the column default); tag 12 has a publish_from date (reported).
 -- Taggable 3 points to a book that does not exist (skipped). Pageable 1 links CTA 99 to page 19.
 -- SEO: book 1 has SEO (keywords → JSON list) and opengraph; page 1125 only an og title (reported).
--- Layout: page 19 with a value the theme does not offer (reported). One related row (reported).
+-- Layout: page 19 with a value the theme does not offer (reported).
+-- Related: book 1 → event 1, page 19, menu item 2 (a module page) and a duplicate of page 19; page 19 → page 1125.
+-- Reported: book 1 → menu root 5 and → event 999 (missing), book 999 (missing source); skipped: the leftover → page 19.
 
 INSERT INTO `lara_object_taxonomies` (`id`, `title`, `slug`, `has_hierarchy`, `is_default`, `position`) VALUES
 (1, 'Category', 'category', 1, 1, 1), (2, 'Tag', 'tag', 0, 0, 2);
@@ -735,7 +737,15 @@ INSERT INTO `lara_object_layout` (`id`, `entity_type`, `entity_id`, `layout_key`
 (3, 'Lara\\Common\\Models\\Page', 19, 'content', 'no_such_layout');
 
 INSERT INTO `lara_object_related` (`id`, `entity_key`, `object_id`, `related_entity_key`, `related_model_class`, `related_object_id`) VALUES
-(1, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 1);
+(1, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 1),
+(2, 'page', 19, 'page', 'Lara\\Common\\Models\\Page', 1125),
+(3, 'v8fxbook', 1, 'page', 'Lara\\Common\\Models\\Page', 19),
+(4, 'v8fxbook', 1, 'menuitem', 'Lara\\Common\\Models\\Menuitem', 2),
+(5, 'v8fxbook', 1, 'menuitem', 'Lara\\Common\\Models\\Menuitem', 5),
+(6, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 999),
+(7, 'v8fxbook', 999, 'page', 'Lara\\Common\\Models\\Page', 19),
+(8, 'v8fxleftover', 1, 'page', 'Lara\\Common\\Models\\Page', 19),
+(9, 'v8fxbook', 1, 'page', 'Lara\\Common\\Models\\Page', 19);
 
 CREATE TABLE `lara_menu_menus` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,

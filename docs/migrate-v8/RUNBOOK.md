@@ -174,7 +174,8 @@ Run it after `import-content` (links to records that do not exist in v10 are ski
 - **Tag trees without the v8 root**: v8 keeps every tag tree (per resource, language and taxonomy) under a root tag titled `root` (`[EN] root` in another language; slugs `root-N`, `en-root-N`). v10 has no root: the admin creates tags at the top level. The import drops the roots, moves their children up one level and rebuilds `lft`/`rgt`/`depth` in v8 order, as for the menus. A root that taggables or menu items point to is kept as a top-level tag and reported. A theme partial that hid the root by depth (`$node->depth > 0`) must show depth 0 now. `lara:v8:verify` checks that no root is left and that every tree is a valid nested set (`--only=tags`).
 - **SEO**: v8 `lara_object_seo` and `lara_object_opengraph` become one filarank row per record (`model_type`/`model_id`): title (without a trailing site name such as "| Anpak": v10 appends " — {site name}" itself; user decision), description (max. 500), focus keyword, keywords as a JSON list, `locale` from the record's language, `og_image`. v10 has no og title or description (it uses the SEO ones); those are reported. Empty v8 rows are not imported.
 - **Layout**: v8 keeps one row per setting (`layout_key`/`layout_value`); v10 one row per record with a column per section (header, hero, pagetitle, content, share, cta, footer). Values the active theme's `_layout.xml` does not offer are imported and reported; check them when the client theme is built.
-- **Related objects and remote sync** are stored very differently in v10 and are reported, not converted (anpak has none). Implement the conversion when a site uses them; the inventory shows the counts.
+- **Related objects** (first used by seerden): v8 keeps one row per link (`entity_key`/`object_id` → `related_entity_key`/`related_object_id`), v10 one `lara_object_related` row per record with three JSON lists, as the admin's related section writes them: `related_page_objects` (`page_object_id`), `related_entity_objects` (`object_id`, `resource_slug`) and `related_entities` (`module_page_menu_id`: the v8 `menuitem` targets, i.e. module pages). Ids are kept. A link whose source or target does not exist in v10, or that points to a v8 menu root, is reported; a duplicate link is written once; every row has all three lists (the front loops over them). v10 writes a row with three empty lists whenever a record is saved in the admin: such a row is kept and not reported. The front only shows them for content types with `objrel_has_related` (mapped from v8 `has_related`).
+- **Remote sync** settings are stored very differently in v10 and are reported, not converted (no site so far). Implement the conversion when a site uses them; the inventory shows the counts.
 
 ### 10. Menus and redirects
 
@@ -262,7 +263,7 @@ All of this is site code (theme, Vite config, `.env`, `config/google-fonts.php`)
 ```bash
 php artisan lara:v8:verify            # problems only
 php artisan lara:v8:verify -v         # every check
-php artisan lara:v8:verify --only=counts --only=media
+php artisan lara:v8:verify --only=counts --only=media   # counts, sync, media, links, tags, related
 ```
 
 Changes nothing. Exits with an error code when a check finds an error.
@@ -271,6 +272,8 @@ Changes nothing. Exits with an error code when a check finds an error.
 - **sync:** every import step in dry-run mode. Anything it would still create, update or remove is a warning: v10 was changed after the import (e.g. the site overrides), or v8 changed since.
 - **media:** every Curator file, image link (media item and record exist), and file / video-file entry exists on its disk. Missing is an error.
 - **links:** v8 media URLs left in the HTML, and internal links that do not reach a page (the `rewrite-urls` check, dry run).
+- **tags:** no v8 root tag left, and every tag tree is a valid nested set.
+- **related:** every related object points to a page, record or menu item that exists in v10 (menu items are imported after the objects, so module page targets are first checked here; missing is an error), and a content type with related objects has `objrel_has_related` on (otherwise the front does not show them; a warning).
 
 Run it after the import and again after the final sync. Every warning should be one you can explain (a site override, a content issue to fix in v10).
 
