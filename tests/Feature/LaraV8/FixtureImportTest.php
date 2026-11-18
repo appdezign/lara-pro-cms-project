@@ -1121,4 +1121,24 @@ class FixtureImportTest extends TestCase
         $this->assertContains("v8-migration.skip_entities: 'nosuchtype' is not a v8 content type.", $findings);
         $this->assertEmpty(array_filter($findings, fn (string $f): bool => str_contains($f, 'V8fxleftover') && str_contains($f, 'not the model')));
     }
+
+    public function test_a_site_custom_field_on_a_core_type_used_by_live_records_is_added(): void
+    {
+        $pages = Entity::where('resource_slug', 'pages')->firstOrFail();
+        $subtitle = $pages->customfields()->where('field_name', 'subtitle')->first();
+
+        $this->assertNotNull($subtitle, 'page.subtitle is used by live page 19.');
+        $this->assertSame(['string', 'after-slug'], [$subtitle->field_type, $subtitle->field_hook]);
+        $this->assertContains('subtitle', Schema::getColumnListing('lara_content_pages'));
+        $this->assertSame('Welkom bij de boeken', DB::table('lara_content_pages')->where('id', 19)->value('subtitle'), 'The content import fills it.');
+
+        $this->assertNull($pages->customfields()->where('field_name', 'oldnote')->first());
+        $this->assertNotContains('oldnote', Schema::getColumnListing('lara_content_pages'));
+
+        $info = collect(self::$report)->where('level', 'info')->pluck('message');
+        $this->assertTrue($info->contains(fn (string $m): bool => str_contains($m, "v8 custom field 'subtitle' of core entity 'pages' is used by 1 live record(s): added as a custom field.")));
+        $this->assertTrue($info->contains(fn (string $m): bool => str_contains($m, "v8 custom field 'oldnote' of core entity 'pages' is not used by live records; not added")));
+        $this->assertFalse(collect(self::$rerun)->contains(fn (array $l): bool => $l['entity'] === 'page' && str_contains($l['message'], "'subtitle'")), 'A rerun leaves the built field alone.');
+        $this->assertFalse(collect(self::$rerun)->contains(fn (array $l): bool => $l['entity'] === 'page' && in_array($l['level'], ['create', 'update', 'differs', 'error'], true)), "v10's own page fields are never touched.");
+    }
 }

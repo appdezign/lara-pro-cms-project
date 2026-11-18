@@ -2,9 +2,11 @@
 
 namespace Tests\Feature\LaraV8;
 
+use App\Console\Commands\LaraV8\Support\CoreCustomFields;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\V8Map;
 use App\Console\Commands\LaraV8\Support\V8Source;
+use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityCustomField;
 use Tests\TestCase;
@@ -63,9 +65,18 @@ class ImportEntitiesDryRunTest extends TestCase
                 continue;
             }
 
-            // a core content type keeps its v10 configuration; at most option values are added
+            // a core content type keeps its v10 configuration; at most option values are added, and
+            // the site's own v8 custom fields that v10 lacks (CoreCustomFields)
+            $siteFields = collect((new CoreCustomFields($this->source))->candidates())
+                ->where('entity_key', $entity->entity_key)
+                ->map(fn (array $candidate): string => "Field '{$candidate['v8_field']->fieldname}' ")
+                ->all();
+
             foreach ($report->where('entity', $entity->entity_key) as $line) {
-                $this->assertStringStartsWith('Option field ', $line['message'], "Core content type {$entity->entity_key} must keep its v10 configuration.");
+                $this->assertTrue(
+                    Str::startsWith($line['message'], ['Option field ', 'v8 custom field ', ...$siteFields]),
+                    "Core content type {$entity->entity_key} must keep its v10 configuration: {$line['message']}",
+                );
             }
         }
     }

@@ -395,6 +395,8 @@ CREATE TABLE `lara_content_pages` (
   `slug` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
   `lead` text COLLATE utf8_unicode_ci,
+  `subtitle` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `oldnote` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `body` text COLLATE utf8_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -454,6 +456,12 @@ CREATE TABLE `lara_blocks_ctas` (
 INSERT INTO `lara_ent_entities` (`id`, `group_id`, `title`, `entity_model_class`, `entity_key`, `entity_controller`, `resource_routes`, `has_front_auth`, `menu_parent`, `menu_position`) VALUES
 (1, 1, 'Pages', 'Lara\\Common\\Models\\Page', 'page', 'PagesController', 1, 0, 'root', 103),
 (31, 2, 'Call-to-action', 'Lara\\Common\\Models\\Cta', 'cta', 'CtasController', 1, 0, 'blocks', 330);
+
+-- The site's own custom fields on the core page type (CoreCustomFields): subtitle is used by live page 19
+-- (added to the v10 page entity), oldnote by no record (reported, not added).
+INSERT INTO `lara_ent_entity_custom_columns` (`entity_id`, `fieldtitle`, `fieldname`, `fieldtype`, `fieldhook`, `fielddata`, `primary`, `required`, `fieldstate`, `condition_field`, `condition_operator`, `condition_value`, `position`) VALUES
+(1, 'subtitle', 'subtitle', 'string', 'between', NULL, 0, 0, 'enabled', NULL, NULL, NULL, 40),
+(1, 'Old note', 'oldnote', 'string', 'after', NULL, 0, 0, 'enabled', NULL, NULL, NULL, 41);
 
 
 CREATE TABLE `lara_content_v8fxbooks` (
@@ -562,6 +570,8 @@ INSERT INTO `lara_content_pages` (`id`, `user_id`, `language_parent`, `language`
 (19, 2, NULL, 'nl', 'Home', 'standard', 1, '/', 'home', 0, NULL, '<p>Welkom</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', 1),
 (1125, 2, NULL, 'nl', 'Arbeidshygiëne', 'standard', 0, NULL, 'arbeidshygiene', 0, '<p>Intro</p>', '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', NULL),
 (2001, 2, NULL, 'nl', 'Onze boeken', 'standard', 0, NULL, 'v8fxbook-index-module-nl', 0, NULL, '<p>Intro van de boekenlijst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'module', NULL);
+
+UPDATE `lara_content_pages` SET `subtitle` = 'Welkom bij de boeken' WHERE `id` = 19;
 
 INSERT INTO `lara_blocks_ctas` (`id`, `user_id`, `language`, `title`, `overlaytransp`, `overlaycolor`, `type`, `hook`, `linkurl`, `linktext`, `slug`, `body`, `created_at`, `updated_at`, `deleted_at`, `publish`) VALUES
 (99, 2, 'nl', 'Neem contact op', '80', 'primary', 'parallax', 'homeparallax1', '/contact', 'Contact', 'neem-contact-op', '<p>Bel ons</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', NULL, 1),

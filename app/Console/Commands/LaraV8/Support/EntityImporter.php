@@ -68,6 +68,7 @@ class EntityImporter
         }
 
         $this->importCoreOptions($only, $dryRun);
+        $this->importCoreFields($only, $dryRun, $update);
         $this->reportSkipped($only);
 
         return $this->report;
@@ -247,25 +248,79 @@ class EntityImporter
                 continue;
             }
 
-            $attributes = V8Map::customField($v8Field, $isForm);
+            $attributes = $this->fieldAttributes($key, $v8Field, $isForm);
 
-            foreach (['field_type' => $v8Field->fieldtype, 'field_hook' => $v8Field->fieldhook, 'rule_state' => $v8Field->fieldstate] as $attribute => $v8Value) {
-                if ($attributes[$attribute] === null) {
-                    $this->add('error', $key, "Field '{$name}': the v8 value '{$v8Value}' has no v10 {$attribute}; skipped.");
+            if ($attributes !== null) {
+                $this->importField($key, $entity, $attributes, $dryRun, $update);
+            }
+        }
+    }
 
-                    continue 2;
-                }
+    /**
+     * The v10 attributes of a v8 custom field, or null when a v8 value has no v10 counterpart
+     * (reported); changes in behaviour are reported.
+     *
+     * @return array<string, mixed>|null
+     */
+    private function fieldAttributes(string $key, object $v8Field, bool $isForm): ?array
+    {
+        $name = $v8Field->fieldname;
+        $attributes = V8Map::customField($v8Field, $isForm);
+
+        foreach (['field_type' => $v8Field->fieldtype, 'field_hook' => $v8Field->fieldhook, 'rule_state' => $v8Field->fieldstate] as $attribute => $v8Value) {
+            if ($attributes[$attribute] === null) {
+                $this->add('error', $key, "Field '{$name}': the v8 value '{$v8Value}' has no v10 {$attribute}; skipped.");
+
+                return null;
+            }
+        }
+
+        if (($change = V8Map::fieldTypeChange($v8Field->fieldtype)) !== null) {
+            $this->add('warning', $key, "Field '{$name}' ({$v8Field->fieldtype}): {$change}.");
+        }
+
+        if (V8Map::hasMultipleRuleValues($v8Field->condition_value)) {
+            $this->add('warning', $key, "Field '{$name}' is enabled for several values ('{$v8Field->condition_value}'); v10 compares one value.");
+        }
+
+        return $attributes;
+    }
+
+    /**
+     * The site's own v8 custom fields on core content types (CoreCustomFields): built like a site
+     * field when live records use them, otherwise reported.
+     *
+     * @param  list<string>  $only
+     */
+    private function importCoreFields(array $only, bool $dryRun, bool $update): void
+    {
+        foreach ((new CoreCustomFields($this->source))->candidates() as $candidate) {
+            $key = $candidate['entity_key'];
+            $v8Field = $candidate['v8_field'];
+            $slug = $candidate['entity']->resource_slug;
+
+            if ($only !== [] && ! in_array($key, $only, true)) {
+                continue;
             }
 
-            if (($change = V8Map::fieldTypeChange($v8Field->fieldtype)) !== null) {
-                $this->add('warning', $key, "Field '{$name}' ({$v8Field->fieldtype}): {$change}.");
+            if ($candidate['live'] === 0) {
+                $this->add('info', $key, "v8 custom field '{$v8Field->fieldname}' of core entity '{$slug}' is not used by live records; not added (its values are not imported).");
+
+                continue;
             }
 
-            if (V8Map::hasMultipleRuleValues($v8Field->condition_value)) {
-                $this->add('warning', $key, "Field '{$name}' is enabled for several values ('{$v8Field->condition_value}'); v10 compares one value.");
+            if (($rejection = EntityFieldName::reject($v8Field->fieldname)) !== null) {
+                $this->add('error', $key, "Field '{$v8Field->fieldname}' cannot be used in v10: {$rejection}");
+
+                continue;
             }
 
-            $this->importField($key, $entity, $attributes, $dryRun, $update);
+            $attributes = $this->fieldAttributes($key, $v8Field, false);
+
+            if ($attributes !== null) {
+                $this->add('info', $key, "v8 custom field '{$v8Field->fieldname}' of core entity '{$slug}' is used by {$candidate['live']} live record(s): added as a custom field.");
+                $this->importField($key, $candidate['entity'], $attributes, $dryRun, $update);
+            }
         }
     }
 

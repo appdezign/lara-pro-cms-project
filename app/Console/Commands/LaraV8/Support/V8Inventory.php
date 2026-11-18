@@ -50,6 +50,7 @@ class V8Inventory
         ];
 
         $this->checkCustomFields();
+        $this->coreCustomFields();
 
         $sections[] = [
             'title' => 'Findings (no v10 mapping, a change in behaviour, or inconsistent v8 data)',
@@ -578,6 +579,21 @@ class V8Inventory
             'headers' => ['What', 'Rows', 'Detail'],
             'rows' => $rows,
         ];
+    }
+
+    /**
+     * The site's own v8 custom fields on core content types (CoreCustomFields).
+     */
+    private function coreCustomFields(): void
+    {
+        foreach ((new CoreCustomFields($this->source))->candidates() as $candidate) {
+            $field = $candidate['v8_field'];
+            $name = "{$candidate['entity_key']}.{$field->fieldname} ({$field->fieldtype})";
+
+            $this->findings[] = $candidate['live'] > 0
+                ? "Core content type field {$name} is the site's own and v10 lacks it; used by {$candidate['live']} live record(s), so import-entities adds it as a custom field."
+                : "Core content type field {$name} is the site's own and v10 lacks it; no live record uses it, so it is not added and its values are not imported.";
+        }
     }
 
     /**
