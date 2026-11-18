@@ -12,6 +12,7 @@ use App\Console\Commands\LaraV8\Support\SiteOverrides;
 use App\Console\Commands\LaraV8\Support\SystemImporter;
 use App\Console\Commands\LaraV8\Support\UrlRewriter;
 use App\Console\Commands\LaraV8\Support\UserImporter;
+use App\Console\Commands\LaraV8\Support\V8Inventory;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use App\Console\Commands\LaraV8\Support\Verifier;
 use Illuminate\Support\Collection;
@@ -138,6 +139,9 @@ class FixtureImportTest extends TestCase
         self::$overridesPath ??= sys_get_temp_dir().'/lara-v8-overrides-'.uniqid().'.php';
         config(['v8-migration.overrides' => self::$overridesPath]);
         SiteOverrides::flush();
+
+        // the fixture's demo leftover is skipped, as a site does with v8-migration.skip_entities
+        config(['v8-migration.skip_entities' => ['v8fxleftover']]);
 
         if (! self::$built) {
             self::$built = true;
@@ -992,5 +996,66 @@ class FixtureImportTest extends TestCase
         $this->assertStringContainsString('Stopped after the error in', $output);
         $this->assertStringNotContainsString('▶ lara:v8:import-media', $output, 'The --fresh media step does not run after the failure.');
         $this->assertStringContainsString('▶ lara:v8:verify', $output, 'Verify still reports.');
+    }
+
+    public function test_a_skipped_content_type_is_not_built_and_reported(): void
+    {
+        $this->assertNull(Entity::where('resource_slug', 'v8fxleftovers')->first());
+        $this->assertFileDoesNotExist(base_path('laracms/app/Models/V8fxleftover.php'));
+        $this->assertFalse(Schema::hasTable('lara_content_v8fxleftovers'));
+
+        $info = collect(self::$report)->where('level', 'info');
+        $this->assertTrue($info->contains(fn (array $l): bool => $l['entity'] === 'v8fxleftover' && str_contains($l['message'], 'Skipped (v8-migration.skip_entities): not built.')));
+        $this->assertTrue($info->contains(fn (array $l): bool => $l['entity'] === 'v8fxbook' && str_contains($l['message'], 'Relation hasMany v8fxleftover: v8fxleftover is skipped')), 'A relation to a skipped type is reported, not an error.');
+        $this->assertSame([], collect(self::$rerun)->where('entity', 'v8fxleftover')->whereNotIn('level', ['info'])->all());
+    }
+
+    public function test_the_data_of_a_skipped_content_type_is_not_imported_and_reported(): void
+    {
+        $this->assertTrue(collect(self::$contentReport)->contains(fn (array $l): bool => $l['level'] === 'info' && $l['entity'] === 'v8fxleftover' && str_contains($l['message'], '1 record(s) not imported')));
+
+        $this->assertNull(DB::table('lara_object_tags')->where('id', 18)->first(), 'Tags of a skipped type are not imported.');
+        $this->assertNull(DB::table('lara_object_taggables')->where('id', 5)->first());
+        $this->assertSame(0, DB::table('lara_object_seo')->where('model_type', 'like', '%V8fxleftover')->count());
+        $objects = collect(self::$objectReport)->firstWhere(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], 'skipped content type (v8fxleftover)'));
+        $this->assertNotNull($objects);
+        $this->assertStringContainsString('1 tags', $objects['message']);
+        $this->assertStringContainsString('1 taggables', $objects['message']);
+        $this->assertStringContainsString('1 SEO', $objects['message']);
+        $this->assertFalse(collect(self::$objectReport)->contains(fn (array $l): bool => $l['level'] === 'warning' && str_contains($l['message'], 'V8fxleftover')), 'No warning for rows of a skipped type.');
+
+        $this->assertTrue(collect(self::$mediaReport)->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], "Media of 'v8fxleftover', a skipped content type")));
+        $this->assertFalse(collect(self::$mediaReport)->contains(fn (array $l): bool => str_contains($l['message'], 'V8fxleftover')), 'No "not a v8 content type" warning.');
+
+        $this->assertTrue(collect(self::$userReport)->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], 'Abilities of skipped content types (v8-migration.skip_entities) not imported: v8fxleftover.')));
+        $this->assertFalse(collect(self::$userReport)->contains(fn (array $l): bool => str_contains($l['message'], "v8 subject 'v8fxleftover'")));
+    }
+
+    public function test_verify_does_not_count_a_skipped_content_type(): void
+    {
+        $report = collect((new Verifier(new V8Source))->run(['counts']));
+
+        $this->assertFalse($report->contains(fn (array $l): bool => $l['entity'] === 'v8fxleftover'));
+        $this->assertSame([], $report->where('level', 'error')->all());
+    }
+
+    public function test_the_inventory_lists_a_skipped_content_type_and_what_it_drops(): void
+    {
+        config(['v8-migration.skip_entities' => ['v8fxleftover', 'page', 'nosuchtype']]);
+        $inventory = new V8Inventory(new V8Source);
+        $sections = collect($inventory->sections())->keyBy('title');
+
+        $skipped = $sections->first(fn (array $section): bool => str_starts_with($section['title'], 'Skipped content types'));
+        $this->assertSame([['v8fxleftover', 'Fixture Leftovers', 1, 1, 1, 1, 1, 0, 0]], $skipped['rows']);
+
+        $content = $sections['Content types']['rows'];
+        $this->assertNotContains('v8fxleftover', array_column($content, 0));
+        $this->assertContains('page', array_column($content, 0), 'A core content type is never skipped.');
+
+        $findings = $inventory->findings();
+        $this->assertContains("Content type 'v8fxleftover' is skipped: 1 record(s), 1 media row(s) and 0 menu item(s) are not imported.", $findings);
+        $this->assertContains("v8-migration.skip_entities: 'page' is a core content type, which cannot be skipped; it is imported.", $findings);
+        $this->assertContains("v8-migration.skip_entities: 'nosuchtype' is not a v8 content type.", $findings);
+        $this->assertEmpty(array_filter($findings, fn (string $f): bool => str_contains($f, 'V8fxleftover') && str_contains($f, 'not the model')));
     }
 }

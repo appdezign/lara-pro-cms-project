@@ -207,6 +207,13 @@ class UserImporter
             ->where('h.forbidden', 0)
             ->get(['h.entity_id as role_id', 'a.name', 'a.entity_key']);
 
+        $skipped = $abilities->filter(fn (object $ability): bool => $this->source->isSkipped($ability->entity_key));
+
+        if ($skipped->isNotEmpty()) {
+            $this->add('info', 'permission', 'Abilities of skipped content types (v8-migration.skip_entities) not imported: '.$skipped->pluck('entity_key')->unique()->sort()->implode(', ').'.');
+            $abilities = $abilities->reject(fn (object $ability): bool => $this->source->isSkipped($ability->entity_key))->values();
+        }
+
         $v8Subjects = $abilities->pluck('entity_key')->unique();
 
         foreach ($v8Subjects->diff($subjects)->sort() as $subject) {

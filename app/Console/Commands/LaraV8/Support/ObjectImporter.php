@@ -27,6 +27,12 @@ class ObjectImporter
     /** @var array<string, string> v8 model class => v10 model class */
     private array $classes = [];
 
+    /** @var array<string, string> v8 model class => entity key of the skipped content types */
+    private array $skippedClasses = [];
+
+    /** @var array<string, int> rows not imported because they belong to a skipped content type, per kind */
+    private array $skippedRows = [];
+
     /** @var array<string, string> v10 model class => v10 table */
     private array $tables = [];
 
@@ -46,6 +52,8 @@ class ObjectImporter
             ->filter(fn (object $entity): bool => $this->source->isContentGroup($entity->group_key))
             ->mapWithKeys(fn (object $entity): array => [$entity->entity_model_class => V8Map::modelClass($entity->entity_key)])
             ->all();
+        $this->skippedClasses = $this->source->skippedClasses();
+        $this->skippedRows = [];
 
         $this->taxonomies($dryRun, $fresh);
         $this->tags($dryRun, $fresh);
@@ -54,6 +62,7 @@ class ObjectImporter
         $this->seo($dryRun, $fresh);
         $this->layout($dryRun, $fresh);
         $this->notConverted();
+        $this->reportSkipped();
 
         return $this->report;
     }
@@ -74,7 +83,9 @@ class ObjectImporter
     private function tags(bool $dryRun, bool $fresh): void
     {
         $db = $this->source->connection();
-        $v8Tags = $db->table('lara_object_tags')->orderBy('id')->get();
+        $v8Tags = $db->table('lara_object_tags')->orderBy('id')->get()
+            ->reject(fn (object $tag): bool => $this->source->isSkipped($tag->entity_key) && $this->countSkipped('tags'))
+            ->values();
         $published = $v8Tags->filter(fn (object $tag): bool => ! V8Source::isEmpty($tag->publish_from) || ! V8Source::isEmpty($tag->publish_to))->count();
 
         if ($published > 0) {
@@ -200,6 +211,10 @@ class ObjectImporter
         $rows = collect();
 
         foreach ($this->source->connection()->table($table)->orderBy('id')->get() as $row) {
+            if ($this->isSkippedClass($row->entity_type, $label)) {
+                continue;
+            }
+
             $class = $this->v10Class($row->entity_type);
 
             if ($class === null || ! $this->recordExists($class, (int) $row->entity_id)) {
@@ -241,6 +256,11 @@ class ObjectImporter
             $s = $seo[$key] ?? null;
             $o = $og[$key] ?? null;
             [$v8Class, $id] = explode('#', $key);
+
+            if ($this->isSkippedClass($v8Class, 'SEO')) {
+                continue;
+            }
+
             $class = $this->v10Class($v8Class);
 
             $title = V8Map::seoTitle($this->text($s->seo_title ?? null), (string) config('filarank.site.name'));
@@ -311,6 +331,11 @@ class ObjectImporter
 
         foreach ($this->source->connection()->table('lara_object_layout')->orderBy('id')->get()->groupBy(fn (object $row): string => $row->entity_type.'#'.$row->entity_id) as $key => $settings) {
             [$v8Class, $id] = explode('#', $key);
+
+            if ($this->isSkippedClass($v8Class, 'layout')) {
+                continue;
+            }
+
             $class = $this->v10Class($v8Class);
 
             if ($class === null || ! $this->recordExists($class, (int) $id)) {
@@ -354,6 +379,36 @@ class ObjectImporter
                 $this->add('warning', 'objects', "{$count} v8 {$what} ({$table}) are not imported: the v10 format differs and is not converted yet.");
             }
         }
+    }
+
+    /**
+     * Whether a v8 row belongs to a skipped content type (v8-migration.skip_entities); counted per kind.
+     */
+    private function isSkippedClass(string $v8Class, string $kind): bool
+    {
+        return isset($this->skippedClasses[$v8Class]) && $this->countSkipped($kind);
+    }
+
+    /**
+     * Counts one row of a skipped content type; always true, so it can be used in a filter.
+     */
+    private function countSkipped(string $kind): bool
+    {
+        $this->skippedRows[$kind] = ($this->skippedRows[$kind] ?? 0) + 1;
+
+        return true;
+    }
+
+    private function reportSkipped(): void
+    {
+        if ($this->skippedRows === []) {
+            return;
+        }
+
+        $what = collect($this->skippedRows)->map(fn (int $n, string $kind): string => "{$n} {$kind}")->implode(', ');
+        $keys = implode(', ', $this->source->skippedKeys());
+
+        $this->add('info', 'objects', "Not imported, because they belong to a skipped content type ({$keys}): {$what}.");
     }
 
     private function v10Class(string $v8Class): ?string

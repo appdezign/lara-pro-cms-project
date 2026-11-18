@@ -38,11 +38,24 @@ class V8Source
     }
 
     /**
-     * Every v8 entity with its group key, ordered by id.
+     * Every v8 entity with its group key, ordered by id, without the skipped content types
+     * (see skippedKeys()): for the imports they do not exist.
      *
      * @return Collection<int, object>
      */
     public function entities(): Collection
+    {
+        return $this->allEntities()
+            ->reject(fn (object $entity): bool => $this->isSkipped($entity->entity_key))
+            ->values();
+    }
+
+    /**
+     * Every v8 entity with its group key, ordered by id, including the skipped ones.
+     *
+     * @return Collection<int, object>
+     */
+    public function allEntities(): Collection
     {
         return $this->connection()
             ->table('lara_ent_entities as e')
@@ -52,7 +65,50 @@ class V8Source
     }
 
     /**
-     * The v8 entities that are content types (pages, blocks, forms and entities).
+     * The v8 content types the site leaves out of the migration (v8-migration.skip_entities,
+     * e.g. demo leftovers): not built, their records, media, tags and other objects not imported.
+     * Core content types (page, larawidget, cta, slider) cannot be skipped.
+     *
+     * @return list<string>
+     */
+    public function skippedKeys(): array
+    {
+        return array_values(array_filter(
+            (array) config('v8-migration.skip_entities', []),
+            fn (mixed $key): bool => is_string($key) && $key !== '' && ! V8Map::isCoreEntity($key),
+        ));
+    }
+
+    public function isSkipped(?string $entityKey): bool
+    {
+        return $entityKey !== null && in_array($entityKey, $this->skippedKeys(), true);
+    }
+
+    /**
+     * The skipped v8 entities that exist in the v8 database.
+     *
+     * @return Collection<int, object>
+     */
+    public function skippedEntities(): Collection
+    {
+        return $this->skippedKeys() === []
+            ? collect()
+            : $this->allEntities()->filter(fn (object $entity): bool => $this->isSkipped($entity->entity_key))->values();
+    }
+
+    /**
+     * The skipped content types by their v8 model class, e.g. ['Eve\\Models\\City' => 'city'].
+     *
+     * @return array<string, string>
+     */
+    public function skippedClasses(): array
+    {
+        return $this->skippedEntities()->pluck('entity_key', 'entity_model_class')->all();
+    }
+
+    /**
+     * The v8 entities that are content types (pages, blocks, forms and entities),
+     * without the skipped ones.
      *
      * @return Collection<int, object>
      */

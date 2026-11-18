@@ -68,8 +68,34 @@ class EntityImporter
         }
 
         $this->importCoreOptions($only, $dryRun);
+        $this->reportSkipped($only);
 
         return $this->report;
+    }
+
+    /**
+     * Skipped content types (v8-migration.skip_entities) are not built; one that v10 already
+     * has (built before it was skipped) is left alone and reported.
+     *
+     * @param  list<string>  $only
+     */
+    private function reportSkipped(array $only): void
+    {
+        foreach ($this->source->skippedEntities() as $v8) {
+            $key = $v8->entity_key;
+
+            if ($only !== [] && ! in_array($key, $only, true)) {
+                continue;
+            }
+
+            if (Entity::where('resource_slug', V8Map::resourceSlug($key))->exists()) {
+                $this->add('warning', $key, 'Skipped (v8-migration.skip_entities), but v10 has the entity '.V8Map::resourceSlug($key).'; remove it in the admin if it is not wanted.');
+
+                continue;
+            }
+
+            $this->add('info', $key, 'Skipped (v8-migration.skip_entities): not built.');
+        }
     }
 
     /**
@@ -336,10 +362,17 @@ class EntityImporter
     {
         $key = $v8->entity_key;
         $entity = Entity::where('resource_slug', V8Map::resourceSlug($key))->first();
-        $v8Keys = $this->source->entities()->pluck('entity_key', 'id');
+        $v8Keys = $this->source->allEntities()->pluck('entity_key', 'id');
 
         foreach ($this->source->connection()->table('lara_ent_entity_relations')->where('entity_id', $v8->id)->get() as $v8Relation) {
             $relatedKey = $v8Keys[$v8Relation->related_entity_id] ?? null;
+
+            if ($this->source->isSkipped($relatedKey)) {
+                $this->add('info', $key, "Relation {$v8Relation->type} {$relatedKey}: {$relatedKey} is skipped (v8-migration.skip_entities); not built.");
+
+                continue;
+            }
+
             $related = $relatedKey ? Entity::where('resource_slug', V8Map::resourceSlug($relatedKey))->first() : null;
             $label = "Relation {$v8Relation->type} {$relatedKey}";
 

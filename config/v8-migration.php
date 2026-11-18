@@ -31,6 +31,13 @@ return [
      */
     'overrides' => env('LARA_V8_OVERRIDES', base_path('v8-overrides.php')),
 
+    /*
+     * v8 content types the site leaves out (comma separated entity keys in LARA_V8_SKIP_ENTITIES,
+     * e.g. "city,product"), such as demo leftovers: not built, their data not imported, and
+     * what is dropped is reported. Core content types cannot be skipped.
+     */
+    'skip_entities' => array_values(array_filter(array_map('trim', explode(',', (string) env('LARA_V8_SKIP_ENTITIES', ''))))),
+
     'site_hosts' => array_values(array_filter(array_map('trim', explode(',', (string) env('LARA_V8_SITE_HOSTS', ''))))),
 
 ];

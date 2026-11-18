@@ -194,7 +194,8 @@ INSERT INTO `lara_ent_entities` (`id`, `group_id`, `title`, `entity_model_class`
 (101, 9, 'Fixture Books', 'Eve\\Models\\V8fxbook', 'v8fxbook', 'V8fxbooksController', 1, 0, 'modules', 901),
 (102, 9, 'Fixture Events', 'Eve\\Models\\V8fxevent', 'v8fxevent', 'V8fxeventsController', 1, 0, 'modules', 902),
 (103, 8, 'Fixture Form', 'Eve\\Models\\V8fxform', 'v8fxform', 'V8fxformsController', 1, 0, 'forms', 903),
-(104, 3, 'Fixture Menu', 'Lara\\Common\\Models\\Menu', 'v8fxmenu', 'MenusController', 1, 0, 'menu', 904);
+(104, 3, 'Fixture Menu', 'Lara\\Common\\Models\\Menu', 'v8fxmenu', 'MenusController', 1, 0, 'menu', 904),
+(105, 9, 'Fixture Leftovers', 'Eve\\Models\\V8fxleftover', 'v8fxleftover', 'V8fxleftoversController', 1, 0, 'modules', NULL);
 
 INSERT INTO `lara_ent_entity_columns` (`entity_id`, `has_user`, `has_lang`, `has_slug`, `has_lead`, `has_body`, `has_status`, `has_hideinlist`, `has_expiration`, `has_app`, `has_groups`, `group_values`, `group_default`, `is_sortable`, `sort_field`, `sort_order`, `sort2_field`, `sort2_order`, `has_fields`) VALUES
 (101, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, NULL, NULL, 0, 'created_at', 'desc', 'NULL', NULL, 1),
@@ -231,7 +232,8 @@ INSERT INTO `lara_ent_entity_custom_columns` (`entity_id`, `fieldtitle`, `fieldn
 
 INSERT INTO `lara_ent_entity_relations` (`entity_id`, `type`, `related_entity_id`, `foreign_key`, `is_filter`) VALUES
 (101, 'hasMany', 102, 'v8fxbook_id', 0),
-(102, 'belongsTo', 101, 'v8fxbook_id', 1);
+(102, 'belongsTo', 101, 'v8fxbook_id', 1),
+(101, 'hasMany', 105, 'v8fxbook_id', 0);
 
 INSERT INTO `lara_ent_entity_views` (`entity_id`, `title`, `method`, `filename`, `type`, `showtags`, `paginate`, `infinite`, `prevnext`, `publish`) VALUES
 (101, 'Index', 'index', 'index', 'grid3', '_sortbytaxonomy', 12, 0, 0, 1),
@@ -364,11 +366,13 @@ INSERT INTO `lara_auth_roles` (`id`, `name`, `title`, `level`, `has_backend_acce
 
 INSERT INTO `lara_auth_abilities` (`id`, `name`, `title`, `entity_key`) VALUES
 (1, 'view', 'View', 'v8fxbook'), (2, 'create', 'Create', 'v8fxbook'), (3, 'update', 'Update', 'v8fxbook'), (4, 'delete', 'Delete', 'v8fxbook'),
-(5, 'view', 'View', 'page'), (6, 'view', 'View', 'headertag'), (7, 'view', 'View', 'setting'), (8, 'update', 'Update', 'setting');
+(5, 'view', 'View', 'page'), (6, 'view', 'View', 'headertag'), (7, 'view', 'View', 'setting'), (8, 'update', 'Update', 'setting'),
+(9, 'view', 'View', 'v8fxleftover');
 
 INSERT INTO `lara_auth_has_abilities` (`ability_id`, `entity_type`, `entity_id`, `forbidden`) VALUES
 (1, 'lara_auth_roles', 1, 0), (2, 'lara_auth_roles', 1, 0), (3, 'lara_auth_roles', 1, 0), (4, 'lara_auth_roles', 1, 0),
 (5, 'lara_auth_roles', 1, 0), (6, 'lara_auth_roles', 1, 0), (7, 'lara_auth_roles', 1, 0), (8, 'lara_auth_roles', 1, 0),
+(9, 'lara_auth_roles', 1, 0),
 (1, 'lara_auth_roles', 2, 0), (3, 'lara_auth_roles', 2, 0), (5, 'lara_auth_roles', 2, 0),
 (1, 'lara_auth_roles', 5, 0);
 
@@ -521,6 +525,24 @@ CREATE TABLE `lara_form_v8fxforms` (
   `ipaddress` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- A skipped content type (v8-migration.skip_entities = v8fxleftover in the test): a demo leftover
+-- with one record, an image, a tag, a taggable, an SEO row, an ability and a relation from v8fxbook.
+CREATE TABLE `lara_content_v8fxleftovers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `language` varchar(255) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `slug` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `publish` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+INSERT INTO `lara_content_v8fxleftovers` (`id`, `user_id`, `language`, `title`, `slug`, `created_at`, `updated_at`, `publish`) VALUES
+(1, 2, 'nl', 'Lorem ipsum', 'lorem-ipsum', '2020-06-17 14:36:57', '2020-06-17 14:37:45', 1);
 
 -- Book 1: geolocation parts, an empty select value, a NULL position, a record lock.
 -- Book 2: an English translation of book 1 by a user that no longer exists, in the trash; its body has v8 media URLs and links (lara:v8:rewrite-urls).
@@ -685,20 +707,23 @@ INSERT INTO `lara_object_tags` (`id`, `language`, `taxonomy_id`, `entity_key`, `
 (14, 'en', 1, 'v8fxbook', '[EN] root', 'en-root-v8fxbook', 1, NULL, NULL, 1, 6, 0),
 (15, 'en', 1, 'v8fxbook', 'History', 'history', 1, NULL, 14, 2, 5, 1),
 (16, 'en', 1, 'v8fxbook', 'Ancient', 'ancient', 1, NULL, 15, 3, 4, 2),
-(17, 'nl', 2, 'v8fxbook', 'root', 'root-v8fxbook-tag', 1, NULL, NULL, 1, 2, 0);
+(17, 'nl', 2, 'v8fxbook', 'root', 'root-v8fxbook-tag', 1, NULL, NULL, 1, 2, 0),
+(18, 'nl', 1, 'v8fxleftover', 'Oud', 'oud', 1, NULL, NULL, 1, 2, 0);
 
 INSERT INTO `lara_object_taggables` (`id`, `tag_id`, `entity_type`, `entity_id`) VALUES
 (1, 12, 'Eve\\Models\\V8fxbook', 1),
 (2, 12, 'Eve\\Models\\V8fxbook', 2),
 (3, 12, 'Eve\\Models\\V8fxbook', 999),
-(4, 17, 'Eve\\Models\\V8fxbook', 1);
+(4, 17, 'Eve\\Models\\V8fxbook', 1),
+(5, 18, 'Eve\\Models\\V8fxleftover', 1);
 
 INSERT INTO `lara_object_pageables` (`id`, `page_id`, `entity_type`, `entity_id`) VALUES
 (1, 19, 'Lara\\Common\\Models\\Cta', 99);
 
 INSERT INTO `lara_object_seo` (`id`, `entity_type`, `entity_id`, `seo_focus`, `seo_title`, `seo_description`, `seo_keywords`, `created_at`, `updated_at`) VALUES
 (1, 'Eve\\Models\\V8fxbook', 1, 'boek', 'Boek één | Fixture', 'Over het boek', 'boeken, lezen , ,romans', '2024-01-01 10:00:00', '2024-01-01 10:00:00'),
-(2, 'Eve\\Models\\V8fxbook', 2, '', '', '', '', NULL, NULL);
+(2, 'Eve\\Models\\V8fxbook', 2, '', '', '', '', NULL, NULL),
+(3, 'Eve\\Models\\V8fxleftover', 1, 'oud', 'Lorem ipsum', 'Oud', '', NULL, NULL);
 
 INSERT INTO `lara_object_opengraph` (`id`, `entity_type`, `entity_id`, `og_title`, `og_description`, `og_image`) VALUES
 (1, 'Eve\\Models\\V8fxbook', 1, '', '', 'og-boek.jpg'),
@@ -965,7 +990,8 @@ INSERT INTO `lara_object_images` (`id`, `entity_type`, `entity_id`, `title`, `fi
 (1, 'Eve\\Models\\V8fxbook', 1, 'cover.jpg', 'cover.jpg', 'image/jpeg', 1, 0, 0, 0, 1, 'Het omslag', 'Omslag', 'Omslag van boek één', 0, 20),
 (2, 'Eve\\Models\\V8fxbook', 1, 'inside.png', 'inside.png', 'image/png', 0, 0, 0, 0, 0, NULL, NULL, NULL, 0, 10),
 (3, 'Eve\\Models\\V8fxbook', 1, 'gone.jpg', 'gone.jpg', 'image/jpeg', 0, 0, 0, 0, 0, NULL, NULL, NULL, 0, 30),
-(4, 'Eve\\Models\\V8fxbook', 999, 'cover.jpg', 'cover.jpg', 'image/jpeg', 1, 0, 0, 0, 1, NULL, NULL, NULL, 0, 40);
+(4, 'Eve\\Models\\V8fxbook', 999, 'cover.jpg', 'cover.jpg', 'image/jpeg', 1, 0, 0, 0, 1, NULL, NULL, NULL, 0, 40),
+(5, 'Eve\\Models\\V8fxleftover', 1, 'old.jpg', 'old.jpg', 'image/jpeg', 1, 0, 0, 0, 0, NULL, NULL, NULL, 0, 10);
 
 INSERT INTO `lara_object_files` (`id`, `entity_type`, `entity_id`, `title`, `filename`, `mimetype`, `docdate`, `created_at`) VALUES
 (1, 'Eve\\Models\\V8fxbook', 1, 'Leesproef', 'sample.pdf', 'application/pdf', '2024-05-01 09:30:00', '2024-05-01 09:30:00');

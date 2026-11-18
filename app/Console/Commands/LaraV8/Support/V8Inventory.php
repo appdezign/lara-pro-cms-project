@@ -36,6 +36,7 @@ class V8Inventory
 
         $sections = [
             $this->contentTypes(),
+            $this->skipped(),
             $this->systemEntities(),
             $this->fieldTypes(),
             $this->fieldHooksAndStates(),
@@ -310,7 +311,7 @@ class V8Inventory
     private function media(): array
     {
         $tables = ['images' => 'lara_object_images', 'files' => 'lara_object_files', 'videos' => 'lara_object_videos', 'videofiles' => 'lara_object_videofiles'];
-        $entitiesByModel = $this->source->entities()->keyBy('entity_model_class');
+        $entitiesByModel = $this->source->allEntities()->keyBy('entity_model_class');
 
         $counts = [];
 
@@ -380,7 +381,7 @@ class V8Inventory
             foreach ($this->source->connection()->table($table)->get(['entity_type', 'filename']) as $media) {
                 $folder = $entitiesByModel[$media->entity_type]->entity_key ?? null;
 
-                if ($folder === null || V8Source::isEmpty($media->filename)) {
+                if ($folder === null || V8Source::isEmpty($media->filename) || $this->source->isSkipped($folder)) {
                     continue;
                 }
 
@@ -447,6 +448,62 @@ class V8Inventory
             scandir($path) ?: [],
             fn (string $name): bool => ! str_starts_with($name, '.') && is_dir("{$path}/{$name}"),
         ));
+    }
+
+    /**
+     * The content types left out of the migration (v8-migration.skip_entities) and what is
+     * dropped with them. A configured key that is not a v8 site content type is a finding.
+     */
+    private function skipped(): array
+    {
+        $section = [
+            'title' => 'Skipped content types (v8-migration.skip_entities; not built, data not imported)',
+            'headers' => ['Key', 'Title', 'Records', 'Media rows', 'Tags', 'Taggables', 'SEO rows', 'Related rows', 'Menu items'],
+            'rows' => [],
+        ];
+
+        $db = $this->source->connection();
+        $configured = (array) config('v8-migration.skip_entities', []);
+        $known = $this->source->skippedEntities()->pluck('entity_key')->all();
+
+        foreach (array_diff($configured, $known) as $key) {
+            $this->findings[] = V8Map::isCoreEntity((string) $key)
+                ? "v8-migration.skip_entities: '{$key}' is a core content type, which cannot be skipped; it is imported."
+                : "v8-migration.skip_entities: '{$key}' is not a v8 content type.";
+        }
+
+        foreach ($this->source->skippedEntities() as $entity) {
+            $key = $entity->entity_key;
+            $class = $entity->entity_model_class;
+            $table = $this->source->contentTable($key, $entity->group_key);
+            $records = $table !== null && $this->source->hasTable($table) ? $db->table($table)->count() : 0;
+            $byClass = fn (string $objectTable): int => $db->table($objectTable)->where('entity_type', $class)->count();
+            $media = $byClass('lara_object_images') + $byClass('lara_object_files') + $byClass('lara_object_videos') + $byClass('lara_object_videofiles');
+            $related = $db->table('lara_object_related')->where('entity_key', $key)->orWhere('related_entity_key', $key)->count();
+            $menuItems = $db->table('lara_menu_menu_items')->where('entity_id', $entity->id)->count();
+
+            if ($records > 0 || $media > 0 || $menuItems > 0) {
+                $this->findings[] = "Content type '{$key}' is skipped: {$records} record(s), {$media} media row(s) and {$menuItems} menu item(s) are not imported.";
+            }
+
+            $section['rows'][] = [
+                $key,
+                $entity->title,
+                $records,
+                $media,
+                $db->table('lara_object_tags')->where('entity_key', $key)->count(),
+                $byClass('lara_object_taggables'),
+                $byClass('lara_object_seo'),
+                $related,
+                $menuItems,
+            ];
+        }
+
+        if ($section['rows'] === []) {
+            $section['rows'][] = ['none', '', '', '', '', '', '', '', ''];
+        }
+
+        return $section;
     }
 
     /**
@@ -578,7 +635,9 @@ class V8Inventory
             ->leftJoin('lara_ent_entity_groups as g', 'g.id', '=', 'e.group_id')
             ->orderBy('e.entity_key')
             ->orderBy('c.position')
-            ->get(['c.*', 'e.entity_key', 'g.key as group_key']);
+            ->get(['c.*', 'e.entity_key', 'g.key as group_key'])
+            ->reject(fn (object $field): bool => $this->source->isSkipped($field->entity_key))
+            ->values();
     }
 
     /**

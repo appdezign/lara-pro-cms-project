@@ -65,6 +65,7 @@ LARA_V8_DB_DATABASE=v8_{site}
 LARA_V8_DB_USERNAME=lara_v8_ro
 LARA_V8_DB_PASSWORD={password}
 LARA_V8_MEDIA_PATH=/absolute/path/to/v8/public/assets/media
+LARA_V8_SKIP_ENTITIES=          # optional, see step 3
 ```
 
 Check: `php artisan test --compact tests/Feature/LaraV8` (the connection reads, cannot write, and the media path exists).
@@ -77,6 +78,14 @@ php artisan lara:v8:inventory --markdown   # save as docs/migrate-v8/sites/{site
 ```
 
 It lists the content types (rows per language, trashed, fields, relations), the system screens, custom field types, hooks and states, relations, object relations and media settings, front views, media rows, media files on disk and other data. It ends with the **findings**: v8 values without a v10 mapping, mappings that change behaviour, and inconsistent v8 data. Compare the findings with the previous sites: a new kind of finding probably needs a new mapping in `V8Map` or a fix in the import.
+
+**Leftover content types.** A v8 site often still has demo content types nobody uses (seerden: city, product, sponsor, story: not in the v8 admin menu, `menu_position` NULL, no or only "Lorem ipsum" records). Check each candidate (rows, menu items, admin menu), then list the ones to leave out:
+
+```dotenv
+LARA_V8_SKIP_ENTITIES=city,product,sponsor,story
+```
+
+Every step then treats them as absent (`V8Source::entities()` leaves them out): `import-entities` does not build them (a relation to one is reported, not built), and the content, object, media and user imports skip their records, tags, taggables, SEO, layout, media and abilities, with one `info` line per step saying what was dropped. `verify` does not count them. The inventory lists them in "Skipped content types" with what each drops; a core content type (page, larawidget, cta, slider) can never be skipped. A skipped type that v10 already has (built before it was skipped) is reported by `import-entities`, not removed.
 
 ### 4. Essential base
 

@@ -32,6 +32,9 @@ class MediaImporter
     /** @var array<string, object> v8 model class => v8 entity */
     private array $entities = [];
 
+    /** @var array<string, string> v8 model class => entity key of the skipped content types */
+    private array $skippedClasses = [];
+
     /** @var array<string, ?Entity> v8 entity key => v10 entity */
     private array $targets = [];
 
@@ -58,6 +61,7 @@ class MediaImporter
         $this->recordIds = [];
         $this->targets = [];
         $this->entities = $this->source->contentEntities()->keyBy('entity_model_class')->all();
+        $this->skippedClasses = $this->source->skippedClasses();
         $this->curatorRows = DB::table('curator')->get(['disk', 'path', 'width', 'height', 'size', 'type'])
             ->keyBy(fn (object $row): string => $row->disk.'#'.$row->path)->all();
 
@@ -293,6 +297,12 @@ class MediaImporter
     private function owner(object $row): ?array
     {
         $entity = $this->entities[$row->entity_type] ?? null;
+
+        if (isset($this->skippedClasses[$row->entity_type])) {
+            $this->addOnce('info', 'media', "Media of '{$this->skippedClasses[$row->entity_type]}', a skipped content type (v8-migration.skip_entities); not imported.");
+
+            return null;
+        }
 
         if ($entity === null) {
             $this->addOnce('warning', 'media', "Media of '{$row->entity_type}', which is not a v8 content type; skipped.");

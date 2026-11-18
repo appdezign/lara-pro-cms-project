@@ -90,7 +90,28 @@ class ContentImporter
             }
         }
 
+        $this->reportSkipped($only);
+
         return $this->report;
+    }
+
+    /**
+     * The records of skipped content types (v8-migration.skip_entities) are not imported.
+     *
+     * @param  list<string>  $only
+     */
+    private function reportSkipped(array $only): void
+    {
+        foreach ($this->source->skippedEntities() as $v8) {
+            if ($only !== [] && ! in_array($v8->entity_key, $only, true)) {
+                continue;
+            }
+
+            $table = $this->source->contentTable($v8->entity_key, $v8->group_key);
+            $count = $table !== null && $this->source->hasTable($table) ? $this->source->connection()->table($table)->count() : 0;
+
+            $this->add('info', $v8->entity_key, "Skipped (v8-migration.skip_entities): {$count} record(s) not imported.");
+        }
     }
 
     /**
