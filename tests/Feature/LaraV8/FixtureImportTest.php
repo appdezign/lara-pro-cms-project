@@ -580,10 +580,10 @@ class FixtureImportTest extends TestCase
         $this->assertSame(['Page 19', 'V8fxbook 1'], $related->keys()->sort()->values()->all(), 'One row per record; no row for the missing book or the skipped leftover.');
         $this->assertSame(Entity::where('resource_slug', 'v8fxbooks')->value('model_class'), $related['V8fxbook 1']->entity_type);
         $this->assertSame([
-            'related_page_objects' => [['page_object_id' => 19]],
+            'related_page_objects' => [['page_object_id' => 1125], ['page_object_id' => 19]],
             'related_entity_objects' => [['object_id' => 1, 'resource_slug' => 'v8fxevents']],
             'related_entities' => [['module_page_menu_id' => 2]],
-        ], $lists('V8fxbook 1'), 'The duplicate page link is written once; the menu root and the missing event are left out.');
+        ], $lists('V8fxbook 1'), 'In v8 front order (related_object_id descending, row 10 before row 3); the duplicate page link is written once; the menu root and the missing event are left out.');
         $this->assertSame([
             'related_page_objects' => [['page_object_id' => 1125]],
             'related_entity_objects' => [],

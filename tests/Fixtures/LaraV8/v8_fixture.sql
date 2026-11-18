@@ -755,7 +755,8 @@ INSERT INTO `lara_object_related` (`id`, `entity_key`, `object_id`, `related_ent
 (6, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 999),
 (7, 'v8fxbook', 999, 'page', 'Lara\\Common\\Models\\Page', 19),
 (8, 'v8fxleftover', 1, 'page', 'Lara\\Common\\Models\\Page', 19),
-(9, 'v8fxbook', 1, 'page', 'Lara\\Common\\Models\\Page', 19);
+(9, 'v8fxbook', 1, 'page', 'Lara\\Common\\Models\\Page', 19),
+(10, 'v8fxbook', 1, 'page', 'Lara\\Common\\Models\\Page', 1125);
 
 CREATE TABLE `lara_menu_menus` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,

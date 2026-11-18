@@ -378,6 +378,10 @@ class ObjectImporter
      *
      * v10 creates a row with three empty lists when a record is saved; such a row means "nothing
      * related", so it is kept and not reported as a row v8 does not have.
+     *
+     * The v10 front shows each list in stored order; the v8 front sorted by related_entity_key,
+     * then related_object_id descending (FrontObjectTrait::getFrontRelated()). The rows are read
+     * in that order, so each list keeps the order the live site shows.
      */
     private function related(bool $dryRun, bool $fresh): void
     {
@@ -387,7 +391,13 @@ class ObjectImporter
         $lists = [];
         $orphans = 0;
 
-        foreach ($db->table('lara_object_related')->orderBy('id')->get() as $row) {
+        $rows = $db->table('lara_object_related')
+            ->orderBy('related_entity_key')
+            ->orderByDesc('related_object_id')
+            ->orderBy('id')
+            ->get();
+
+        foreach ($rows as $row) {
             if ($this->source->isSkipped($row->entity_key) || $this->source->isSkipped($row->related_entity_key)) {
                 $this->countSkipped('related');
 
