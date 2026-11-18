@@ -13,10 +13,10 @@ Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301
 
 ## Open before staging
 
-- [ ] **Staging server** (user): which server/URL (e.g. `dev.seerdencommunicatie.nl`).
+- [ ] **Staging server** (user, later): which server/URL (e.g. `dev.seerdencommunicatie.nl`).
 - [ ] **Keys** for `.env`: seerden's own Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`), reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`, for the domain), `CONSENT_GA4_ID` (GA4 of the site: `G-0B6CD217XK`, setting `ga4_id`). Check that the local `.env` values are seerden's and not copied from another site.
 - [ ] **Mail**: the production `MAIL_*` settings (form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`) and `MAIL_FROM_*`; `MAIL_DEV_*` for staging.
-- [ ] **`APP_NAME`**: the suffix of every page title (" — {APP_NAME}") and `og:site_name`; live titles have no suffix (decision: keep v10's suffix). Choose the name, e.g. `Seerden Communicatie`.
+- [x] **`APP_NAME="Seerden Communicatie"`** (user, 2026-11-18): the suffix of every page title (" — Seerden Communicatie") and `og:site_name`; live titles have no suffix (decision: keep v10's suffix). Set locally; set it on each server.
 
 ## Staging
 
@@ -41,7 +41,7 @@ php -v                                            # 8.4
 composer install --no-dev -o                      # assets are in git; no Node needed
 
 # 2. .env (keep APP_KEY and the DB settings of the server)
-#    APP_NAME=...  APP_ENV=staging  APP_DEBUG=false  APP_URL=https://{staging host}  LARA_CLIENT_THEME=seerden
+#    APP_NAME="Seerden Communicatie"  APP_ENV=staging  APP_DEBUG=false  APP_URL=https://{staging host}  LARA_CLIENT_THEME=seerden
 #    MAIL_DEV_*, the keys above, CONSENT_GA4_ID
 
 # 3. data (upload ~/seerden10723.sql and ~/seerden10723-media.tgz first)
@@ -92,7 +92,7 @@ Checks:
 
 - Unknown URLs answer 404 with the "Oops" page (live: 200).
 - `/en` is unpublished (live: an almost empty English home); v10 still answers `/en` with 200 (core: an unpublished language stays routable), but nothing links to it and there is no English hreflang.
-- Page titles end in " — {APP_NAME}"; project detail pages have the project's title (live: the module page's SEO title).
+- Page titles end in " — Seerden Communicatie"; project detail pages have the project's title (live: the module page's SEO title).
 - The contact form marks required fields ("* = dit is een verplicht veld"); v8 did not.
 - `/nl/evenementen` redirects to `/evenementen/sportevenementen` without the locale (as v8).
 - Related pages link to `/nl/content/pages/{id}`, which redirects to the menu URL (core; v8 linked the menu URL).
