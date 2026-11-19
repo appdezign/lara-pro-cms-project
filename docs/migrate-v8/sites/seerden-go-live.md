@@ -69,11 +69,11 @@ Checks:
 - [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file; scheduler cron.
 - [ ] Code on `v10`, `.env` complete, data and media loaded, `storage:link`, fonts fetched.
 - [x] Compared with `seerden10723` (2026-11-19, 27 URLs: every menu URL, both contact pages, the 7 projects, the 4 testimonials, `/nl/project`, `/nl/aanbevelingen`, `/en`, an unknown URL): status, text and image count identical; all 42 asset and image URLs of three pages 200 (theme CSS/JS, Glide images, favicons); cookie consent with GA4 `G-0B6CD217XK`; reCAPTCHA on the contact form; no English hreflang; no debug output.
-- [ ] Open after the first deploy (2026-11-19); rechecked after the user's fixes:
+- [x] Open after the first deploy (2026-11-19); rechecked after the user's fixes. **Final check 2026-11-19:** 27 URLs identical to `seerden10723` (status, text, image count, titles); all 78 asset and image URLs 200, including the PvdA editor image (renamed to NFC) and the fonts.
   - [x] Sitemap: `/sitemap.xml` 200, XML, 17 URLs.
   - [x] **`/storage`** fixed by the user (`rm public/storage && php artisan storage:link`): fonts.css and the 6 Manrope files 200; 77 of 78 asset/image URLs of the 25 pages 200.
   - [x] **`APP_NAME`** fixed by the user (it needed quotes; unquoted, staging gave 500): titles and `og:site_name` "Seerden Communicatie".
-  - [ ] **One editor image** (`images/shares/Campagnecoördinator PvdA … Fryslân …png`, Campagnes and an event page) still 302: the macOS-tar archive stored its name as NFD. Rename it to NFC on the server (command in the plan notes / below), and remove the `._*` files the archive added:
+  - [x] **One editor image** (`images/shares/Campagnecoördinator PvdA … Fryslân …png`, Campagnes and an event page) still 302: the macOS-tar archive stored its name as NFD. Rename it to NFC on the server (command in the plan notes / below), and remove the `._*` files the archive added:
     ```bash
     php -r '$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("storage/app/public", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST); foreach ($it as $f) { $p = $f->getPathname(); $n = dirname($p)."/".Normalizer::normalize(basename($p), Normalizer::FORM_C); if ($n !== $p) { rename($p, $n); echo "$p -> $n\n"; } }'
     find storage/app/public -name '._*' -print -delete
