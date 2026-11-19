@@ -100,7 +100,7 @@ Before the day:
 - [x] `.env` of the v10 app: `SESSION_DOMAIN=null` (checked 2026-11-19). `SESSION_DRIVER=file`: clearing the sessions is `rm -f storage/framework/sessions/*`.
 - [x] Cloudways backups: daily, 7 days retention, the v10 app covered (user, 2026-11-19).
 - [x] Sitemap (user, 2026-11-19): the 6 unlinked module pages are left out (`f71e070` on `v10`: unpublished entity menu items and route `instagram` skipped; privacy and aanspreekpunt stay). 11 URLs. Pull before the switch; the sitemap is generated again at the switch.
-- [ ] Note: staging already sends to the live GA4 property (`G-0B6CD217XK`); test visits count in the statistics.
+- [x] Note: staging already sends to the live GA4 property (`G-0B6CD217XK`); test visits count in the statistics.
 
 The switch:
 
@@ -109,7 +109,7 @@ The switch:
 - [ ] Backups first: `v10_seerden` and `v8_seerden` into `seerden-deploy/backups/` (`seerden10723_before_final_sync.sql`, `v8_seerden_before_final_sync.sql`).
 - [ ] Locally: `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then a fresh dump and media (Python archive) in `seerden-deploy/`.
 - [ ] Server (v10 app): load the dump and media as in staging (this also removes the staging test edits and test form entries); NFC check of non-ASCII file names; clear the sessions.
-- [ ] Server: `robots.txt` back to the repo version (`git checkout public/robots.txt` if it was edited on the server; a dirty tracked file blocks the next pull).
+- [ ] Server: `robots.txt` back to the repo version: a Cloudways dashboard pull (Deployment via Git) restores it, as it discards server edits to tracked files (there is no git on the server). Until the switch, block it again after every pull.
 - [ ] Server `.env`: `APP_URL=https://www.seerdencommunicatie.nl`, `APP_ENV=production`, the production `MAIL_*`/`MAIL_FROM_*`; then `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch` (fonts.css holds the dev URL), `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`, the sitemap again.
 - [ ] v8 app: switch off its cron jobs and outgoing mail; remove its domains and give it a Cloudways temporary URL (the fallback).
 - [ ] v10 app: primary domain `www.seerdencommunicatie.nl`, alias `seerdencommunicatie.nl` (redirect to `www`, as live); remove `dev.seerdencommunicatie.nl` or redirect it to `www` (one `robots.txt` serves every domain of the app, so a remaining dev domain would be an indexable copy); issue the SSL certificate for both domains.
