@@ -91,19 +91,34 @@ Checks:
 
 ## Switch
 
-- [ ] **Remind the manual server steps again** if production is another server than staging (PHP settings, GA service-account file).
+**Approach (user, 2026-11-19): the staging app becomes production.** Staging and production are always on the same Cloudways server. The v10 staging app (dev.seerdencommunicatie.nl) gets the production domains in the Cloudways dashboard; the v8 app keeps its files and database as the fallback. DNS already points to this server, so no DNS change is needed and the SSL certificate can be issued right after the domain move. Claude guides the switch step by step (runbook step 18, Deploy lessons).
+
+Before the day:
+
+- [ ] Production mail settings for the v10 app's `.env`: `MAIL_*` (SMTP) and `MAIL_FROM_*`; form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`. If mail goes out through the server (not an SMTP provider): SPF/DKIM of `seerdencommunicatie.nl` must allow it.
+- [ ] reCAPTCHA key allows `www.seerdencommunicatie.nl` and `seerdencommunicatie.nl` (not only the dev domain).
+- [ ] `.env` of the v10 app: no `SESSION_DOMAIN` with the dev domain (empty, or the production domain), or admin logins fail after the swap.
+- [ ] Cloudways backups for the v10 app at a production schedule.
+- [ ] Decision: the module pages in no published menu in the sitemap (`/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen`, `/nl/instagram`).
+- [ ] Note: staging already sends to the live GA4 property (`G-0B6CD217XK`); test visits count in the statistics.
+
+The switch:
+
 - [ ] Content freeze on the v8 admin.
-- [ ] Fresh production dump → `v8_seerden`; rsync of the production media into `seerden8246/.lara/production_switch/media`; `LARA_V8_MEDIA_PATH` to that folder.
+- [ ] Final production dump from the v8 app (before moving the domain) → `v8_seerden`; rsync of the production media into `seerden8246/.lara/production_switch/media`; `LARA_V8_MEDIA_PATH` to that folder.
 - [ ] Backups first: `v10_seerden` and `v8_seerden` into `seerden-deploy/backups/` (`seerden10723_before_final_sync.sql`, `v8_seerden_before_final_sync.sql`).
-- [ ] `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then a fresh dump and media in `seerden-deploy/` and to the server as in staging.
-- [ ] `APP_URL=https://www.seerdencommunicatie.nl`, `APP_ENV=production`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; `optimize:clear`, `responsecache:clear`, `lara:route:cache`; the sitemap again.
-- [ ] DNS / vhost to v10; SSL for `seerdencommunicatie.nl` and `www.seerdencommunicatie.nl` (keep the redirect to `www`).
-- [ ] Check: home (hero, client logos, contact band), every menu item (Evenementen with its 4 sub-pages and their project tiles and related pages, Campagnes, Over mij, Contact, Privacy, Instagram feed), a project page, a testimonial, the 404, both contact forms with reCAPTCHA and the mail (`company_email` and the confirmation), the cookie consent, `robots.txt`, `sitemap.xml`.
+- [ ] Locally: `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then a fresh dump and media (Python archive) in `seerden-deploy/`.
+- [ ] Server (v10 app): load the dump and media as in staging (this also removes the staging test edits and test form entries); NFC check of non-ASCII file names; clear the sessions.
+- [ ] Server: `robots.txt` back to the repo version (`git checkout public/robots.txt` if it was edited on the server; a dirty tracked file blocks the next pull).
+- [ ] Server `.env`: `APP_URL=https://www.seerdencommunicatie.nl`, `APP_ENV=production`, the production `MAIL_*`/`MAIL_FROM_*`; then `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch` (fonts.css holds the dev URL), `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`, the sitemap again.
+- [ ] v8 app: switch off its cron jobs and outgoing mail; remove its domains and give it a Cloudways temporary URL (the fallback).
+- [ ] v10 app: primary domain `www.seerdencommunicatie.nl`, alias `seerdencommunicatie.nl` (redirect to `www`, as live); remove `dev.seerdencommunicatie.nl` or redirect it to `www` (one `robots.txt` serves every domain of the app, so a remaining dev domain would be an indexable copy); issue the SSL certificate for both domains.
+- [ ] Check: the non-www → www redirect (301), home (hero, client logos, contact band), every menu item (Evenementen with its 4 sub-pages and their project tiles and related pages, Campagnes, Over mij, Contact, Privacy, Instagram feed), a project page, a testimonial, the 404, every asset and image (incl. `/storage` editor images, fonts, `/assets/filament/img`), both contact forms with reCAPTCHA and the mail (`company_email` and the confirmation), the cookie consent, `robots.txt` (allows), `sitemap.xml` (www URLs), the admin login.
 - [ ] Search Console: the sitemap; watch 404s. v8 had no redirects.
 
 ## Fallback
 
-- [ ] Keep the v8 site (`seerden8246`) and its database read-only on another vhost for a few weeks.
+- [ ] The v8 app stays on the server with its files and database, without domains, on its Cloudways temporary URL, read-only (crons and mail off) for a few weeks. Switching back: move the domains back and issue SSL again; content edited in v10 after the switch would have to be redone in v8.
 
 ## Known differences that stay
 

@@ -322,6 +322,8 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 
 **Guide the deploy step by step (user's request, 2026-11-19).** For staging and again for production, Claude walks the user through these steps one at a time: one server command or setting per step, wait for the result, check it from here (status, titles, assets, `/storage`, fonts), then the next step. Never hand over the whole list at once. Cover every item of "Deploy lessons" below explicitly; they were missed on seerden's first staging deploy.
 
+**Staging becomes production (user, 2026-11-19).** Staging and production are always on the same Cloudways server. The v10 staging app becomes the production app at the switch: the domains move from the v8 app to the v10 app in the Cloudways dashboard (no DNS change; SSL issued right after the move), and the v8 app stays on the server, without domains, as the fallback (temporary URL, crons and mail off). At the switch: `robots.txt` back to the repo version (staging blocks robots), `APP_URL`/`APP_ENV`/production mail in `.env`, fonts fetched again (fonts.css holds the staging URL), the sitemap again, reCAPTCHA keys for the production domains, the non-www → www redirect, and the staging domain removed or redirected (one `robots.txt` serves every domain of the app). The final production dump is taken from the v8 app before its domain moves. Steps 12 and 15 below then mean: move the domains, and keep the v8 app.
+
 **Deploy lessons (seerden staging, 2026-11-19)**
 
 - `.env` values with a space need double quotes: `APP_NAME="Seerden Communicatie"`. Unquoted, the site answers 500 as soon as the config cache is cleared; before that, the cached config hides the change (titles kept the old name).
