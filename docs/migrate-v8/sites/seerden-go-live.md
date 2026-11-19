@@ -29,9 +29,11 @@ Locally (in `seerden10723`, on `v10`):
 
 ```bash
 php artisan lara:v8:verify -v                    # ok 36, no warnings
-mysqldump -h127.0.0.1 -uroot --single-transaction --routines v10_seerden > ~/seerden10723.sql
-tar -czf ~/seerden10723-media.tgz --exclude public/_fonts -C storage/app public
+mysqldump -h127.0.0.1 -uroot --single-transaction --routines v10_seerden > ../seerden-deploy/seerden10723.sql
+tar -czf ../seerden-deploy/seerden10723-media.tgz --exclude public/_fonts -C storage/app public
 ```
+
+The deploy files live in **`__migrate/seerden-deploy/`** (as `anpak-deploy`): `seerden10723.sql` (the v10 database), `seerden10723-media.tgz` (`storage/app/public` without `_fonts`) and `backups/` (dumps before the final sync). The built assets are in git, so there is no assets archive. The dump holds user password hashes: never commit it; delete it from the server after loading. Staging files made 2026-11-19 10:44 (verify ok 36).
 
 On the server (SSH as the application user, in the app root `public_html`):
 
@@ -44,9 +46,10 @@ composer install --no-dev -o                      # assets are in git; no Node n
 #    APP_NAME="Seerden Communicatie"  APP_ENV=staging  APP_DEBUG=false  APP_URL=https://dev.seerdencommunicatie.nl  LARA_CLIENT_THEME=seerden
 #    MAIL_DEV_*, the keys above, CONSENT_GA4_ID
 
-# 3. data (upload ~/seerden10723.sql and ~/seerden10723-media.tgz first)
+# 3. data (upload seerden-deploy/seerden10723.sql and seerden10723-media.tgz to ~ first)
 mysql {db} < ~/seerden10723.sql
 rm -rf storage/app/public && tar -xzf ~/seerden10723-media.tgz -C storage/app
+rm ~/seerden10723.sql                             # it holds user password hashes
 php artisan storage:link
 php artisan google-fonts:fetch                    # after APP_URL is set (the stylesheet holds absolute URLs)
 php artisan migrate:status | grep -i pending      # expected: nothing
@@ -78,7 +81,8 @@ Checks:
 - [ ] **Remind the manual server steps again** if production is another server than staging (PHP settings, GA service-account file).
 - [ ] Content freeze on the v8 admin.
 - [ ] Fresh production dump → `v8_seerden`; rsync of the production media into `seerden8246/.lara/production_switch/media`; `LARA_V8_MEDIA_PATH` to that folder.
-- [ ] `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then dump and media to the server as in staging.
+- [ ] Backups first: `v10_seerden` and `v8_seerden` into `seerden-deploy/backups/` (`seerden10723_before_final_sync.sql`, `v8_seerden_before_final_sync.sql`).
+- [ ] `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then a fresh dump and media in `seerden-deploy/` and to the server as in staging.
 - [ ] `APP_URL=https://www.seerdencommunicatie.nl`, `APP_ENV=production`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; `optimize:clear`, `responsecache:clear`, `lara:route:cache`; the sitemap again.
 - [ ] DNS / vhost to v10; SSL for `seerdencommunicatie.nl` and `www.seerdencommunicatie.nl` (keep the redirect to `www`).
 - [ ] Check: home (hero, client logos, contact band), every menu item (Evenementen with its 4 sub-pages and their project tiles and related pages, Campagnes, Over mij, Contact, Privacy, Instagram feed), a project page, a testimonial, the 404, both contact forms with reCAPTCHA and the mail (`company_email` and the confirmation), the cookie consent, `robots.txt`, `sitemap.xml`.
