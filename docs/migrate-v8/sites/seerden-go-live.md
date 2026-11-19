@@ -82,7 +82,7 @@ Checks:
 - [x] Staging indexing blocked by the user: `robots.txt` is `Disallow: /` (2026-11-19).
 - [x] Admin images (`/assets/filament/img`: login background, logo, admin favicon) were missing: the `.gitignore` ignored all of `public/assets/filament/`, but `img` comes from the admin Vite build. Tracked now (`4194977` on `v10`, pushed): pulled by the user; the 4 images and all 17 asset URLs of `/admin/login` 200 (2026-11-19).
 - [ ] Forms: `/nl/contact` and `/nl/contact-1` (both contact forms): submit, mail on the dev mailer; mail views are in `email/contactforms` and `email/classicforms`.
-- [ ] Admin: log in as an imported v8 user, open every content type, edit and save one record; the 5 event pages show their related pages in the admin.
+- [x] Admin: the user logged in on staging and saved some records (2026-11-19); afterwards the 27 front URLs are still identical to `seerden10723`. Edits made on staging are lost at the switch (the staging database is replaced by the synced local one).
 
 ## Content to settle before the freeze
 
