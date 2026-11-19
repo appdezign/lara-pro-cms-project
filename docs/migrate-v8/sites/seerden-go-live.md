@@ -30,10 +30,11 @@ Locally (in `seerden10723`, on `v10`):
 ```bash
 php artisan lara:v8:verify -v                    # ok 36, no warnings
 mysqldump -h127.0.0.1 -uroot --single-transaction --routines v10_seerden > ../seerden-deploy/seerden10723.sql
-tar -czf ../seerden-deploy/seerden10723-media.tgz --exclude public/_fonts -C storage/app public
+python3 -c 'import tarfile; t = tarfile.open("../seerden-deploy/seerden10723-media.tgz", "w:gz"); t.add("storage/app/public", arcname="public", filter=lambda i: None if i.name == "public/_fonts" or i.name.startswith("public/_fonts/") else i); t.close()'
+# not macOS tar: it writes non-ASCII names as NFD (one editor image broke on staging) and adds ._* files
 ```
 
-The deploy files live in **`__migrate/seerden-deploy/`** (as `anpak-deploy`): `seerden10723.sql` (the v10 database), `seerden10723-media.tgz` (`storage/app/public` without `_fonts`) and `backups/` (dumps before the final sync). The built assets are in git, so there is no assets archive. The dump holds user password hashes: never commit it; delete it from the server after loading. Staging files made 2026-11-19 10:44 (verify ok 36).
+The deploy files live in **`__migrate/seerden-deploy/`** (as `anpak-deploy`): `seerden10723.sql` (the v10 database), `seerden10723-media.tgz` (`storage/app/public` without `_fonts`) and `backups/` (dumps before the final sync). The built assets are in git, so there is no assets archive. The dump holds user password hashes: never commit it; delete it from the server after loading. Staging files made 2026-11-19 10:44 (verify ok 36); the media archive rebuilt with Python at 11:09 (the bsdtar one is in `backups/`).
 
 On the server (SSH as the application user, in the app root `public_html`):
 
@@ -70,8 +71,13 @@ Checks:
 - [x] Compared with `seerden10723` (2026-11-19, 27 URLs: every menu URL, both contact pages, the 7 projects, the 4 testimonials, `/nl/project`, `/nl/aanbevelingen`, `/en`, an unknown URL): status, text and image count identical; all 42 asset and image URLs of three pages 200 (theme CSS/JS, Glide images, favicons); cookie consent with GA4 `G-0B6CD217XK`; reCAPTCHA on the contact form; no English hreflang; no debug output.
 - [ ] Open after the first deploy (2026-11-19); rechecked after the user's fixes:
   - [x] Sitemap: `/sitemap.xml` 200, XML, 17 URLs.
-  - [ ] **`/storage` is broken**: every `/storage/...` URL redirects to `/nl/storage/...` (302), so `public/storage` is not a working symlink. This breaks the fonts (`/storage/_fonts/…/fonts.css`, so no Manrope) and the editor images in page bodies (`/storage/images/shares/…`, e.g. Campagnes and the event pages). Cause (runbook gotcha): `public/storage` is a committed symlink to a developer folder, and `php artisan storage:link` does not replace an existing link. Fix: `rm public/storage && php artisan storage:link` (or `php artisan storage:link --force`), then check `ls -l public/storage` points to `storage/app/public`.
-  - [ ] **`APP_NAME`**: titles still end in "— Seerden". Check `php artisan tinker --execute 'echo config("app.name");'`; if it is not "Seerden Communicatie": the `.env` line (`APP_NAME="Seerden Communicatie"`, with quotes), then `php artisan optimize:clear && php artisan responsecache:clear`.
+  - [x] **`/storage`** fixed by the user (`rm public/storage && php artisan storage:link`): fonts.css and the 6 Manrope files 200; 77 of 78 asset/image URLs of the 25 pages 200.
+  - [x] **`APP_NAME`** fixed by the user (it needed quotes; unquoted, staging gave 500): titles and `og:site_name` "Seerden Communicatie".
+  - [ ] **One editor image** (`images/shares/Campagnecoördinator PvdA … Fryslân …png`, Campagnes and an event page) still 302: the macOS-tar archive stored its name as NFD. Rename it to NFC on the server (command in the plan notes / below), and remove the `._*` files the archive added:
+    ```bash
+    php -r '$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("storage/app/public", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST); foreach ($it as $f) { $p = $f->getPathname(); $n = dirname($p)."/".Normalizer::normalize(basename($p), Normalizer::FORM_C); if ($n !== $p) { rename($p, $n); echo "$p -> $n\n"; } }'
+    find storage/app/public -name '._*' -print -delete
+    ```
 - [ ] The sitemap lists `/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen` and `/nl/instagram`: reachable (200, as on live) but in no published menu; live has no sitemap. Decide before the switch whether they belong in it.
 - [ ] Staging is indexable: `robots.txt` allows everything and there is no `noindex`. Protect it (Cloudways password protection) or block robots on staging, so Google does not index a copy of the live site.
 - [ ] Forms: `/nl/contact` and `/nl/contact-1` (both contact forms): submit, mail on the dev mailer; mail views are in `email/contactforms` and `email/classicforms`.
