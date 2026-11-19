@@ -78,7 +78,7 @@ Checks:
     php -r '$it = new RecursiveIteratorIterator(new RecursiveDirectoryIterator("storage/app/public", FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST); foreach ($it as $f) { $p = $f->getPathname(); $n = dirname($p)."/".Normalizer::normalize(basename($p), Normalizer::FORM_C); if ($n !== $p) { rename($p, $n); echo "$p -> $n\n"; } }'
     find storage/app/public -name '._*' -print -delete
     ```
-- [ ] The sitemap lists `/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen` and `/nl/instagram`: reachable (200, as on live) but in no published menu; live has no sitemap. Decide before the switch whether they belong in it.
+- [x] The sitemap listed `/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen` and `/nl/instagram` (reachable, linked nowhere): left out (see Before the day).
 - [x] Staging indexing blocked by the user: `robots.txt` is `Disallow: /` (2026-11-19).
 - [x] Admin images (`/assets/filament/img`: login background, logo, admin favicon) were missing: the `.gitignore` ignored all of `public/assets/filament/`, but `img` comes from the admin Vite build. Tracked now (`4194977` on `v10`, pushed): pulled by the user; the 4 images and all 17 asset URLs of `/admin/login` 200 (2026-11-19).
 - [x] Forms: the user submitted `/nl/contact` and `/nl/contact-1` on staging; both mails arrived in Mailtrap (dev mailer, 2026-11-19). Production mail (`MAIL_*`, `MAIL_FROM_*`; to `company_email`) and reCAPTCHA are checked right after the switch.
@@ -95,11 +95,11 @@ Checks:
 
 Before the day:
 
-- [ ] Production mail settings for the v10 app's `.env`: `MAIL_*` (SMTP) and `MAIL_FROM_*`; form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`. If mail goes out through the server (not an SMTP provider): SPF/DKIM of `seerdencommunicatie.nl` must allow it.
-- [ ] reCAPTCHA key allows `www.seerdencommunicatie.nl` and `seerdencommunicatie.nl` (not only the dev domain).
-- [ ] `.env` of the v10 app: no `SESSION_DOMAIN` with the dev domain (empty, or the production domain), or admin logins fail after the swap.
-- [ ] Cloudways backups for the v10 app at a production schedule.
-- [ ] Decision: the module pages in no published menu in the sitemap (`/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen`, `/nl/instagram`).
+- [x] Production mail (user, 2026-11-19): AuthSMTP as the v8 app (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, the v8 username and password), `MAIL_FROM_ADDRESS=ellen@seerdencommunicatie.nl`, `MAIL_FROM_NAME="Seerden Communicatie"`. SPF already includes `authsmtp.com`. Active once `APP_ENV=production`.
+- [x] reCAPTCHA (2026-11-19): the local `.env` had empty keys; the v8 app's v2 checkbox keys (`GOOGLE_RECAPTCHA_SITE_KEY`/`SECRET_KEY`, live on `www`) are copied into the v10 app's `.env` (user). The widget renders only with `APP_ENV=production`: check it right after the switch.
+- [x] `.env` of the v10 app: `SESSION_DOMAIN=null` (checked 2026-11-19). `SESSION_DRIVER=file`: clearing the sessions is `rm -f storage/framework/sessions/*`.
+- [x] Cloudways backups: daily, 7 days retention, the v10 app covered (user, 2026-11-19).
+- [x] Sitemap (user, 2026-11-19): the 6 unlinked module pages are left out (`f71e070` on `v10`: unpublished entity menu items and route `instagram` skipped; privacy and aanspreekpunt stay). 11 URLs. Pull before the switch; the sitemap is generated again at the switch.
 - [ ] Note: staging already sends to the live GA4 property (`G-0B6CD217XK`); test visits count in the statistics.
 
 The switch:
