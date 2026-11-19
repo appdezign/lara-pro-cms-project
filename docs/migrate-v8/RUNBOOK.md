@@ -330,6 +330,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 - Generate the sitemap once (step 6 below).
 - Staging is indexable (`robots.txt` allows all, no `noindex`): password-protect it (Cloudways) or block robots there.
 - Build the media archive with Python's `tarfile`, not macOS `tar`: bsdtar writes non-ASCII file names decomposed (NFD), which a Linux server does not match with the composed (NFC) URLs in the pages (seerden: one editor image with "ö"/"â" gave 302), and it adds `._*` AppleDouble files. See step 6 for the command.
+- The admin images in `public/assets/filament/img` must be in git (see Built assets in git); check `/assets/filament/img/favicon.png` and the admin login page after a deploy.
 - When checking a deploy, request every page's images and assets, including the `/storage` editor images in the page bodies, not only a few sample pages.
 
 **Before (staging)**
@@ -360,7 +361,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 
 The site repo tracks `public/assets/admin` and `public/assets/themes/{base,client}`, so a pull always brings code and assets that belong together (anpak since 2026-11-17; before that, uploading `public/assets` by hand led to a 500 when a branch switch removed it).
 
-- `.gitignore`: instead of `/public/assets/`, ignore only `/public/assets/filament/` (composer's `filament:upgrade` regenerates it on the server; tracked, it would dirty the server's working tree and block the next pull) and `/public/assets/themes/demo/` (unused).
+- `.gitignore`: instead of `/public/assets/`, ignore only `/public/assets/filament/*` with `!/public/assets/filament/img/` (composer's `filament:upgrade` regenerates the css, js and fonts there on the server; tracked, they would dirty the server's working tree and block the next pull; but `img`, the admin login background, logo and favicon, is copied from `laracms/core/resources/_filament` by the admin Vite build, so it must be tracked: seerden staging had none; anpak has it only from the earlier assets upload) and `/public/assets/themes/demo/` (unused).
 - Build in the **release branch**, never in feature branches (the hashed names would conflict): `git flow release start {version}`, then
   ```bash
   npx vite build --config vite.admin.config.js && npx vite build --config vite.front.base.config.js && npx vite build --config vite.front.client.config.js
