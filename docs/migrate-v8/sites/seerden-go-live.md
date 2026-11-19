@@ -80,7 +80,7 @@ Checks:
     ```
 - [ ] The sitemap lists `/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen` and `/nl/instagram`: reachable (200, as on live) but in no published menu; live has no sitemap. Decide before the switch whether they belong in it.
 - [x] Staging indexing blocked by the user: `robots.txt` is `Disallow: /` (2026-11-19).
-- [ ] Admin images (`/assets/filament/img`: login background, logo, admin favicon) were missing: the `.gitignore` ignored all of `public/assets/filament/`, but `img` comes from the admin Vite build. Tracked now (`4194977` on `v10`, pushed): pull on the server and check `/assets/filament/img/favicon.png`.
+- [x] Admin images (`/assets/filament/img`: login background, logo, admin favicon) were missing: the `.gitignore` ignored all of `public/assets/filament/`, but `img` comes from the admin Vite build. Tracked now (`4194977` on `v10`, pushed): pulled by the user; the 4 images and all 17 asset URLs of `/admin/login` 200 (2026-11-19).
 - [ ] Forms: `/nl/contact` and `/nl/contact-1` (both contact forms): submit, mail on the dev mailer; mail views are in `email/contactforms` and `email/classicforms`.
 - [ ] Admin: log in as an imported v8 user, open every content type, edit and save one record; the 5 event pages show their related pages in the admin.
 
