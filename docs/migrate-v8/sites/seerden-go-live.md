@@ -1,6 +1,6 @@
 # seerdencommunicatie.nl: go-live checklist
 
-v8.2.46 (`seerden8246`, production db `xxqektecpc`, theme `seerden`) → v10 (`seerden10723`, Lara CMS 10.7.23, theme `seerden`). General steps: runbook step 18. Status 2026-11-18: import, theme and the comparison with live done locally; next: staging on https://dev.seerdencommunicatie.nl.
+v8.2.46 (`seerden8246`, production db `xxqektecpc`, theme `seerden`) → v10 (`seerden10723`, Lara CMS 10.7.23, theme `seerden`). General steps: runbook step 18. Status 2026-11-19: staging https://dev.seerdencommunicatie.nl deployed and checked; next: the switch.
 
 Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301 to `www`). Plan with every decision: `seerden8246/.ai/plans/2026-11-18-migrate-v8-to-v10.md`; inventory: `sites/seerden-inventory.md`.
 
@@ -81,7 +81,7 @@ Checks:
 - [ ] The sitemap lists `/nl/nieuws`, `/nl/video`, `/nl/fotoalbums`, `/nl/project`, `/nl/aanbevelingen` and `/nl/instagram`: reachable (200, as on live) but in no published menu; live has no sitemap. Decide before the switch whether they belong in it.
 - [x] Staging indexing blocked by the user: `robots.txt` is `Disallow: /` (2026-11-19).
 - [x] Admin images (`/assets/filament/img`: login background, logo, admin favicon) were missing: the `.gitignore` ignored all of `public/assets/filament/`, but `img` comes from the admin Vite build. Tracked now (`4194977` on `v10`, pushed): pulled by the user; the 4 images and all 17 asset URLs of `/admin/login` 200 (2026-11-19).
-- [ ] Forms: `/nl/contact` and `/nl/contact-1` (both contact forms): submit, mail on the dev mailer; mail views are in `email/contactforms` and `email/classicforms`.
+- [x] Forms: the user submitted `/nl/contact` and `/nl/contact-1` on staging; both mails arrived in Mailtrap (dev mailer, 2026-11-19). Production mail (`MAIL_*`, `MAIL_FROM_*`; to `company_email`) and reCAPTCHA are checked right after the switch.
 - [x] Admin: the user logged in on staging and saved some records (2026-11-19); afterwards the 27 front URLs are still identical to `seerden10723`. Edits made on staging are lost at the switch (the staging database is replaced by the synced local one).
 
 ## Content to settle before the freeze
