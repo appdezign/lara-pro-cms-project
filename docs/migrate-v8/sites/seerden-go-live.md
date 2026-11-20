@@ -6,7 +6,7 @@ Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301
 
 ## Repositories
 
-- **`appdezign/seerdencommunicatie-nl`, branch `v10`** (pushed 2026-11-18, `38fe328`): the site. The project at 10.7.23, the migration tooling, the generated `laracms/app` (13 site content types), `laracms/themes/seerden`, `lang/vendor`, `v8-overrides.php` (5 overrides), `THEME_NAME = 'seerden'`, Manrope (`@googlefonts('manrope')`, already in `config/google-fonts.php`), and the built assets (`public/assets/admin`, `public/assets/themes/{base,seerden}`; see runbook "Built assets in git"). Not in git: `storage/app/public` (media) and `public/storage` (run `storage:link`). The repo has no `main`/`develop` yet: create them from `v10` when the release flow starts.
+- **`appdezign/seerdencommunicatie-nl`, branch `v10`** (pushed 2026-11-18, `38fe328`; since the go-live on 2026-11-20 `main` and `develop` at `9b01a4e`, tag `v1.0.0`, and Cloudways deploys `main`): the site. The project at 10.7.23, the migration tooling, the generated `laracms/app` (13 site content types), `laracms/themes/seerden`, `lang/vendor`, `v8-overrides.php` (5 overrides), `THEME_NAME = 'seerden'`, Manrope (`@googlefonts('manrope')`, already in `config/google-fonts.php`), and the built assets (`public/assets/admin`, `public/assets/themes/{base,seerden}`; see runbook "Built assets in git"). Not in git: `storage/app/public` (media) and `public/storage` (run `storage:link`). The repo has no `main`/`develop` yet: create them from `v10` when the release flow starts.
 - **`appdezign/lara-pro-cms-project`, branch `v8-migration`**: the tooling and the runbook. Tooling changes go there first (worktree `__migrate/seerden10723-tooling`), then `git merge v8-migration` into `v10`.
 - Locally `seerden10723` stays on `v10`; `../seerden10723-tooling` is a git worktree of `v8-migration`.
 - After go-live: make the site repo the only remote (runbook gotcha "After go-live, make the site repo the only remote").
@@ -15,7 +15,7 @@ Live: https://www.seerdencommunicatie.nl (`seerdencommunicatie.nl` redirects 301
 
 - [x] **Staging** (user, 2026-11-18): https://dev.seerdencommunicatie.nl (on 2026-11-18 still a placeholder page, nginx).
 - [x] **Keys** (user, 2026-11-18): the Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`), reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`) and GA4 keys (`CONSENT_GA4_ID`; setting `ga4_id` `G-0B6CD217XK`) in the local `.env` are seerden's own: copy them to each server's `.env`.
-- [ ] **Mail**: the production `MAIL_*` settings (form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`) and `MAIL_FROM_*`; `MAIL_DEV_*` for staging.
+- [x] **Mail**: the production `MAIL_*` settings (form mail goes to `company_email` = `ellen@seerdencommunicatie.nl`) and `MAIL_FROM_*`; `MAIL_DEV_*` for staging. Done: AuthSMTP as v8 (see Switch, before the day).
 - [x] **`APP_NAME="Seerden Communicatie"`** (user, 2026-11-18): the suffix of every page title (" — Seerden Communicatie") and `og:site_name`; live titles have no suffix (decision: keep v10's suffix). Set locally; set it on each server.
 
 ## Staging
@@ -47,11 +47,12 @@ composer install --no-dev -o                      # assets are in git; no Node n
 #    APP_NAME="Seerden Communicatie"  APP_ENV=staging  APP_DEBUG=false  APP_URL=https://dev.seerdencommunicatie.nl  LARA_CLIENT_THEME=seerden
 #    MAIL_DEV_*, the keys above, CONSENT_GA4_ID
 
-# 3. data (upload seerden-deploy/seerden10723.sql and seerden10723-media.tgz to ~ first)
-mysql {db} < ~/seerden10723.sql
-rm -rf storage/app/public && tar -xzf ~/seerden10723-media.tgz -C storage/app
-rm ~/seerden10723.sql                             # it holds user password hashes
-php artisan storage:link
+# 3. data (SFTP seerden-deploy/seerden10723.sql and seerden10723-media.tgz to public_html/storage/app/ first;
+#    the application user cannot write to ~, and storage/app is not served)
+mysql {db} < storage/app/seerden10723.sql
+rm -rf storage/app/public && tar -xzf storage/app/seerden10723-media.tgz -C storage/app
+rm storage/app/seerden10723.sql storage/app/seerden10723-media.tgz   # the dump holds user password hashes
+php artisan storage:link                          # public/storage is untracked since 9b01a4e
 php artisan google-fonts:fetch                    # after APP_URL is set (the stylesheet holds absolute URLs)
 php artisan migrate:status | grep -i pending      # expected: nothing
 
@@ -61,13 +62,13 @@ php artisan optimize:clear && php artisan responsecache:clear && php artisan lar
 # 5. scheduler (Cloudways: Cron Job Management):  * * * * * cd {app root} && php artisan schedule:run >> /dev/null 2>&1
 
 # 6. the sitemap once
-php artisan tinker --execute '(new \Lara\App\Sitemap\GoogleSitemapGenerator)(["nl"]);'
+php artisan schedule:test --name=google-sitemap  # not tinker: it fails without a writable home folder
 ```
 
 Checks:
 
 - [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file; scheduler cron.
-- [ ] Code on `v10`, `.env` complete, data and media loaded, `storage:link`, fonts fetched.
+- [x] Code on `v10`, `.env` complete, data and media loaded, `storage:link`, fonts fetched. Done (2026-11-19; since 2026-11-20 on `main`).
 - [x] Compared with `seerden10723` (2026-11-19, 27 URLs: every menu URL, both contact pages, the 7 projects, the 4 testimonials, `/nl/project`, `/nl/aanbevelingen`, `/en`, an unknown URL): status, text and image count identical; all 42 asset and image URLs of three pages 200 (theme CSS/JS, Glide images, favicons); cookie consent with GA4 `G-0B6CD217XK`; reCAPTCHA on the contact form; no English hreflang; no debug output.
 - [x] Open after the first deploy (2026-11-19); rechecked after the user's fixes. **Final check 2026-11-19:** 27 URLs identical to `seerden10723` (status, text, image count, titles); all 78 asset and image URLs 200, including the PvdA editor image (renamed to NFC) and the fonts.
   - [x] Sitemap: `/sitemap.xml` 200, XML, 17 URLs.
@@ -86,8 +87,8 @@ Checks:
 
 ## Content to settle before the freeze
 
-- [ ] Two media files are missing in the local v8 copy (an event image and a team image, see the plan, task 10): check them against production in the media rsync of the switch.
-- [ ] Any content changed in v10 before go-live: record it in `v8-overrides.php`, or the final sync overwrites it.
+- [x] Two media files are missing in the local v8 copy (an event image and a team image, see the plan, task 10): check them against production in the media rsync of the switch. Resolved 2026-11-20: they are missing on production too (the production copy is identical): a v8 data issue.
+- [x] Any content changed in v10 before go-live: record it in `v8-overrides.php`, or the final sync overwrites it. None (staging edits were test edits and are replaced at the switch).
 
 ## Switch
 
@@ -104,21 +105,21 @@ Before the day:
 
 The switch:
 
-- [ ] Content freeze on the v8 admin.
-- [ ] Final production dump from the v8 app (before moving the domain) → `v8_seerden`; rsync of the production media into `seerden8246/.lara/production_switch/media`; `LARA_V8_MEDIA_PATH` to that folder.
-- [ ] Backups first: `v10_seerden` and `v8_seerden` into `seerden-deploy/backups/` (`seerden10723_before_final_sync.sql`, `v8_seerden_before_final_sync.sql`).
-- [ ] Locally: `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then a fresh dump and media (Python archive) in `seerden-deploy/`.
-- [ ] Server (v10 app): load the dump and media as in staging (this also removes the staging test edits and test form entries); NFC check of non-ASCII file names; clear the sessions.
-- [ ] Server: `robots.txt` back to the repo version: a Cloudways dashboard pull (Deployment via Git) restores it, as it discards server edits to tracked files (there is no git on the server). Until the switch, block it again after every pull.
-- [ ] Server `.env`: `APP_URL=https://www.seerdencommunicatie.nl`, `APP_ENV=production`, the production `MAIL_*`/`MAIL_FROM_*`; then `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch` (fonts.css holds the dev URL), `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`, the sitemap again.
-- [ ] v8 app: switch off its cron jobs and outgoing mail; remove its domains and give it a Cloudways temporary URL (the fallback).
-- [ ] v10 app: primary domain `www.seerdencommunicatie.nl`, alias `seerdencommunicatie.nl` (redirect to `www`, as live); remove `dev.seerdencommunicatie.nl` or redirect it to `www` (one `robots.txt` serves every domain of the app, so a remaining dev domain would be an indexable copy); issue the SSL certificate for both domains.
-- [ ] Check: the non-www → www redirect (301), home (hero, client logos, contact band), every menu item (Evenementen with its 4 sub-pages and their project tiles and related pages, Campagnes, Over mij, Contact, Privacy, Instagram feed), a project page, a testimonial, the 404, every asset and image (incl. `/storage` editor images, fonts, `/assets/filament/img`), both contact forms with reCAPTCHA and the mail (`company_email` and the confirmation), the cookie consent, `robots.txt` (allows), `sitemap.xml` (www URLs), the admin login.
-- [ ] Search Console: the sitemap; watch 404s. v8 had no redirects.
+- [x] Content freeze on the v8 admin (2026-11-20).
+- [x] Final production dump from the v8 app (before moving the domain) → `v8_seerden` (`seerden_prod_20112026.sql`, 10:10); the production media copied with SFTP into `seerden8246/.lara/production_switch/media` (199 files, identical to the earlier copy); `LARA_V8_MEDIA_PATH` to that folder.
+- [x] Backups first: `v10_seerden` and `v8_seerden` into `seerden-deploy/backups/` (`seerden10723_before_final_sync.sql`, `v8_seerden_before_final_sync.sql`). Done 2026-11-20 as `{v10,v8}_seerden-20261120-pre-sync.sql`.
+- [x] Locally: `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; then a fresh dump and media (Python archive) in `seerden-deploy/`. Done 2026-11-20: dry run only known warnings; sync: every step `same` (the 19-11 production edits only touched `updated_at`), 5 overrides, verify ok 36; `seerden-deploy/seerden10723.sql` + `seerden10723-media.tgz` (Python, 154 files, NFC); staging versions in `backups/`.
+- [x] Server (v10 app): load the dump and media as in staging (this also removes the staging test edits and test form entries); NFC check of non-ASCII file names; clear the sessions. Done 2026-11-20: uploaded to `storage/app/` (no write access to `~`); 154 files, 0 non-NFC or `._*` names; sessions cleared. `/storage` was broken by the restored `public/storage` symlink: relinked, and untracked in the repo (`9b01a4e`).
+- [x] Server: `robots.txt` back to the repo version: a Cloudways dashboard pull (Deployment via Git) restores it, as it discards server edits to tracked files (there is no git on the server). Until the switch, block it again after every pull. Done 2026-11-20 (pull of `9b01a4e`, then `storage:link`).
+- [x] Server `.env`: `APP_URL=https://www.seerdencommunicatie.nl`, `APP_ENV=production`, the production `MAIL_*`/`MAIL_FROM_*`; then `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch` (fonts.css holds the dev URL), `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`, the sitemap again. Done 2026-11-20; the sitemap with `schedule:test --name=google-sitemap` (tinker wrote nothing): 11 `www` URLs.
+- [x] v8 app: switch off its cron jobs and outgoing mail; remove its domains and give it a Cloudways temporary URL (the fallback). Done 2026-11-20 (crons off, `MAIL_MAILER=log`, domains removed). Note: a cache command ran in its shell by mistake (only its caches cleared): rebuild its caches before using the fallback.
+- [x] v10 app: primary domain `www.seerdencommunicatie.nl`, alias `seerdencommunicatie.nl` (redirect to `www`, as live); remove `dev.seerdencommunicatie.nl` or redirect it to `www` (one `robots.txt` serves every domain of the app, so a remaining dev domain would be an indexable copy); issue the SSL certificate for both domains. Done 2026-11-20: `www` primary, `seerdencommunicatie.nl` alias, `dev.` removed (404), Let's Encrypt for both. The Cloudways www redirect drops the path (every non-www URL → www home) and does not cover `/storage` files: kept (user).
+- [x] Check: the non-www → www redirect (301), home (hero, client logos, contact band), every menu item (Evenementen with its 4 sub-pages and their project tiles and related pages, Campagnes, Over mij, Contact, Privacy, Instagram feed), a project page, a testimonial, the 404, every asset and image (incl. `/storage` editor images, fonts, `/assets/filament/img`), both contact forms with reCAPTCHA and the mail (`company_email` and the confirmation), the cookie consent, `robots.txt` (allows), `sitemap.xml` (www URLs), the admin login. Done 2026-11-20: http → https and non-www → www 301; 16 URLs identical to the local site; 47 asset URLs 200 (`/storage`, fonts, `/assets/filament/img`); both contact forms with reCAPTCHA, mail to the company address and the confirmation (user); consent with GA4; `robots.txt` allows; sitemap 11 `www` URLs; admin login (user). Deploy branch switched to `main` (tag `v1.0.0`) and rechecked.
+- [x] Search Console: the sitemap; watch 404s. v8 had no redirects. Sitemap submitted 2026-11-20 (user); watching 404s is ongoing.
 
 ## Fallback
 
-- [ ] The v8 app stays on the server with its files and database, without domains, on its Cloudways temporary URL, read-only (crons and mail off) for a few weeks. Switching back: move the domains back and issue SSL again; content edited in v10 after the switch would have to be redone in v8.
+- [x] The v8 app stays on the server with its files and database, without domains, on its Cloudways temporary URL, read-only (crons and mail off) for a few weeks. Switching back: move the domains back and issue SSL again; content edited in v10 after the switch would have to be redone in v8. In place since 2026-11-20.
 
 ## Known differences that stay
 

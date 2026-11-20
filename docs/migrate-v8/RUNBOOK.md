@@ -223,7 +223,7 @@ php artisan lara:v8:import-media --dry-run
 php artisan lara:v8:import-media --fresh
 ```
 
-Run it after `import-content`. Source: `LARA_V8_MEDIA_PATH` (for the final sync: an rsync of the production media folder).
+Run it after `import-content`. Source: `LARA_V8_MEDIA_PATH` (for the final sync: a fresh copy of the production media folder).
 
 - Files keep their **v8 file name** (user decision): images go to `{resource slug}/` on the entity's v10 image disk (`public`), files to `{resource slug}/file/`, video files to `{resource slug}/video/` — the folders the v10 admin uploads to. A file missing in the entity folder is taken from its `_archive`; `_trash` is never used. Unreferenced files on disk are not imported.
 - **Images** become Curator items (`curator`: disk + path, dimensions, size, MIME type, alt/title/caption from v8) and links in `lara_object_images` (`mediable_type`/`mediable_id`, `type`, `order`): v8 `featured`/`ishero`/`isicon` → `featured`/`hero`/`icon`; an image without a flag, or one v8 did not hide from the gallery, also gets `gallery`; the order follows the v8 `position`. v8 `herosize` and `prevent_cropping` have no v10 counterpart (reported).
@@ -301,7 +301,7 @@ Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRo
    ```bash
    mysql -h127.0.0.1 -uroot -e "DROP DATABASE v8_{site}; CREATE DATABASE v8_{site} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
    mysql -h127.0.0.1 -uroot v8_{site} < {fresh-production-dump}.sql
-   rsync -av --delete {user}@{v8-host}:{v8-root}/public/assets/media/ {LARA_V8_MEDIA_PATH}/
+   # media: copy the v8 app's public/assets/media into an emptied {LARA_V8_MEDIA_PATH} (SFTP, e.g. in PhpStorm; or rsync -av --delete)
    ```
    The read-only grant survives the drop (`GRANT` is per database name).
 3. Dry run, then the sync:
@@ -327,7 +327,12 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 **Deploy lessons (seerden staging, 2026-11-19)**
 
 - `.env` values with a space need double quotes: `APP_NAME="Seerden Communicatie"`. Unquoted, the site answers 500 as soon as the config cache is cleared; before that, the cached config hides the change (titles kept the old name).
-- `public/storage` is committed in the project as a symlink to a developer folder, and `php artisan storage:link` does not replace an existing link: run `rm public/storage && php artisan storage:link` and check `ls -l public/storage` (→ `storage/app/public`). Otherwise every `/storage/...` URL redirects to `/{locale}/storage/...`: no fonts, no editor images in the page bodies.
+- `public/storage` is committed in the project as a symlink to a developer folder, and `php artisan storage:link` does not replace an existing link: run `rm public/storage && php artisan storage:link` and check `ls -l public/storage` (→ `storage/app/public`). Otherwise every `/storage/...` URL redirects to `/{locale}/storage/...`: no fonts, no editor images in the page bodies. **Untrack it in the site repo** (`git rm --cached public/storage`; the path is already in `.gitignore`): a Cloudways dashboard pull restores tracked files, so on seerden every pull broke `/storage` again (found at the switch). The first pull of that commit removes the link one last time: run `php artisan storage:link` after it.
+- The application user may not be able to write to the home folder (seerden). Upload the dump and the media archive with SFTP to the app's `public_html/storage/app/` (Laravel writes there; the web root is `public/`, so it is not served), load them from there and delete them afterwards.
+- `php artisan tinker` cannot run without a writable home folder (`~/.config/psysh`), and `--execute` then fails without a word (seerden: the sitemap was not rewritten). Generate the sitemap with its scheduler task: `php artisan schedule:test --name=google-sitemap`, and check the file date (`ls -l public/sitemap.xml`).
+- At the switch two apps are open on the same server: before every command, check which app the shell is in (`grep -m1 '"version"' composer.json`: v8 `8.0.8`, v10 `10.7.x`). On seerden a cache command ran in the v8 app (`responsecache` unknown there; harmless, but the v10 caches were not cleared).
+- The Cloudways non-www → www redirect sends every non-www URL to the www **home** (the path is dropped) and does not cover `/storage` files. Kept on seerden (user; v8's canonical was already www); a host-specific `.htaccess` rule before the Laravel rules would keep the path.
+- The user copies files with SFTP in PhpStorm, not rsync: name the source and target folders, then check the result from here (file counts, `diff -rq`, no `._*`).
 - `php artisan google-fonts:fetch` after `APP_URL` is set (the media archive leaves `_fonts` out on purpose).
 - Generate the sitemap once (step 6 below).
 - Staging is indexable (`robots.txt` allows all, no `noindex`): password-protect it (Cloudways) or block robots there.
@@ -342,7 +347,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 3. `.env`: `APP_NAME` (the site name in every page title), `APP_ENV=production` only on production (see 7), `APP_DEBUG=false`, `APP_URL`, `LARA_CLIENT_THEME={client}`, the mail settings, the site's Google Maps, reCAPTCHA and GA4 keys, and `CONSENT_GA4_ID` (GA4 for the cookie-consent plugin). `LARA_V8_*` only if the import runs on the server (see 6).
 4. **Google Analytics credentials, by hand:** upload the service-account file to `storage/app/analytics/service-account-lara-dash.json` (`config/analytics.php`). It holds a private key, so it is in no repo (`storage/app/analytics/*` is git-ignored); without it the admin dashboard gives an error on the first deploy.
 5. Build: the servers have no Node, so **the built assets are committed in the site repo** (see Built assets in git below); on the server only `composer install --no-dev -o` and `php artisan storage:link` (replace a committed `public/storage` symlink).
-6. Data: run the import locally (steps 2 and 4–13, or the sync of step 17), `lara:v8:verify` (no errors, every warning explained), then move the v10 database (`mysqldump`) and `storage/app/public` to the server, without `storage/app/public/_fonts` (with Python, so file names stay NFC and no `._*` files: `python3 -c 'import tarfile; t = tarfile.open("media.tgz", "w:gz"); t.add("storage/app/public", arcname="public", filter=lambda i: None if i.name == "public/_fonts" or i.name.startswith("public/_fonts/") else i); t.close()'`; not macOS `tar`, see Deploy lessons). Keep these files per site in `__migrate/{site}-deploy/` (`{target}.sql`, `{target}-media.tgz`, `backups/` for the dumps taken before the final sync), for staging and again for production; never in a repo (the dump holds password hashes). On the server run `php artisan google-fonts:fetch` after `APP_URL` is set: the fonts stylesheet holds absolute URLs of the site that fetched it. The server then needs no v8 database. (Running the import on the server works too, with the `LARA_V8_*` settings and a v8 database there.) Generate the sitemap once: `php artisan tinker --execute '(new \Lara\App\Sitemap\GoogleSitemapGenerator)(["{locale}"]);'`.
+6. Data: run the import locally (steps 2 and 4–13, or the sync of step 17), `lara:v8:verify` (no errors, every warning explained), then move the v10 database (`mysqldump`) and `storage/app/public` to the server, without `storage/app/public/_fonts` (with Python, so file names stay NFC and no `._*` files: `python3 -c 'import tarfile; t = tarfile.open("media.tgz", "w:gz"); t.add("storage/app/public", arcname="public", filter=lambda i: None if i.name == "public/_fonts" or i.name.startswith("public/_fonts/") else i); t.close()'`; not macOS `tar`, see Deploy lessons). Keep these files per site in `__migrate/{site}-deploy/` (`{target}.sql`, `{target}-media.tgz`, `backups/` for the dumps taken before the final sync), for staging and again for production; never in a repo (the dump holds password hashes). On the server run `php artisan google-fonts:fetch` after `APP_URL` is set: the fonts stylesheet holds absolute URLs of the site that fetched it. The server then needs no v8 database. (Running the import on the server works too, with the `LARA_V8_*` settings and a v8 database there.) Generate the sitemap once: `php artisan schedule:test --name=google-sitemap` (tinker fails without a writable home folder, see Deploy lessons).
 7. Forms: v10 sends form mail with the `dev` mailer (`MAIL_DEV_*`) unless `APP_ENV=production`, and then to `company_email` with the `smtp` mailer; reCAPTCHA is only checked in production. On staging, submit every published form and check the mail on the dev mailer; check reCAPTCHA right after the switch.
 8. Compare with live once more (step 22 scripts: titles, headings, text; desktop and mobile).
 
@@ -406,7 +411,7 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
 - Artisan cannot boot without an existing database (`HasSetup`), so create the database before `key:generate`.
 - Plain `php artisan migrate` finds nothing: the migrations live in `laracms/core/src/common/Database/Migrations` and `laracms/app/Database/Migrations` and must be run with `--path` (see step 1).
 - `.env.example` on `main` is the stock Laravel file (sqlite, no `LARA_*` keys). Base the `.env` on a working v10 site and replace name, URL, database, key and third-party keys (Google Maps, reCAPTCHA, GA4).
-- `public/storage` on `main` is a committed symlink to a developer folder; `storage:link` replaces it locally. Do not commit that change.
+- `public/storage` on `main` is a committed symlink to a developer folder; `storage:link` replaces it locally. Do not commit that change to `v8-migration`; in the site repo, untrack it (`git rm --cached public/storage`, see Deploy lessons). Better still: remove it from the project repo's `main`.
 - `storage/app/public` is not git-ignored in the project repo (standard Laravel has a `.gitignore` there): the imported media show up as untracked files. Never add them to the `v8-migration` branch; a `storage/app/public/.gitignore` on `main` would prevent it.
 - `herd link` runs Laravel Boost, which regenerates `CLAUDE.md`, `AGENTS.md` and `.claude/skills`. Revert with `git checkout -- CLAUDE.md AGENTS.md .claude`.
 - `/config/lara-*` is git-ignored in the project, so site-wide migration settings live in `config/v8-migration.php`.
@@ -519,3 +524,57 @@ For a next site with the tooling in place, plan roughly: 1–3 h for the import 
 - The earlier v10 theme was built on 10.7.13; its demo/base were identical to 10.7.18, so it could be taken over as it was.
 - `/flyer/` (a static folder in `public/`) is redirected to `/nl/flyer` by Herd's nginx but served by Apache on Cloudways.
 - The live site has no sitemap and answers unknown URLs with the home page (status 200); v10 does the same for unknown URLs.
+
+### seerdencommunicatie.nl (second site, 2026-11)
+
+v8.2.46 (`seerden8246`, Bootstrap 5 "Silicon" theme `seerden`) → Lara CMS 10.7.23 (`seerden10723`, theme `seerden`). Site repository: `appdezign/seerdencommunicatie-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since 2026-11-20 on the former staging app (dev.seerdencommunicatie.nl, now removed). Plan with every decision and detail: `seerden8246/.ai/plans/2026-11-18-migrate-v8-to-v10.md`; go-live list: `sites/seerden-go-live.md`; inventory: `sites/seerden-inventory.md`.
+
+**Time.** Elapsed time between the commits of each step, including decisions and breaks.
+
+| Steps | What | Time |
+|---|---|---|
+| 1–3 | v10 target, v8 snapshot, inventory (target and snapshot partly prepared by the user) | ½ h |
+| 3–5 | skip list and related objects (new tooling), essential base, content types (+ the empty-disk fix) | ¾ h |
+| 6–13 | custom code, users, content, objects, menus, settings, media, URLs (+ core custom fields, URL entities, derived page columns) | 1 h |
+| 14 | client theme from `demo`: port, related order, page-by-page and visual comparison with live | 6½ h |
+| 15–17 | verify, overrides, site repo, go-live list | ½ h |
+| 18 | staging (dev.seerdencommunicatie.nl), guided, three rounds of fixes | 1½ h |
+| 18 | the switch (freeze, final sync, domains moved, checks), guided | 1½ h |
+
+With the tooling in place the import took about 2 hours, including four tooling fixes; the theme took most of the time, as expected (a full port from Bootstrap, no earlier v10 theme).
+
+**Results.**
+
+- Content: 13 site content types (11 entities, 2 forms) + the 4 core ones, rows with their v8 ids; 4 leftover types skipped (city, product, sponsor, story: 2 test records, 27 tags, 2 media rows, 1 SEO and 1 related row dropped); 7 users; 79 tags (37 roots dropped), 25 taggables, 6 pageables, 7 SEO rows, 2 layout rows, 6 related rows with 27 links; 3 menus, 19 items; 23 settings, 241 translations; 67 Curator items, 68 files, 11 video lists.
+- `lara:v8:verify`: ok 36, no warnings, before and after the final sync. Tests: 139.
+- Compared with live: every menu URL, both contact pages, the 7 projects and 4 testimonials, `/en`, an unknown URL: text 100 % apart from the deliberate differences (go-live list); visual pass at 1440 px and 390 px. After the switch: 16 URLs identical to the local site, 47 asset URLs 200, both forms with reCAPTCHA and mail.
+
+**Tooling added for seerden** (now part of the branch; each with fixture tests):
+
+- Skip list `LARA_V8_SKIP_ENTITIES` for demo leftover content types (step 3).
+- Related objects converted (v8 one row per link → v10 JSON lists per record; menu item targets → module pages), in v8 front order; `verify --only=related`.
+- The site's own custom fields on core content types are added to the v10 core entity when live records use them (`CoreCustomFields`; seerden `page.subtitle`, the home `<h1>`).
+- An empty v8 media disk is v8's default disk (`public`); a null disk broke the admin create form of docs.
+- HTML entities in media URLs are decoded (`Co&ouml;rdinator`), as a browser does.
+- `import-content --fresh` writes the derived page columns (`ishome`, `position`, `menuroute`): v8 page 19 had the id of the essential seed's home page and became a second home.
+- `SyncsRows` compares JSON with sorted keys (MySQL reorders them).
+
+**Decisions** (see the plan for the reasoning):
+
+- Skip the 4 leftover types; `page.subtitle` as a core custom field; related objects in v8 front order.
+- English unpublished (site override, as anpak); contact form labels as live (4 site overrides + the button text as a translation); the "* = verplicht" markers and the " — Seerden Communicatie" title suffix stay.
+- The staging app becomes production: domains moved from the v8 app in the Cloudways dashboard (same server, no DNS change); the v8 app stays as the fallback without domains, crons off, `MAIL_MAILER=log`.
+- Sitemap: unlinked module pages left out (site code; 11 URLs). The Cloudways www redirect is kept although it drops the path.
+- Production mail through AuthSMTP as v8 (port 25), `MAIL_FROM_ADDRESS=ellen@seerdencommunicatie.nl`; reCAPTCHA v2 keys from the v8 app.
+
+**Theme work** (`laracms/themes/seerden`, from v10 `demo`): daisyUI colours from Silicon (primary #5A005A, accent #fb9003), Manrope, Bootstrap container and heading sizes; sticky header with the large/small logo and social icons; hero `hero_fixed` and the home slider (images only); home with the page `subtitle` as `<h1>` and the client logos; page view with subtitle and related pages; campagne/event project tiles (widgets); project and testimonial views; contact page in v8 layout; footer (contact, follow, text widget); the 404 without the demo news widget; the Instagram page (Curator.io feed).
+
+**Gotchas met on seerden** (the general ones are in Gotchas and Deploy lessons):
+
+- `information_schema.tables.table_rows` said 0 for story and city (1 row each): count with `COUNT(*)`.
+- Every dashboard pull restored the committed `public/storage` symlink and the repo `robots.txt`: untrack `public/storage`; block robots again after each pull until the switch.
+- The application user cannot write to `~`: deploy files via SFTP to `storage/app/`; tinker fails silently (sitemap via `schedule:test`).
+- macOS `tar` broke one editor image (NFD name) on staging: Python `tarfile`.
+- `.gitignore` from anpak ignored `public/assets/filament/img` (admin login background and logo): tracked now.
+- A cache command ran in the v8 app's shell at the switch: check the app before each command.
+- Project-level bugs in `GoogleSitemapGenerator` (every site has them; for the project template): `MenuItem::type` is an enum, so the `== 'page'` comparisons are always false (entity detail pages never listed, lastmod from the menu item), `publish` is ignored, `utf8_encode()` is deprecated.
