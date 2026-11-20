@@ -67,7 +67,7 @@ php artisan schedule:test --name=google-sitemap  # not tinker: it fails without 
 
 Checks:
 
-- [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file; scheduler cron.
+- [x] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file; scheduler cron. GA file and cron confirmed on the v10 app (user, 2026-11-20).
 - [x] Code on `v10`, `.env` complete, data and media loaded, `storage:link`, fonts fetched. Done (2026-11-19; since 2026-11-20 on `main`).
 - [x] Compared with `seerden10723` (2026-11-19, 27 URLs: every menu URL, both contact pages, the 7 projects, the 4 testimonials, `/nl/project`, `/nl/aanbevelingen`, `/en`, an unknown URL): status, text and image count identical; all 42 asset and image URLs of three pages 200 (theme CSS/JS, Glide images, favicons); cookie consent with GA4 `G-0B6CD217XK`; reCAPTCHA on the contact form; no English hreflang; no debug output.
 - [x] Open after the first deploy (2026-11-19); rechecked after the user's fixes. **Final check 2026-11-19:** 27 URLs identical to `seerden10723` (status, text, image count, titles); all 78 asset and image URLs 200, including the PvdA editor image (renamed to NFC) and the fonts.
