@@ -11,11 +11,24 @@ Fixes found while migrating a site are committed to this branch, so the next sit
 
 ## Local setup per site
 
-| What | Example (anpak) |
+**Who prepares what (user, 2026-11-20).** The user prepares only the **v8 side**, then starts the migration with `/plan-go`; Claude sets up the whole **v10 side** (steps 1 and 2 below) and checks every step. On seerden the user had set up both folders, and the v10 folder had mistakes Claude only found later (the read-only grant on another database than `.env` named, an empty media path, a duplicate snapshot database, a production dump inside the repo).
+
+The user prepares:
+
+- `__migrate/{site}8246`: a working copy of the live v8 app with its local database, served by Herd (PHP 8.1).
+- A production dump in `{site}8246/.lara/dbdump/`, exported with TablePlus.
+- The production media in `{site}8246/.lara/production_switch/media` (SFTP), used by the first import and refreshed for the final sync.
+- The empty site repository on GitHub (`appdezign/{site-repo}`; needed from step 16 on).
+
+Claude then sets up, in this order, and reports before the import starts (keys, skip list and repo name are asked then): the v10 target (step 1), the site branch `v10` and a worktree for `v8-migration` (Gotchas: separate working trees), the v8 snapshot with the read-only grant on exactly that database (step 2), `LARA_V8_MEDIA_PATH`, and the checks: `composer test` green on the demo install, and `php artisan test --compact tests/Feature/LaraV8` runs the source tests (not skipped) and passes.
+
+| What | Example (seerden) |
 | --- | --- |
-| v8 reference site (Herd, PHP 8.1) | `__migrate/anpak8246`, db `anpak8246` |
-| v8 source snapshot (production dump, read-only) | db `v8_anpak` |
-| v10 target (Herd, PHP 8.4) | `__migrate/anpak1077`, db `anpak1077` |
+| v8 reference site (Herd, PHP 8.1; user) | `__migrate/seerden8246`, db `seerden8246` |
+| production dump and media (user) | `seerden8246/.lara/dbdump/`, `seerden8246/.lara/production_switch/media` |
+| v8 source snapshot (production dump, read-only; Claude) | db `v8_seerden` |
+| v10 target (Herd, PHP 8.4; Claude) | `__migrate/seerden10723`, db `v10_seerden` |
+| deploy files (Claude) | `__migrate/seerden-deploy/` |
 
 The v8 reference site is for clicking through the old site and admin. Its database changes as soon as it is used, so the import never reads from it; it reads from the snapshot.
 
@@ -297,7 +310,7 @@ Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRo
 ### 17. Final sync
 
 1. Announce a content freeze on the v8 site (no edits until go-live).
-2. Fresh copy of production, into the same database and media path:
+2. Fresh copy of production, into the same database and media path (the user exports the dump with TablePlus into `{site}8246/.lara/dbdump/` and copies the media with SFTP; Claude loads the dump locally):
    ```bash
    mysql -h127.0.0.1 -uroot -e "DROP DATABASE v8_{site}; CREATE DATABASE v8_{site} CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
    mysql -h127.0.0.1 -uroot v8_{site} < {fresh-production-dump}.sql
@@ -328,7 +341,8 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 
 - `.env` values with a space need double quotes: `APP_NAME="Seerden Communicatie"`. Unquoted, the site answers 500 as soon as the config cache is cleared; before that, the cached config hides the change (titles kept the old name).
 - `public/storage` is committed in the project as a symlink to a developer folder, and `php artisan storage:link` does not replace an existing link: run `rm public/storage && php artisan storage:link` and check `ls -l public/storage` (→ `storage/app/public`). Otherwise every `/storage/...` URL redirects to `/{locale}/storage/...`: no fonts, no editor images in the page bodies. **Untrack it in the site repo** (`git rm --cached public/storage`; the path is already in `.gitignore`): a Cloudways dashboard pull restores tracked files, so on seerden every pull broke `/storage` again (found at the switch). The first pull of that commit removes the link one last time: run `php artisan storage:link` after it.
-- The application user may not be able to write to the home folder (seerden). Upload the dump and the media archive with SFTP to the app's `public_html/storage/app/` (Laravel writes there; the web root is `public/`, so it is not served), load them from there and delete them afterwards.
+- **Database work on a server is done by the user in TablePlus** (user, 2026-11-20): exports, imports and queries. Never give `mysql` commands for the server and never ask to upload SQL files. Every database step becomes a file in `__migrate/{site}-deploy/` that the user imports with TablePlus into the named database: the deploy dump (`{target}.sql`), and extra rows as guarded inserts (`INSERT … SELECT … WHERE NOT EXISTS`, safe to import twice; seerden: `translations-v1.0.1.sql`). Check the result from here afterwards.
+- The application user may not be able to write to the home folder (seerden). Upload the media archive with SFTP to the app's `public_html/storage/app/` (Laravel writes there; the web root is `public/`, so it is not served), unpack it from there and delete it afterwards. (On seerden the dump was loaded the same way with `mysql`; from now on the dump goes in through TablePlus, see above.)
 - `php artisan tinker` cannot run without a writable home folder (`~/.config/psysh`), and `--execute` then fails without a word (seerden: the sitemap was not rewritten). Generate the sitemap with its scheduler task: `php artisan schedule:test --name=google-sitemap`, and check the file date (`ls -l public/sitemap.xml`).
 - At the switch two apps are open on the same server: before every command, check which app the shell is in (`grep -m1 '"version"' composer.json`: v8 `8.0.8`, v10 `10.7.x`). On seerden a cache command ran in the v8 app (`responsecache` unknown there; harmless, but the v10 caches were not cleared).
 - The Cloudways non-www → www redirect sends every non-www URL to the www **home** (the path is dropped) and does not cover `/storage` files. Kept on seerden (user; v8's canonical was already www); a host-specific `.htaccess` rule before the Laravel rules would keep the path.
@@ -347,7 +361,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 3. `.env`: `APP_NAME` (the site name in every page title), `APP_ENV=production` only on production (see 7), `APP_DEBUG=false`, `APP_URL`, `LARA_CLIENT_THEME={client}`, the mail settings, the site's Google Maps, reCAPTCHA and GA4 keys, and `CONSENT_GA4_ID` (GA4 for the cookie-consent plugin). `LARA_V8_*` only if the import runs on the server (see 6).
 4. **Google Analytics credentials, by hand:** upload the service-account file to `storage/app/analytics/service-account-lara-dash.json` (`config/analytics.php`). It holds a private key, so it is in no repo (`storage/app/analytics/*` is git-ignored); without it the admin dashboard gives an error on the first deploy.
 5. Build: the servers have no Node, so **the built assets are committed in the site repo** (see Built assets in git below); on the server only `composer install --no-dev -o` and `php artisan storage:link` (replace a committed `public/storage` symlink).
-6. Data: run the import locally (steps 2 and 4–13, or the sync of step 17), `lara:v8:verify` (no errors, every warning explained), then move the v10 database (`mysqldump`) and `storage/app/public` to the server, without `storage/app/public/_fonts` (with Python, so file names stay NFC and no `._*` files: `python3 -c 'import tarfile; t = tarfile.open("media.tgz", "w:gz"); t.add("storage/app/public", arcname="public", filter=lambda i: None if i.name == "public/_fonts" or i.name.startswith("public/_fonts/") else i); t.close()'`; not macOS `tar`, see Deploy lessons). Keep these files per site in `__migrate/{site}-deploy/` (`{target}.sql`, `{target}-media.tgz`, `backups/` for the dumps taken before the final sync), for staging and again for production; never in a repo (the dump holds password hashes). On the server run `php artisan google-fonts:fetch` after `APP_URL` is set: the fonts stylesheet holds absolute URLs of the site that fetched it. The server then needs no v8 database. (Running the import on the server works too, with the `LARA_V8_*` settings and a v8 database there.) Generate the sitemap once: `php artisan schedule:test --name=google-sitemap` (tinker fails without a writable home folder, see Deploy lessons).
+6. Data: run the import locally (steps 2 and 4–13, or the sync of step 17), `lara:v8:verify` (no errors, every warning explained), then move the v10 database (`mysqldump` locally into `{site}-deploy/{target}.sql`; the user imports it into the server database with TablePlus) and `storage/app/public` to the server, without `storage/app/public/_fonts` (with Python, so file names stay NFC and no `._*` files: `python3 -c 'import tarfile; t = tarfile.open("media.tgz", "w:gz"); t.add("storage/app/public", arcname="public", filter=lambda i: None if i.name == "public/_fonts" or i.name.startswith("public/_fonts/") else i); t.close()'`; not macOS `tar`, see Deploy lessons). Keep these files per site in `__migrate/{site}-deploy/` (`{target}.sql`, `{target}-media.tgz`, `backups/` for the dumps taken before the final sync), for staging and again for production; never in a repo (the dump holds password hashes). On the server run `php artisan google-fonts:fetch` after `APP_URL` is set: the fonts stylesheet holds absolute URLs of the site that fetched it. The server then needs no v8 database. (Running the import on the server works too, with the `LARA_V8_*` settings and a v8 database there.) Generate the sitemap once: `php artisan schedule:test --name=google-sitemap` (tinker fails without a writable home folder, see Deploy lessons).
 7. Forms: v10 sends form mail with the `dev` mailer (`MAIL_DEV_*`) unless `APP_ENV=production`, and then to `company_email` with the `smtp` mailer; reCAPTCHA is only checked in production. On staging, submit every published form and check the mail on the dev mailer; check reCAPTCHA right after the switch.
 8. Compare with live once more (step 22 scripts: titles, headings, text; desktop and mobile).
 
