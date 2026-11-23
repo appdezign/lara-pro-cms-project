@@ -13,7 +13,7 @@ Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `http
 ## Open before staging
 
 - [ ] **Staging app and domain** (user): the v10 Cloudways app on the same server as the v8 app (it becomes production at the switch), its staging domain (e.g. `dev.doormode.nl`: with Cloudflare in front, a DNS record in Cloudflare is needed), the app's database name for the TablePlus import. A PhpStorm SFTP project exists: `__lara10_cloudways/remote/doormode.nl_v10_cloudways` (server "cloudways", root `/public_html`).
-- [ ] **Keys** (user): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the contact page map) and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; live has the v2 checkbox on the contact form). The v8 app's `.env` has both (the local copy `doormode8246/.env` too): copy them to the v10 app's `.env`, and check that the reCAPTCHA keys allow the staging domain. Locally they stay empty (user, 2026-11-23). GA4: `CONSENT_GA4_ID=G-52D5VGD7LJ` (v8 setting `ga4_id`); staging then counts in the live property.
+- [x] **Keys** (user, 2026-11-23: use the v8 keys): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the contact page map) and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; v2 checkbox on the contact form) from the v8 app's `.env` (the local copy `doormode8246/.env` has the same) go into the v10 app's `.env` on the server; check that the reCAPTCHA keys allow the staging domain. Locally they stay empty (user, 2026-11-23). GA4: `CONSENT_GA4_ID=G-52D5VGD7LJ` (v8 setting `ga4_id`); staging then counts in the live property.
 - [ ] **Mail** (user): form mail goes to `company_email` = `info@doormode.nl` (the footer shows `doormode@live.nl`, fixed in the v8 view: which one should receive the form?). The v8 app sends through AuthSMTP (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password in the v8 `.env`), as seerden; its sender is the config default (a firmaq.nl address, "Firmaq Media"): set `MAIL_FROM_ADDRESS`/`MAIL_FROM_NAME` for doormode (SPF of the sender domain must include `authsmtp.com`). Staging: `MAIL_DEV_*` (e.g. Mailtrap).
 - [x] **`APP_NAME="DOOR mode"`** (user, 2026-11-23): page title suffix " — DOOR mode" and `og:site_name` (live titles have no suffix; kept, as seerden). On the server with the quotes (Deploy lessons).
 - [ ] **Cloudflare** (user): who manages the doormode.nl zone; at the switch the domains move to the v10 app on the same server (origin IP unchanged), so Cloudflare needs no change unless its SSL mode or a staging record does. Let's Encrypt in Cloudways behind the Cloudflare proxy: check the zone's SSL mode (Full/Full strict) and whether the certificate validates with the proxy on.
@@ -53,7 +53,7 @@ Checks:
 - [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file; scheduler cron.
 - [ ] Every URL of the text pass (`doormode-compare/urls.txt`: 25 URLs) identical to `doormode10723` (status, title, text); every asset and image of the pages 200 (theme CSS/JS, Glide images, the wallpaper images, favicons, `/storage`, fonts, `/assets/filament/img` and the admin login).
 - [ ] Evenementen lists no events (stock v8 front scope); the contact page shows the two-column grid and the map (Maps key).
-- [ ] Sitemap: `/sitemap.xml` 200. Live's lists 32 URLs, among them the past event detail pages and unpublished menu pages; compare and decide what v10's should list (seerden left the unlinked module pages out, `f71e070` on its repo; project-level sitemap bugs: runbook seerden section).
+- [ ] Sitemap: `/sitemap.xml` 200, 16 URLs (locally 2026-11-23): every published menu item and the contact page. **Unlinked pages left out** (user, 2026-11-23; `f5d67c3` on `v10`): the unpublished menu items Evenementen, Fotoalbum, Privacy and Offline (linked from nowhere); Contact stays (map icon in header and footer). Live's sitemap lists 32 URLs, among them those pages, the past event details and the 3 blog posts. The blog posts are missing from v10's because of the project-level `GoogleSitemapGenerator` bug (runbook seerden section: `MenuItem::type` is an enum, so entity detail pages are never listed).
 - [ ] Forms: submit the contact form on staging; the mail arrives on the dev mailer.
 - [ ] Admin: log in, open and save a few records; the front stays identical afterwards. Edits on staging are lost at the switch.
 
@@ -72,7 +72,7 @@ Before the day:
 - [ ] reCAPTCHA keys for `www.doormode.nl` and `doormode.nl` in the v10 app's `.env`; the widget renders only with `APP_ENV=production`.
 - [ ] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
 - [ ] Cloudways backups of the v10 app (daily).
-- [ ] Sitemap decision applied and pulled.
+- [x] Sitemap decision (user, 2026-11-23): unlinked pages left out, applied in `f5d67c3` on `v10` (pull before the switch; the sitemap is generated again at the switch).
 
 The switch:
 
