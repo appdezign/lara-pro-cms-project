@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use Arrilot\Widgets\AbstractWidget;
 use Illuminate\Support\Facades\File;
+use Lara\Front\Widgets\CtaCacheWidget;
+use Lara\Front\Widgets\EntityCacheWidget;
 use LaravelLocalization;
 use Tests\TestCase;
 
@@ -43,5 +45,23 @@ class WidgetCacheKeyTest extends TestCase
 
             $this->assertNotSame($dutchKey, $englishKey, $widgetClass.' uses the same cache key for every language.');
         }
+    }
+
+    public function test_cta_cache_key_differs_per_template(): void
+    {
+        $contactKey = (new CtaCacheWidget(['hook' => 'contact', 'template' => 'contact']))->cacheKey();
+        $newsletterKey = (new CtaCacheWidget(['hook' => 'contact', 'template' => 'newsletter']))->cacheKey();
+
+        $this->assertNotSame($contactKey, $newsletterKey);
+    }
+
+    public function test_entity_cache_key_differs_per_setting_but_not_per_grid(): void
+    {
+        $settings = ['resource_slug' => 'blogs', 'parent' => 'home', 'count' => 3, 'needs_image' => true];
+        $key = (new EntityCacheWidget($settings))->cacheKey();
+
+        $this->assertNotSame($key, (new EntityCacheWidget([...$settings, 'count' => 4]))->cacheKey());
+        $this->assertNotSame($key, (new EntityCacheWidget([...$settings, 'needs_image' => false]))->cacheKey());
+        $this->assertSame($key, (new EntityCacheWidget([...$settings, 'grid' => (object) ['hasSidebar' => true]]))->cacheKey());
     }
 }
