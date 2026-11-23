@@ -330,6 +330,8 @@ Every import applies them while it builds the rows (`SiteOverrides`, in `SyncsRo
 
 `lara:v8:sync` shows the v8 database and its latest change (check that it is the fresh dump), the number of site overrides, then runs in order: `import-entities`, `import-users`, `import-content --fresh`, `import-objects --fresh`, `import-menus --fresh` (route names and route cache), `import-settings --fresh`, `import-media --fresh`, `rewrite-urls` and `verify`. It exits with an error code when a step does. In production it asks first (`--force` skips that).
 
+After the admin's Pages list has been opened in v10, the sync (and its dry run) reports pages as updated although v8 did not change: `--fresh` writes the derived page columns from v8, and v10 renumbers `position` (1001, 1002, … where v8 has 101, 102, …; same order) and touches `updated_at` (doormode: 16 pages). Harmless; to be sure during a freeze, compare the pages table before and after (`ishome`, `menuroute` and the content must be identical).
+
 A step that reports an error **stops the sync**: the later steps run with `--fresh` and would remove v10 rows (for example the media links of a content type whose records were not imported). The output names the step and the ones not run; fix the error and run the sync again. A dry run always runs every step.
 
 Not included on purpose: `import-entities --update` (regenerates code: run it by hand when the sync reports an entity difference) and `import-users --prune` (would remove users created in v10).
@@ -351,6 +353,7 @@ Per site, copy this list into `docs/migrate-v8/sites/{site}-go-live.md` and fill
 - `php artisan tinker` cannot run without a writable home folder (`~/.config/psysh`), and `--execute` then fails without a word (seerden: the sitemap was not rewritten). Generate the sitemap with its scheduler task: `php artisan schedule:test --name=google-sitemap`, and check the file date (`ls -l public/sitemap.xml`).
 - At the switch two apps are open on the same server: before every command, check which app the shell is in (`grep -m1 '"version"' composer.json`: v8 `8.0.8`, v10 `10.7.x`). On seerden a cache command ran in the v8 app (`responsecache` unknown there; harmless, but the v10 caches were not cleared).
 - The Cloudways non-www → www redirect sends every non-www URL to the www **home** (the path is dropped) and does not cover `/storage` files. Kept on seerden (user; v8's canonical was already www); a host-specific `.htaccess` rule before the Laravel rules would keep the path.
+- **Behind Cloudflare, make the non-www → www redirect a Cloudflare Redirect Rule** (doormode, 2026-11-23): hostname equals `{domain}` → dynamic `concat("https://www.{domain}", http.request.uri.path)`, 301, preserve the query string (Cloudflare's template "Redirect from root to WWW"; the template "from WWW to root" is the reverse: check the hostname). It keeps the path, covers `/storage` and never reaches the server; leave Cloudways' www redirect off. The v8 app's redirect can be a Cloudways app setting that does not move with the domains: check `http://{domain}/some/path` right after the move. Cloudflare edges pick up a rule change within a few minutes (mixed answers until then).
 - The user copies files with SFTP in PhpStorm, not rsync: name the source and target folders, then check the result from here (file counts, `diff -rq`, no `._*`).
 - `php artisan google-fonts:fetch` after `APP_URL` is set (the media archive leaves `_fonts` out on purpose).
 - Generate the sitemap once (step 6 below).
@@ -598,3 +601,39 @@ With the tooling in place the import took about 2 hours, including four tooling 
 - `.gitignore` from anpak ignored `public/assets/filament/img` (admin login background and logo): tracked now.
 - A cache command ran in the v8 app's shell at the switch: check the app before each command.
 - Project-level bugs in `GoogleSitemapGenerator` (every site has them; for the project template): `MenuItem::type` is an enum, so the `== 'page'` comparisons are always false (entity detail pages never listed, lastmod from the menu item), `publish` is ignored, `utf8_encode()` is deprecated.
+
+### doormode.nl (third site, 2026-11)
+
+v8.2.46 (`doormode8246`, Bootstrap 5 theme `doormode`) → Lara CMS 10.7.23 (`doormode10723`, theme `doormode`). Site repository: `appdezign/doormode-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since the evening of 2026-11-23 on the former staging app (v10.doormode.nl, now removed); behind **Cloudflare** (proxy, SSL mode Full). Plan with every decision and detail: `doormode8246/.ai/plans/2026-11-23-migrate-v8-to-v10.md`; go-live list: `sites/doormode-go-live.md`; inventory: `sites/doormode-inventory.md`.
+
+**Time.** The whole migration in one day (2026-11-23): setup, inventory and import in the morning, the theme around midday, staging done at 14:00 (including one admin fix), the switch in the evening in about an hour (freeze 16:45, checks done 17:35). Smaller than seerden: 45 v8 views, no earlier v10 theme.
+
+**Results.**
+
+- Content: 9 site content types (blog 3, team 0, event 7, location 2, gallery 1, video 1, doc 1, contactform 49, classicform 0) + the core ones (pages 33); 7 leftover demo types skipped (city, portfolio, product, service, sponsor, story, testimonial: 0 rows, 14 tags dropped); 6 users; 49 tags (28 roots dropped); 3 menus, 25 items; 24 settings, 205 translations; 34 Curator items and files, 1 video list.
+- `lara:v8:verify`: ok 27, no warnings, before and after the final sync. Tests: 147.
+- Compared with live: 25 URLs (every menu URL, published and unpublished, the 3 blog posts, `/en/`, an unknown URL): 22 identical, the rest explained (go-live list); visual pass at 1440 px and 390 px. After the switch: 24 pages identical to local, 78 assets and 38 font files 200, the form with reCAPTCHA and both mails.
+
+**Tooling added for doormode** (each with fixture tests):
+
+- Empty v8 layout values (`NULL`, `''`) are left to the theme default without a warning (step 9).
+- v8 column shortcodes `[kolom_XvanN]…[/kolom_XvanN]` become Filament Rich Editor grids (`grid-layout`, breakpoint `md`), so the columns stay editable (step 8; the client theme needs `.grid-layout` CSS, step 14).
+- The stock v8 `Event::scopeFront()` (`startdate >= today`) is added to the generated model (`V8Map::FRONT_SCOPES`, step 5): without it v10 listed past events that v8 hid.
+- v8 page templates v10 lacks become page views (step 5): without them the admin page form gave a 500 (`template_extra_fields` on null) for every page with such a template. Sites deployed earlier get the rows as a guarded `.sql` file (seerden: its Instagram page).
+
+**Decisions** (see the plan for the reasoning):
+
+- Skip the 7 empty demo types; English unpublished (site override, as anpak and seerden).
+- The wallpaper/landing templates are page views with their own theme views; the contact page columns are an editor grid.
+- Sitemap: unlinked pages left out except Contact (site code, 16 URLs).
+- Production mail through AuthSMTP as v8, `MAIL_FROM_ADDRESS=info@doormode.nl`; form mail to `company_email`; the v8 Maps and reCAPTCHA keys on the server.
+- non-www → www as a Cloudflare Redirect Rule (Deploy lessons).
+
+**Gotchas met on doormode** (the general ones are in Gotchas and Deploy lessons):
+
+- The user put the production media in `.lara/media` (not `.lara/production_switch/media`): `LARA_V8_MEDIA_PATH` follows the user's folder.
+- A wrong file (seerden's dump) was imported into the staging database once: name the target database and the file at every TablePlus step, and check a page from here right after.
+- `.env` on staging had `APP_ENV=testing`; the route cache held the old menu after the database import: rebuild the caches after every import.
+- The v8 www redirect was a Cloudways setting of the v8 app and stayed behind; Cloudways' own redirect dropped the path, and the first Cloudflare rule pointed the wrong way (Deploy lessons).
+- No git on the server: restore `robots.txt` with a dashboard Pull.
+- Base views format dates with `format('j F Y')` (English months on Dutch sites; `translatedFormat()`), and an unpublished language stays routable: items for laracms10.
