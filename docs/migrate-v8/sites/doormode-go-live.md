@@ -1,6 +1,6 @@
 # doormode.nl: go-live checklist
 
-v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: staging https://v10.doormode.nl deployed and checked; the switch is planned for the evening of 2026-11-23 or 2026-11-24 (user).
+v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: **live on v10** since the switch on the evening of 2026-11-23 (staging app became production; v8 app is the fallback).
 
 Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `https://www`), **behind Cloudflare** (proxy: e-mail addresses in pages are obfuscated, `robots.txt` is Cloudflare's managed file with AI-bot rules). Plan with every decision: `doormode8246/.ai/plans/2026-11-23-migrate-v8-to-v10.md`; inventory: `sites/doormode-inventory.md`; text pass: `doormode8246/.ai/plans/doormode-compare/`.
 
@@ -67,8 +67,8 @@ Checks:
 
 ## Content to settle before the freeze
 
-- [ ] Any content changed in v10 before go-live: record it in `v8-overrides.php`, or the final sync overwrites it.
-- [ ] The two English rows (page 1071 "[EN] homepage", unpublished language): kept as imported; nothing links to them.
+- [x] Any content changed in v10 before go-live: record it in `v8-overrides.php`, or the final sync overwrites it. None: edits on staging were overwritten by the final import, as planned (2026-11-23).
+- [x] The two English rows (page 1071 "[EN] homepage", unpublished language): kept as imported; nothing links to them.
 
 ## Switch
 
@@ -78,22 +78,22 @@ Before the day:
 
 - [x] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
 - [x] reCAPTCHA keys: the v8 keys (user), live on `www.doormode.nl`, already in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch.
-- [ ] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
-- [ ] Cloudways backups of the v10 app (daily).
+- [x] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (checked on the v10 app 2026-11-23; clearing the sessions: `rm -f storage/framework/sessions/*`).
+- [x] Cloudways backups of the v10 app (daily, plus a manual backup before the switch; user 2026-11-23).
 - [x] Sitemap decision (user, 2026-11-23): unlinked pages left out, applied in `f5d67c3` on `v10` (pull before the switch; the sitemap is generated again at the switch).
 
 The switch:
 
-- [ ] Content freeze on the v8 admin.
-- [ ] Final production dump from the v8 app with TablePlus into `doormode8246/.lara/dbdump/` (before its domains move); production media with SFTP into `doormode8246/.lara/media` (emptied first; `LARA_V8_MEDIA_PATH` points there).
-- [ ] Backups first: `v10_doormode` and `v8_doormode` into `doormode-deploy/backups/`.
-- [ ] Locally: reload `v8_doormode` from the fresh dump (runbook 17), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `doormode10723.sql` and media archive (Python) in `doormode-deploy/`.
-- [ ] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media; NFC/`._*` check; clear the sessions.
-- [ ] Server: `robots.txt` back to the repo version (a dashboard pull restores it).
-- [ ] Server `.env`: `APP_URL=https://www.doormode.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`; the sitemap again.
-- [ ] v8 app: crons off, `MAIL_MAILER=log`, domains removed (Cloudways temporary URL). Before each command check which app the shell is in (`grep -m1 '"version"' composer.json`).
-- [ ] v10 app: primary domain `www.doormode.nl`, alias `doormode.nl` (redirect to `www`, as live); remove the staging domain or redirect it; SSL for both (behind Cloudflare, see Open before staging).
-- [ ] Check: http → https and non-www → www (301), home, every menu item and the unpublished pages (Contact, Fotoalbum, Evenementen, Privacy, Offline), the 3 blog posts, the 404, every asset and image, the contact form with reCAPTCHA and the mail, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login.
+- [x] Content freeze on the v8 admin. 2026-11-23 ~16:45.
+- [x] Final production dump from the v8 app with TablePlus into `doormode8246/.lara/dbdump/` (before its domains move); production media with SFTP into `doormode8246/.lara/media` (emptied first; `LARA_V8_MEDIA_PATH` points there). `doormode-v8-23112026-final.sql` (16:49, 61 tables): identical to the morning dump except the `google_analytics_sync` timestamp; media 189 files, identical to the morning copy (`.lara/media-morning`).
+- [x] Backups first: `v10_doormode` and `v8_doormode` into `doormode-deploy/backups/`. `backups/{v10,v8}_doormode-before-final-sync.sql` (16:52).
+- [x] Locally: reload `v8_doormode` from the fresh dump (runbook 17), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `doormode10723.sql` and media archive (Python) in `doormode-deploy/`. Sync: everything `same` except pages, 16 "updated": with `--fresh` the content import writes the derived page columns from v8, and only `position` differed (v10's Pages list renumbers 1001… where v8 has 101…, same order) plus `updated_at` of 4 pages touched by the Pages list; `ishome`, `menuroute` and all content identical. Second dry run all `same`, verify ok 27, every page 200. The staging deploy files moved to `backups/*-staging.*`; new dump 16:54; media archive identical in content to the staging one.
+- [x] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media; NFC/`._*` check; clear the sessions. Dump into `zxsxvqjwdy`; media not uploaded again: the archive was identical and the server held the same 117 files, none newer than the deploy; sessions cleared.
+- [x] Server: `robots.txt` back to the repo version (a dashboard pull restores it). Dashboard Pull of `v10` (only tooling/docs changed since the staging pull). Afterwards the origin serves `User-agent: *` / `Allow: /` (equivalent to the repo's empty `Disallow:`).
+- [x] Server `.env`: `APP_URL=https://www.doormode.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`; the sitemap again. Fonts point to `https://www.doormode.nl`; sitemap 16 www URLs.
+- [x] v8 app: crons off, `MAIL_MAILER=log`, domains removed (Cloudways temporary URL). Before each command check which app the shell is in (`grep -m1 '"version"' composer.json`). (v8 `composer.json` version field: `8.2.22`, the project; lara-cms 8.2.46 inside.)
+- [x] v10 app: primary domain `www.doormode.nl`, alias `doormode.nl` (redirect to `www`, as live); remove the staging domain or redirect it; SSL for both (behind Cloudflare, see Open before staging). Staging domain removed (404). **Lesson:** the non-www → www redirect was a v8 app setting in Cloudways (not in v8's code or `.htaccess`) and did not move with the domain; Cloudways' own www redirect sends every path to the home page, so it is off and the redirect is a **Cloudflare Redirect Rule** (hostname `doormode.nl` → dynamic `concat("https://www.doormode.nl", http.request.uri.path)`, 301, query string kept). A first version had the hostnames reversed (www → root). Let's Encrypt installed for both domains.
+- [x] Check: http → https and non-www → www (301), home, every menu item and the unpublished pages (Contact, Fotoalbum, Evenementen, Privacy, Offline), the 3 blog posts, the 404, every asset and image, the contact form with reCAPTCHA and the mail, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login. 2026-11-23: text pass production vs local (`doormode-compare/production-pass.md`): 24 pages identical, contact only Cloudflare's e-mail obfuscation and the reCAPTCHA hint (production); 78 assets and 38 font files 200; no staging or `http://` references; sitemap 16 www URLs; contact form, reCAPTCHA, map, both mails, cookie consent, admin and dashboard checked by the user.
 - [ ] Search Console: submit the sitemap; watch 404s (v8 had no redirects; the past event detail URLs of live's sitemap no longer exist in v10 as list entries).
 - [ ] Git: `main`/`develop` from `v10`, tag `v1.0.0`, Cloudways deploys `main`; the site repo becomes the only remote; project tags and the tooling worktree removed once everything is pushed.
 
