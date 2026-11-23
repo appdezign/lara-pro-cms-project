@@ -1,6 +1,6 @@
 # doormode.nl: go-live checklist
 
-v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: site code on `appdezign/doormode-nl` branch `v10`; staging https://v10.doormode.nl deployed and checked (2026-11-23); next: the switch.
+v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: staging https://v10.doormode.nl deployed and checked; the switch is planned for the evening of 2026-11-23 or 2026-11-24 (user).
 
 Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `https://www`), **behind Cloudflare** (proxy: e-mail addresses in pages are obfuscated, `robots.txt` is Cloudflare's managed file with AI-bot rules). Plan with every decision: `doormode8246/.ai/plans/2026-11-23-migrate-v8-to-v10.md`; inventory: `sites/doormode-inventory.md`; text pass: `doormode8246/.ai/plans/doormode-compare/`.
 
@@ -14,9 +14,9 @@ Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `http
 
 - [x] **Staging app and domain** (user, 2026-11-23): **https://v10.doormode.nl**, the v10 Cloudways app on the same server as the v8 app (it becomes production at the switch). Through the Cloudflare proxy; on 2026-11-23 the app still answered 403 (nginx, empty). Database name: from the user at the TablePlus import. PhpStorm SFTP project: `__lara10_cloudways/remote/doormode.nl_v10_cloudways` (server "cloudways", root `/public_html`).
 - [x] **Keys** (user, 2026-11-23: use the v8 keys): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the contact page map) and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; v2 checkbox on the contact form) from the v8 app's `.env` (the local copy `doormode8246/.env` has the same) go into the v10 app's `.env` on the server; check that the reCAPTCHA keys allow the staging domain. Locally they stay empty (user, 2026-11-23). GA4: `CONSENT_GA4_ID=G-52D5VGD7LJ` (v8 setting `ga4_id`); staging then counts in the live property.
-- [ ] **Mail** (user): form mail goes to `company_email` = `info@doormode.nl` (the footer shows `doormode@live.nl`, fixed in the v8 view: which one should receive the form?). The v8 app sends through AuthSMTP (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password in the v8 `.env`), as seerden; its sender is the config default (a firmaq.nl address, "Firmaq Media"): set `MAIL_FROM_ADDRESS`/`MAIL_FROM_NAME` for doormode (SPF of the sender domain must include `authsmtp.com`). Staging: `MAIL_DEV_*` (e.g. Mailtrap).
+- [x] **Mail** (user, 2026-11-23): the form goes to **`info@doormode.nl`** = `company_email` (imported from v8; `FormController` sends to it and from it with `APP_ENV=production`). Production: AuthSMTP as the v8 app (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password from the v8 `.env`); `MAIL_FROM_ADDRESS=info@doormode.nl`, `MAIL_FROM_NAME="DOOR mode"` (proposed; for the other mails, e.g. password resets; v8 used the config default, a firmaq.nl address). DNS (checked 2026-11-23): SPF `v=spf1 include:authsmtp.com include:_spf.mx.cloudflare.net ~all`, MX Cloudflare Email Routing (forwarding), DMARC `p=none`. Staging: dev mailer, tested.
 - [x] **`APP_NAME="DOOR mode"`** (user, 2026-11-23): page title suffix " — DOOR mode" and `og:site_name` (live titles have no suffix; kept, as seerden). On the server with the quotes (Deploy lessons).
-- [ ] **Cloudflare** (user): who manages the doormode.nl zone; at the switch the domains move to the v10 app on the same server (origin IP unchanged), so Cloudflare needs no change unless its SSL mode or a staging record does. Let's Encrypt in Cloudways behind the Cloudflare proxy: check the zone's SSL mode (Full/Full strict) and whether the certificate validates with the proxy on.
+- [x] **Cloudflare** (user, 2026-11-23): the user manages the doormode.nl DNS in Cloudflare; SSL/TLS encryption mode **Full** (Cloudflare accepts the origin certificate without validating it, so the Cloudways Let's Encrypt certificate works; issue it after the domains move, the HTTP challenge passes through the proxy). The origin IP stays the same (same server): no DNS change at the switch.
 
 ## Staging
 
@@ -76,8 +76,8 @@ Checks:
 
 Before the day:
 
-- [ ] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
-- [ ] reCAPTCHA keys for `www.doormode.nl` and `doormode.nl` in the v10 app's `.env`; the widget renders only with `APP_ENV=production`.
+- [x] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
+- [x] reCAPTCHA keys: the v8 keys (user), live on `www.doormode.nl`, already in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch.
 - [ ] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
 - [ ] Cloudways backups of the v10 app (daily).
 - [x] Sitemap decision (user, 2026-11-23): unlinked pages left out, applied in `f5d67c3` on `v10` (pull before the switch; the sitemap is generated again at the switch).
