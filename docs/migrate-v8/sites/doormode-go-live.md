@@ -1,6 +1,6 @@
 # doormode.nl: go-live checklist
 
-v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: site code on `appdezign/doormode-nl` branch `v10`; staging https://v10.doormode.nl being deployed (deploy files made 13:04, verify ok 27).
+v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: site code on `appdezign/doormode-nl` branch `v10`; staging https://v10.doormode.nl deployed and checked (2026-11-23); next: the switch.
 
 Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `https://www`), **behind Cloudflare** (proxy: e-mail addresses in pages are obfuscated, `robots.txt` is Cloudflare's managed file with AI-bot rules). Plan with every decision: `doormode8246/.ai/plans/2026-11-23-migrate-v8-to-v10.md`; inventory: `sites/doormode-inventory.md`; text pass: `doormode8246/.ai/plans/doormode-compare/`.
 
@@ -53,7 +53,7 @@ Deploy log (2026-11-23, guided):
 - Code pulled (Deployment via Git, `v10`), `composer install` and `storage:link` done; `.env` from the user.
 - The first database import was a wrong file (seerden data: `View [_partials.hero.hero_fixed] not found`, seerden's hero); the user re-imported `doormode10723.sql` into `zxsxvqjwdy`. The route cache still held the old menu (every menu URL 404 except Contact) until `optimize:clear && responsecache:clear && lara:route:cache`. Lesson: rebuild the caches after every database import.
 - `.env` had `APP_ENV=testing` (log lines `testing.ERROR`): set to `staging`.
-- Admin: opening a wallpaper or landing page gave a 500 (`Attempt to read property "template_extra_fields" on null`, `HasContentSection.php:168`): the v8 page templates had no v10 page view. Fixed in the tooling (`fe862ba`: `import-entities` adds the views; locally 5 views, 13 page menu items to their template view, verify ok 27). For staging: `doormode-deploy/page-templates-v1.sql` (guarded inserts + the menu items), tested twice on a copy of the deploy dump (views and menu items as local, the edit forms 200); the user imports it with TablePlus into `zxsxvqjwdy`, then the caches. Seerden had the same 500 on its Instagram page: `seerden-deploy/page-template-instagramfeed.sql` (tested on a copy of `v10_seerden`).
+- Admin: opening a wallpaper or landing page gave a 500 (fixed: SQL imported, caches rebuilt, pages save; seerden's file imported too, its site 200) (`Attempt to read property "template_extra_fields" on null`, `HasContentSection.php:168`): the v8 page templates had no v10 page view. Fixed in the tooling (`fe862ba`: `import-entities` adds the views; locally 5 views, 13 page menu items to their template view, verify ok 27). For staging: `doormode-deploy/page-templates-v1.sql` (guarded inserts + the menu items), tested twice on a copy of the deploy dump (views and menu items as local, the edit forms 200); the user imports it with TablePlus into `zxsxvqjwdy`, then the caches. Seerden had the same 500 on its Instagram page: `seerden-deploy/page-template-instagramfeed.sql` (tested on a copy of `v10_seerden`).
 - `robots.txt` blocked on the server (`Disallow: /`, after Cloudflare's managed rules); Cloudflare edges served the old copy for a while (purge the URL in Cloudflare if needed). Block it again after every pull until the switch.
 
 Checks:
@@ -62,8 +62,8 @@ Checks:
 - [x] Every URL of the text pass (25 URLs) identical to `doormode10723` (status, title, headings, text; the contact page differs only in Cloudflare's e-mail obfuscation); all 75 asset and image URLs of those pages and `/admin/login` 200; `fonts.css` and its 68 font files from `v10.doormode.nl` 200. 2026-11-23, after the cache rebuild.
 - [x] Evenementen lists no events (stock v8 front scope); the contact page shows the two-column grid. The map: check in a browser (Maps key from v8).
 - [x] Sitemap: generated with `schedule:test --name=google-sitemap` (user): `/sitemap.xml` 200, `text/xml`, 16 `v10.doormode.nl` URLs (2026-11-23). Unlinked pages left out (user; `f5d67c3`): Evenementen, Fotoalbum, Privacy, Offline; Contact stays. The 3 blog posts are missing (project-level generator bug, runbook seerden section).
-- [ ] Forms: submit the contact form on staging; the mail arrives on the dev mailer.
-- [ ] Admin: log in, open and save a few records; the front stays identical afterwards. Edits on staging are lost at the switch.
+- [x] Forms: the user submitted the contact form on staging; both mails (webmaster and confirmation) arrived on the dev mailer; the map loads (2026-11-23). Production mail and reCAPTCHA are checked right after the switch.
+- [x] Admin: the user logged in, opened and saved pages (after the page-template fix, `page-templates-v1.sql`); afterwards the 25 front URLs are still identical to `doormode10723` (2026-11-23). Edits on staging are lost at the switch.
 
 ## Content to settle before the freeze
 
