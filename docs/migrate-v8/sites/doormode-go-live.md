@@ -1,6 +1,6 @@
 # doormode.nl: go-live checklist
 
-v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: site code on `appdezign/doormode-nl` branch `v10`; staging not set up yet.
+v8.2.46 (`doormode8246`, production db `etdrzkydbm`, theme `doormode`) → v10 (`doormode10723`, Lara CMS 10.7.23, theme `doormode`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: site code on `appdezign/doormode-nl` branch `v10`; staging https://v10.doormode.nl being deployed (deploy files made 13:04, verify ok 27).
 
 Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `https://www`), **behind Cloudflare** (proxy: e-mail addresses in pages are obfuscated, `robots.txt` is Cloudflare's managed file with AI-bot rules). Plan with every decision: `doormode8246/.ai/plans/2026-11-23-migrate-v8-to-v10.md`; inventory: `sites/doormode-inventory.md`; text pass: `doormode8246/.ai/plans/doormode-compare/`.
 
@@ -12,7 +12,7 @@ Live: https://www.doormode.nl (`doormode.nl` and `http://` redirect 301 to `http
 
 ## Open before staging
 
-- [ ] **Staging app and domain** (user): the v10 Cloudways app on the same server as the v8 app (it becomes production at the switch), its staging domain (e.g. `dev.doormode.nl`: with Cloudflare in front, a DNS record in Cloudflare is needed), the app's database name for the TablePlus import. A PhpStorm SFTP project exists: `__lara10_cloudways/remote/doormode.nl_v10_cloudways` (server "cloudways", root `/public_html`).
+- [x] **Staging app and domain** (user, 2026-11-23): **https://v10.doormode.nl**, the v10 Cloudways app on the same server as the v8 app (it becomes production at the switch). Through the Cloudflare proxy; on 2026-11-23 the app still answered 403 (nginx, empty). Database name: from the user at the TablePlus import. PhpStorm SFTP project: `__lara10_cloudways/remote/doormode.nl_v10_cloudways` (server "cloudways", root `/public_html`).
 - [x] **Keys** (user, 2026-11-23: use the v8 keys): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the contact page map) and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; v2 checkbox on the contact form) from the v8 app's `.env` (the local copy `doormode8246/.env` has the same) go into the v10 app's `.env` on the server; check that the reCAPTCHA keys allow the staging domain. Locally they stay empty (user, 2026-11-23). GA4: `CONSENT_GA4_ID=G-52D5VGD7LJ` (v8 setting `ga4_id`); staging then counts in the live property.
 - [ ] **Mail** (user): form mail goes to `company_email` = `info@doormode.nl` (the footer shows `doormode@live.nl`, fixed in the v8 view: which one should receive the form?). The v8 app sends through AuthSMTP (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password in the v8 `.env`), as seerden; its sender is the config default (a firmaq.nl address, "Firmaq Media"): set `MAIL_FROM_ADDRESS`/`MAIL_FROM_NAME` for doormode (SPF of the sender domain must include `authsmtp.com`). Staging: `MAIL_DEV_*` (e.g. Mailtrap).
 - [x] **`APP_NAME="DOOR mode"`** (user, 2026-11-23): page title suffix " — DOOR mode" and `og:site_name` (live titles have no suffix; kept, as seerden). On the server with the quotes (Deploy lessons).
@@ -39,7 +39,7 @@ The deploy files live in **`__migrate/doormode-deploy/`**: `doormode10723.sql` (
 On the server, guided one step at a time (runbook step 18: one command or setting, wait for the result, check it from here):
 
 1. Code: Cloudways "Deployment via Git", repo `appdezign/doormode-nl`, branch `v10`, Pull (it runs no composer, build or artisan). `php -v` (8.4), `composer install --no-dev -o`.
-2. `.env` (keep `APP_KEY` and the server's DB settings): `APP_NAME="DOOR mode"`, `APP_ENV=staging`, `APP_DEBUG=false`, `APP_URL={staging URL}`, `LARA_CLIENT_THEME=doormode`, `MAIL_DEV_*`, the keys above, `CONSENT_GA4_ID=G-52D5VGD7LJ`.
+2. `.env` (keep `APP_KEY` and the server's DB settings): `APP_NAME="DOOR mode"`, `APP_ENV=staging`, `APP_DEBUG=false`, `APP_URL=https://v10.doormode.nl`, `LARA_CLIENT_THEME=doormode`, `MAIL_DEV_*`, the keys above, `CONSENT_GA4_ID=G-52D5VGD7LJ`.
 3. Database: the user imports `doormode-deploy/doormode10723.sql` into the app's database with **TablePlus** (no `mysql` on the server); checked from here afterwards.
 4. Media: the user uploads `doormode10723-media.tgz` with **SFTP in PhpStorm** to `public_html/storage/app/` (the application user cannot write to `~`; `storage/app` is not served), then `rm -rf storage/app/public && tar -xzf storage/app/doormode10723-media.tgz -C storage/app` and removes the archive; check: 34 imported files + the editor folder, no `._*`, names NFC.
 5. `rm -f public/storage && php artisan storage:link` (check `ls -l public/storage`), `php artisan google-fonts:fetch` (after `APP_URL`), `php artisan migrate:status | grep -i pending` (expected: nothing).
