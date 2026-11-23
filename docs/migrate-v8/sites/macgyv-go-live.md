@@ -12,7 +12,7 @@ Live: https://www.macgyverbouw.nl on the Cloudways server `1652362` (v8 app `php
 
 ## Open before staging
 
-- [x] **Staging app and domain** (user, 2026-11-23): **https://v10.macgyverbouw.nl**, a v10 Cloudways app on server `1652362` (it becomes production at the switch); the DNS record goes in at webhost.company (no Cloudflare here). Database name: from the user at the TablePlus import. PhpStorm SFTP project: `__lara10_cloudways/remote/macgyverbouw.nl_v10_cloudways` (server "cloudways", host `95.179.176.155`; mapping "macgyver10").
+- [x] **Staging app and domain** (user, 2026-11-23): **https://v10.macgyverbouw.nl**, a v10 Cloudways app on server `1652362` (it becomes production at the switch); the DNS record goes in at webhost.company (no Cloudflare here). Database **`cnhhvubunk`** (user, 2026-11-23). PhpStorm SFTP project: `__lara10_cloudways/remote/macgyverbouw.nl_v10_cloudways` (server "cloudways", host `95.179.176.155`; mapping "macgyver10").
 - [x] **Keys** (user, 2026-11-23: use the v8 keys): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the map on the contact page) and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; v2 checkbox on the contact, quote and call-me forms) from the v8 app's `.env` (`__cloudways/macgyverbouw.nl_cloudways/.env` has them) go into the v10 app's `.env` on the server; check that the reCAPTCHA keys allow the staging domain. Locally they stay empty. GA4: `CONSENT_GA4_ID=G-6BCQSKD8FY` (v8 setting `ga4_id`); staging then counts in the live property.
 - [x] **Mail** (user, 2026-11-23): the forms go to **`johan@macgyverbouw.nl`** = `company_email` (imported from v8; `FormController` sends to it and from it with `APP_ENV=production`). Production: AuthSMTP as the v8 app (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password from the v8 `.env`); `MAIL_FROM_ADDRESS=johan@macgyverbouw.nl`, `MAIL_FROM_NAME="MacGyverBouw"` (for the other mails; v8 used the config default `beheer@firmaq.nl`). DNS (checked 2026-11-23): SPF `v=spf1 a mx include:zoho.com include:authsmtp.com ~all`, MX Zoho, DMARC `p=none`. Staging: dev mailer.
 - [x] **`APP_NAME="MacGyverBouw"`** (user, 2026-11-23): page title suffix " — MacGyverBouw" and `og:site_name` (live titles have no suffix; kept, as seerden and doormode). On the server with the quotes (Deploy lessons).
@@ -49,6 +49,13 @@ On the server, guided one step at a time (runbook step 18: one command or settin
 7. Scheduler (Cloudways Cron Job Management): `* * * * * cd {app root} && php artisan schedule:run >> /dev/null 2>&1`.
 8. Sitemap once: `php artisan schedule:test --name=google-sitemap`; `ls -l public/sitemap.xml`.
 9. Block indexing of staging (Cloudways password or `robots.txt` `Disallow: /`; a dashboard pull restores the repo `robots.txt`, so block again after each pull).
+
+Deploy log (2026-11-23, guided):
+
+- Step 1: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru` (user). Database `cnhhvubunk`.
+- Step 2: Deployment via Git, `v10` pulled (static files 200; Laravel 500 until `vendor` and `.env`).
+- Step 3: `composer install --no-dev -o` on PHP 8.4.28 (user).
+- **Next (step 4):** `.env` from `macgyv-deploy/staging.env` (fill in the `{…}` placeholders: DB credentials, dev mailer, the v8 Google keys), upload as `public_html/.env`, `php artisan key:generate --force`; then the database import into `cnhhvubunk`, the media, `storage:link`, fonts, caches, cron, sitemap, robots, the GA service-account file.
 
 Checks:
 
