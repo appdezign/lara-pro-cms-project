@@ -298,6 +298,7 @@ class FixtureImportTest extends TestCase
         $this->assertSame(['entity', 'modules', 901], [$book->cgroup, $book->nav_group, (int) $book->position]);
         $this->assertSame([1, 1, 1, 1, 1], [(int) $book->show_view_action, (int) $book->show_edit_action, (int) $book->show_delete_action, (int) $book->show_restore_action, (int) $book->filter_by_trashed]);
         $this->assertSame([1, 1, 12, 3], [(int) $book->media_has_featured, (int) $book->media_has_gallery, (int) $book->media_max_gallery, (int) $book->media_max_files]);
+        $this->assertSame(1, (int) EntityView::where('entity_id', $book->id)->where('method', 'index')->value('image_required'), 'v8 lists only books with media in its grid index.');
         $this->assertSame([1, 1, 0], [(int) $book->filter_by_tag, (int) $book->show_rich_body, (int) $book->show_rich_lead]);
         $this->assertSame(['created_at', null], [$book->sort_primary_field, $book->sort_secondary_field]);
         $this->assertSame('public', $book->media_disk_images);
@@ -494,8 +495,9 @@ class FixtureImportTest extends TestCase
 
         $pages = DB::table('lara_content_pages')->orderBy('id')->get()->keyBy('id');
 
-        $this->assertSame([19, 1125, 1126, 1127, 2001], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
+        $this->assertSame([19, 1125, 1126, 1127, 2001, 2002], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
         $this->assertSame('v8fxbooks-index-module-nl', $pages[2001]->slug, 'v10 finds a module page by the resource slug in its slug.');
+        $this->assertSame('v8fxforms-email-nl', $pages[2002]->slug, 'v10 finds a form\'s mail page by the resource slug, and creates an empty one otherwise.');
         $this->assertSame('Home', $pages[19]->title, 'A v8 page with the id of an essential page replaces it.');
         $this->assertSame(['<p>Intro</p>', '<p>Tekst</p>', 'Arbeidshygiëne'], [$pages[1125]->body2, $pages[1125]->body, $pages[1125]->title]);
     }

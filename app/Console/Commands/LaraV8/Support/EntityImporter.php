@@ -451,9 +451,10 @@ class EntityImporter
     {
         $key = $v8->entity_key;
         $v8Views = $this->source->connection()->table('lara_ent_entity_views')->where('entity_id', $v8->id)->orderBy('id')->get();
+        $objectRelations = $this->v8Row('lara_ent_entity_object_relations', $v8->id);
 
         foreach ($v8Views as $v8View) {
-            $attributes = V8Map::view($v8View, $entity->title);
+            $attributes = V8Map::view($v8View, $entity->title, $key, $objectRelations);
             $view = ! $entity->exists ? null : EntityView::where('entity_id', $entity->id)
                 ->where('method', $attributes['method'])
                 ->where('filename', $attributes['filename'])

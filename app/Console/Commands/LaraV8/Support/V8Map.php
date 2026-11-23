@@ -228,17 +228,24 @@ final class V8Map
     /**
      * A module page (the intro/SEO page of an index or form) is found by its slug:
      * v8 "{entity key}-{method}-module-{language}", v10 "{resource slug}-{method}-module-{language}"
-     * (FrontObjectRepository::getModulePageBySlug()). Other slugs are unchanged.
+     * (FrontObjectRepository::getModulePageBySlug()). A form's mail page likewise:
+     * v8 "{entity key}-email-{language}", v10 "{resource slug}-email-{language}"
+     * (FrontObjectRepository::getEmailPageContent(), which creates an empty page when it finds
+     * none: macgyverbouw, 2026-11-23). Other slugs are unchanged.
      *
      * @param  list<string>  $contentKeys  the v8 content entity keys
      */
     public static function modulePageSlug(string $slug, array $contentKeys): string
     {
-        if (preg_match('/^([a-z][a-z0-9]*)-([a-z]+)-module-([a-z]{2,5})$/', $slug, $m) !== 1 || ! in_array($m[1], $contentKeys, true)) {
-            return $slug;
+        if (preg_match('/^([a-z][a-z0-9]*)-([a-z]+)-module-([a-z]{2,5})$/', $slug, $m) === 1 && in_array($m[1], $contentKeys, true)) {
+            return self::resourceSlug($m[1])."-{$m[2]}-module-{$m[3]}";
         }
 
-        return self::resourceSlug($m[1])."-{$m[2]}-module-{$m[3]}";
+        if (preg_match('/^([a-z][a-z0-9]*)-email-([a-z]{2,5})$/', $slug, $m) === 1 && in_array($m[1], $contentKeys, true)) {
+            return self::resourceSlug($m[1])."-email-{$m[2]}";
+        }
+
+        return $slug;
     }
 
     /**
@@ -546,11 +553,22 @@ final class V8Map
      * The v10 lara_resource_entity_views attributes of a v8 view (lara_ent_entity_views row),
      * without entity_id. v8 index views keep their list type; show and form views are single.
      *
+     * v8 lists only records with media in a grid index view of a content type without videos
+     * (FrontListTrait: "grid…" type, not the video type, no videos or video files); v10 has the
+     * per-view flag image_required for it (FrontListBuilder). macgyverbouw, 2026-11-23: a gallery
+     * without images, hidden on live, was listed by v10.
+     *
+     * @param  object|null  $objectRelations  the v8 lara_ent_entity_object_relations row
      * @return array<string, mixed>
      */
-    public static function view(object $v8View, string $entityTitle): array
+    public static function view(object $v8View, string $entityTitle, string $entityKey = '', ?object $objectRelations = null): array
     {
         $isIndex = $v8View->method === 'index';
+        $imageRequired = $isIndex
+            && str_starts_with((string) $v8View->type, 'grid')
+            && $entityKey !== 'video'
+            && ! ($objectRelations->has_videos ?? false)
+            && ! ($objectRelations->has_videofiles ?? false);
 
         return [
             'title' => $v8View->title ?: $entityTitle.' '.ucfirst($v8View->method),
@@ -560,7 +578,7 @@ final class V8Map
             'template_extra_fields' => 0,
             'is_single' => (int) ! $isIndex,
             'list_type' => $isIndex ? $v8View->type : ($v8View->method === 'form' ? null : '_single'),
-            'image_required' => 0,
+            'image_required' => (int) $imageRequired,
             'showtags' => V8Source::isEmpty($v8View->showtags) || $v8View->showtags === 'none' ? null : $v8View->showtags,
             'paginate' => $v8View->paginate ? (int) $v8View->paginate : null,
             'infinite' => (int) $v8View->infinite,

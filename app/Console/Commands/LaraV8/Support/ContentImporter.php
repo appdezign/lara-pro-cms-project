@@ -194,8 +194,8 @@ class ContentImporter
                 $reassigned++;
             }
 
-            // v10 finds a module page (intro/SEO of an index or form) by the resource slug in its slug
-            if ($key === 'page' && ($row['cgroup'] ?? null) === 'module' && isset($row['slug'])) {
+            // v10 finds a module page (intro/SEO of an index or form) and a form's mail page by the resource slug in its slug
+            if ($key === 'page' && in_array($row['cgroup'] ?? null, ['module', 'email'], true) && isset($row['slug'])) {
                 $row['slug'] = V8Map::modulePageSlug($row['slug'], $contentKeys);
             }
 

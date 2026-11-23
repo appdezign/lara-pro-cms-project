@@ -324,6 +324,19 @@ class V8MapTest extends TestCase
         $this->assertSame(['Contact Form', 1, null], [$form['title'], $form['is_single'], $form['list_type']]);
     }
 
+    public function test_grid_index_views_require_an_image_as_v8_did(): void
+    {
+        $view = fn (string $method, string $type): object => (object) ['title' => null, 'method' => $method, 'filename' => $method, 'type' => $type, 'showtags' => 'none', 'paginate' => 0, 'infinite' => 0, 'prevnext' => 0, 'publish' => 1];
+        $plain = (object) ['has_videos' => 0, 'has_videofiles' => 0];
+
+        $this->assertSame(1, V8Map::view($view('index', 'grid3'), 'Galleries', 'gallery', $plain)['image_required'], 'v8 lists only records with media in a grid.');
+        $this->assertSame(0, V8Map::view($view('index', 'list'), 'News', 'blog', $plain)['image_required'], 'A list shows every record.');
+        $this->assertSame(0, V8Map::view($view('show', '_single'), 'Galleries', 'gallery', $plain)['image_required']);
+        $this->assertSame(0, V8Map::view($view('index', 'grid3'), 'Videos', 'video', $plain)['image_required'], 'The video type: no media rule in v8.');
+        $this->assertSame(0, V8Map::view($view('index', 'grid2'), 'Projects', 'project', (object) ['has_videos' => 1, 'has_videofiles' => 0])['image_required'], 'A type with videos: no media rule in v8.');
+        $this->assertSame(0, V8Map::view($view('index', 'grid2'), 'Projects', 'project', (object) ['has_videos' => 0, 'has_videofiles' => 1])['image_required'], 'A type with video files: no media rule in v8.');
+    }
+
     public function test_core_values_are_translated_where_v10_renamed_them(): void
     {
         $this->assertSame('brand', V8Map::coreValue('cta', 'overlaycolor', 'primary'));
@@ -367,6 +380,16 @@ class V8MapTest extends TestCase
         $this->assertSame('contactforms-form-module-nl', V8Map::modulePageSlug('contactform-form-module-nl', $keys));
         $this->assertSame('user-profile-module-nl', V8Map::modulePageSlug('user-profile-module-nl', $keys), 'Not a content type: unchanged.');
         $this->assertSame('over-ons', V8Map::modulePageSlug('over-ons', $keys));
+    }
+
+    public function test_form_mail_page_slugs_get_the_resource_slug(): void
+    {
+        $keys = ['contactform', 'callmeform'];
+
+        $this->assertSame('contactforms-email-nl', V8Map::modulePageSlug('contactform-email-nl', $keys));
+        $this->assertSame('callmeforms-email-en', V8Map::modulePageSlug('callmeform-email-en', $keys));
+        $this->assertSame('newsletter-email-nl', V8Map::modulePageSlug('newsletter-email-nl', $keys), 'Not a content type: unchanged.');
+        $this->assertSame('contactforms-email-nl', V8Map::modulePageSlug('contactforms-email-nl', $keys), 'Already a v10 slug: unchanged.');
     }
 
     public function test_a_widget_names_its_content_type_by_resource_slug(): void
