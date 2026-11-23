@@ -2,6 +2,9 @@
 
 namespace Lara\App\Sitemap;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
+use Lara\Admin\Enums\MenuItemType;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\Menu;
 use Lara\Common\Models\MenuItem;
@@ -40,80 +43,24 @@ class GoogleSitemapGenerator
 
                 foreach ($menuItems as $menuItem) {
 
-                    if ($menuItem->type == 'parent') {
-                        // folders
-                        $lastModified = $menuItem->updated_at;
-                    } elseif ($menuItem->type == 'page' || $menuItem->type == 'root') {
-                        // page
-                        $page = Page::where('id', $menuItem->object_id)->first();
-                        if ($page) {
-                            $lastModified = $page->updated_at;
-                        } else {
-                            $lastModified = $menuItem->updated_at;
-                        }
-                    } elseif ($menuItem->type == 'entity') {
-                        // modules
-                        $entity = Entity::where('id', $menuItem->entity_id)->first();
-                        $entityModel = $entity->entity_model_class;
-                        $lastObject = $entityModel::where('publish', 1)->orderBy('updated_at', 'desc')->first();
-                        if ($lastObject) {
-                            $lastModified = $lastObject->updated_at;
-                        } else {
-                            $lastModified = $menuItem->updated_at;
-                        }
-                        $entityMenuRoute = $menuItem->route;
-                    } elseif ($menuItem->type == 'form') {
-                        $lastModified = $menuItem->updated_at;
-                    } else {
-                        $lastModified = $menuItem->updated_at;
-                    }
+                    // MenuItem::type is cast to MenuItemType: compare with the enum, not with strings
+                    $entity = $menuItem->type === MenuItemType::Entity ? Entity::find($menuItem->entity_id) : null;
 
-                    $lastModified = substr($lastModified, 0, 10);
+                    $lastModified = match ($menuItem->type) {
+                        MenuItemType::Page => Page::find($menuItem->object_id)?->updated_at ?? $menuItem->updated_at,
+                        MenuItemType::Entity => $this->publishedObjects($entity, $language)->max('updated_at') ?? $menuItem->updated_at,
+                        default => $menuItem->updated_at,
+                    };
 
-                    $objectRoute = htmlspecialchars($baseUrl.'/'.$language.'/'.$menuItem->route);
+                    $xml .= $this->url($baseUrl.'/'.$language.'/'.$menuItem->route, $lastModified, $eol);
 
-                    $xml .= "\t".'<url>'.$eol;
-                    $xml .= "\t\t".'<loc>'.$objectRoute.'</loc>'.$eol;
-                    $xml .= "\t\t".'<lastmod>'.$lastModified.'</lastmod>'.$eol;
-                    $xml .= "\t".'</url>'.$eol;
+                    // the detail pages of a module (only when the entity has a show view)
+                    if ($entity !== null && $entity->views()->where('method', 'show')->exists()) {
+                        // with terms the detail route is {route}/{slug}.html (laracms/app/Routes/web.php)
+                        $suffix = $entity->objrel_has_terms ? '.html' : '';
 
-                    if ($menuItem->type == 'entity') {
-                        // modules
-                        $entity = Entity::where('id', $menuItem->entity_id)->first();
-                        $entityModel = $entity->entity_model_class;
-
-                        $entityHasTags = $entity->objectrelations->has_tags == 1;
-
-                        foreach ($entity->views as $view) {
-                            if ($view->method == 'show') {
-                                if ($entity->columns->has_status) {
-                                    if ($entity->columns->has_expiration) {
-                                        $entityObjects = $entityModel::langIs($language)->isPublished()->IsNotExpired()->get();
-                                    } else {
-                                        $entityObjects = $entityModel::langIs($language)->isPublished()->get();
-                                    }
-                                } else {
-                                    $entityObjects = $entityModel::langIs($language)->get();
-                                }
-
-                                foreach ($entityObjects as $object) {
-
-                                    $singleUrl = $baseUrl.'/'.$language.'/'.$entityMenuRoute.'/'.$object->slug;
-
-                                    if ($entityHasTags) {
-                                        $objectRoute = htmlspecialchars($singleUrl.'.html');
-                                    } else {
-                                        $objectRoute = htmlspecialchars($singleUrl);
-                                    }
-
-                                    $lastModified = substr($object->updated_at, 0, 10);
-
-                                    $xml .= "\t".'<url>'.$eol;
-                                    $xml .= "\t\t".'<loc>'.$objectRoute.'</loc>'.$eol;
-                                    $xml .= "\t\t".'<lastmod>'.$lastModified.'</lastmod>'.$eol;
-                                    $xml .= "\t".'</url>'.$eol;
-                                }
-                            }
+                        foreach ($this->publishedObjects($entity, $language) as $object) {
+                            $xml .= $this->url($baseUrl.'/'.$language.'/'.$menuItem->route.'/'.$object->slug.$suffix, $object->updated_at, $eol);
                         }
                     }
                 }
@@ -122,13 +69,41 @@ class GoogleSitemapGenerator
 
         $xml .= '</urlset>'.$eol;
 
-        $xml = utf8_encode($xml);
-
         $sitemap = public_path('sitemap.xml');
 
         $myfile = fopen($sitemap, 'w') or exit('Unable to open file!');
         fwrite($myfile, $xml);
         fclose($myfile);
 
+    }
+
+    /**
+     * One <url> entry. The values are UTF-8 already (no utf8_encode(): it is deprecated and
+     * would encode them twice).
+     */
+    private function url(string $location, mixed $lastModified, string $eol): string
+    {
+        return "\t".'<url>'.$eol
+            ."\t\t".'<loc>'.htmlspecialchars($location).'</loc>'.$eol
+            ."\t\t".'<lastmod>'.substr((string) $lastModified, 0, 10).'</lastmod>'.$eol
+            ."\t".'</url>'.$eol;
+    }
+
+    /**
+     * The objects of a module the front shows: in the language, published and not expired when
+     * the entity has a status and an expiration.
+     *
+     * @return Collection<int, Model>
+     */
+    private function publishedObjects(?Entity $entity, string $language): Collection
+    {
+        if ($entity === null || ! class_exists($entity->model_class)) {
+            return new Collection;
+        }
+
+        return $entity->model_class::langIs($language)
+            ->when($entity->col_has_status, fn ($query) => $query->isPublished())
+            ->when($entity->col_has_status && $entity->col_has_expiration, fn ($query) => $query->isNotExpired())
+            ->get();
     }
 }
