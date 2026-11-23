@@ -24,7 +24,9 @@ use Tests\TestCase;
  * the v8 entity API) never ran. These tests run that branch against the test database's
  * "news" module (blogs: terms, status and expiration).
  *
- * The sitemap is written to a temporary public path, never the project's public/sitemap.xml.
+ * The sitemap is written to a temporary public path, never the project's public/sitemap.xml. The
+ * tests write to the database inside a transaction (DatabaseTransactions), so the shared test
+ * database is left as it was.
  */
 class GoogleSitemapGeneratorTest extends TestCase
 {
@@ -50,7 +52,6 @@ class GoogleSitemapGeneratorTest extends TestCase
 
         $this->publicPath = sys_get_temp_dir().'/lara-sitemap-'.uniqid();
         File::ensureDirectoryExists($this->publicPath);
-        $this->app->usePublicPath($this->publicPath);
     }
 
     protected function tearDown(): void
@@ -152,9 +153,20 @@ class GoogleSitemapGeneratorTest extends TestCase
         return $urls;
     }
 
+    /**
+     * The generator writes public/sitemap.xml: the public path points to a temporary folder only
+     * while it runs (the pages need the real one, with the Vite manifests).
+     */
     private function generateXml(): string
     {
-        (new GoogleSitemapGenerator)([$this->locale()]);
+        $publicPath = public_path();
+        $this->app->usePublicPath($this->publicPath);
+
+        try {
+            (new GoogleSitemapGenerator)([$this->locale()]);
+        } finally {
+            $this->app->usePublicPath($publicPath);
+        }
 
         return File::get($this->publicPath.'/sitemap.xml');
     }
