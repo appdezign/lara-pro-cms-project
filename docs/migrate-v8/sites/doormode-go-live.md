@@ -48,12 +48,19 @@ On the server, guided one step at a time (runbook step 18: one command or settin
 8. Sitemap once: `php artisan schedule:test --name=google-sitemap` (not tinker); `ls -l public/sitemap.xml`.
 9. Block indexing of staging (Cloudways password or `robots.txt` `Disallow: /`; a dashboard pull restores the repo `robots.txt`, so block again after each pull).
 
+Deploy log (2026-11-23, guided):
+
+- Code pulled (Deployment via Git, `v10`), `composer install` and `storage:link` done; `.env` from the user.
+- The first database import was a wrong file (seerden data: `View [_partials.hero.hero_fixed] not found`, seerden's hero); the user re-imported `doormode10723.sql` into `zxsxvqjwdy`. The route cache still held the old menu (every menu URL 404 except Contact) until `optimize:clear && responsecache:clear && lara:route:cache`. Lesson: rebuild the caches after every database import.
+- `.env` had `APP_ENV=testing` (log lines `testing.ERROR`): set to `staging`.
+- `robots.txt` blocked on the server (`Disallow: /`, after Cloudflare's managed rules); Cloudflare edges served the old copy for a while (purge the URL in Cloudflare if needed). Block it again after every pull until the switch.
+
 Checks:
 
-- [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file; scheduler cron.
-- [ ] Every URL of the text pass (`doormode-compare/urls.txt`: 25 URLs) identical to `doormode10723` (status, title, text); every asset and image of the pages 200 (theme CSS/JS, Glide images, the wallpaper images, favicons, `/storage`, fonts, `/assets/filament/img` and the admin login).
-- [ ] Evenementen lists no events (stock v8 front scope); the contact page shows the two-column grid and the map (Maps key).
-- [ ] Sitemap: `/sitemap.xml` 200, 16 URLs (locally 2026-11-23): every published menu item and the contact page. **Unlinked pages left out** (user, 2026-11-23; `f5d67c3` on `v10`): the unpublished menu items Evenementen, Fotoalbum, Privacy and Offline (linked from nowhere); Contact stays (map icon in header and footer). Live's sitemap lists 32 URLs, among them those pages, the past event details and the 3 blog posts. The blog posts are missing from v10's because of the project-level `GoogleSitemapGenerator` bug (runbook seerden section: `MenuItem::type` is an enum, so entity detail pages are never listed).
+- [x] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru` (user; `php -v` 8.4.28); GA service-account file uploaded, admin dashboard works (user); scheduler cron `cd /home/1652362.cloudwaysapps.com/zxsxvqjwdy/public_html && php artisan schedule:run` (user). 2026-11-23.
+- [x] Every URL of the text pass (25 URLs) identical to `doormode10723` (status, title, headings, text; the contact page differs only in Cloudflare's e-mail obfuscation); all 75 asset and image URLs of those pages and `/admin/login` 200; `fonts.css` and its 68 font files from `v10.doormode.nl` 200. 2026-11-23, after the cache rebuild.
+- [x] Evenementen lists no events (stock v8 front scope); the contact page shows the two-column grid. The map: check in a browser (Maps key from v8).
+- [x] Sitemap: generated with `schedule:test --name=google-sitemap` (user): `/sitemap.xml` 200, `text/xml`, 16 `v10.doormode.nl` URLs (2026-11-23). Unlinked pages left out (user; `f5d67c3`): Evenementen, Fotoalbum, Privacy, Offline; Contact stays. The 3 blog posts are missing (project-level generator bug, runbook seerden section).
 - [ ] Forms: submit the contact form on staging; the mail arrives on the dev mailer.
 - [ ] Admin: log in, open and save a few records; the front stays identical afterwards. Edits on staging are lost at the switch.
 
