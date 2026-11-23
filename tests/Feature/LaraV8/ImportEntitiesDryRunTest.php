@@ -93,6 +93,9 @@ class ImportEntitiesDryRunTest extends TestCase
     {
         $report = collect($this->dryRun());
 
+        // A site can have no geolocation field (macgyverbouw: location skipped): the loop below then has nothing to check.
+        $this->assertIsList($report->all());
+
         foreach ($this->source->contentEntities() as $entity) {
             $v8Fields = $this->source->connection()->table('lara_ent_entity_custom_columns')->where('entity_id', $entity->id)->get();
 
