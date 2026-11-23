@@ -866,6 +866,19 @@ class FixtureImportTest extends TestCase
         $this->assertTrue(collect(self::$urlRerun)->contains(fn (array $line): bool => $line['level'] === 'same' && str_starts_with($line['message'], '0 v8 media URL(s)')));
     }
 
+    public function test_column_shortcodes_become_rich_editor_grids(): void
+    {
+        $body = (string) DB::table('lara_content_pages')->where('id', 19)->value('body');
+
+        $this->assertStringNotContainsString('[kolom_', $body);
+        $this->assertStringContainsString('<div class="grid-layout" data-cols="2" data-from-breakpoint="md"', $body);
+        $this->assertSame(2, substr_count($body, '<div class="grid-layout-col" data-col-span="1"'));
+        $this->assertStringContainsString("<p>Rechts</p>\n</div></div>", $body, 'The marker after an &nbsp; loses its paragraph too.');
+
+        $this->assertTrue(collect(self::$contentReport)->contains(fn (array $line): bool => $line['entity'] === 'page' && $line['level'] === 'info' && str_contains($line['message'], 'shortcodes converted to rich editor grids (row.column): 19.body')));
+        $this->assertTrue(collect(self::$contentRerun)->doesntContain(fn (array $line): bool => $line['entity'] === 'page' && $line['level'] === 'update'), 'A content rerun keeps the grids.');
+    }
+
     public function test_verify_finds_no_errors_after_the_import(): void
     {
         $report = (new Verifier(new V8Source))->run();
@@ -1130,6 +1143,7 @@ class FixtureImportTest extends TestCase
         $this->assertContains("v8-migration.skip_entities: 'page' is a core content type, which cannot be skipped; it is imported.", $findings);
         $this->assertContains("v8-migration.skip_entities: 'nosuchtype' is not a v8 content type.", $findings);
         $this->assertEmpty(array_filter($findings, fn (string $f): bool => str_contains($f, 'V8fxleftover') && str_contains($f, 'not the model')));
+        $this->assertNotEmpty(array_filter($findings, fn (string $f): bool => str_starts_with($f, 'lara_content_pages.body: v8 column shortcodes ([kolom_XvanN]) in 1 row(s) (ids 19)')));
     }
 
     public function test_a_site_custom_field_on_a_core_type_used_by_live_records_is_added(): void

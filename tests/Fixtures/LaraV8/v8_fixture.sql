@@ -567,7 +567,7 @@ INSERT INTO `lara_form_v8fxforms` (`id`, `title`, `name`, `email`, `comment`, `a
 (1, 'Jan Jansen', 'Jan Jansen', 'jan@fixture.test', '', 1, '2024-06-01 10:00:00', '2024-06-01 10:00:00', '192.0.2.1');
 
 INSERT INTO `lara_content_pages` (`id`, `user_id`, `language_parent`, `language`, `title`, `template`, `ishome`, `menuroute`, `slug`, `slug_lock`, `lead`, `body`, `created_at`, `updated_at`, `publish`, `publish_from`, `show_in_app`, `cgroup`, `position`) VALUES
-(19, 2, NULL, 'nl', 'Home', 'standard', 1, '/', 'home', 0, NULL, '<p>Welkom</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', 1),
+(19, 2, NULL, 'nl', 'Home', 'standard', 1, '/', 'home', 0, NULL, '<p>Welkom</p>\n<p>[kolom_1van2]</p>\n<p>Links</p>\n<p>[/kolom_1van2]</p>\n<p>[kolom_2van2]</p>\n<p>Rechts</p>\n<p>&nbsp;[/kolom_2van2]</p>','2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', 1),
 (1125, 2, NULL, 'nl', 'Arbeidshygiëne', 'standard', 0, NULL, 'arbeidshygiene', 0, '<p>Intro</p>', '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', NULL),
 (2001, 2, NULL, 'nl', 'Onze boeken', 'standard', 0, NULL, 'v8fxbook-index-module-nl', 0, NULL, '<p>Intro van de boekenlijst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'module', NULL);
 

@@ -173,6 +173,7 @@ Run it after `import-entities` and `import-users`. Every v8 content type (pages,
 
 - **Columns**: core renames (widget `relentkey` → `resource_slug`, …), page `lead` → `body2` (user decision; the import warns when the page's template shows no extra body fields — switch it to e.g. the landing template), and for a content type with a geolocation field `address`/`pcode`/`city`/`country`/`latitude`/`longitude` → `geo_*`, `geolocation` (auto/manual) → `geo_location`. Columns without a v10 counterpart are reported with the number of values lost (v8 form `title`, a copy of the sender's name; page `show_in_app`; widget `customtags`).
 - **Values**: core values translated (`primary` → `brand`, widget content type key → resource slug), `''` → `null` in custom fields, a v8 `NULL` in a v10 column that is `NOT NULL` with a default gets the default, module page slugs get the resource slug, record locks are dropped, a row of a user that no longer exists goes to the v8 admin.
+- **Column shortcodes** (`[kolom_1van2]…[/kolom_1van2][kolom_2van2]…[/kolom_2van2]`, v8's responsive grid in the editor; first seen on doormode, expect them on more sites): converted to the **grid of the Filament rich editor** (user decision 2026-11-23: editable content, not columns hard-coded in a view). `<div class="grid-layout" data-cols="N" data-from-breakpoint="md">` with a `<div class="grid-layout-col" data-col-span="S">` per column; `[kolom_XvanN]` spans as many columns as X has digits (`12van3` = 2 of 3), the breakpoint is v8's `md`. A marker alone in a paragraph loses the paragraph; an incomplete set is removed, as v8 did (`ColumnShortcodes`). The report names the rows (`row.column`); the inventory lists them as a finding. The front shows the grid only with the `.grid-layout` CSS in the client theme (step 14).
 - Foreign keys are checked after the import (the import runs with foreign key checks off, because the order of the tables is free); broken references are reported.
 - Until the menus are imported, the admin Pages list gives a 500: the essential menu still points to pages that `--fresh` removed (`ListPages::syncPagesWithMenu()`).
 
@@ -264,6 +265,7 @@ A v10 client theme is a folder `laracms/themes/{client}` with `_assets` and `vie
 1. **Check for earlier v10 work first.** If the client already has a v10 theme (anpak: `__lara10_cloudways/_local/anpak10`, repo `appdezign/anpak-eu`), start from that; take the working copy and check it against the current `demo`/`base` (`diff -rq`). Otherwise copy `laracms/themes/demo` to `laracms/themes/{client}`.
 2. `vite.front.client.config.js`: `const THEME_NAME = '{client}';` — and `.env`: `LARA_CLIENT_THEME={client}`.
 3. Fonts: the theme loads Google fonts by name (`@googlefonts('lato')`); register each in `config/google-fonts.php`.
+   Rich editor grids (converted v8 column shortcodes, or made in the v10 editor): the base theme has no CSS for `.grid-layout` yet, so the columns stack. Add it to the client theme (doormode: `custom/doormode.css`, after Filament's `utilities.css`: one column, from `data-from-breakpoint` on `grid-template-columns: var(--cols)` and `grid-column: var(--col-span)`, with the v8 gutter).
 4. Build and refresh:
    ```bash
    npx vite build --config vite.front.client.config.js
@@ -411,6 +413,7 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
 - Media are on disk `localdisk` = `public/assets/media`, one folder per entity key, each with `_trash` and `_archive` subfolders and an `.htaccess`.
 - **`_archive` is not a bin**: live records can refer to files that only exist in `{entity}/_archive` (anpak: 5 docs). Look there when a file is not in the entity folder (`V8Source::mediaFile()`). `_trash` is never used.
 - Media folders also hold files no media row refers to (old uploads, deleted media); they are not imported.
+- The v8 front processes **column shortcodes** `[kolom_XvanN]` in the HTML (`FrontObjectTrait`, Bootstrap row with `lara-front.shortcode.bootstrap_gutter_class` `gx-48` and breakpoint `md`); v10 has no shortcodes. The content import converts them to rich editor grids (step 8).
 - `lara_object_images.entity_type` holds full v8 class names (`Eve\Models\Blog`, `Lara\Common\Models\Page`); `filename` is relative to the entity folder.
 - v8 stores "no value" as SQL `NULL`, an empty string or the **string `'NULL'`** (e.g. `condition_field`); treat all three as empty (`V8Source::isEmpty()`).
 - A custom field can be defined twice in `lara_ent_entity_custom_columns` (anpak: `location.latitude`, `location.longitude`); import it once.

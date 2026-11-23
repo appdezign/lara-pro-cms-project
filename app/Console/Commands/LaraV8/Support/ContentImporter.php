@@ -157,6 +157,7 @@ class ContentImporter
         $contentKeys = $this->source->contentEntities()->pluck('entity_key')->all();
         $rows = collect();
         $reassigned = 0;
+        $shortcodeRows = [];
 
         foreach ($this->source->connection()->table($v8Table)->orderBy('id')->cursor() as $v8Row) {
             $row = [];
@@ -173,6 +174,12 @@ class ContentImporter
                 // v8 media URLs in the HTML become v10 storage URLs (the same rewrite as lara:v8:rewrite-urls)
                 if (is_string($value) && str_contains($value, '/assets/media/')) {
                     $value = $this->urls->rewriteMedia($value, "{$v10Table}.{$v10Column}#{$v8Row->id}", $dryRun);
+                }
+
+                // v8 column shortcodes ([kolom_1van2]…) become rich editor grids
+                if (ColumnShortcodes::has($value)) {
+                    [$value, $grids] = ColumnShortcodes::convert($value);
+                    $shortcodeRows[] = "{$v8Row->id}.{$v10Column}".($grids === 0 ? ' (incomplete, removed)' : '');
                 }
 
                 if ($value === '' && in_array($v10Column, $customColumns, true)) {
@@ -199,6 +206,10 @@ class ContentImporter
         // the shared sync (SyncsRows); an existing row keeps what v10 derives itself
         // (e.g. the page home flag and position from the menu)
         $this->sync($key, $v10Table, ['id'], $rows, $dryRun, $fresh, $fresh ? [] : (self::DERIVED_COLUMNS[$key] ?? []), from: $v8Table);
+
+        if ($shortcodeRows !== []) {
+            $this->add('info', $key, 'v8 column shortcodes converted to rich editor grids (row.column): '.implode(', ', $shortcodeRows).'.');
+        }
 
         if ($reassigned > 0) {
             $this->add('warning', $key, "{$reassigned} row(s) belonged to a v8 user that no longer exists; assigned to user {$fallbackUser}.");

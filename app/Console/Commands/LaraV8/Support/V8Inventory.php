@@ -51,6 +51,7 @@ class V8Inventory
 
         $this->checkCustomFields();
         $this->coreCustomFields();
+        $this->columnShortcodes();
 
         $sections[] = [
             'title' => 'Findings (no v10 mapping, a change in behaviour, or inconsistent v8 data)',
@@ -593,6 +594,34 @@ class V8Inventory
             $this->findings[] = $candidate['live'] > 0
                 ? "Core content type field {$name} is the site's own and v10 lacks it; used by {$candidate['live']} live record(s), so import-entities adds it as a custom field."
                 : "Core content type field {$name} is the site's own and v10 lacks it; no live record uses it, so it is not added and its values are not imported.";
+        }
+    }
+
+    /**
+     * v8 column shortcodes ([kolom_1van2]…) in the text columns of the content tables
+     * (ColumnShortcodes): import-content turns them into rich editor grids.
+     */
+    private function columnShortcodes(): void
+    {
+        foreach ($this->source->contentEntities() as $entity) {
+            $table = $this->source->contentTable($entity->entity_key, $entity->group_key);
+
+            if ($table === null || ! $this->source->hasTable($table)) {
+                continue;
+            }
+
+            $columns = array_values(array_filter(
+                $this->source->columns($table),
+                fn (string $column): bool => in_array($column, ['body', 'lead', 'body2', 'body3', 'body4', 'body5'], true)
+            ));
+
+            foreach ($columns as $column) {
+                $ids = $this->source->connection()->table($table)->where($column, 'like', '%[kolom\_%')->orderBy('id')->pluck('id');
+
+                if ($ids->isNotEmpty()) {
+                    $this->findings[] = "{$table}.{$column}: v8 column shortcodes ([kolom_XvanN]) in {$ids->count()} row(s) (ids {$ids->implode(', ')}); import-content turns them into rich editor grids (the client theme needs the .grid-layout CSS).";
+                }
+            }
         }
     }
 
