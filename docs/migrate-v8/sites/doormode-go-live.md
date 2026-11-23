@@ -53,6 +53,7 @@ Deploy log (2026-11-23, guided):
 - Code pulled (Deployment via Git, `v10`), `composer install` and `storage:link` done; `.env` from the user.
 - The first database import was a wrong file (seerden data: `View [_partials.hero.hero_fixed] not found`, seerden's hero); the user re-imported `doormode10723.sql` into `zxsxvqjwdy`. The route cache still held the old menu (every menu URL 404 except Contact) until `optimize:clear && responsecache:clear && lara:route:cache`. Lesson: rebuild the caches after every database import.
 - `.env` had `APP_ENV=testing` (log lines `testing.ERROR`): set to `staging`.
+- Admin: opening a wallpaper or landing page gave a 500 (`Attempt to read property "template_extra_fields" on null`, `HasContentSection.php:168`): the v8 page templates had no v10 page view. Fixed in the tooling (`fe862ba`: `import-entities` adds the views; locally 5 views, 13 page menu items to their template view, verify ok 27). For staging: `doormode-deploy/page-templates-v1.sql` (guarded inserts + the menu items), tested twice on a copy of the deploy dump (views and menu items as local, the edit forms 200); the user imports it with TablePlus into `zxsxvqjwdy`, then the caches. Seerden had the same 500 on its Instagram page: `seerden-deploy/page-template-instagramfeed.sql` (tested on a copy of `v10_seerden`).
 - `robots.txt` blocked on the server (`Disallow: /`, after Cloudflare's managed rules); Cloudflare edges served the old copy for a while (purge the URL in Cloudflare if needed). Block it again after every pull until the switch.
 
 Checks:
