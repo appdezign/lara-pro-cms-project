@@ -41,13 +41,6 @@ final class RelationMethodWriter
             return false;
         }
 
-        $code = (string) file_get_contents($file);
-        $position = strrpos($code, '}');
-
-        if ($position === false) {
-            return false;
-        }
-
         $returnType = '\\Illuminate\\Database\\Eloquent\\Relations\\'.ucfirst($type);
         $methodCode = <<<PHP
 
@@ -60,6 +53,49 @@ final class RelationMethodWriter
     }
 
 PHP;
+
+        return self::insert($file, $methodCode);
+    }
+
+    /**
+     * Add v8's stock front scope (V8Map::FRONT_SCOPES): scopeFront() limits the front lists and
+     * entity widgets, in v8 and in v10 (FrontListBuilder calls it when the model has it).
+     *
+     * @return bool false when the file is missing or the model already has a scopeFront()
+     */
+    public static function addFrontScope(string $file, string $entityKey, string $condition): bool
+    {
+        if (! is_file($file) || self::hasMethod($file, 'scopeFront')) {
+            return false;
+        }
+
+        $methodCode = <<<PHP
+
+    /**
+     * Added by lara:v8:import-entities: the stock v8 {$entityKey} model's front scope
+     * (the front lists and widgets only show these records).
+     */
+    public function scopeFront(\\Illuminate\\Database\\Eloquent\\Builder \$query): \\Illuminate\\Database\\Eloquent\\Builder
+    {
+        return \$query->{$condition};
+    }
+
+PHP;
+
+        return self::insert($file, $methodCode);
+    }
+
+    /**
+     * Insert method code before the closing brace of the class.
+     */
+    private static function insert(string $file, string $methodCode): bool
+    {
+        $code = (string) file_get_contents($file);
+        $position = strrpos($code, '}');
+
+        if ($position === false) {
+            return false;
+        }
 
         $before = rtrim(substr($code, 0, $position));
 

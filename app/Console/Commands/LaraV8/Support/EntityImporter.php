@@ -59,6 +59,9 @@ class EntityImporter
             if ($entity !== null) {
                 $this->importFields($v8, $entity, $dryRun, $update);
                 $this->importViews($v8, $entity, $dryRun, $update);
+                $this->ensureFrontScope($v8->entity_key, $entity, $dryRun);
+            } elseif ($dryRun && isset(V8Map::FRONT_SCOPES[$v8->entity_key])) {
+                $this->add('create', $v8->entity_key, 'Front scope scopeFront() (stock v8) would be added to the model.');
             }
         }
 
@@ -533,6 +536,38 @@ class EntityImporter
             } else {
                 $this->add('error', $key, "Relation method {$signature} could not be added to {$file}.");
             }
+        }
+    }
+
+    /**
+     * The stock v8 front scope of the content type (V8Map::FRONT_SCOPES), added to the generated
+     * site model when missing (user decision 2026-11-23, doormode): without it v10 lists records
+     * the v8 front hid (doormode, seerden: past events). Not added when the v10 entity lacks the
+     * field the condition needs.
+     */
+    private function ensureFrontScope(string $key, Entity $entity, bool $dryRun): void
+    {
+        if (! isset(V8Map::FRONT_SCOPES[$key])) {
+            return;
+        }
+
+        [$field, $condition] = V8Map::FRONT_SCOPES[$key];
+        $file = RelationMethodWriter::modelFile($entity->model_class, base_path('laracms/app'));
+
+        if ($file === null) {
+            return;
+        }
+
+        if (! $entity->customfields()->where('field_name', $field)->exists()) {
+            $this->add('warning', $key, "Front scope scopeFront() (stock v8) not added: the entity has no field '{$field}'.");
+        } elseif (RelationMethodWriter::hasMethod($file, 'scopeFront')) {
+            $this->add('same', $key, "Front scope {$entity->model_class}::scopeFront() exists.");
+        } elseif ($dryRun) {
+            $this->add('update', $key, "Front scope {$entity->model_class}::scopeFront() (stock v8: {$condition}) would be added.");
+        } elseif (RelationMethodWriter::addFrontScope($file, $key, $condition)) {
+            $this->add('update', $key, "Front scope {$entity->model_class}::scopeFront() (stock v8: {$condition}) added.");
+        } else {
+            $this->add('error', $key, "Front scope scopeFront() could not be added to {$file}.");
         }
     }
 

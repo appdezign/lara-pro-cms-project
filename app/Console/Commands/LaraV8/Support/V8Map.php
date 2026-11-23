@@ -274,6 +274,17 @@ final class V8Map
     ];
 
     /**
+     * Stock v8 front scopes: the generated v8 model of these content types has a scopeFront(),
+     * which the v8 front list applies (FrontListTrait); v10 applies it too (FrontListBuilder,
+     * the entity widgets), but the admin builder does not generate it. entity key => [the field
+     * it needs, the query condition]. v8 event: only events from today on (identical on every
+     * v8.2.46 site seen; doormode and seerden list no past events).
+     */
+    public const FRONT_SCOPES = [
+        'event' => ['startdate', "where('startdate', '>=', \\Carbon\\Carbon::today())"],
+    ];
+
+    /**
      * v8 ability => v10 permission actions; the permission is "{action}_{entity_key}".
      */
     public const PERMISSION_ACTIONS = [
