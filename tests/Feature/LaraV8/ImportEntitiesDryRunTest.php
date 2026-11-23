@@ -65,8 +65,9 @@ class ImportEntitiesDryRunTest extends TestCase
                 continue;
             }
 
-            // a core content type keeps its v10 configuration; at most option values are added, and
-            // the site's own v8 custom fields that v10 lacks (CoreCustomFields)
+            // a core content type keeps its v10 configuration; at most option values are added, the
+            // site's own v8 custom fields that v10 lacks (CoreCustomFields), and page views for the
+            // v8 page templates v10 lacks
             $siteFields = collect((new CoreCustomFields($this->source))->candidates())
                 ->where('entity_key', $entity->entity_key)
                 ->map(fn (array $candidate): string => "Field '{$candidate['v8_field']->fieldname}' ")
@@ -74,7 +75,7 @@ class ImportEntitiesDryRunTest extends TestCase
 
             foreach ($report->where('entity', $entity->entity_key) as $line) {
                 $this->assertTrue(
-                    Str::startsWith($line['message'], ['Option field ', 'v8 custom field ', ...$siteFields]),
+                    Str::startsWith($line['message'], ['Option field ', 'v8 custom field ', 'Page template ', ...$siteFields]),
                     "Core content type {$entity->entity_key} must keep its v10 configuration: {$line['message']}",
                 );
             }

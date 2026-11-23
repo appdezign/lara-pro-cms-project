@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Lara\Common\Models\Entity;
 use Lara\Common\Models\EntityRelation;
+use Lara\Common\Models\EntityView;
 use Lara\Common\Models\User;
 use ReflectionMethod;
 use Spatie\Permission\Models\Role;
@@ -265,6 +266,26 @@ class FixtureImportTest extends TestCase
         $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
     }
 
+    public function test_v8_page_templates_v10_lacks_become_page_views(): void
+    {
+        $pages = Entity::where('resource_slug', 'pages')->firstOrFail();
+        $views = EntityView::where('entity_id', $pages->id)->get()->keyBy('template');
+
+        // fxwallpaper: a page with a lead (body2), so the admin shows the extra body field
+        $this->assertSame(['show', 'show', 1, 1, '_single', 1], [$views['fxwallpaper']->method, $views['fxwallpaper']->filename, (int) $views['fxwallpaper']->template_extra_fields, (int) $views['fxwallpaper']->is_single, $views['fxwallpaper']->list_type, (int) $views['fxwallpaper']->publish]);
+        // fxlanding: only an unpublished page without a lead; still added (the admin form needs it)
+        $this->assertSame(0, (int) $views['fxlanding']->template_extra_fields);
+        $this->assertSame(1, $views->where('template', 'standard')->count(), 'An existing template is not added twice.');
+
+        $created = collect(self::$report)->where('level', 'create')->pluck('message');
+        $this->assertTrue($created->contains("Page template 'fxwallpaper' (1 page(s), extra body fields 1) added as a page view."));
+        $this->assertTrue(collect(self::$rerun)->contains(fn (array $line): bool => $line['level'] === 'same' && $line['message'] === "Page template 'fxwallpaper' exists."));
+
+        // the content import no longer warns about the lead of a page with such a template
+        $warnings = collect(self::$contentReport)->where('level', 'warning')->pluck('message');
+        $this->assertFalse($warnings->contains(fn (string $m): bool => str_contains($m, "Page 1126 'Behang'")));
+    }
+
     public function test_only_site_content_types_are_built_with_their_v8_settings(): void
     {
         $book = Entity::where('resource_slug', 'v8fxbooks')->firstOrFail();
@@ -473,7 +494,7 @@ class FixtureImportTest extends TestCase
 
         $pages = DB::table('lara_content_pages')->orderBy('id')->get()->keyBy('id');
 
-        $this->assertSame([19, 1125, 2001], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
+        $this->assertSame([19, 1125, 1126, 1127, 2001], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
         $this->assertSame('v8fxbooks-index-module-nl', $pages[2001]->slug, 'v10 finds a module page by the resource slug in its slug.');
         $this->assertSame('Home', $pages[19]->title, 'A v8 page with the id of an essential page replaces it.');
         $this->assertSame(['<p>Intro</p>', '<p>Tekst</p>', 'Arbeidshygiëne'], [$pages[1125]->body2, $pages[1125]->body, $pages[1125]->title]);

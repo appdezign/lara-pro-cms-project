@@ -72,9 +72,80 @@ class EntityImporter
 
         $this->importCoreOptions($only, $dryRun);
         $this->importCoreFields($only, $dryRun, $update);
+        $this->importPageTemplates($only, $dryRun);
         $this->reportSkipped($only);
 
         return $this->report;
+    }
+
+    /**
+     * v8 page templates are the theme's single_{template} views; v10 also needs a page view row
+     * per template: the admin page form looks the page's template up there (HasContentSection,
+     * a 500 without it) and offers the views as the template choice. A template that a v8 page
+     * (not trashed) uses and v10 lacks is added as a show view (user decision 2026-11-23,
+     * doormode: wallpaper*, landing*; seerden: instagramfeed). template_extra_fields is 1 when a
+     * page with that template has a v8 lead (imported into body2), so the admin shows body2.
+     *
+     * @param  list<string>  $only
+     */
+    private function importPageTemplates(array $only, bool $dryRun): void
+    {
+        if ($only !== [] && ! in_array('page', $only, true)) {
+            return;
+        }
+
+        $pages = Entity::where('resource_slug', 'pages')->first();
+        $table = $this->source->contentTable('page', 'page');
+
+        if ($pages === null || $table === null || ! $this->source->hasTable($table)) {
+            return;
+        }
+
+        $existing = EntityView::where('entity_id', $pages->id)->pluck('template')->filter()->all();
+        $hasLead = in_array('lead', $this->source->columns($table), true);
+
+        $used = $this->source->connection()->table($table)
+            ->whereNull('deleted_at')
+            ->whereNotNull('template')->where('template', '!=', '')->where('template', '!=', 'NULL')
+            ->get($hasLead ? ['template', 'lead'] : ['template'])
+            ->groupBy('template');
+
+        foreach ($used as $template => $rows) {
+            $template = (string) $template;
+
+            if (in_array($template, $existing, true)) {
+                $this->add('same', 'page', "Page template '{$template}' exists.");
+
+                continue;
+            }
+
+            $withLead = $hasLead && $rows->contains(fn (object $row): bool => trim(strip_tags((string) $row->lead)) !== '' && ! V8Source::isEmpty($row->lead));
+            $extraFields = $withLead ? 1 : 0;
+            $message = "Page template '{$template}' ({$rows->count()} page(s), extra body fields {$extraFields})";
+
+            if ($dryRun) {
+                $this->add('create', 'page', "{$message} would be added as a page view.");
+
+                continue;
+            }
+
+            (new EntityView)->forceFill([
+                'entity_id' => $pages->id,
+                'title' => 'Page '.ucfirst($template),
+                'method' => 'show',
+                'filename' => 'show',
+                'template' => $template,
+                'template_extra_fields' => $extraFields,
+                'is_single' => 1,
+                'list_type' => '_single',
+                'image_required' => 0,
+                'infinite' => 0,
+                'prevnext' => 0,
+                'publish' => 1,
+            ])->save();
+
+            $this->add('create', 'page', "{$message} added as a page view.");
+        }
     }
 
     /**
