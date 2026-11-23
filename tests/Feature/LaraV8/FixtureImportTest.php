@@ -557,7 +557,14 @@ class FixtureImportTest extends TestCase
         $layout = DB::table('lara_object_layout')->get();
 
         $this->assertCount(1, $layout);
-        $this->assertSame(['Lara\\Common\\Models\\Page', 19, 'hero_slider_70', 'hidden', 'no_such_layout', null], [$layout[0]->entity_type, (int) $layout[0]->entity_id, $layout[0]->hero, $layout[0]->pagetitle, $layout[0]->content, $layout[0]->footer]);
+        $this->assertSame(['Lara\\Common\\Models\\Page', 19, 'hero_slider_70', 'hidden', 'no_such_layout', null, null], [$layout[0]->entity_type, (int) $layout[0]->entity_id, $layout[0]->hero, $layout[0]->pagetitle, $layout[0]->content, $layout[0]->footer, $layout[0]->cta]);
+    }
+
+    public function test_empty_layout_values_are_left_to_the_theme_default_without_a_warning(): void
+    {
+        $warnings = collect(self::$objectReport)->where('level', 'warning')->pluck('message');
+
+        $this->assertFalse($warnings->contains(fn (string $m): bool => str_contains($m, 'is not a footer option') || str_contains($m, 'is not a cta option')));
     }
 
     public function test_object_problems_are_reported(): void

@@ -355,6 +355,12 @@ class ObjectImporter
                     continue;
                 }
 
+                // An empty v8 value means "no setting": v10 then uses the theme default as well
+                // (FrontViewResolver::getObjectThemeLayout()), so it is left empty, not reported.
+                if (V8Source::isEmpty($setting->layout_value)) {
+                    continue;
+                }
+
                 if ($options !== null && ! in_array($setting->layout_value, $options[$setting->layout_key] ?? [], true)) {
                     $this->add('warning', 'layout', "Layout of {$v8Class} {$id}: '{$setting->layout_value}' is not a {$setting->layout_key} option of the active theme; imported, check the theme.");
                 }

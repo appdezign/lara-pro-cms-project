@@ -35,6 +35,9 @@ class CoreFieldValuesTest extends TestCase
 
     public function test_only_values_of_live_records_that_v10_lacks_are_added(): void
     {
+        // A site can have nothing to add (doormode): the rules below then have nothing to check.
+        $this->assertIsList($this->fields);
+
         foreach ($this->fields as $row) {
             $options = array_map('strval', (array) $row['field']->field_options);
 

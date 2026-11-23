@@ -744,7 +744,9 @@ INSERT INTO `lara_object_opengraph` (`id`, `entity_type`, `entity_id`, `og_title
 INSERT INTO `lara_object_layout` (`id`, `entity_type`, `entity_id`, `layout_key`, `layout_value`) VALUES
 (1, 'Lara\\Common\\Models\\Page', 19, 'hero', 'hero_slider_70'),
 (2, 'Lara\\Common\\Models\\Page', 19, 'pagetitle', 'hidden'),
-(3, 'Lara\\Common\\Models\\Page', 19, 'content', 'no_such_layout');
+(3, 'Lara\\Common\\Models\\Page', 19, 'content', 'no_such_layout'),
+(4, 'Lara\\Common\\Models\\Page', 19, 'footer', NULL),
+(5, 'Lara\\Common\\Models\\Page', 19, 'cta', '');
 
 INSERT INTO `lara_object_related` (`id`, `entity_key`, `object_id`, `related_entity_key`, `related_model_class`, `related_object_id`) VALUES
 (1, 'v8fxbook', 1, 'v8fxevent', 'Eve\\Models\\V8fxevent', 1),
