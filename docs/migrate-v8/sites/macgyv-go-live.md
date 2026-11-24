@@ -120,3 +120,7 @@ The switch:
 - The footer telephone link dials `company_telephone_real` (v8 linked the empty `company_telephone_clean`).
 - The mobile menu is the v10 drawer (from the right, as v8's offcanvas).
 - The cookie banner is v10's consent plugin.
+
+## Updates
+
+- **1.0.1, Lara CMS 10.7.25 (2026-11-24):** the form spinner as base 10.7.25 (Bootstrap Icons; the quote and call-me form views are base `contactforms` again, the call-me modal has the same spinner), `RedirectToCanonicalHost` from the project (same code). Release `v1.0.1` (`main` `930a24a`); deployed (manual backup, Pull, `composer install`, 0 pending migrations, caches, sitemap). Checked: 22 URLs identical to the snapshot before the update; sitemap 17 www URLs; the www redirect keeps path and query; the spinner and both mails on the quote form and the call-me modal (user). Plan: `__migrate/_notes/2026-11-24-update-migrated-sites-10-7-25.md`.
