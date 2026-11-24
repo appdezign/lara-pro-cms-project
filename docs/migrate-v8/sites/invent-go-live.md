@@ -12,13 +12,13 @@ Live: https://www.inventiverepair.nl on the Cloudways server at `95.179.176.155`
 
 ## Open before staging
 
-- [ ] **Staging app and domain** (user, 2026-11-24: **https://v10.inventiverepair.nl**; the DNS record exists). A v10 Cloudways app on the same server (it becomes production at the switch). **Database name: to be given by the user.** PhpStorm SFTP project: `__lara10_cloudways/remote/inventiverepair.nl_v10_cloudways` (server "cloudways", host `95.179.176.155`; mapping to check).
+- [x] **Staging app and domain** (user, 2026-11-24: **https://v10.inventiverepair.nl**; the DNS record exists). A v10 Cloudways app on the same server (it becomes production at the switch). Database **`yrjbgurjmu`** (user, 2026-11-24). PhpStorm SFTP project: `__lara10_cloudways/remote/inventiverepair.nl_v10_cloudways` (server "cloudways", host `95.179.176.155`; mapping to check).
 - [x] **Keys** (user, 2026-11-24: the v8 keys on the server): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the map on "Plattegrond") and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; v2 checkbox on the contact form) from the v8 app's `.env` (`__cloudways/inventiverepair.nl_cloudways/.env` has them) go into the v10 app's `.env` on the server; check that the reCAPTCHA keys allow the staging domain. Locally they stay empty. GA4: `CONSENT_GA4_ID=G-CW6MX6TG7K` (v8 setting `ga4_id`); staging then counts in the live property.
-- [ ] **Mail** (proposed): the contact form goes to **`info@inventiverepair.nl`** = `company_email` (imported from v8; with `APP_ENV=production` `FormController` sends to it and from it). Production: AuthSMTP as the v8 app (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password from the v8 `.env`); `MAIL_FROM_ADDRESS=info@inventiverepair.nl`, `MAIL_FROM_NAME="Inventive Repair"` for the other mails (v8 has no `MAIL_FROM_*`: the config default `beheer@firmaq.nl`). DNS (checked 2026-11-24): SPF `v=spf1 a mx include:_spf.google.com include:authsmtp.com ~all`, MX Google Workspace, DMARC `p=none`. Staging: dev mailer.
+- [x] **Mail** (user, 2026-11-24, as proposed): the contact form goes to **`info@inventiverepair.nl`** = `company_email` (imported from v8; with `APP_ENV=production` `FormController` sends to it and from it). Production: AuthSMTP as the v8 app (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password from the v8 `.env`); `MAIL_FROM_ADDRESS=info@inventiverepair.nl`, `MAIL_FROM_NAME="Inventive Repair"` for the other mails (v8 has no `MAIL_FROM_*`: the config default `beheer@firmaq.nl`). DNS (checked 2026-11-24): SPF `v=spf1 a mx include:_spf.google.com include:authsmtp.com ~all`, MX Google Workspace, DMARC `p=none`. Staging: dev mailer.
 - [x] **`APP_NAME="Inventive Repair"`** (user, 2026-11-24): page title suffix " — Inventive Repair" and `og:site_name` (live titles have no suffix; kept, as the earlier sites). On the server with the quotes (Deploy lessons).
 - [x] **www redirect**: `RedirectToCanonicalHost` (project, 10.7.25) answers `inventiverepair.nl/<path>?<query>` with a 301 to `APP_URL` + path + query, only with `APP_ENV=production` (macgyverbouw decision; live drops the path). Nothing to decide; check after the switch.
-- [ ] **Sitemap** (proposed: as is): v10 generates the same 70 Dutch URLs as live's sitemap (live 72: plus `/en/` and `/en/about-1`, English is unpublished in v10). Like live it lists the unpublished pages (e.g. Privacybeleid, Bedrijfsfilm, Meer info), the past events and the six partner detail pages `/nl/aangesloten-bij/aangesloten-bij-1/{bovag,…}` (500 on live, 200 in v10; nothing links to them, the list links to the partners' own sites). Proposed: keep it as live (no SEO change); a site rule like macgyverbouw's is possible later.
-- [ ] **Cookie banner privacy link** (proposed): v8's banner linked to `/nl/privacy`, which does not exist (live answers with the home page; v10 404). The privacy page is `/nl/privacybeleid` (unpublished, but served and in the sitemap). Proposed: `config/consent.php` `ui.policy_url` = `'/nl/privacybeleid'` (now `null`).
+- [x] **Sitemap** (user, 2026-11-24: as is): v10 generates the same 70 Dutch URLs as live's sitemap (live 72: plus `/en/` and `/en/about-1`, English is unpublished in v10). Like live it lists the unpublished pages (e.g. Privacybeleid, Bedrijfsfilm, Meer info), the past events and the six partner detail pages `/nl/aangesloten-bij/aangesloten-bij-1/{bovag,…}` (500 on live, 200 in v10; nothing links to them, the list links to the partners' own sites). Proposed: keep it as live (no SEO change); a site rule like macgyverbouw's is possible later.
+- [x] **Cookie banner privacy link** (user, 2026-11-24; `e0cc0ad` on `v10`): v8's banner linked to `/nl/privacy`, which does not exist (live answers with the home page; v10 404). The privacy page is `/nl/privacybeleid` (unpublished, but served and in the sitemap). `config/consent.php` `ui.policy_url` = `'/nl/privacybeleid'`.
 
 ## Staging
 
@@ -50,6 +50,11 @@ On the server, guided one step at a time (runbook step 18: one command or settin
 8. Sitemap once: `php artisan schedule:test --name=google-sitemap`; `ls -l public/sitemap.xml`.
 9. Block indexing of staging (`robots.txt` `Disallow: /`; a dashboard pull restores the repo `robots.txt`, so block again after each pull).
 10. GA service-account file (manual step above); the admin dashboard.
+
+Deploy files (2026-11-24 18:28, verify ok 31, 6 overrides, the local test 404 hits removed): `invent10725.sql` (487 KB, 53 tables), `invent10725-media.tgz` (43 MB, Python tarfile, 129 files: the 16 imported media, the 29 editor images and the demo images the project repo tracks; 0 non-NFC, 0 `._*`, no `_fonts`), `staging.env`.
+
+Deploy log (guided):
+
 
 Checks:
 
