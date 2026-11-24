@@ -200,6 +200,12 @@ final class V8Map
     /**
      * The v10 value of a v8 core field value; unchanged when v10 does not rename it.
      */
+    /**
+     * v10's page form requires a template: a v8 page without one (an empty template, or no
+     * template column at all: inventiverepair) gets the standard page view (user 2026-11-24).
+     */
+    public const DEFAULT_PAGE_TEMPLATE = 'standard';
+
     public static function coreValue(string $entityKey, string $v8Column, mixed $value): mixed
     {
         // a v8 widget names its content type by entity key ("blog"), v10 by resource slug ("blogs")

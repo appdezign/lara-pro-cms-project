@@ -498,6 +498,8 @@ class FixtureImportTest extends TestCase
         $this->assertSame([19, 1125, 1126, 1127, 2001, 2002], $pages->keys()->all(), 'v8 pages replace the essential pages (--fresh).');
         $this->assertSame('v8fxbooks-index-module-nl', $pages[2001]->slug, 'v10 finds a module page by the resource slug in its slug.');
         $this->assertSame('v8fxforms-email-nl', $pages[2002]->slug, 'v10 finds a form\'s mail page by the resource slug, and creates an empty one otherwise.');
+        $this->assertSame('standard', $pages[2002]->template, 'A page without a v8 template gets the standard one (v10\'s page form requires one).');
+        $this->assertSame('fxwallpaper', $pages[1126]->template, 'A v8 template is kept.');
         $this->assertSame('Home', $pages[19]->title, 'A v8 page with the id of an essential page replaces it.');
         $this->assertSame(['<p>Intro</p>', '<p>Tekst</p>', 'Arbeidshygiëne'], [$pages[1125]->body2, $pages[1125]->body, $pages[1125]->title]);
     }

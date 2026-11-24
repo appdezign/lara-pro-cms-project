@@ -572,8 +572,8 @@ INSERT INTO `lara_content_pages` (`id`, `user_id`, `language_parent`, `language`
 (1126, 2, NULL, 'nl', 'Behang', 'fxwallpaper', 0, NULL, 'behang', 0, '<p>Korte intro</p>', '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'page', NULL),
 (1127, 2, NULL, 'nl', 'Overzicht', 'fxlanding', 0, NULL, 'overzicht', 0, NULL, '<p>Tekst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 0, '2023-01-01 10:00:00', 0, 'page', NULL),
 (2001, 2, NULL, 'nl', 'Onze boeken', 'standard', 0, NULL, 'v8fxbook-index-module-nl', 0, NULL, '<p>Intro van de boekenlijst</p>', '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'module', NULL),
--- A form's mail page: v10 finds it by the resource slug (macgyverbouw).
-(2002, 2, NULL, 'nl', 'Aanvraag via de website', 'standard', 0, NULL, 'v8fxform-email-nl', 0, NULL, NULL, '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'email', NULL);
+-- A form's mail page: v10 finds it by the resource slug (macgyverbouw); no template (v10 gives it 'standard').
+(2002, 2, NULL, 'nl', 'Aanvraag via de website', NULL, 0, NULL, 'v8fxform-email-nl', 0, NULL, NULL, '2023-01-01 10:00:00', '2024-01-01 10:00:00', 1, '2023-01-01 10:00:00', 0, 'email', NULL);
 
 UPDATE `lara_content_pages` SET `subtitle` = 'Welkom bij de boeken' WHERE `id` = 19;
 

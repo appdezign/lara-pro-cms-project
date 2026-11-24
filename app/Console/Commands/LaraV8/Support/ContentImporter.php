@@ -157,6 +157,7 @@ class ContentImporter
         $contentKeys = $this->source->contentEntities()->pluck('entity_key')->all();
         $rows = collect();
         $reassigned = 0;
+        $defaultTemplates = 0;
         $shortcodeRows = [];
 
         foreach ($this->source->connection()->table($v8Table)->orderBy('id')->cursor() as $v8Row) {
@@ -199,7 +200,17 @@ class ContentImporter
                 $row['slug'] = V8Map::modulePageSlug($row['slug'], $contentKeys);
             }
 
+            // v10's page form requires a template (V8Map::DEFAULT_PAGE_TEMPLATE)
+            if ($key === 'page' && V8Source::isEmpty($row['template'] ?? null)) {
+                $row['template'] = V8Map::DEFAULT_PAGE_TEMPLATE;
+                $defaultTemplates++;
+            }
+
             $rows->push($row);
+        }
+
+        if ($defaultTemplates > 0) {
+            $this->add('info', $key, "{$defaultTemplates} page(s) without a v8 template get the template '".V8Map::DEFAULT_PAGE_TEMPLATE."' (v10's page form requires one).");
         }
 
         // column defaults for a v8 NULL, the site overrides, and only the rows that differ:

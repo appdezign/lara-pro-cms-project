@@ -55,13 +55,22 @@ Deploy files (2026-11-24 18:28, verify ok 31, 6 overrides, the local test 404 hi
 
 Deploy log (guided):
 
+- Step 1 (user, 2026-11-24): PHP 8.4.28 with `tmpfile`, `highlight_file`, `fpassthru`; Deployment via Git, `v10` pulled; `composer install --no-dev -o`. Static files 200.
+- Steps 2–4 (user, 2026-11-24): `.env` from `invent-deploy/staging.env` (`key:generate`), `invent10725.sql` into `yrjbgurjmu` with TablePlus, media archive unpacked, `storage:link`. Checked from here: text pass staging vs local, 62 URLs identical, status codes too (`inventive-compare/staging-pass.md`); Glide images 200 (webp); `/admin/login` 200; sitemap not yet (302).
+- Step 5 (user, 2026-11-24): `google-fonts:fetch`; `migrate:status`: 0 pending.
+- Step 6 (user, 2026-11-24): `optimize:clear`, `responsecache:clear`, `lara:route:cache`; text pass again: 62 URLs identical.
+- Step 7 (user, 2026-11-24): scheduler cron (Cloudways Cron Job Management, `schedule:run` every minute).
+- Step 8 (user, 2026-11-24): sitemap (`schedule:test --name=google-sitemap`). First run: all 70 URLs on `https://v10.inventive.nl`: a typo in the server's `APP_URL` (web requests use their own host, so the pages were fine; console output — the sitemap, the fonts CSS — uses `APP_URL`). Fixed `APP_URL=https://v10.inventiverepair.nl`, `_fonts` removed and fetched again, caches, sitemap again. Checked: 70 `v10.inventiverepair.nl` URLs, the same list as local; 63 answer 200, the 7 folders 302 to their first page (as local; live lists them too); `fonts.css` with 28 fonts from the staging host, 200; no `v10.inventive.nl` left.
+- Step 9 (user, 2026-11-24): `robots.txt` `Disallow: /` (checked from here; block again after every pull until the switch).
+- Step 10 (user, 2026-11-24): GA service-account file uploaded to `storage/app/analytics/service-account-lara-dash.json`; the admin dashboard works.
+- Step 11 (user, 2026-11-24): contact form sent, both mails on the dev mailer; the map, the company film and the random partner box work.
 
 Checks:
 
-- [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
+- [x] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron (user, 2026-11-24).
 - [ ] Every URL of the text pass (`inventive-compare/urls.txt`, 62 URLs) identical to `invent10725`; assets and images of home, a sub page, news, partners, a document and the contact form OK; Glide images 200; `/admin/login` 200; no local or `http://` references.
-- [ ] The left sub menu follows the active main item; one random partner shows in the sidebar; the company film plays.
-- [ ] Contact form: both mails (webmaster and confirmation) on the dev mailer; no "… Email Title" page appears (mail pages carry the v10 slug). The map on "Plattegrond" with the Maps key.
+- [x] The left sub menu follows the active main item; one random partner shows in the sidebar; the company film plays (user, 2026-11-24).
+- [x] Contact form (user, 2026-11-24: sent, both mails arrived, map OK): both mails (webmaster and confirmation) on the dev mailer; no "… Email Title" page appears (mail pages carry the v10 slug). The map on "Plattegrond" with the Maps key.
 - [ ] Admin: a page, a news item and a partner open and save; the front URLs still identical afterwards. Edits on staging are lost at the switch.
 
 ## Content to settle before the freeze

@@ -131,6 +131,8 @@ class OlderPagesSchemaTest extends TestCase
         $this->assertEmpty($report->where('level', 'error'), $report->pluck('message')->implode("\n"));
         $this->assertSame('Arbeidshygiëne', DB::table('lara_content_pages')->where('id', 1125)->value('title'));
         $this->assertNull(DB::table('lara_content_pages')->where('id', 1125)->value('body2'));
+        $this->assertSame([], DB::table('lara_content_pages')->where(fn ($q) => $q->whereNull('template')->orWhere('template', ''))->pluck('id')->all(), 'Every page gets a template (v10 requires one).');
+        $this->assertSame('standard', DB::table('lara_content_pages')->where('id', 1125)->value('template'));
         $this->assertTrue(
             $report->contains(fn (array $line): bool => $line['level'] === 'warning' && str_contains($line['message'], 'lara_content_pages.pageid')),
             'The v8 pageid values are reported as not imported.'
