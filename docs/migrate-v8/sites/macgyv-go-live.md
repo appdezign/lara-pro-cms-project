@@ -1,6 +1,6 @@
 # macgyverbouw.nl: go-live checklist
 
-v8.2.46 (`macgyv8246`, production db `nasswqfkpw`, theme `macgyver`) → v10 (`macgyv10723`, Lara CMS 10.7.23, theme `macgyver`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-23: **staging** on https://v10.macgyverbouw.nl (deploy files made 21:29, verify ok 28).
+v8.2.46 (`macgyv8246`, production db `nasswqfkpw`, theme `macgyver`) → v10 (`macgyv10723`, Lara CMS 10.7.23, theme `macgyver`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-24: **staging done** on https://v10.macgyverbouw.nl (deploy files made 2026-11-23 21:29, verify ok 28); next: the switch.
 
 Live: https://www.macgyverbouw.nl on the Cloudways server `1652362` (v8 app `phplaravel-1652362-6575259.cloudwaysapps.com`, the same server as doormode), nginx, **not behind Cloudflare**. DNS at webhost.company (`ns1–3.webhost.company`), `www` and the root both `95.179.176.155`. `http://` and `macgyverbouw.nl` → `https://www.macgyverbouw.nl/` 301, **without the path** (`macgyverbouw.nl/nl/nieuws` lands on the home page: Cloudways' own www redirect). `robots.txt` `Allow: /`; **no sitemap** (`/sitemap.xml` 302 to the home page). Plan with every decision: `macgyv8246/.ai/plans/2026-11-23-migrate-v8-to-v10-macgyverbouw.md`; inventory: `sites/macgyv-inventory.md`; text pass: `macgyv8246/.ai/plans/macgyver-compare/`.
 
@@ -55,15 +55,20 @@ Deploy log (2026-11-23, guided):
 - Step 1: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru` (user). Database `cnhhvubunk`.
 - Step 2: Deployment via Git, `v10` pulled (static files 200; Laravel 500 until `vendor` and `.env`).
 - Step 3: `composer install --no-dev -o` on PHP 8.4.28 (user).
-- **Next (step 4):** `.env` from `macgyv-deploy/staging.env` (fill in the `{…}` placeholders: DB credentials, dev mailer, the v8 Google keys), upload as `public_html/.env`, `php artisan key:generate --force`; then the database import into `cnhhvubunk`, the media, `storage:link`, fonts, caches, cron, sitemap, robots, the GA service-account file.
+- Steps 4–5 (user, 2026-11-24): `.env` from `macgyv-deploy/staging.env` (placeholders filled in, `key:generate`), `macgyv10723.sql` imported into `cnhhvubunk` with TablePlus, media unpacked, `storage:link`, `google-fonts:fetch`.
+- Step 6: `optimize:clear`, `responsecache:clear`, `lara:route:cache` (`APP_ENV=staging`, `APP_DEBUG=false`, `APP_URL=https://v10.macgyverbouw.nl`).
+- Step 7: scheduler cron (Cloudways Cron Job Management, `schedule:run` every minute).
+- Step 8: sitemap (`schedule:test --name=google-sitemap`): 14 `v10.macgyverbouw.nl` URLs, all 200.
+- Step 9: `robots.txt` `Disallow: /` (block again after every pull until the switch).
+- Step 10: GA service-account file uploaded; the admin dashboard works.
 
 Checks:
 
-- [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
-- [ ] Every URL of the text pass (`macgyver-compare/urls.txt`, 22 URLs) identical to `macgyv10723`; every asset and image URL of those pages and `/admin/login` 200; `fonts.css` and its font files from the staging domain.
-- [ ] Projecten lists only "Verbouw woonboerderij" ("Bouw dakkapel" has no images: hidden, as live); the home slider, the sidebar slider and the Facebook block show.
-- [ ] Forms: contact, quote and the call-me modal (sidebar "Bel mij terug", ajax): both mails (webmaster and confirmation) on the dev mailer, with the v8 mail headings ("Verzoek via website", "Offerte aangevraagd via website", "Belmij-verzoek via website"); no "… Email Title" page appears (mail pages carry the v10 slug since `a01cdc0`). The map with the Maps key.
-- [ ] Admin: log in, open and save a page, a blog post, the gallery; the front URLs are still identical afterwards. Edits on staging are lost at the switch.
+- [x] Server: PHP 8.4.28 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron (user, 2026-11-24).
+- [x] Every URL of the text pass (`macgyver-compare/urls.txt`, 22 URLs) identical to `macgyv10723` (`staging-pass.md`, after the caches and again after the admin saves); 34 asset and link URLs of home, news, gallery and contact OK; Glide images 200; `fonts.css` from the staging domain; `/admin/login` 200; no local or `http://` references (2026-11-24).
+- [x] Projecten lists only "Verbouw woonboerderij" ("Bouw dakkapel" has no images: hidden, as live); the home slider, the sidebar slider and the Facebook block show.
+- [x] Forms (user, 2026-11-24: all three sent, both mails each, headings correct, map loads): contact, quote and the call-me modal (sidebar "Bel mij terug", ajax): both mails (webmaster and confirmation) on the dev mailer, with the v8 mail headings ("Verzoek via website", "Offerte aangevraagd via website", "Belmij-verzoek via website"); no "… Email Title" page appears (mail pages carry the v10 slug since `a01cdc0`). The map with the Maps key.
+- [x] Admin (user, 2026-11-24): a page, a news item and the gallery open and save; the front URLs still identical afterwards. Edits on staging are lost at the switch.
 
 ## Content to settle before the freeze
 
