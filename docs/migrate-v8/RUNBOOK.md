@@ -159,7 +159,7 @@ php artisan lara:v8:import-users            # -v shows every step; --prune remov
 
 Run it after `import-entities`: the permissions of the site content types need their policies.
 
-- **Users** keep their v8 id and password hash (written directly, past the `hashed` cast; Laravel rehashes on the next login). v8 `username` → `name` (the login name), v8 `name` → `displayname`, `user_language` → `locale` (empty: the site locale). The v8 users replace the essential `superadmin` of the seed.
+- **Users** keep their v8 id and password hash (written directly, past the `hashed` cast; Laravel rehashes on the next login). v8 `username` → `name` (the login name), v8 `name` → `displayname`, `user_language` → `locale` (empty: the site locale). The v8 users replace the essential `superadmin` of the seed. A v8 user whose e-mail address is the essential superadmin's is not a conflict when a v8 user with the superadmin's id replaces it: the users that overwrite an existing id are written first (inventiverepair: v8 admin 2 had that address).
 - **The v8 admin** (`is_admin`) gets **only** the v10 role `superadmin`, which passes every check (`Gate::before`).
 - **Roles** are matched by name; a v8 role without users is skipped; a used v8 role that v10 lacks is created (panel access and level from v8).
 - **Permissions**: the import first creates the permissions of every policy, as the Role screen does. For every subject both versions know, a role gets exactly its v8 abilities (`view` → `view` + `view_any`, `delete` → `delete` + `delete_any`); subjects only v10 knows keep the role's v10 permissions. v8 subjects without a v10 policy (headertag, language, redirect, seo, tag) are reported.

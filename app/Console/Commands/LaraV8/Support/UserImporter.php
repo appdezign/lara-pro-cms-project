@@ -91,7 +91,13 @@ class UserImporter
         $existing = DB::table('lara_auth_users')->get()->keyBy('id');
         $locale = (string) config('app.locale');
 
-        foreach ($v8Users as $v8User) {
+        // v10 users that a v8 user with the same id overwrites with another e-mail address free their
+        // address in this run (inventiverepair: v8 user 3 replaces the essential superadmin, whose
+        // address is v8 user 2's). They are written first, so the unique e-mail index allows the others.
+        $freed = $existing->filter(fn (object $user, int $id): bool => $v8Users->has($id) && (string) $v8Users[$id]->email !== (string) $user->email)->keys()->all();
+        $ordered = $v8Users->sortBy(fn (object $v8User): int => $existing->has($v8User->id) ? 0 : 1);
+
+        foreach ($ordered as $v8User) {
             $row = self::userRow($v8User, $locale);
             $label = "User {$row['id']} '{$row['name']}'";
             $current = $existing[$row['id']] ?? null;
@@ -99,6 +105,7 @@ class UserImporter
             $emailTaken = $row['email'] !== '' && DB::table('lara_auth_users')
                 ->where('email', $row['email'])
                 ->where('id', '!=', $row['id'])
+                ->when($dryRun && $freed !== [], fn ($query) => $query->whereNotIn('id', $freed))
                 ->exists();
 
             if ($emailTaken) {
