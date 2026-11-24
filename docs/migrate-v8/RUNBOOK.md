@@ -492,6 +492,9 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
   ```
   A `v8-migration` branch in the clone then tracks a branch the site repo does not have: unset its upstream (`git branch --unset-upstream v8-migration`) and commit tooling fixes from a clone of the project repo. A worktree record can outlive its folder's link: if `git branch -d` says a branch is checked out in a folder that belongs to another clone (its `.git` file points elsewhere), remove only the stale record (`.git/worktrees/{name}`), then `git worktree prune`.
 
+- **Clear the caches again after the domains move.** Cached widgets (menus, sliders) keep absolute URLs of the host of the request that filled the cache: a check on the staging domain after setting the production `APP_URL` left every menu link on www pointing to the removed staging domain (macgyverbouw). Run `optimize:clear`, `cache:clear`, `responsecache:clear`, `lara:route:cache` once the production domains are on the app.
+- **The non-www → www redirect on Cloudways (no Cloudflare):** the apps run on pure nginx (`.htaccess` has no effect), Cloudways' rewrite rules drop the path and query (confirmed by Cloudways support), and it offers no nginx server block. macgyverbouw has it in the app: global middleware `RedirectToCanonicalHost` (`app/Http/Middleware`, prepended in `bootstrap/app.php`, production only, 301 to `APP_URL` + path + query; test `tests/Feature/RedirectToCanonicalHostTest.php`). Static files on the other host are served by nginx and not redirected. Behind Cloudflare a Redirect Rule does the same (doormode).
+
 ## Sites
 
 ### anpak.eu (first site, 2026-11)

@@ -1,6 +1,6 @@
 # macgyverbouw.nl: go-live checklist
 
-v8.2.46 (`macgyv8246`, production db `nasswqfkpw`, theme `macgyver`) → v10 (`macgyv10723`, Lara CMS 10.7.24, theme `macgyver`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-24: **staging done** on https://v10.macgyverbouw.nl (Lara CMS 10.7.24 since 2026-11-24; deploy files made 2026-11-23 21:29, verify ok 28); next: the switch.
+v8.2.46 (`macgyv8246`, production db `nasswqfkpw`, theme `macgyver`) → v10 (`macgyv10723`, Lara CMS 10.7.24, theme `macgyver`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-24: **live on v10** since the switch on the morning of 2026-11-24 (staging app became production; v8 app is the fallback). Lara CMS 10.7.24.
 
 Live: https://www.macgyverbouw.nl on the Cloudways server `1652362` (v8 app `phplaravel-1652362-6575259.cloudwaysapps.com`, the same server as doormode), nginx, **not behind Cloudflare**. DNS at webhost.company (`ns1–3.webhost.company`), `www` and the root both `95.179.176.155`. `http://` and `macgyverbouw.nl` → `https://www.macgyverbouw.nl/` 301, **without the path** (`macgyverbouw.nl/nl/nieuws` lands on the home page: Cloudways' own www redirect). `robots.txt` `Allow: /`; **no sitemap** (`/sitemap.xml` 302 to the home page). Plan with every decision: `macgyv8246/.ai/plans/2026-11-23-migrate-v8-to-v10-macgyverbouw.md`; inventory: `sites/macgyv-inventory.md`; text pass: `macgyv8246/.ai/plans/macgyver-compare/`.
 
@@ -16,7 +16,7 @@ Live: https://www.macgyverbouw.nl on the Cloudways server `1652362` (v8 app `php
 - [x] **Keys** (user, 2026-11-23: use the v8 keys): Google Maps (`GOOGLE_MAPS_API_KEY`, `GOOGLE_MAPS_GEOCODING_API_KEY`; the map on the contact page) and reCAPTCHA (`GOOGLE_RECAPTCHA_SITE_KEY`, `GOOGLE_RECAPTCHA_SECRET_KEY`; v2 checkbox on the contact, quote and call-me forms) from the v8 app's `.env` (`__cloudways/macgyverbouw.nl_cloudways/.env` has them) go into the v10 app's `.env` on the server; check that the reCAPTCHA keys allow the staging domain. Locally they stay empty. GA4: `CONSENT_GA4_ID=G-6BCQSKD8FY` (v8 setting `ga4_id`); staging then counts in the live property.
 - [x] **Mail** (user, 2026-11-23): the forms go to **`johan@macgyverbouw.nl`** = `company_email` (imported from v8; `FormController` sends to it and from it with `APP_ENV=production`). Production: AuthSMTP as the v8 app (`MAIL_MAILER=smtp`, `MAIL_HOST=mail.authsmtp.com`, `MAIL_PORT=25`, `MAIL_ENCRYPTION=null`, username/password from the v8 `.env`); `MAIL_FROM_ADDRESS=johan@macgyverbouw.nl`, `MAIL_FROM_NAME="MacGyverBouw"` (for the other mails; v8 used the config default `beheer@firmaq.nl`). DNS (checked 2026-11-23): SPF `v=spf1 a mx include:zoho.com include:authsmtp.com ~all`, MX Zoho, DMARC `p=none`. Staging: dev mailer.
 - [x] **`APP_NAME="MacGyverBouw"`** (user, 2026-11-23): page title suffix " — MacGyverBouw" and `og:site_name` (live titles have no suffix; kept, as seerden and doormode). On the server with the quotes (Deploy lessons).
-- [x] **www redirect** (user, 2026-11-23: keep Cloudways' redirect as live): live redirects `macgyverbouw.nl/*` to the www **home page** (Cloudways' redirect drops the path; seerden kept it that way, doormode moved it to Cloudflare). There is no Cloudflare here; proposed: keep Cloudways' redirect as live (no SEO change), check after the switch that it is set on the v10 app (it is an app setting and does not move with the domain: doormode lesson).
+- [x] **www redirect** (user, 2026-11-23: keep Cloudways' redirect as live; **replaced 2026-11-24 by a redirect in the app**, see the switch): live redirects `macgyverbouw.nl/*` to the www **home page** (Cloudways' redirect drops the path; seerden kept it that way, doormode moved it to Cloudflare). There is no Cloudflare here; proposed: keep Cloudways' redirect as live (no SEO change), check after the switch that it is set on the v10 app (it is an app setting and does not move with the domain: doormode lesson).
 - [x] **Sitemap** (user, 2026-11-23; `64ebdec` on `v10`: 14 URLs): live has none; v10 generates `public/sitemap.xml` (scheduler) with 16 URLs locally: the home, every menu page including the redirecting folders `/nl/diensten` and `/nl/contact`, the unpublished Privacy page and the three unpublished form pages (linked from the header button and the sidebar); the 2 blog posts and the gallery are missing (project-level generator bug, runbook seerden section). Proposed, as doormode (site code `laracms/app/Sitemap/GoogleSitemapGenerator.php`): leave out unpublished pages that nothing links to and the redirecting folders; keep the three form pages and Privacy (linked from the cookie banner, below).
 - [x] **Cookie banner privacy link** (user, 2026-11-23; `64ebdec`): v8's banner linked to `/nl/privacy`; v10's consent plugin `config/consent.php` `ui.policy_url` = `'/nl/privacy'`.
 
@@ -83,36 +83,37 @@ Checks:
 
 Before the day:
 
-- [ ] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
-- [ ] reCAPTCHA keys: the v8 keys, live on `www.macgyverbouw.nl`, in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch (contact, quote and the call-me modal).
-- [ ] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
-- [ ] Cloudways backups of the v10 app (daily, plus a manual backup before the switch).
+- [x] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
+- [x] reCAPTCHA keys: the v8 keys, live on `www.macgyverbouw.nl`, in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch (contact, quote and the call-me modal).
+- [x] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (checked 2026-11-24) (clearing the sessions: `rm -f storage/framework/sessions/*`).
+- [x] Cloudways backups of the v10 app (daily, plus a manual backup before the switch; user 2026-11-24).
 - [x] Sitemap, www redirect and privacy link decided (see Open before staging).
 
 The switch:
 
-- [ ] Content freeze on the v8 admin.
-- [ ] Final production dump from the v8 app with TablePlus into `macgyv8246/.lara/dbdump/` (before its domains move); production media with SFTP into `macgyv8246/.lara/media` (emptied first; `LARA_V8_MEDIA_PATH` points there).
-- [ ] Backups first: `v10_macgyv` and `v8_macgyv` into `macgyv-deploy/backups/`.
-- [ ] Locally: reload `v8_macgyv` from the fresh dump (runbook 17), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `macgyv10723.sql` and media archive (Python) in `macgyv-deploy/`. Expect pages reported "updated" for `position` only (runbook step 17 note).
-- [ ] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media if it changed; NFC/`._*` check; clear the sessions.
-- [ ] Server: `robots.txt` back to the repo version (dashboard Pull).
-- [ ] Server `.env`: `APP_URL=https://www.macgyverbouw.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`; the sitemap again.
-- [ ] v8 app: crons off, `MAIL_MAILER=log`, domains removed (Cloudways temporary URL). Before each command check which app the shell is in.
-- [ ] v10 app: primary domain `www.macgyverbouw.nl`, alias `macgyverbouw.nl` with the www redirect (decision above); remove the staging domain or redirect it; Let's Encrypt for both.
-- [ ] Check: http → https and non-www → www, home, every menu item and the unpublished form pages and Privacy, both blog posts, the gallery, the 404, every asset and image, the three forms with reCAPTCHA and the mails, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login. Text pass production vs local.
+- [x] Content freeze on the v8 admin. 2026-11-24 ~10:20.
+- [x] Final production dump from the v8 app with TablePlus into `macgyv8246/.lara/dbdump/` (before its domains move); production media with SFTP into `macgyv8246/.lara/media` (emptied first; `LARA_V8_MEDIA_PATH` points there). `macgyv8246-24112026-final.sql` (10:23, 63 tables): no content change since 2026-11-23 (a nightly image timestamp, a header-tag row, the GA sync timestamp); media 188 files, identical.
+- [x] Backups first: `v10_macgyv` and `v8_macgyv` into `macgyv-deploy/backups/` (`*-before-final-sync.sql`, 10:25).
+- [x] Locally: reload `v8_macgyv` from the fresh dump (runbook 17), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `macgyv10723.sql` and media archive (Python) in `macgyv-deploy/`. Dry run: nothing to change; verify ok 28; the test 404 hits removed from `seo_not_founds`; new dump 10:26; media archive identical to the staging one (not uploaded again). Staging files in `backups/*-staging.*`.
+- [x] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media if it changed; NFC/`._*` check; clear the sessions. Dump into `cnhhvubunk`; sessions and caches cleared; text pass 22 URLs identical.
+- [x] Server: `robots.txt` back to the repo version (dashboard Pull).
+- [x] Server `.env`: `APP_URL=https://www.macgyverbouw.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; `php artisan optimize:clear && php artisan responsecache:clear && php artisan lara:route:cache`; the sitemap again. Fonts from www; sitemap 17 www URLs.
+- [x] v8 app: crons off, `MAIL_MAILER=log`, domains removed (Cloudways temporary URL). Before each command check which app the shell is in.
+- [x] v10 app: primary domain `www.macgyverbouw.nl`, alias `macgyverbouw.nl`; staging domain removed; Let's Encrypt for both (to 2027-02-22). **Caches cleared again after the move**: until then the cached menu widgets linked to `v10.macgyverbouw.nl` (built during a check on the staging domain after the `.env` change). **www redirect in the app** (`ce43875`, `RedirectToCanonicalHost`, production only): Cloudways runs pure nginx (no `.htaccess`), its rewrite rules drop path and query, and it offers no nginx server block; now `macgyverbouw.nl/<path>?<query>` → `https://www.macgyverbouw.nl/<path>?<query>` 301 (static files on the root host are served by nginx directly). Pull, `composer dump-autoload -o`, caches.
+- [x] Check: http → https and non-www → www, home, every menu item and the unpublished form pages and Privacy, both blog posts, the gallery, the 404, every asset and image, the three forms with reCAPTCHA and the mails, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login. Text pass production vs local. 2026-11-24: `production-pass.md`: 18 pages identical, the 4 form pages only the reCAPTCHA hint (production); 34 link/asset URLs and 23 font files from www 200; no staging/local/`http://` references; sitemap 17 www URLs; forms with reCAPTCHA and mails (AuthSMTP), map, cookie banner, admin and dashboard checked by the user; www redirect keeps path and query.
 - [ ] Search Console: submit the sitemap (live had none); watch 404s.
 - [ ] Git: `main`/`develop` from `v10`, tag `v1.0.0`, Cloudways deploys `main`; the site repo becomes the only remote; project tags and the tooling worktree removed once everything is pushed.
 
 ## Fallback
 
-- [ ] The v8 app stays on the server with its files and database, without domains, on its Cloudways temporary URL (crons and mail off), for a few weeks. Switching back: move the domains back and issue SSL again; content edited in v10 after the switch would have to be redone in v8.
+- [ ] The v8 app stays on the server with its files and database, without domains, on its Cloudways temporary URL (crons and mail off), for a few weeks. Switching back: move the domains back and issue SSL again; content edited in v10 after the switch would have to be redone in v8. In place since 2026-11-24 (no domains, crons off, `MAIL_MAILER=log`).
 
 ## Known differences that stay
 
 - Unknown URLs answer 404 with the "Oops" page (live: 200).
 - `/en` is unpublished (live: a 500); v10 still answers `/en/` with the "[EN] homepage" page (core: an unpublished language stays routable); nothing links to it. The theme renders the sliders only in Dutch and the footer uses uncached menu widgets, because core caches those widgets without the language (core item for laracms10).
 - Page titles end in " — MacGyverBouw".
+- `macgyverbouw.nl/*` redirects to the same path on www (v8: to the www home page).
 - Form pages: required-field markers ("* = dit is een verplicht veld"); the buttons say "versturen" (v8 texts, set as translations).
 - The call-me form opens in a daisyUI modal (v8: a Bootstrap modal), same fields and texts.
 - The project detail title sits 16 px lower than live (v8's gallery detail had no section padding).
