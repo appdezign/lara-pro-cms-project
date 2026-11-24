@@ -71,7 +71,10 @@ class MenuImporter
     {
         $entities = $this->entityMap();
         $views = $this->viewMap($entities);
-        $pageTemplates = $this->source->connection()->table('lara_content_pages')->pluck('template', 'id');
+        // an older v8 pages table has no template column (inventiverepair): no page template to match
+        $pageTemplates = in_array('template', $this->source->columns('lara_content_pages'), true)
+            ? $this->source->connection()->table('lara_content_pages')->pluck('template', 'id')
+            : collect();
         $pageIds = DB::table('lara_content_pages')->pluck('id')->map(fn ($id): int => (int) $id)->all();
         $rows = collect();
 

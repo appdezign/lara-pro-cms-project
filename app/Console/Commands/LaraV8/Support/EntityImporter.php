@@ -101,8 +101,17 @@ class EntityImporter
             return;
         }
 
+        $columns = $this->source->columns($table);
+
+        // an older v8 pages table has no template column (inventiverepair): every page uses the default view
+        if (! in_array('template', $columns, true)) {
+            $this->add('info', 'page', "Page template column missing in v8 {$table}; every page keeps the default page view.");
+
+            return;
+        }
+
         $existing = EntityView::where('entity_id', $pages->id)->pluck('template')->filter()->all();
-        $hasLead = in_array('lead', $this->source->columns($table), true);
+        $hasLead = in_array('lead', $columns, true);
 
         $used = $this->source->connection()->table($table)
             ->whereNull('deleted_at')

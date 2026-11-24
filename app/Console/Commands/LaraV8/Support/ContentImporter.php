@@ -257,6 +257,13 @@ class ContentImporter
      */
     private function checkPageBody2(string $v8Table): void
     {
+        $columns = $this->source->columns($v8Table);
+
+        // an older v8 pages table has no lead and no template column (inventiverepair)
+        if (! in_array('lead', $columns, true) || ! in_array('template', $columns, true)) {
+            return;
+        }
+
         $pages = Entity::where('resource_slug', 'pages')->first();
         $extraFields = EntityView::where('entity_id', $pages?->id)->pluck('template_extra_fields', 'template');
 
