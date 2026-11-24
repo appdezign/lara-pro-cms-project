@@ -65,14 +65,15 @@ Deploy log (guided):
 - Step 10 (user, 2026-11-24): GA service-account file uploaded to `storage/app/analytics/service-account-lara-dash.json`; the admin dashboard works.
 - Step 11 (user, 2026-11-24): contact form sent, both mails on the dev mailer; the map, the company film and the random partner box work.
 - Step 12 (2026-11-24): saving a page failed: v10's page form requires a template and every page had none (no v8 template column; the front accepts an empty one). Tooling `d647b17`: the import gives such pages `standard`; staging fixed by the user (`invent-deploy/pages-template-standard.sql` offered). Text pass staging vs local afterwards: 62 URLs identical. The earlier sites (empty templates too) fixed by the user.
+- Step 12 (user, 2026-11-24): a page, a news item and a partner open and save without errors; text pass staging vs local afterwards: 62 URLs identical.
 
 Checks:
 
 - [x] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron (user, 2026-11-24).
-- [ ] Every URL of the text pass (`inventive-compare/urls.txt`, 62 URLs) identical to `invent10725`; assets and images of home, a sub page, news, partners, a document and the contact form OK; Glide images 200; `/admin/login` 200; no local or `http://` references.
+- [x] Every URL of the text pass (`inventive-compare/urls.txt`, 62 URLs) identical to `invent10725` (`staging-pass.md`, after the caches, after the template fix and after the admin saves; 2026-11-24); assets and images of home, a sub page, news, partners, a document and the contact form OK; Glide images 200; `/admin/login` 200; no local or `http://` references.
 - [x] The left sub menu follows the active main item; one random partner shows in the sidebar; the company film plays (user, 2026-11-24).
 - [x] Contact form (user, 2026-11-24: sent, both mails arrived, map OK): both mails (webmaster and confirmation) on the dev mailer; no "… Email Title" page appears (mail pages carry the v10 slug). The map on "Plattegrond" with the Maps key.
-- [ ] Admin: a page, a news item and a partner open and save; the front URLs still identical afterwards. Edits on staging are lost at the switch.
+- [x] Admin (user, 2026-11-24): a page, a news item and a partner open and save; the front URLs still identical afterwards. Edits on staging are lost at the switch.
 
 ## Content to settle before the freeze
 
