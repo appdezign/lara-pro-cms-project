@@ -111,3 +111,7 @@ The switch:
 - Privacy and Offline (not in the menu) are boxed and centred (live: no container, the image from the left edge).
 - Social icons are SVG (v8: Font Awesome); Twitter/LinkedIn are not shown (`#` in v8, not shown there either).
 - The cookie banner is v10's consent plugin.
+
+## After go-live
+
+- [ ] **Form mail pages** (found on macgyverbouw, 2026-11-24): import `doormode-deploy/email-pages-v10-slug.sql` with TablePlus into `zxsxvqjwdy` (guarded: removes the empty "Contactforms Email Title" page v10 created, gives the v8 mail pages the slug v10 looks up), then `optimize:clear` and `responsecache:clear`. The doormode theme uses no cached widgets: 10.7.24 is not urgent.

@@ -130,3 +130,8 @@ The switch:
 - `/nl/evenementen` redirects to `/evenementen/sportevenementen` without the locale (as v8).
 - Related pages link to `/nl/content/pages/{id}`, which redirects to the menu URL (core; v8 linked the menu URL).
 - Small styling: the Facebook icon (SVG "f" instead of the round logo), input fields 4 px lower, the CTA button 8 px narrower.
+
+## After go-live
+
+- [ ] **Update to Lara CMS 10.7.24** (found on macgyverbouw, 2026-11-24): before 10.7.24 the cached widgets (`sliderWidget` here) were cached for a day without the language; seerden's `/en` answers 200, so one English request can leave the Dutch home without its slider. `composer update` of the appdezign packages (merge project `main` into the site branch), build, deploy, `php artisan cache:clear`.
+- [ ] **Form mail pages** (found on macgyverbouw, 2026-11-24): import `seerden-deploy/email-pages-v10-slug.sql` with TablePlus into the live v10 database (guarded: removes the empty "… Email Title" page v10 created, gives the v8 mail pages the slug v10 looks up), then `optimize:clear` and `responsecache:clear`.
