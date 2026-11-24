@@ -1,6 +1,6 @@
 # macgyverbouw.nl: go-live checklist
 
-v8.2.46 (`macgyv8246`, production db `nasswqfkpw`, theme `macgyver`) → v10 (`macgyv10723`, Lara CMS 10.7.23, theme `macgyver`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-24: **staging done** on https://v10.macgyverbouw.nl (deploy files made 2026-11-23 21:29, verify ok 28); next: the switch.
+v8.2.46 (`macgyv8246`, production db `nasswqfkpw`, theme `macgyver`) → v10 (`macgyv10723`, Lara CMS 10.7.24, theme `macgyver`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-24: **staging done** on https://v10.macgyverbouw.nl (Lara CMS 10.7.24 since 2026-11-24; deploy files made 2026-11-23 21:29, verify ok 28); next: the switch.
 
 Live: https://www.macgyverbouw.nl on the Cloudways server `1652362` (v8 app `phplaravel-1652362-6575259.cloudwaysapps.com`, the same server as doormode), nginx, **not behind Cloudflare**. DNS at webhost.company (`ns1–3.webhost.company`), `www` and the root both `95.179.176.155`. `http://` and `macgyverbouw.nl` → `https://www.macgyverbouw.nl/` 301, **without the path** (`macgyverbouw.nl/nl/nieuws` lands on the home page: Cloudways' own www redirect). `robots.txt` `Allow: /`; **no sitemap** (`/sitemap.xml` 302 to the home page). Plan with every decision: `macgyv8246/.ai/plans/2026-11-23-migrate-v8-to-v10-macgyverbouw.md`; inventory: `sites/macgyv-inventory.md`; text pass: `macgyv8246/.ai/plans/macgyver-compare/`.
 
@@ -61,6 +61,8 @@ Deploy log (2026-11-23, guided):
 - Step 8: sitemap (`schedule:test --name=google-sitemap`): 14 `v10.macgyverbouw.nl` URLs, all 200.
 - Step 9: `robots.txt` `Disallow: /` (block again after every pull until the switch).
 - Step 10: GA service-account file uploaded; the admin dashboard works.
+- Steps 11–12: the three forms (both mails each, v8 headings), the map, the admin (open and save) checked by the user.
+- Redeploy for **Lara CMS 10.7.24** (2026-11-24; widget cache keys with the language, new sitemap generator with the site rule on top): dashboard Pull, `composer install --no-dev -o`, `migrate:status` (0 pending), caches, sitemap, `robots.txt` blocked again. Checked: sitemap 17 URLs (the 14 + both news posts + "Verbouw woonboerderij"), all 200; after `/en/` requests `/nl/` keeps its slider; text pass 22 URLs identical to local.
 
 Checks:
 
