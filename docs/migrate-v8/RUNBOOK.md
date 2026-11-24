@@ -495,11 +495,15 @@ The site repo tracks `public/assets/admin` and `public/assets/themes/{base,clien
 - **Clear the caches again after the domains move.** Cached widgets (menus, sliders) keep absolute URLs of the host of the request that filled the cache: a check on the staging domain after setting the production `APP_URL` left every menu link on www pointing to the removed staging domain (macgyverbouw). Run `optimize:clear`, `cache:clear`, `responsecache:clear`, `lara:route:cache` once the production domains are on the app.
 - **The non-www → www redirect on Cloudways (no Cloudflare):** the apps run on pure nginx (`.htaccess` has no effect), Cloudways' rewrite rules drop the path and query (confirmed by Cloudways support), and it offers no nginx server block. macgyverbouw has it in the app: global middleware `RedirectToCanonicalHost` (`app/Http/Middleware`, prepended in `bootstrap/app.php`, production only, 301 to `APP_URL` + path + query; test `tests/Feature/RedirectToCanonicalHostTest.php`). Static files on the other host are served by nginx and not redirected. Behind Cloudflare a Redirect Rule does the same (doormode).
 
+- **Updating a migrated site** (the four sites, 2026-11-24; plan `__migrate/_notes/2026-11-24-update-migrated-sites-10-7-25.md`): after the git cleanup a site repo has only its own remote, so composer brings the core and themes, but **project-level changes** (`app/`, `bootstrap/app.php`, `laracms/app/Sitemap/…`, `.gitignore`, tests) must be ported by hand: compare the site's file with the project version it is based on, take the project version and put the site's own changes back on top. Site copies of base views (form views) need the base change too. Rebuild and commit the assets (base CSS changes with base views). Deploy straight to production after a manual Cloudways backup, with a text snapshot before and after (`__migrate/_notes/text_snapshot.py`). On these clones `git flow release start` refuses while `package-lock.json` is modified (create `release/{version}` with git), `release finish` needs a clean tree, `GIT_MERGE_AUTOEDIT=no` and a tag message without spaces; check `gitflow.prefix.versiontag` (anpak had none and tagged `2.0.5`).
+
 ## Sites
 
 ### anpak.eu (first site, 2026-11)
 
 v8.2.46 (`anpak8246`, Bootstrap theme `anpak2024`) → Lara CMS 10.7.20 (`anpak1077`, theme `anpak`). Site repository: `appdezign/anpak-eu`, branch `v10`; staging https://dev.anpak.eu. Plan with every decision and detail: `anpak8246/.ai/plans/2026-11-14-migrate-v8-to-v10.md`; go-live list: `sites/anpak-go-live.md`; inventory: `sites/anpak-inventory.md`.
+
+**Update 2026-11-24:** 2.0.5 on Lara CMS 10.7.25 (from 10.7.22): the form spinner (its own contact-form copy too), the language-aware widget cache, `RedirectToCanonicalHost` (Cloudways' www redirect off), the 10.7.24 sitemap generator (65 URLs), the form mail pages fixed. Anpak was upgraded in place: its v10 database is the former v8 production database `zhgkvpwmcx`. Details: `sites/anpak-go-live.md` (Updates).
 
 **Time.** Elapsed time between the commits of each step, including waiting for decisions and core releases; the tooling was written during this first site, so the next sites should be much faster.
 
@@ -556,6 +560,8 @@ For a next site with the tooling in place, plan roughly: 1–3 h for the import 
 
 v8.2.46 (`seerden8246`, Bootstrap 5 "Silicon" theme `seerden`) → Lara CMS 10.7.23 (`seerden10723`, theme `seerden`). Site repository: `appdezign/seerdencommunicatie-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since 2026-11-20 on the former staging app (dev.seerdencommunicatie.nl, now removed). Plan with every decision and detail: `seerden8246/.ai/plans/2026-11-18-migrate-v8-to-v10.md`; go-live list: `sites/seerden-go-live.md`; inventory: `sites/seerden-inventory.md`.
 
+**Update 2026-11-24:** 1.0.2 on Lara CMS 10.7.25: the form spinner, the language-aware widget cache, `RedirectToCanonicalHost` (Cloudways' www redirect off), the form mail pages fixed; its sitemap generator already was the 10.7.24 version. Details: `sites/seerden-go-live.md` (Updates).
+
 **Time.** Elapsed time between the commits of each step, including decisions and breaks.
 
 | Steps | What | Time |
@@ -610,6 +616,8 @@ With the tooling in place the import took about 2 hours, including four tooling 
 
 v8.2.46 (`doormode8246`, Bootstrap 5 theme `doormode`) → Lara CMS 10.7.23 (`doormode10723`, theme `doormode`). Site repository: `appdezign/doormode-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since the evening of 2026-11-23 on the former staging app (v10.doormode.nl, now removed); behind **Cloudflare** (proxy, SSL mode Full). Plan with every decision and detail: `doormode8246/.ai/plans/2026-11-23-migrate-v8-to-v10.md`; go-live list: `sites/doormode-go-live.md`; inventory: `sites/doormode-inventory.md`.
 
+**Update 2026-11-24:** 1.0.1 on Lara CMS 10.7.25: the form spinner, `RedirectToCanonicalHost` (behind the Cloudflare rule), the 10.7.24 sitemap generator with the site rule (19 URLs, with the blog posts), the form mail pages fixed. Details: `sites/doormode-go-live.md` (Updates).
+
 **Time.** The whole migration in one day (2026-11-23): setup, inventory and import in the morning, the theme around midday, staging done at 14:00 (including one admin fix), the switch in the evening in about an hour (freeze 16:45, checks done 17:35). Smaller than seerden: 45 v8 views, no earlier v10 theme.
 
 **Results.**
@@ -645,6 +653,8 @@ v8.2.46 (`doormode8246`, Bootstrap 5 theme `doormode`) → Lara CMS 10.7.23 (`do
 ### macgyverbouw.nl (fourth site, 2026-11)
 
 v8.2.46 (`macgyv8246`, Bootstrap 5 "Silicon" theme `macgyver`) → Lara CMS 10.7.24 (`macgyv10723`, theme `macgyver`). Site repository: `appdezign/macgyverbouw-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since the morning of 2026-11-24 on the former staging app (v10.macgyverbouw.nl, now removed); **no Cloudflare** (DNS at webhost.company), the www redirect is in the app. Plan with every decision and detail: `macgyv8246/.ai/plans/2026-11-23-migrate-v8-to-v10-macgyverbouw.md`; go-live list: `sites/macgyv-go-live.md`; inventory: `sites/macgyv-inventory.md`.
+
+**Update 2026-11-24:** 1.0.1 on Lara CMS 10.7.25: the form spinner (the quote and call-me form views and the call-me modal), `RedirectToCanonicalHost` from the project. Details: `sites/macgyv-go-live.md` (Updates).
 
 **Time.** Setup, inventory, import and the theme on the evening of 2026-11-23 (start ~20:00; site code and assets committed 21:18), staging steps 1–3 that evening, the rest of staging, the 10.7.24 update and the switch on the morning of 2026-11-24 (freeze ~10:20, live and checked ~11:00, the www redirect at 11:00). The theme was a full port from `demo` (no earlier v10 theme).
 
