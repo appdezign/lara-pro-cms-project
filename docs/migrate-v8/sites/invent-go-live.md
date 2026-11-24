@@ -64,6 +64,7 @@ Deploy log (guided):
 - Step 9 (user, 2026-11-24): `robots.txt` `Disallow: /` (checked from here; block again after every pull until the switch).
 - Step 10 (user, 2026-11-24): GA service-account file uploaded to `storage/app/analytics/service-account-lara-dash.json`; the admin dashboard works.
 - Step 11 (user, 2026-11-24): contact form sent, both mails on the dev mailer; the map, the company film and the random partner box work.
+- Step 12 (2026-11-24): saving a page failed: v10's page form requires a template and every page had none (no v8 template column; the front accepts an empty one). Tooling `d647b17`: the import gives such pages `standard`; staging fixed by the user (`invent-deploy/pages-template-standard.sql` offered). Text pass staging vs local afterwards: 62 URLs identical. The earlier sites (empty templates too) fixed by the user.
 
 Checks:
 
