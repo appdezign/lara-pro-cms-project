@@ -3,6 +3,7 @@
 namespace Tests\Feature\LaraV8;
 
 use App\Console\Commands\LaraV8\Support\ContentImporter;
+use App\Console\Commands\LaraV8\Support\CoreCustomFields;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\SiteOverrides;
@@ -95,6 +96,11 @@ class OlderPagesSchemaTest extends TestCase
         // the older pages table
         DB::connection('lara_v8')->statement('ALTER TABLE `lara_content_pages` DROP COLUMN `template`, DROP COLUMN `lead`, ADD COLUMN `pageid` varchar(255) NULL AFTER `title`');
         DB::connection('lara_v8')->table('lara_content_pages')->where('id', 1125)->update(['pageid' => '02.01.03']);
+        // inventiverepair also defines pageid as a custom field of the page type (in the v8 page admin)
+        DB::connection('lara_v8')->table('lara_ent_entity_custom_columns')->insert([
+            'entity_id' => 1, 'fieldtitle' => 'Pageid', 'fieldname' => 'pageid', 'fieldtype' => 'string', 'fieldhook' => 'after',
+            'fielddata' => '', 'primary' => 0, 'required' => 0, 'fieldstate' => 'enabled', 'position' => 9,
+        ]);
 
         Artisan::call('migrate:fresh', ['--force' => true, '--path' => 'laracms/core/src/common/Database/Migrations']);
         Artisan::call('db:seed', ['--force' => true, '--class' => '\\Lara\\Common\\Database\\Seeders\\DatabaseCommonSeeder']);
@@ -130,6 +136,13 @@ class OlderPagesSchemaTest extends TestCase
             'The v8 pageid values are reported as not imported.'
         );
         $this->assertFalse($report->contains(fn (array $line): bool => str_contains($line['message'], 'the v8 lead is in body2')));
+    }
+
+    public function test_pageid_is_not_built_as_a_core_custom_field(): void
+    {
+        $this->assertNotContains('pageid', collect((new CoreCustomFields(new V8Source))->candidates())->pluck('v8_field.fieldname')->all());
+        $this->assertFalse(collect(self::$entityReport)->contains(fn (array $line): bool => str_contains($line['message'], 'pageid')));
+        $this->assertNotContains('pageid', DB::getSchemaBuilder()->getColumnListing('lara_content_pages'));
     }
 
     public function test_the_menu_import_does_not_need_page_templates(): void

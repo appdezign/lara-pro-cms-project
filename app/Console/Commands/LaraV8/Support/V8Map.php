@@ -157,7 +157,8 @@ final class V8Map
             'resource_slug' => 'pages',
             'model_class' => Page::class,
             'table' => 'lara_content_pages',
-            'columns' => ['show_in_app' => null, 'lead' => 'body2'],
+            // pageid: an outline number (02.01.03) of older installs, read by no v8 code (inventiverepair, user 2026-11-24)
+            'columns' => ['show_in_app' => null, 'lead' => 'body2', 'pageid' => null],
         ],
         'larawidget' => [
             'resource_slug' => 'widgets',
