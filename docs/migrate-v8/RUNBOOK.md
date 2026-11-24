@@ -641,3 +641,38 @@ v8.2.46 (`doormode8246`, Bootstrap 5 theme `doormode`) → Lara CMS 10.7.23 (`do
 - The v8 www redirect was a Cloudways setting of the v8 app and stayed behind; Cloudways' own redirect dropped the path, and the first Cloudflare rule pointed the wrong way (Deploy lessons).
 - No git on the server: restore `robots.txt` with a dashboard Pull.
 - Base views format dates with `format('j F Y')` (English months on Dutch sites; `translatedFormat()`), and an unpublished language stays routable: items for laracms10.
+
+### macgyverbouw.nl (fourth site, 2026-11)
+
+v8.2.46 (`macgyv8246`, Bootstrap 5 "Silicon" theme `macgyver`) → Lara CMS 10.7.24 (`macgyv10723`, theme `macgyver`). Site repository: `appdezign/macgyverbouw-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since the morning of 2026-11-24 on the former staging app (v10.macgyverbouw.nl, now removed); **no Cloudflare** (DNS at webhost.company), the www redirect is in the app. Plan with every decision and detail: `macgyv8246/.ai/plans/2026-11-23-migrate-v8-to-v10-macgyverbouw.md`; go-live list: `sites/macgyv-go-live.md`; inventory: `sites/macgyv-inventory.md`.
+
+**Time.** Setup, inventory, import and the theme on the evening of 2026-11-23 (start ~20:00; site code and assets committed 21:18), staging steps 1–3 that evening, the rest of staging, the 10.7.24 update and the switch on the morning of 2026-11-24 (freeze ~10:20, live and checked ~11:00, the www redirect at 11:00). The theme was a full port from `demo` (no earlier v10 theme).
+
+**Results.**
+
+- Content: 6 site content types (blog 2, gallery 2, contactform 38, classicform 18, quoteform 2, callmeform 12) + the core ones (pages 35); 12 empty demo types skipped (city, doc, event, location, portfolio, product, service, sponsor, story, team, testimonial, video: 0 rows, 28 tags dropped); 6 users; 3 menus, 17 items; 24 settings; 45 Curator items and files.
+- `lara:v8:verify`: ok 28, no warnings, before and after the final sync. Tests: LaraV8 149.
+- Compared with live: 22 URLs (every Dutch menu URL, published and unpublished, both news posts, both galleries, `/en/`, an unknown URL): 18 identical, the 4 form pages differ only in the required-field markers (and, on production, the reCAPTCHA hint); visual pass at 1440 px and 390 px. After the switch: 18 pages identical to local, 34 link/asset URLs and 23 font files 200, the forms with reCAPTCHA and both mails.
+
+**Tooling added for macgyverbouw** (each with tests):
+
+- Form mail pages get the v10 slug (`{entity key}-email-{lang}` → `{resource slug}-email-{lang}`, step 8): v10 otherwise creates an empty "{Resourceslug} Email Title" page that heads every form mail. **Seerden, doormode and anpak** need `{site}-deploy/email-pages-v10-slug.sql` (TablePlus; listed under "After go-live" in their go-live lists).
+- Grid index views require an image as in v8 (`image_required`, step 5): a gallery without images, hidden on live, was listed.
+- The geolocation dry-run test is not risky when no built type has a geolocation field.
+
+**Decisions** (see the plan for the reasoning):
+
+- Skip the 12 empty demo types; English unpublished (site override, as the other sites); contact form labels as live (4 overrides, as seerden); the old `contact.html` link in news 269 → `/nl/contact` (override).
+- The call-me form (callmeforms) stays a modal in the sidebar ("Bel mij terug", ajax), as v8; the quote form a sidebar button.
+- Sitemap (site code on the 10.7.24 generator): no folders, no unpublished pages nothing links to, no detail pages a list hides (17 URLs; live had none). Cookie banner `policy_url` `/nl/privacy` (as v8's banner).
+- Production mail through AuthSMTP as v8, `MAIL_FROM_ADDRESS=johan@macgyverbouw.nl`.
+- The www redirect is global middleware (`RedirectToCanonicalHost`, Deploy lessons): it keeps path and query, which Cloudways' redirect cannot.
+
+**Gotchas met on macgyverbouw** (the general ones are in Gotchas and Deploy lessons):
+
+- The user's `.lara/media` at first held an old 2015 copy (pre-v8 layout): the inventory found 0 of the 45 image rows. Check "Missing" in the inventory before importing.
+- Forms without their own views (quoteforms, callmeforms) fell back to base `__templates/form`, which still has v8 Bootstrap markup and v8 field properties (no fields rendered): copy base `contactforms/show/form/form.blade.php`. Mail views per form (`email/{resource slug}`) too.
+- Before 10.7.24 the cached widgets ignored the language: one `/en/` request emptied the Dutch home slider for a day. Fixed in core 10.7.24; anpak and seerden need the update ("After go-live" in their lists).
+- Cached menu widgets keep absolute URLs of the requesting host: clear the caches after the domain move (Deploy lessons).
+- `company_telephone_real` (a v8 setting) is not in the standard seed: the theme reads it with `?? ''`.
+- Base items for laracms10: the form submit spinner uses Font Awesome (`fas fa-spinner`), which v10 does not load (the user fixes it in base); `__templates/form` (above); date formatting `format('j F Y')` (English months, as doormode); an unpublished language stays routable.
