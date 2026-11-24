@@ -1,6 +1,6 @@
 # anpak.eu: go-live checklist
 
-v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`) → v10 (`anpak1077`, Lara CMS 10.7.20). General steps: runbook step 18. Status 2026-11-16: staging (https://dev.anpak.eu) done and checked; next: the switch.
+v8.2.46 (`anpak8246`, production db `zhgkvpwmcx`, **since the in-place upgrade also the v10 database**) → v10 (`anpak1077`, Lara CMS 10.7.20). General steps: runbook step 18. Status 2026-11-16: staging (https://dev.anpak.eu) done and checked; next: the switch.
 
 ## Repositories
 
@@ -100,5 +100,9 @@ Checks:
 
 ## After go-live
 
-- [ ] **Update to Lara CMS 10.7.24** (found on macgyverbouw, 2026-11-24): before 10.7.24 the cached widgets (`sliderWidget` ×10, `menuSubCacheWidget` here) were cached for a day without the language; anpak's `/en` answers 200, so one English request can leave the Dutch pages without their sliders or with English menus. `composer update` of the appdezign packages (merge project `main` into the site branch), build, deploy, `php artisan cache:clear`.
-- [ ] **Form mail pages** (found on macgyverbouw, 2026-11-24): import `anpak-deploy/email-pages-v10-slug.sql` with TablePlus into the live v10 database (guarded: removes the empty "… Email Title" page v10 created, gives the v8 mail pages the slug v10 looks up), then `optimize:clear` and `responsecache:clear`.
+- [x] **Update to Lara CMS 10.7.24** (found on macgyverbouw, 2026-11-24; done with 2.0.5 on 10.7.25, 2026-11-24): before 10.7.24 the cached widgets (`sliderWidget` ×10, `menuSubCacheWidget` here) were cached for a day without the language; anpak's `/en` answers 200, so one English request can leave the Dutch pages without their sliders or with English menus. `composer update` of the appdezign packages (merge project `main` into the site branch), build, deploy, `php artisan cache:clear`.
+- [x] **Form mail pages** (found on macgyverbouw, 2026-11-24; done 2026-11-24 into `zhgkvpwmcx`: pages 38, 1087, 1119 with the v10 slug): import `anpak-deploy/email-pages-v10-slug.sql` with TablePlus into the live v10 database (guarded: removes the empty "… Email Title" page v10 created, gives the v8 mail pages the slug v10 looks up), then `optimize:clear` and `responsecache:clear`.
+
+## Updates
+
+- **2.0.5, Lara CMS 10.7.25 (2026-11-24; from 10.7.22):** the form spinner (base 10.7.25; anpak's own contact-form copy got the same change), the language-aware widget cache (10.7.24), `RedirectToCanonicalHost` from the project with its test, the 10.7.24 sitemap generator (detail pages listed: 65 URLs, was 22), `.gitignore` `/.lara/`. Cloudways' www redirect (which dropped the path) is off; the middleware sends `anpak.eu/<path>?<query>` to the same path on www. Release `v2.0.5` (`main` `90278af`; git flow tagged `2.0.5`, renamed to `v2.0.5` before pushing, `gitflow.prefix.versiontag` now `v`); deployed (manual backup, Pull, `composer install`, 0 pending migrations, `email-pages-v10-slug.sql` into `zhgkvpwmcx` — anpak's v10 database is its former v8 database, upgraded in place, caches, sitemap). Checked: 73 URLs (menu pages and all detail pages) identical to the snapshot before the update; sitemap 65 www URLs; the spinner template on both contact pages; the www redirect keeps path and query. Form submission not tested on production (user: no test mails to the client). **Open (found, not changed):** the sitemap lists 4 folders (`/nl/anpak`, `/nl/diensten`, `/nl/diensten/links`, `/nl/vacatures`) that answer 302, as before. Plan: `__migrate/_notes/2026-11-24-update-migrated-sites-10-7-25.md`.
