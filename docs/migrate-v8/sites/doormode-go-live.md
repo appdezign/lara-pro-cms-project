@@ -114,4 +114,8 @@ The switch:
 
 ## After go-live
 
-- [ ] **Form mail pages** (found on macgyverbouw, 2026-11-24): import `doormode-deploy/email-pages-v10-slug.sql` with TablePlus into `zxsxvqjwdy` (guarded: removes the empty "Contactforms Email Title" page v10 created, gives the v8 mail pages the slug v10 looks up), then `optimize:clear` and `responsecache:clear`. The doormode theme uses no cached widgets: 10.7.24 is not urgent.
+- [x] **Form mail pages** (found on macgyverbouw, 2026-11-24; done 2026-11-24 with the 1.0.1 update: page 38 `contactforms-email-nl`, mails headed "Contactformulier"): import `doormode-deploy/email-pages-v10-slug.sql` with TablePlus into `zxsxvqjwdy` (guarded: removes the empty "Contactforms Email Title" page v10 created, gives the v8 mail pages the slug v10 looks up), then `optimize:clear` and `responsecache:clear`. The doormode theme uses no cached widgets: 10.7.24 is not urgent.
+
+## Updates
+
+- **1.0.1, Lara CMS 10.7.25 (2026-11-24):** the form spinner (base 10.7.25, Bootstrap Icons), the language-aware widget cache (10.7.24), `RedirectToCanonicalHost` from the project with its test (the Cloudflare rule stays in front of it), the sitemap on the 10.7.24 generator with the site rule on top (19 URLs: now with the 3 blog posts). Release `v1.0.1` (`main` `adebad3`); deployed (manual backup, Pull, `composer install`, 0 pending migrations, `email-pages-v10-slug.sql`, caches, sitemap). Checked: 25 URLs identical to the snapshot before the update; sitemap 19 www URLs, all 200; the www redirect keeps path and query; the spinner and both mails with the heading "Contactformulier" (user). Plan: `__migrate/_notes/2026-11-24-update-migrated-sites-10-7-25.md`.
