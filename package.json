@@ -1,4 +1,5 @@
 {
+    "name": "laracms10",
     "private": true,
     "type": "module",
     "scripts": {
