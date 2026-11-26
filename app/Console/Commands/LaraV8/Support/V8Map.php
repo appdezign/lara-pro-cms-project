@@ -401,6 +401,25 @@ final class V8Map
         return isset(self::CORE_ENTITIES[$entityKey]);
     }
 
+    /**
+     * Site content types every migrated site keeps (user, 2026-11-26): never skipped, even
+     * without records.
+     */
+    public const STANDARD_ENTITIES = ['blog', 'doc', 'gallery'];
+
+    public static function isStandardEntity(string $entityKey): bool
+    {
+        return in_array($entityKey, self::STANDARD_ENTITIES, true);
+    }
+
+    /**
+     * Core content types and the standard site content types cannot be skipped.
+     */
+    public static function canBeSkipped(string $entityKey): bool
+    {
+        return ! self::isCoreEntity($entityKey) && ! self::isStandardEntity($entityKey);
+    }
+
     public static function resourceSlug(string $entityKey): string
     {
         return self::CORE_ENTITIES[$entityKey]['resource_slug'] ?? Str::plural($entityKey);

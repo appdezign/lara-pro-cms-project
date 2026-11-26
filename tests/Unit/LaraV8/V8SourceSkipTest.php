@@ -68,4 +68,16 @@ class V8SourceSkipTest extends TestCase
         $this->assertFalse($source->isSkipped('blog'));
         $this->assertFalse($source->isSkipped(null));
     }
+
+    public function test_the_standard_content_types_are_never_skipped(): void
+    {
+        config(['v8-migration.skip_entities' => ['blog', 'city', 'doc', 'gallery', 'video']]);
+        $source = new V8Source;
+
+        $this->assertSame(['city', 'video'], $source->skippedKeys());
+        $this->assertFalse($source->isSkipped('blog'));
+        $this->assertFalse($source->isSkipped('doc'));
+        $this->assertFalse($source->isSkipped('gallery'));
+        $this->assertTrue($source->isSkipped('video'));
+    }
 }

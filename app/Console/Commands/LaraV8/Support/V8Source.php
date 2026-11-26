@@ -67,7 +67,8 @@ class V8Source
     /**
      * The v8 content types the site leaves out of the migration (v8-migration.skip_entities,
      * e.g. demo leftovers): not built, their records, media, tags and other objects not imported.
-     * Core content types (page, larawidget, cta, slider) cannot be skipped.
+     * Core content types (page, larawidget, cta, slider) and the standard content types
+     * (blog, doc, gallery: V8Map::STANDARD_ENTITIES) cannot be skipped.
      *
      * @return list<string>
      */
@@ -75,7 +76,7 @@ class V8Source
     {
         return array_values(array_filter(
             (array) config('v8-migration.skip_entities', []),
-            fn (mixed $key): bool => is_string($key) && $key !== '' && ! V8Map::isCoreEntity($key),
+            fn (mixed $key): bool => is_string($key) && $key !== '' && V8Map::canBeSkipped($key),
         ));
     }
 

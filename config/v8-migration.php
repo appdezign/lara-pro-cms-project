@@ -34,7 +34,8 @@ return [
     /*
      * v8 content types the site leaves out (comma separated entity keys in LARA_V8_SKIP_ENTITIES,
      * e.g. "city,product"), such as demo leftovers: not built, their data not imported, and
-     * what is dropped is reported. Core content types cannot be skipped.
+     * what is dropped is reported. Core content types and the standard ones (blog, doc,
+     * gallery) cannot be skipped.
      */
     'skip_entities' => array_values(array_filter(array_map('trim', explode(',', (string) env('LARA_V8_SKIP_ENTITIES', ''))))),
 

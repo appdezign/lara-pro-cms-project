@@ -469,9 +469,11 @@ class V8Inventory
         $known = $this->source->skippedEntities()->pluck('entity_key')->all();
 
         foreach (array_diff($configured, $known) as $key) {
-            $this->findings[] = V8Map::isCoreEntity((string) $key)
-                ? "v8-migration.skip_entities: '{$key}' is a core content type, which cannot be skipped; it is imported."
-                : "v8-migration.skip_entities: '{$key}' is not a v8 content type.";
+            $this->findings[] = match (true) {
+                V8Map::isCoreEntity((string) $key) => "v8-migration.skip_entities: '{$key}' is a core content type, which cannot be skipped; it is imported.",
+                V8Map::isStandardEntity((string) $key) => "v8-migration.skip_entities: '{$key}' is a standard content type (blog, doc, gallery), which cannot be skipped; it is imported.",
+                default => "v8-migration.skip_entities: '{$key}' is not a v8 content type.",
+            };
         }
 
         foreach ($this->source->skippedEntities() as $entity) {
