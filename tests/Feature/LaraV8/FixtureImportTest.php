@@ -706,6 +706,16 @@ class FixtureImportTest extends TestCase
         $this->assertSame(0, (int) $items[6]->publish);
     }
 
+    public function test_menu_items_of_a_skipped_content_type_are_not_imported(): void
+    {
+        // footer item 8 links the skipped v8fxleftover; item 9 hangs below it
+        $ids = DB::table('lara_menu_menu_items')->pluck('id')->map(fn ($id): int => (int) $id)->all();
+
+        $this->assertNotContains(8, $ids);
+        $this->assertNotContains(9, $ids);
+        $this->assertTrue(collect(self::$menuReport)->contains(fn (array $line): bool => $line['level'] === 'info' && str_contains($line['message'], "Menu item 8 'Restjes' links the skipped content type 'v8fxleftover'; not imported, with 1 item(s) below it.")));
+    }
+
     public function test_menus_and_redirects_are_imported(): void
     {
         $this->assertSame(['main', 'footer'], DB::table('lara_menu_menus')->orderBy('id')->pluck('slug')->all());
@@ -1157,14 +1167,14 @@ class FixtureImportTest extends TestCase
         $sections = collect($inventory->sections())->keyBy('title');
 
         $skipped = $sections->first(fn (array $section): bool => str_starts_with($section['title'], 'Skipped content types'));
-        $this->assertSame([['v8fxleftover', 'Fixture Leftovers', 1, 1, 1, 1, 1, 1, 0]], $skipped['rows']);
+        $this->assertSame([['v8fxleftover', 'Fixture Leftovers', 1, 1, 1, 1, 1, 1, 1]], $skipped['rows'], 'The last column: footer item 8 links it.');
 
         $content = $sections['Content types']['rows'];
         $this->assertNotContains('v8fxleftover', array_column($content, 0));
         $this->assertContains('page', array_column($content, 0), 'A core content type is never skipped.');
 
         $findings = $inventory->findings();
-        $this->assertContains("Content type 'v8fxleftover' is skipped: 1 record(s), 1 media row(s) and 0 menu item(s) are not imported.", $findings);
+        $this->assertContains("Content type 'v8fxleftover' is skipped: 1 record(s), 1 media row(s) and 1 menu item(s) are not imported.", $findings);
         $this->assertContains("v8-migration.skip_entities: 'page' is a core content type, which cannot be skipped; it is imported.", $findings);
         $this->assertContains("v8-migration.skip_entities: 'nosuchtype' is not a v8 content type.", $findings);
         $this->assertEmpty(array_filter($findings, fn (string $f): bool => str_contains($f, 'V8fxleftover') && str_contains($f, 'not the model')));

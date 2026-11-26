@@ -76,12 +76,15 @@ class MenuImporter
             ? $this->source->connection()->table('lara_content_pages')->pluck('template', 'id')
             : collect();
         $pageIds = DB::table('lara_content_pages')->pluck('id')->map(fn ($id): int => (int) $id)->all();
+        $skipped = $this->source->skippedEntities()->mapWithKeys(fn (object $entity): array => [(int) $entity->id => $entity->entity_key])->all();
         $rows = collect();
 
         $items = $this->source->connection()->table('lara_menu_menu_items')->orderBy('menu_id')->orderBy('language')->orderBy('lft')->get();
 
         foreach ($items->groupBy(fn (object $item): string => $item->menu_id.'#'.$item->language) as $group => $tree) {
             [$menuId, $language] = explode('#', $group);
+
+            $tree = $this->withoutSkippedEntityItems($tree, $skipped);
 
             // a page item whose page does not exist: skipped when nothing hangs below it (the v10
             // Pages list cannot handle it), otherwise kept so its children keep their place
@@ -156,6 +159,40 @@ class MenuImporter
         }
 
         $this->sync('menu items', 'lara_menu_menu_items', ['id'], $rows, $dryRun, $fresh, derived: ['routename']);
+    }
+
+    /**
+     * The tree without the items that link a skipped content type (and the items below them):
+     * the skipped type does not exist in v10, and an entity or form item without its entity
+     * breaks every front page (FrontMenuRepository reads the entity of every main menu item).
+     *
+     * @param  Collection<int, object>  $tree  v8 items of one menu and language
+     * @param  array<int, string>  $skipped  v8 entity id => entity key of the skipped content types
+     * @return Collection<int, object>
+     */
+    private function withoutSkippedEntityItems(Collection $tree, array $skipped): Collection
+    {
+        $drop = [];
+
+        foreach ($tree as $item) {
+            if (! $item->entity_id || ! isset($skipped[(int) $item->entity_id])) {
+                continue;
+            }
+
+            $below = [];
+            $parents = [(int) $item->id];
+
+            while ($parents !== []) {
+                $children = $tree->filter(fn (object $other): bool => in_array((int) $other->parent_id, $parents, true))->pluck('id')->map(fn ($id): int => (int) $id)->all();
+                $below = [...$below, ...$children];
+                $parents = $children;
+            }
+
+            $drop = [...$drop, (int) $item->id, ...$below];
+            $this->add('info', 'menu items', "Menu item {$item->id} '{$item->title}' links the skipped content type '{$skipped[(int) $item->entity_id]}'; not imported".($below === [] ? '.' : ', with '.count($below).' item(s) below it.'));
+        }
+
+        return $drop === [] ? $tree : $tree->reject(fn (object $item): bool => in_array((int) $item->id, $drop, true))->values();
     }
 
     /**

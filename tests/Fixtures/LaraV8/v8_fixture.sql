@@ -848,9 +848,11 @@ INSERT INTO `lara_menu_menu_items` (`id`, `language`, `menu_id`, `title`, `slug`
 (2, 'nl', 1, 'Boeken', 'boeken', 0, 'entity', NULL, 'boeken', 'entitytag.v8fxbook.index', 0, 101, 1, NULL, NULL, 0, 1, 1, 2, 5, 1),
 (3, 'nl', 1, 'Romans', 'romans', 0, 'entity', 12, 'boeken/romans', 'entitytag.v8fxbook.index', 0, 101, 1, NULL, NULL, 0, 1, 2, 3, 4, 2),
 (4, 'nl', 1, 'Contact', 'contact', 0, 'form', NULL, 'contact', 'form.v8fxform.form', 0, 103, 5, NULL, NULL, 0, 1, 1, 6, 7, 1),
-(5, 'nl', 2, 'Footer', 'footer', 0, 'root', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 6, NULL),
+(5, 'nl', 2, 'Footer', 'footer', 0, 'root', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, 0, 1, NULL, 1, 10, NULL),
 (6, 'nl', 2, 'Arbeidshygiëne', 'arbeidshygiene', 0, 'page', NULL, 'arbeidshygiene', 'entity.page.show.1125', 0, 1, 6, 1125, NULL, 0, 0, 5, 2, 3, 1),
-(7, 'nl', 2, 'Weg', 'weg', 0, 'page', NULL, 'weg', 'entity.page.show.9999', 0, 1, 6, 9999, NULL, 0, 1, 5, 4, 5, 1);
+(7, 'nl', 2, 'Weg', 'weg', 0, 'page', NULL, 'weg', 'entity.page.show.9999', 0, 1, 6, 9999, NULL, 0, 1, 5, 4, 5, 1),
+(8, 'nl', 2, 'Restjes', 'restjes', 0, 'entity', NULL, 'restjes', 'entitytag.v8fxleftover.index', 0, 105, NULL, NULL, NULL, 0, 0, 5, 6, 9, 1),
+(9, 'nl', 2, 'Onder restjes', 'onder-restjes', 0, 'url', NULL, NULL, NULL, 0, NULL, NULL, NULL, 'https://example.org', 0, 0, 8, 7, 8, 2);
 
 INSERT INTO `lara_menu_redirects` (`id`, `language`, `title`, `redirectfrom`, `redirectto`, `redirecttype`, `publish`) VALUES
 (1, 'nl', 'Oude pagina', 'oude-pagina', '/nl/boeken', '301', 1),
