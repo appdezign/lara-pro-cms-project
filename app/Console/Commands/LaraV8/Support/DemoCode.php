@@ -57,21 +57,54 @@ final class DemoCode
 
     /**
      * Empty the demo folders; the folders themselves stay, because the builder writes into them.
+     * Files in $keep (relative to $appPath, e.g. DemoStandardTypes::files()) stay too.
      *
+     * @param  list<string>  $keep
      * @return int the number of removed files
      */
-    public static function remove(string $appPath): int
+    public static function remove(string $appPath, array $keep = []): int
     {
-        $count = count(self::files($appPath));
+        $files = new Filesystem;
+        $root = rtrim($appPath, '/');
 
+        if ($keep === []) {
+            $count = count(self::files($appPath));
+
+            foreach (self::FOLDERS as $folder) {
+                if ($files->isDirectory("{$root}/{$folder}")) {
+                    $files->cleanDirectory("{$root}/{$folder}");
+                }
+            }
+
+            return $count;
+        }
+
+        $remove = array_values(array_diff(self::files($appPath), $keep));
+
+        foreach ($remove as $file) {
+            $files->delete("{$root}/{$file}");
+        }
+
+        // subfolders left empty (e.g. Filament/Resources/Teams/Pages) go too; the demo folders stay
         foreach (self::FOLDERS as $folder) {
-            $path = rtrim($appPath, '/').'/'.$folder;
-
-            if ((new Filesystem)->isDirectory($path)) {
-                (new Filesystem)->cleanDirectory($path);
+            if ($files->isDirectory("{$root}/{$folder}")) {
+                foreach ($files->directories("{$root}/{$folder}") as $directory) {
+                    self::removeEmpty($files, $directory);
+                }
             }
         }
 
-        return $count;
+        return count($remove);
+    }
+
+    private static function removeEmpty(Filesystem $files, string $directory): void
+    {
+        foreach ($files->directories($directory) as $child) {
+            self::removeEmpty($files, $child);
+        }
+
+        if ($files->files($directory, true) === [] && $files->directories($directory) === []) {
+            $files->deleteDirectory($directory);
+        }
     }
 }

@@ -63,6 +63,19 @@ class DemoCodeTest extends TestCase
         $this->assertFileExists("{$this->app}/Filament/Components/CustomBlocks/Hero2Block.php");
     }
 
+    public function test_kept_files_stay_and_emptied_subfolders_go(): void
+    {
+        @mkdir("{$this->app}/Filament/Resources/Teams/Pages", 0777, true);
+        file_put_contents("{$this->app}/Filament/Resources/Teams/Pages/ListTeams.php", '<?php');
+
+        $this->assertSame(4, DemoCode::remove($this->app, ['Models/Blog.php', 'Filament/Resources/Blogs/Pages/ListBlogs.php']));
+
+        $this->assertSame(['Filament/Resources/Blogs/Pages/ListBlogs.php', 'Models/Blog.php'], DemoCode::files($this->app));
+        $this->assertDirectoryDoesNotExist("{$this->app}/Filament/Resources/Teams");
+        $this->assertDirectoryExists("{$this->app}/Entities", 'A demo folder stays, also when it is empty.');
+        $this->assertFileExists("{$this->app}/Legacy/Models/CustomBlog.php");
+    }
+
     public function test_a_missing_folder_is_no_problem(): void
     {
         $this->assertSame([], DemoCode::files($this->app.'/does-not-exist'));
