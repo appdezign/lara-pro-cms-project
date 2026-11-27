@@ -266,8 +266,9 @@
 | 1 | Content type 'sponsor' is skipped: 6 record(s), 5 media row(s) and 0 menu item(s) are not imported. |
 | 2 | Content type 'member' is skipped: 21 record(s), 2 media row(s) and 1 menu item(s) are not imported. |
 | 3 | Site field settings (v8-fields.php): docpro.secretkey left out, interview.paragraph1 richeditor, interview.par1quote select, interview.par1quotepos select, interview.par1img select (v8 image id → v10 media id), interview.par1imgpos select, interview.paragraph2 richeditor, interview.par2quote select, interview.par2quotepos select, interview.par2img select (v8 image id → v10 media id), interview.par2imgpos select, interview.paragraph3 richeditor, interview.par3quote select, interview.par3quotepos select, interview.par3img select (v8 image id → v10 media id), interview.par3imgpos select, interview.paragraph4 richeditor, interview.par4quote select, interview.par4quotepos select, interview.par4img select (v8 image id → v10 media id), interview.par4imgpos select. |
-| 4 | cta.hook: 'homeparalax1' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
-| 5 | cta.hook: 'homeparalax2' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
-| 6 | lara_content_pages.body: v8 column shortcodes ([kolom_XvanN]) in 1 row(s) (ids 1); import-content turns them into rich editor grids (the client theme needs the .grid-layout CSS). |
+| 4 | Site field settings (v8-fields.php): v8 column page.lead becomes the custom field 'intro' (richeditor). |
+| 5 | cta.hook: 'homeparalax1' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 6 | cta.hook: 'homeparalax2' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 7 | lara_content_pages.body: v8 column shortcodes ([kolom_XvanN]) in 1 row(s) (ids 1); import-content turns them into rich editor grids (the client theme needs the .grid-layout CSS). |
 
-6 finding(s): see the last section.
+7 finding(s): see the last section.
