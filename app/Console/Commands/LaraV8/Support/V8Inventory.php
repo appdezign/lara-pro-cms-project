@@ -158,8 +158,11 @@ class V8Inventory
                 $this->findings[] = "Field type '{$type}' has no v10 mapping ({$unmapped->count()}x: {$names($unmapped)}).";
             }
 
-            if ($siteFields->isNotEmpty() && ($change = V8Map::fieldTypeChange($type)) !== null) {
-                $this->findings[] = "Field type '{$type}': {$change} ({$names($siteFields)}).";
+            // fields with a site setting (v8-fields.php) get their own type or are left out
+            $unset = $siteFields->reject(fn (object $field): bool => SiteFields::get($field->entity_key, $field->fieldname) !== null);
+
+            if ($unset->isNotEmpty() && ($change = V8Map::fieldTypeChange($type)) !== null) {
+                $this->findings[] = "Field type '{$type}': {$change} ({$names($unset)}).";
             }
 
             $rows[] = [
@@ -168,6 +171,23 @@ class V8Inventory
                 $siteFields->isEmpty() ? 'core only' : $v10Types->implode(', '),
                 $fields->pluck('entity_key')->unique()->implode(', '),
             ];
+        }
+
+        $configured = $this->customFields()->filter(fn (object $field): bool => SiteFields::get($field->entity_key, $field->fieldname) !== null);
+
+        if ($configured->isNotEmpty()) {
+            $this->findings[] = 'Site field settings ('.basename(SiteFields::file()).'): '.$configured->map(function (object $field): string {
+                $setting = SiteFields::get($field->entity_key, $field->fieldname);
+                $what = ($setting['skip'] ?? false) ? 'left out' : ($setting['type'] ?? $field->fieldtype).(($setting['image'] ?? false) ? ' (v8 image id → v10 media id)' : '');
+
+                return "{$field->entity_key}.{$field->fieldname} {$what}";
+            })->implode(', ').'.';
+        }
+
+        $byEntity = $this->customFields()->groupBy('entity_key')->map(fn (Collection $fields): array => $fields->pluck('fieldname')->all())->all();
+
+        foreach (SiteFields::problems($byEntity) as $problem) {
+            $this->findings[] = $problem;
         }
 
         return [

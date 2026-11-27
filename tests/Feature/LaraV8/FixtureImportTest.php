@@ -8,6 +8,7 @@ use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\MediaImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
 use App\Console\Commands\LaraV8\Support\ObjectImporter;
+use App\Console\Commands\LaraV8\Support\SiteFields;
 use App\Console\Commands\LaraV8\Support\SiteOverrides;
 use App\Console\Commands\LaraV8\Support\SystemImporter;
 use App\Console\Commands\LaraV8\Support\UrlRewriter;
@@ -99,8 +100,14 @@ class FixtureImportTest extends TestCase
     /** A per-test overrides file (absent unless a test writes it). */
     private static ?string $overridesPath = null;
 
+    /** The site field settings of the fixture (v8-fields.php, gain). */
+    private static ?string $fieldsPath = null;
+
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $mediaReport = [];
+
+    /** @var list<array{level: string, entity: string, message: string}> the content import once the media exist */
+    private static array $contentAfterMedia = [];
 
     /** @var list<array{level: string, entity: string, message: string}> */
     private static array $mediaRerun = [];
@@ -141,6 +148,11 @@ class FixtureImportTest extends TestCase
         config(['v8-migration.overrides' => self::$overridesPath]);
         SiteOverrides::flush();
 
+        // the fixture's site field settings (v8-fields.php), as gain has; the site's own file never applies
+        self::$fieldsPath ??= sys_get_temp_dir().'/lara-v8-fields-'.uniqid().'.php';
+        config(['v8-migration.fields' => self::$fieldsPath]);
+        SiteFields::flush();
+
         // the fixture's demo leftover is skipped, as a site does with v8-migration.skip_entities
         config(['v8-migration.skip_entities' => ['v8fxleftover']]);
 
@@ -158,7 +170,7 @@ class FixtureImportTest extends TestCase
             exec('rm -rf '.escapeshellarg(self::$langPath));
         }
 
-        foreach ([self::$mediaPath, self::$diskPath, self::$overridesPath] as $path) {
+        foreach ([self::$mediaPath, self::$diskPath, self::$overridesPath, self::$fieldsPath] as $path) {
             if ($path !== null) {
                 exec('rm -rf '.escapeshellarg($path));
             }
@@ -188,6 +200,9 @@ class FixtureImportTest extends TestCase
         File::put(self::$mediaPath.'/images/shares/Mijn logo.png', 'png');
         // an upload whose name the v8 editor wrote with HTML entities in the URL (Co&ouml;rdinator)
         File::put(self::$mediaPath.'/images/shares/Coördinator Fryslân.png', 'png');
+
+        File::put(self::$fieldsPath, "<?php\n\nreturn [\n    'v8fxbook.introtext' => ['type' => 'richeditor', 'reason' => 'test'],\n    'v8fxbook.secretkey' => ['skip' => true, 'reason' => 'test'],\n    'v8fxbook.picture' => ['type' => 'select', 'options' => ['get_record_images'], 'image' => true, 'reason' => 'test'],\n];\n");
+        SiteFields::flush();
 
         Artisan::call('migrate:fresh', ['--force' => true, '--path' => 'laracms/core/src/common/Database/Migrations']);
         Artisan::call('db:seed', ['--force' => true, '--class' => '\\Lara\\Common\\Database\\Seeders\\DatabaseCommonSeeder']);
@@ -223,6 +238,7 @@ class FixtureImportTest extends TestCase
 
         self::$mediaReport = (new MediaImporter(new V8Source))->run(fresh: true);
         self::$mediaRerun = (new MediaImporter(new V8Source))->run();
+        self::$contentAfterMedia = (new ContentImporter(new V8Source))->run();
 
         self::$urlReport = (new UrlRewriter(new V8Source))->run();
         self::$urlRerun = (new UrlRewriter(new V8Source))->run();
@@ -312,7 +328,7 @@ class FixtureImportTest extends TestCase
         $book = Entity::where('resource_slug', 'v8fxbooks')->firstOrFail();
         $fields = $book->customfields()->get()->keyBy('field_name');
 
-        $this->assertSame(['geolocation', 'kind', 'note', 'pages', 'sticky', 'subtitle'], $fields->keys()->sort()->values()->all());
+        $this->assertSame(['geolocation', 'introtext', 'kind', 'note', 'pages', 'picture', 'sticky', 'subtitle'], $fields->keys()->sort()->values()->all());
 
         $this->assertSame(['string', 'before-title', 1], [$fields['subtitle']->field_type, $fields['subtitle']->field_hook, (int) $fields['subtitle']->show_in_list]);
         $this->assertSame(['toggle', 'after-slug'], [$fields['sticky']->field_type, $fields['sticky']->field_hook]);
@@ -1210,6 +1226,43 @@ class FixtureImportTest extends TestCase
         $this->assertTrue($info->contains(fn (string $m): bool => str_contains($m, "v8 custom field 'oldnote' of core entity 'pages' is not used by live records; not added")));
         $this->assertFalse(collect(self::$rerun)->contains(fn (array $l): bool => $l['entity'] === 'page' && str_contains($l['message'], "'subtitle'")), 'A rerun leaves the built field alone.');
         $this->assertFalse(collect(self::$rerun)->contains(fn (array $l): bool => $l['entity'] === 'page' && in_array($l['level'], ['create', 'update', 'differs', 'error'], true)), "v10's own page fields are never touched.");
+    }
+
+    public function test_site_field_settings_set_the_v10_field_type_and_leave_fields_out(): void
+    {
+        $fields = Entity::where('resource_slug', 'v8fxbooks')->firstOrFail()->customfields()->get()->keyBy('field_name');
+        $report = collect(self::$report)->where('entity', 'v8fxbook');
+
+        $this->assertSame('richeditor', $fields['introtext']->field_type);
+        $this->assertSame('select', $fields['picture']->field_type);
+        $this->assertSame(['get_record_images'], $fields['picture']->field_options);
+        $this->assertArrayNotHasKey('secretkey', $fields->all(), 'A field left out is not built.');
+        $this->assertFalse(Schema::hasColumn('lara_content_v8fxbooks', 'secretkey'));
+        $this->assertFalse($report->contains(fn (array $l): bool => $l['level'] === 'warning' && str_contains($l['message'], "'introtext'")), 'A field with a site type is not reported as a textarea.');
+        $this->assertTrue($report->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], "Field 'introtext' (custom) becomes richeditor")));
+        $this->assertTrue($report->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], "Field 'secretkey' left out")));
+    }
+
+    public function test_site_field_values_are_imported_and_a_v8_image_id_becomes_the_v10_media_id(): void
+    {
+        $books = DB::table('lara_content_v8fxbooks')->orderBy('id')->get()->keyBy('id');
+        $inside = DB::table('curator')->where('path', 'v8fxbooks/inside.png')->value('id');
+
+        $this->assertNotNull($inside);
+        $this->assertSame('<p>Inleiding</p>', $books[1]->introtext);
+        $this->assertSame((string) $inside, (string) $books[1]->picture, 'Book 1 holds its own image 2: the v10 media id of inside.png.');
+        $this->assertNull($books[2]->picture, 'Book 2 holds an image of book 1, not its own: not imported.');
+
+        $content = collect(self::$contentReport)->where('entity', 'v8fxbook');
+        $this->assertTrue($content->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], 'Field secretkey left out')));
+        $this->assertTrue($content->contains(fn (array $l): bool => $l['level'] === 'info' && str_contains($l['message'], '1 image field value(s) wait for their media')));
+        $this->assertTrue($content->contains(fn (array $l): bool => $l['level'] === 'warning' && str_contains($l['message'], '2.picture: v8 image 1 is not an image of this record')));
+        $this->assertTrue(collect(self::$mediaReport)->contains(fn (array $l): bool => $l['entity'] === 'v8fxbook' && $l['level'] === 'update' && str_contains($l['message'], 'Set 1 image field value(s)')));
+        $this->assertTrue(collect(self::$mediaRerun)->contains(fn (array $l): bool => $l['entity'] === 'v8fxbook' && $l['level'] === 'same' && str_contains($l['message'], '1 image field value(s)')));
+
+        // once the media exist, the content import writes the same media id: nothing changes
+        $changes = collect(self::$contentAfterMedia)->whereNotIn('level', ['same', 'info', 'warning']);
+        $this->assertEmpty($changes, $changes->pluck('message')->implode("\n"));
     }
 
     public function test_derived_page_columns_are_kept_on_a_rerun_and_written_with_fresh(): void

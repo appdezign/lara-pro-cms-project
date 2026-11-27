@@ -325,6 +325,16 @@ class EntityImporter
                 continue;
             }
 
+            if (SiteFields::isSkipped($key, $name)) {
+                $this->add('info', $key, "Field '{$name}' left out (".basename(SiteFields::file()).'): not built, its values are not imported.');
+
+                if ($entity->exists && $entity->customfields()->where('field_name', $name)->exists()) {
+                    $this->add('warning', $key, "Field '{$name}' is left out but exists in v10 (built before); remove it in the admin builder, or start over with prepare-target.");
+                }
+
+                continue;
+            }
+
             if (($rejection = EntityFieldName::reject($name)) !== null) {
                 $this->add('error', $key, "Field '{$name}' cannot be used in v10: {$rejection}");
 
@@ -358,7 +368,17 @@ class EntityImporter
             }
         }
 
-        if (($change = V8Map::fieldTypeChange($v8Field->fieldtype)) !== null) {
+        [$attributes, $problem] = SiteFields::applyTo($key, $attributes);
+
+        if ($attributes === null) {
+            $this->add('error', $key, "Field '{$name}': {$problem}; skipped.");
+
+            return null;
+        }
+
+        if (isset(SiteFields::get($key, $name)['type'])) {
+            $this->add('info', $key, "Field '{$name}' ({$v8Field->fieldtype}) becomes {$attributes['field_type']} (".basename(SiteFields::file()).').');
+        } elseif (($change = V8Map::fieldTypeChange($v8Field->fieldtype)) !== null) {
             $this->add('warning', $key, "Field '{$name}' ({$v8Field->fieldtype}): {$change}.");
         }
 

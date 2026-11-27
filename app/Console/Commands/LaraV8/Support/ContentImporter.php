@@ -147,7 +147,9 @@ class ContentImporter
             } elseif (! in_array($column, self::LOCK_COLUMNS, true)) {
                 $withData = $this->source->connection()->table($v8Table)->whereNotNull($column)->where($column, '!=', '')->count();
 
-                if ($withData > 0) {
+                if ($withData > 0 && SiteFields::isSkipped($key, $column)) {
+                    $this->add('info', $key, "Field {$column} left out (".basename(SiteFields::file())."); {$withData} value(s) not imported.");
+                } elseif ($withData > 0) {
                     $this->add('warning', $key, "Column {$v8Table}.{$column} has no v10 column; {$withData} value(s) not imported.");
                 }
             }
@@ -160,6 +162,9 @@ class ContentImporter
         $defaultTemplates = 0;
         $shortcodeRows = [];
         $divRows = [];
+        $imageFields = array_values(array_intersect(SiteFields::imageFields($key), $map));
+        $imagesPending = 0;
+        $imageProblems = [];
 
         foreach ($this->source->connection()->table($v8Table)->orderBy('id')->cursor() as $v8Row) {
             $row = [];
@@ -188,6 +193,19 @@ class ContentImporter
                 if (DivBlocks::has($value)) {
                     [$value] = DivBlocks::convert($value);
                     $divRows[] = "{$v8Row->id}.{$v10Column}";
+                }
+
+                // a v8 image id becomes the v10 media id of that image (SiteFields; import-media fills it in once the media exist)
+                if (in_array($v10Column, $imageFields, true)) {
+                    [$mediaId, $problem] = SiteFields::mediaId($this->source, $v8, $entity, (int) $v8Row->id, $value);
+
+                    if ($problem === 'pending') {
+                        $imagesPending++;
+                    } elseif ($problem !== null) {
+                        $imageProblems[] = "{$v8Row->id}.{$v10Column}: {$problem}";
+                    }
+
+                    $value = $mediaId;
                 }
 
                 if ($value === '' && in_array($v10Column, $customColumns, true)) {
@@ -227,6 +245,14 @@ class ContentImporter
 
         if ($shortcodeRows !== []) {
             $this->add('info', $key, 'v8 column shortcodes converted to rich editor grids (row.column): '.implode(', ', $shortcodeRows).'.');
+        }
+
+        if ($imagesPending > 0) {
+            $this->add('info', $key, "{$imagesPending} image field value(s) wait for their media: lara:v8:import-media fills them in.");
+        }
+
+        if ($imageProblems !== []) {
+            $this->add('warning', $key, 'Image field values not imported (row.column): '.implode('; ', $imageProblems).'.');
         }
 
         if ($divRows !== []) {

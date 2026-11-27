@@ -32,6 +32,14 @@ return [
     'overrides' => env('LARA_V8_OVERRIDES', base_path('v8-overrides.php')),
 
     /*
+     * The site's settings for single v8 custom fields (SiteFields): a v10 field type (and
+     * options) instead of the mapped one, a field left out, or a field whose value is the id
+     * of one of the record's own v8 images. A PHP file returning ['entity.field' => [...]].
+     * Site data: keep it out of the migration branch. See v8-fields.example.php.
+     */
+    'fields' => env('LARA_V8_FIELDS', base_path('v8-fields.php')),
+
+    /*
      * v8 content types the site leaves out (comma separated entity keys in LARA_V8_SKIP_ENTITIES,
      * e.g. "city,product"), such as demo leftovers: not built, their data not imported, and
      * what is dropped is reported. Core content types and the standard ones (blog, doc,

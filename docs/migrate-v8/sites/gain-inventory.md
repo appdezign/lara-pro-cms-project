@@ -120,12 +120,12 @@
 
 | Entity | v10 field | v8 column | Live records | Other records | Added to options by import-entities |
 | --- | --- | --- | --- | --- | --- |
-| larawidget | hook | hook | content_bottom (5), footer1 (1), footer3 (1), footer4 (1), home1 (1), popup1 (1) | — | popup1 |
+| larawidget | hook | hook | content_bottom (5), footer1 (1), footer3 (1), footer4 (1), home1 (1), popup1 (1) | — | — |
 | larawidget | iconalign | iconalign | left (1) | — | — |
 | larawidget | resource_slug | relentkey | portfolios (2) | — | dynamic (get_entity_resources): check the theme |
 | larawidget | resource_term | term | none (2) | — | dynamic (get_entity_terms): check the theme |
 | larawidget | template | template | contact (1), footer (1), footer1 (1), footer3 (1), home1 (1), leden (1), popup1 (1), strategie (1), testimonial (1), visie (1) | — | dynamic (get_widget_templates): check the theme |
-| larawidget | type | type | icon (1), landing (4), module (2), text (3) | — | landing |
+| larawidget | type | type | icon (1), landing (4), module (2), text (3) | — | — |
 | cta | hook | hook | — | homeparalax1 (1), homeparalax2 (1) | — |
 | cta | overlaycolor | overlaycolor | — | black (1), brand (1) | — |
 | cta | overlaytransp | overlaytransp | — | 40 (1), 60 (1) | — |
@@ -134,8 +134,10 @@
 | slider | overlaycolor | overlaycolor | black (8) | brand1 (1), white (1) | — |
 | slider | overlaysize | overlaysize | full (8) | block (1), full (1) | — |
 | slider | overlaytransp | overlaytransp | 30 (8) | 80 (2) | — |
+| slider | qoverlay | qoverlay | 25 (1) | — | — |
+| slider | qtextposition | qtextposition | center (2), left (6), right (1) | — | — |
 | slider | textposition | textposition | center (8) | right (2) | — |
-| slider | type | type | image (2), payoff (7), quote (9) | caption (1), payoff (2) | quote |
+| slider | type | type | image (2), payoff (7), quote (9) | caption (1), payoff (2) | — |
 
 ### Front views
 
@@ -263,19 +265,9 @@
 | --- | --- |
 | 1 | Content type 'sponsor' is skipped: 6 record(s), 5 media row(s) and 0 menu item(s) are not imported. |
 | 2 | Content type 'member' is skipped: 21 record(s), 2 media row(s) and 1 menu item(s) are not imported. |
-| 3 | Field type 'custom': the site-specific v8 field becomes a textarea; check how the site uses it (docpro.secretkey, interview.paragraph1, interview.par1quote, interview.par1quotepos, interview.par1img, interview.par1imgpos, interview.paragraph2, interview.par2quote, interview.par2quotepos, interview.par2img, interview.par2imgpos, interview.paragraph3, interview.par3quote, interview.par3quotepos, interview.par3img, interview.par3imgpos, interview.paragraph4, interview.par4quote, interview.par4quotepos, interview.par4img, interview.par4imgpos). |
-| 4 | larawidget.hook: 'popup1' is used by 1 live record(s) and is not a v10 option; import-entities adds it to widgets.hook. |
-| 5 | larawidget.type: 'landing' is used by 4 live record(s) and is not a v10 option; import-entities adds it to widgets.type. |
-| 6 | cta.hook: 'homeparalax1' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
-| 7 | cta.hook: 'homeparalax2' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
-| 8 | slider.type: 'quote' is used by 9 live record(s) and is not a v10 option; import-entities adds it to sliders.type. |
-| 9 | Core content type field slider.quote (mcemin) is the site's own and v10 lacks it; used by 9 live record(s), so import-entities adds it as a custom field. |
-| 10 | Core content type field slider.qname (string) is the site's own and v10 lacks it; used by 9 live record(s), so import-entities adds it as a custom field. |
-| 11 | Core content type field slider.qurl (string) is the site's own and v10 lacks it; used by 9 live record(s), so import-entities adds it as a custom field. |
-| 12 | Core content type field slider.qurltext (string) is the site's own and v10 lacks it; used by 9 live record(s), so import-entities adds it as a custom field. |
-| 13 | Core content type field slider.qtextposition (selectone) is the site's own and v10 lacks it; used by 9 live record(s), so import-entities adds it as a custom field. |
-| 14 | Core content type field slider.showquote (boolean) is the site's own and v10 lacks it; used by 18 live record(s), so import-entities adds it as a custom field. |
-| 15 | Core content type field slider.qoverlay (selectone) is the site's own and v10 lacks it; used by 1 live record(s), so import-entities adds it as a custom field. |
-| 16 | lara_content_pages.body: v8 column shortcodes ([kolom_XvanN]) in 1 row(s) (ids 1); import-content turns them into rich editor grids (the client theme needs the .grid-layout CSS). |
+| 3 | Site field settings (v8-fields.php): docpro.secretkey left out, interview.paragraph1 richeditor, interview.par1quote select, interview.par1quotepos select, interview.par1img select (v8 image id → v10 media id), interview.par1imgpos select, interview.paragraph2 richeditor, interview.par2quote select, interview.par2quotepos select, interview.par2img select (v8 image id → v10 media id), interview.par2imgpos select, interview.paragraph3 richeditor, interview.par3quote select, interview.par3quotepos select, interview.par3img select (v8 image id → v10 media id), interview.par3imgpos select, interview.paragraph4 richeditor, interview.par4quote select, interview.par4quotepos select, interview.par4img select (v8 image id → v10 media id), interview.par4imgpos select. |
+| 4 | cta.hook: 'homeparalax1' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 5 | cta.hook: 'homeparalax2' is only used by unpublished or trashed records (1x); not added as an option, the value is imported unchanged. |
+| 6 | lara_content_pages.body: v8 column shortcodes ([kolom_XvanN]) in 1 row(s) (ids 1); import-content turns them into rich editor grids (the client theme needs the .grid-layout CSS). |
 
-16 finding(s): see the last section.
+6 finding(s): see the last section.

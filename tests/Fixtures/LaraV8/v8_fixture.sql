@@ -224,6 +224,9 @@ INSERT INTO `lara_ent_entity_custom_columns` (`entity_id`, `fieldtitle`, `fieldn
 (101, 'Latitude', 'latitude', 'decimal108', 'after', '', 0, 0, 'enabledif', 'geolocation', 'isequal', '1', 9),
 (101, 'Pages', 'pages', 'intunsigned', 'after', '', 0, 0, 'enabled', NULL, NULL, NULL, 10),
 (101, 'Pages', 'pages', 'intunsigned', 'after', '', 0, 0, 'enabled', NULL, NULL, NULL, 11),
+(101, 'Intro text', 'introtext', 'custom', 'after', '', 0, 0, 'enabled', NULL, NULL, NULL, 12),
+(101, 'Secret key', 'secretkey', 'custom', 'after', '', 0, 0, 'enabled', NULL, NULL, NULL, 13),
+(101, 'Picture', 'picture', 'custom', 'after', '', 0, 0, 'enabled', NULL, NULL, NULL, 14),
 (102, 'Start date', 'startdate', 'date', 'between', '', 1, 1, 'enabled', NULL, NULL, NULL, 1),
 (103, 'Name', 'name', 'string', 'default', '', 1, 1, 'enabled', NULL, NULL, NULL, 1),
 (103, 'Email', 'email', 'email', 'default', '', 1, 1, 'enabled', NULL, NULL, NULL, 2),
@@ -479,6 +482,9 @@ CREATE TABLE `lara_content_v8fxbooks` (
   `geolocation` varchar(255) DEFAULT NULL,
   `latitude` decimal(10,8) DEFAULT NULL,
   `pages` int(10) unsigned DEFAULT NULL,
+  `introtext` text,
+  `secretkey` text,
+  `picture` text,
   `slug` varchar(255) DEFAULT NULL,
   `slug_lock` tinyint(1) NOT NULL DEFAULT '0',
   `lead` text,
@@ -557,6 +563,11 @@ INSERT INTO `lara_content_v8fxleftovers` (`id`, `user_id`, `language`, `title`, 
 INSERT INTO `lara_content_v8fxbooks` (`id`, `user_id`, `language_parent`, `language`, `title`, `subtitle`, `sticky`, `kind`, `note`, `address`, `city`, `geolocation`, `latitude`, `pages`, `slug`, `lead`, `body`, `created_at`, `updated_at`, `deleted_at`, `publish`, `publish_from`, `position`, `locked_at`, `locked_by`) VALUES
 (1, 2, NULL, 'nl', 'Boek één', 'Ondertitel', 1, '', NULL, 'Grote Markt 1', 'Haarlem', 'manual', 52.38108000, 120, 'boek-een', '<p>Intro</p>', '<p>Tekst</p>', '2024-01-01 10:00:00', '2024-02-01 10:00:00', NULL, 1, '2024-01-01 10:00:00', NULL, '2024-02-01 10:00:00', 2),
 (2, 77, 1, 'en', 'Book one', NULL, 0, 'poetry', 'A note', NULL, NULL, NULL, NULL, NULL, 'book-one', NULL, '<p><img src="/assets/media/v8fxbook/cover.jpg"> <img src="/assets/media/images/shares/Mijn%20logo.png"> <a href="https://www.fixture.test/assets/media/v8fxbook/inside.png">groot</a> <img src="/assets/media/images/shares/nope.png"> <img src="/assets/media/images/shares/Co&ouml;rdinator Frysl&acirc;n.png"> <a href="https://elders.test/assets/media/x.jpg">extern</a> <a href="/robots.txt">robots</a> <a href="/v8-fixture-missing/?page=1">missing</a> <a href="/assets/media/v8fxbook/sample.pdf">leesproef</a></p>', '2024-01-02 10:00:00', '2024-02-02 10:00:00', '2024-03-01 10:00:00', 0, NULL, 3, NULL, NULL);
+
+-- Site field settings (gain, SiteFields): introtext gets a v10 type, secretkey is left out, picture holds a v8 image id
+-- (book 1: its own image 2; book 2: image 1 of book 1, not its own, so it is not imported).
+UPDATE `lara_content_v8fxbooks` SET `introtext` = '<p>Inleiding</p>', `secretkey` = 'abcdefghijklmnop', `picture` = '2' WHERE `id` = 1;
+UPDATE `lara_content_v8fxbooks` SET `secretkey` = 'qrstuvwxyzabcdef', `picture` = '1' WHERE `id` = 2;
 
 -- Event 1 points to a book that does not exist (reported after the import).
 INSERT INTO `lara_content_v8fxevents` (`id`, `v8fxbook_id`, `user_id`, `language`, `title`, `startdate`, `slug`, `created_at`, `updated_at`, `publish`, `position`) VALUES

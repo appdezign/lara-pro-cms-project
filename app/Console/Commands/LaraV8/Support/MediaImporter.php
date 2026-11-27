@@ -5,6 +5,7 @@ namespace App\Console\Commands\LaraV8\Support;
 use App\Console\Commands\LaraV8\Support\Concerns\SyncsRows;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Lara\Common\Models\Entity;
 use Throwable;
@@ -66,6 +67,7 @@ class MediaImporter
             ->keyBy(fn (object $row): string => $row->disk.'#'.$row->path)->all();
 
         $this->images($dryRun, $fresh);
+        $this->imageFields($dryRun);
         $this->files($dryRun, $fresh);
         $this->videos($dryRun, $fresh);
         $this->videofiles($dryRun, $fresh);
@@ -145,6 +147,60 @@ class MediaImporter
         }
 
         $this->sync('image links', 'lara_object_images', ['mediable_type', 'mediable_id', 'media_id', 'type'], $rows, false, $fresh);
+    }
+
+    /**
+     * Custom fields whose value is a v8 image id (SiteFields, v8-fields.php): the v10 media id of
+     * that image, once the images exist. import-content writes the same value when the media
+     * already exist, so a rerun of either changes nothing.
+     */
+    private function imageFields(bool $dryRun): void
+    {
+        foreach ($this->entities as $v8) {
+            $key = $v8->entity_key;
+            $fields = SiteFields::imageFields($key);
+            $target = $fields === [] ? null : Entity::where('resource_slug', V8Map::resourceSlug($key))->first();
+            $v8Table = $this->source->contentTable($key, $v8->group_key);
+
+            if ($target === null || $v8Table === null) {
+                continue;
+            }
+
+            $table = $target->model_class::getTableName();
+            $fields = array_values(array_filter($fields, fn (string $field): bool => Schema::hasColumn($table, $field)));
+            $changed = 0;
+            $same = 0;
+
+            foreach ($this->source->connection()->table($v8Table)->get(['id', ...$fields]) as $v8Row) {
+                foreach ($fields as $field) {
+                    [$mediaId] = SiteFields::mediaId($this->source, $v8, $target, (int) $v8Row->id, $v8Row->{$field});
+
+                    if ($mediaId === null) {
+                        continue;
+                    }
+
+                    $current = DB::table($table)->where('id', $v8Row->id)->value($field);
+
+                    if ((string) $current === (string) $mediaId) {
+                        $same++;
+
+                        continue;
+                    }
+
+                    if (! $dryRun) {
+                        DB::table($table)->where('id', $v8Row->id)->update([$field => $mediaId]);
+                    }
+
+                    $changed++;
+                }
+            }
+
+            if ($changed > 0) {
+                $this->add('update', $key, ($dryRun ? 'Would set ' : 'Set ')."{$changed} image field value(s) to the v10 media id (".implode(', ', $fields).').');
+            } elseif ($same > 0) {
+                $this->add('same', $key, "{$same} image field value(s) hold the v10 media id (".implode(', ', $fields).').');
+            }
+        }
     }
 
     /**
