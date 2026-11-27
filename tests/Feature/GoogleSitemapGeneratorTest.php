@@ -75,8 +75,33 @@ class GoogleSitemapGeneratorTest extends TestCase
         $this->assertContains(url('/').'/'.$this->locale().'/'.$item->route.'/'.$object->slug.$suffix, $urls, 'A published object of the module, on its detail route.');
 
         foreach ($this->mainMenuItems() as $menuItem) {
+            if ($menuItem->type === MenuItemType::Page && ! DB::table('lara_content_pages')->where('id', $menuItem->object_id)->whereNull('deleted_at')->exists()) {
+                continue;
+            }
+
             $this->assertContains(url('/').'/'.$this->locale().'/'.$menuItem->route, $urls, "Main-menu item {$menuItem->id}.");
         }
+    }
+
+    public function test_a_page_item_whose_page_is_trashed_is_not_listed(): void
+    {
+        $home = $this->mainMenuItems()->firstWhere('is_home', 1) ?? $this->fail('No home page in the main menu.');
+        // a second page in the main menu: a copy of the home page and its menu item
+        $pageId = DB::table('lara_content_pages')->insertGetId(collect((array) DB::table('lara_content_pages')->find($home->object_id))
+            ->except('id')->merge(['title' => 'Zz sitemap page', 'slug' => 'zz-sitemap-page', 'ishome' => 0, 'user_id' => DB::table('lara_auth_users')->min('id')])->all());
+        $page = $home->replicate();
+        $page->fill(['is_home' => 0, 'route' => 'zz-sitemap-page', 'object_id' => $pageId]);
+        $page->saveQuietly();
+        $url = url('/').'/'.$this->locale().'/'.$page->route;
+
+        $this->assertArrayHasKey($url, $this->generate());
+
+        // gain: an unpublished test page that its menu item still shows, trashed by a site override
+        DB::table('lara_content_pages')->where('id', $page->object_id)->update(['deleted_at' => now()]);
+
+        $sitemap = $this->generate();
+        $this->assertArrayNotHasKey($url, $sitemap, 'A trashed page answers 404.');
+        $this->assertArrayHasKey(url('/').'/'.$this->locale().'/'.$home->route, $sitemap);
     }
 
     public function test_unpublished_expired_and_other_language_objects_are_not_listed(): void

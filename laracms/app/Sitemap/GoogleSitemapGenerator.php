@@ -46,8 +46,14 @@ class GoogleSitemapGenerator
                     // MenuItem::type is cast to MenuItemType: compare with the enum, not with strings
                     $entity = $menuItem->type === MenuItemType::Entity ? Entity::find($menuItem->entity_id) : null;
 
+                    // a page item whose page is gone (trashed) answers 404: not listed
+                    $page = $menuItem->type === MenuItemType::Page ? Page::find($menuItem->object_id) : null;
+                    if ($menuItem->type === MenuItemType::Page && $page === null) {
+                        continue;
+                    }
+
                     $lastModified = match ($menuItem->type) {
-                        MenuItemType::Page => Page::find($menuItem->object_id)?->updated_at ?? $menuItem->updated_at,
+                        MenuItemType::Page => $page->updated_at ?? $menuItem->updated_at,
                         MenuItemType::Entity => $this->publishedObjects($entity, $language)->max('updated_at') ?? $menuItem->updated_at,
                         default => $menuItem->updated_at,
                     };
