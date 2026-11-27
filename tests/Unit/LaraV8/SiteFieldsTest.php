@@ -15,7 +15,7 @@ class SiteFieldsTest extends TestCase
         parent::setUp();
 
         $this->file = sys_get_temp_dir().'/v8-fields-'.uniqid().'.php';
-        File::put($this->file, "<?php\n\nreturn [\n    'interview.paragraph1' => ['type' => 'richeditor'],\n    'interview.par1pos' => ['type' => 'select', 'options' => ['left', 'right']],\n    'interview.par1img' => ['type' => 'select', 'options' => ['get_record_images'], 'image' => true],\n    'interview.wrong' => ['type' => 'nosuchtype'],\n    'interview.nooptions' => ['type' => 'select'],\n    'docpro.secretkey' => ['skip' => true],\n    'page.lead' => ['field' => 'intro', 'type' => 'richeditor', 'hook' => 'after-slug'],\n];\n");
+        File::put($this->file, "<?php\n\nreturn [\n    'interview.paragraph1' => ['type' => 'richeditor'],\n    'interview.par1pos' => ['type' => 'select', 'options' => ['left', 'right']],\n    'interview.par1img' => ['type' => 'select', 'options' => ['get_record_images'], 'image' => true],\n    'interview.wrong' => ['type' => 'nosuchtype'],\n    'interview.nooptions' => ['type' => 'select'],\n    'docpro.secretkey' => ['skip' => true],\n    'page.lead' => ['field' => 'intro', 'type' => 'richeditor', 'hook' => 'after-slug'],\n    'interview.par1quote' => ['type' => 'select', 'options' => ['quote1', 'quote2'], 'rule' => ['field' => 'par1img', 'operator' => 'isequal', 'value' => '']],\n    'interview.par1quotepos' => ['rule' => ['field' => 'par1quote', 'operator' => 'isnotequal', 'value' => '']],\n    'interview.badrule' => ['rule' => ['field' => 'par1img', 'operator' => 'contains', 'value' => '']],\n];\n");
         config(['v8-migration.fields' => $this->file]);
         SiteFields::flush();
     }
@@ -35,6 +35,22 @@ class SiteFieldsTest extends TestCase
 
         [$attributes] = SiteFields::applyTo('interview', ['field_name' => 'par1pos', 'field_type' => 'textarea', 'field_options' => null]);
         $this->assertSame(['select', ['left', 'right']], [$attributes['field_type'], $attributes['field_options']]);
+    }
+
+    public function test_a_rule_makes_the_field_conditional(): void
+    {
+        $plain = ['field_name' => 'par1quotepos', 'field_type' => 'select', 'field_options' => ['left'], 'conditional' => 0, 'rule_state' => 'enabled', 'rule_field' => null, 'rule_operator' => null, 'rule_value' => null];
+
+        [$attributes] = SiteFields::applyTo('interview', $plain);
+        $this->assertSame([1, 'enabledif', 'par1quote', 'isnotequal', ''], [$attributes['conditional'], $attributes['rule_state'], $attributes['rule_field'], $attributes['rule_operator'], $attributes['rule_value']]);
+        $this->assertSame(['select', ['left']], [$attributes['field_type'], $attributes['field_options']], 'A rule alone leaves the type.');
+
+        [$attributes] = SiteFields::applyTo('interview', ['field_name' => 'par1quote'] + $plain);
+        $this->assertSame(['select', ['quote1', 'quote2'], 'enabledif', 'par1img', 'isequal', ''], [$attributes['field_type'], $attributes['field_options'], $attributes['rule_state'], $attributes['rule_field'], $attributes['rule_operator'], $attributes['rule_value']]);
+
+        [$attributes, $problem] = SiteFields::applyTo('interview', ['field_name' => 'badrule'] + $plain);
+        $this->assertNull($attributes);
+        $this->assertStringContainsString('needs a field, an operator', $problem);
     }
 
     public function test_a_field_without_a_setting_is_left_alone(): void
@@ -60,11 +76,11 @@ class SiteFieldsTest extends TestCase
         $this->assertSame(['par1img'], SiteFields::imageFields('interview'));
         $this->assertSame([], SiteFields::imageFields('docpro'));
 
-        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions'], 'docpro' => []], ['page' => ['title', 'lead']]);
+        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions', 'par1quote', 'par1quotepos', 'badrule'], 'docpro' => []], ['page' => ['title', 'lead']]);
         $this->assertCount(1, $problems);
         $this->assertStringContainsString("'docpro.secretkey' is not a v8 custom field", $problems[0]);
 
-        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions'], 'docpro' => ['secretkey']], ['page' => ['title']]);
+        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions', 'par1quote', 'par1quotepos', 'badrule'], 'docpro' => ['secretkey']], ['page' => ['title']]);
         $this->assertCount(1, $problems);
         $this->assertStringContainsString("'page.lead' is not a v8 content column", $problems[0]);
     }

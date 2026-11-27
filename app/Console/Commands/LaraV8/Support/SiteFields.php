@@ -18,8 +18,12 @@ use Lara\Common\Models\Entity;
  *     'interview.par1img' => ['type' => 'select', 'options' => ['get_record_images'], 'image' => true, 'reason' => '...'],
  *     'docpro.secretkey' => ['skip' => true, 'reason' => '...'],
  *     'page.lead' => ['field' => 'intro', 'type' => 'richeditor', 'hook' => 'after-slug', 'reason' => '...'],
+ *     'interview.par1img' => ['rule' => ['field' => 'par1quote', 'operator' => 'isequal', 'value' => ''], 'reason' => '...'],
  *
- * `type`/`options` replace the mapped v10 field type (V8Map::FIELD_TYPES) and options; `skip`
+ * `rule` makes the field conditional (v10 rule_state enabledif: shown while `field` `operator`
+ * (isequal, isnotequal) `value`), for a v8 rule that lived in the v8 site's own admin view
+ * rather than in the field settings (gain: an interview paragraph's quote or image); an empty
+ * value compares with an empty select. `type`/`options` replace the mapped v10 field type (V8Map::FIELD_TYPES) and options; `skip`
  * leaves the field out (not built, values not imported); `image` marks a value that is the id
  * of one of the record's own v8 images, imported as the v10 media id (curator) of that image.
  *
@@ -201,7 +205,25 @@ class SiteFields
     {
         $setting = self::get($entityKey, $attributes['field_name']);
 
-        if ($setting === null || ! isset($setting['type'])) {
+        if ($setting === null || (! isset($setting['type']) && ! isset($setting['rule']))) {
+            return [$attributes, null];
+        }
+
+        if (isset($setting['rule'])) {
+            $rule = $setting['rule'];
+
+            if (! is_array($rule) || ! isset($rule['field']) || ! array_key_exists('value', $rule) || ! isset(V8Map::RULE_OPERATORS[$rule['operator'] ?? ''])) {
+                return [null, 'the rule in '.basename(self::file()).' needs a field, an operator ('.implode(', ', array_keys(V8Map::RULE_OPERATORS)).') and a value'];
+            }
+
+            $attributes['conditional'] = 1;
+            $attributes['rule_state'] = 'enabledif';
+            $attributes['rule_field'] = (string) $rule['field'];
+            $attributes['rule_operator'] = V8Map::RULE_OPERATORS[$rule['operator']];
+            $attributes['rule_value'] = (string) $rule['value'];
+        }
+
+        if (! isset($setting['type'])) {
             return [$attributes, null];
         }
 
