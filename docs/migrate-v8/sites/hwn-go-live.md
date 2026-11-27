@@ -92,9 +92,9 @@ Checks:
 
 Before the day:
 
-- [ ] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
+- [x] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
 - [ ] reCAPTCHA keys: the v8 keys, live on `www.watersportverenigingnannewijd.nl`, in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch.
-- [ ] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
+- [x] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
 - [x] Cloudways backups of the v10 app (daily, plus a manual backup before the switch). (User, 2026-11-27: daily on, manual backup taken.)
 
 The switch:
@@ -104,8 +104,8 @@ The switch:
 - [x] Backups first (2026-11-27 12:35): `v10_hwn` and `v8_hwn` into `hwn-deploy/backups/` (`*-before-final-sync.sql`).
 - [x] Locally (2026-11-27 12:36): reload `v8_hwn` from the fresh dump (63 tables, grant kept) (runbook 17; the grant stays), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `hwn10729.sql` and media archive (Python) in `hwn-deploy/`; remove local test hits from `seo_not_founds`. Result: sync dry run and sync without errors, only user 2 `updated_at` changed; verify ok 33, warning 2; 2 local test 404s removed; new `hwn10729.sql` (12:36, 53 tables); media unchanged (2057 files, none newer than the archive): no new archive.
 - [x] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media if it changed; clear the sessions; caches. (User, 2026-11-27: `hwn10729.sql` 12:36 into `scfyvdesed`, media unchanged, sessions, caches. Checked: staging text pass 64 URLs identical to local, `/admin/login` 200.)
-- [ ] Server: `robots.txt` back to the repo version (dashboard Pull).
-- [ ] Server `.env`: `APP_URL=https://www.watersportverenigingnannewijd.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; caches; the sitemap again.
+- [x] Server: `robots.txt` back to the repo version (dashboard Pull). (User, 2026-11-27: written with `printf` instead of a Pull, no git on the server; checked: `Allow` all.)
+- [x] Server `.env`: `APP_URL=https://www.watersportverenigingnannewijd.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; caches; the sitemap again. (User, 2026-11-27: AuthSMTP as v8, `MAIL_FROM` `info@dehwn.nl` / "De HWN"; fonts again, caches, sitemap 513 www URLs. Checked: `v10.…/nl/contact/contactformulier?x=1` → 301 to www with path and query (RedirectToCanonicalHost active); live still v8.)
 - [ ] v8 app: crons off, `MAIL_MAILER=log`, domains removed (Cloudways temporary URL). Before each command check which app the shell is in.
 - [ ] v10 app: primary domain `www.watersportverenigingnannewijd.nl`, alias `watersportverenigingnannewijd.nl`; staging domain removed; Let's Encrypt for both. **Clear the caches again after the move** (cached menu widgets keep the host of the request that filled them: macgyverbouw).
 - [ ] Check: http → https and non-www → www with path and query, home, every menu item, news, downloads and a document, photo albums, the livestream, the 404, every asset and image, the contact form with reCAPTCHA and both mails, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login and dashboard. Text pass production vs local.
