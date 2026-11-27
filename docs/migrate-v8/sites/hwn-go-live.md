@@ -68,6 +68,7 @@ Deploy log (guided):
 - Step 8 (user, 2026-11-27): sitemap (`schedule:test --name=google-sitemap`). Checked from here: 513 URLs, all on `v10.watersportverenigingnannewijd.nl`, the same list as local; 485 answer 200, 16 folders and unpublished items 302, **12 news items 404**: 11 slugs with dots (`heerenveens-kanaal.`, `tijgerhaai-a.n.w.b.`, `…20.00-uur`, …) and `2015`. The show route `{slug}.html` compiles to `[^/\.]++` (Symfony: no separator in the slug), in v8 too: live shows them as the not-found page with status 200, v10 with 404. Not a regression; old news (2014–2021).
 - Step 9 (user, 2026-11-27): `robots.txt` `Disallow: /` (checked from here; block again after every pull until the switch).
 - Step 10 (user, 2026-11-27): GA service-account file uploaded to `storage/app/analytics/service-account-lara-dash.json`; the admin dashboard shows the Analytics charts (`ANALYTICS_PROPERTY_ID=462017707`). Checked from here: the contact page loads the Maps script with a key; `/nl/livestream` 200.
+- Step 11 (user, 2026-11-27): contact form sent, both mails on the dev mailer; the map (both harbours) and the livestream OK.
 
 Checks:
 
