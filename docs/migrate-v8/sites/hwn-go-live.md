@@ -1,6 +1,6 @@
 # watersportverenigingnannewijd.nl: go-live checklist
 
-v8.2.46 (`hwn8246`, production db `upykynmwjw`, theme `hwn2024`) → v10 (`hwn10729`, Lara CMS 10.7.29, theme `hwn`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-27: site code on `appdezign/watersportverenigingnannewijd-nl` branch `v10`; staging next.
+v8.2.46 (`hwn8246`, production db `upykynmwjw`, theme `hwn2024`) → v10 (`hwn10729`, Lara CMS 10.7.29, theme `hwn`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-27: staging done on https://v10.watersportverenigingnannewijd.nl (database `scfyvdesed`); the switch next.
 
 Live: https://www.watersportverenigingnannewijd.nl on the Cloudways server at `95.179.176.155` (the same server as macgyverbouw, doormode and inventiverepair), nginx, **not behind Cloudflare**. DNS at webhost.company (`ns1–3.webhost.company`); `www` (CNAME to the root) and the root both `95.179.176.155`; **`v10.watersportverenigingnannewijd.nl` already resolves** to the same address and serves the placeholder v10 app (`<title>v10`, 2026-11-27). `http://www` → `https://www` 301 with the path; `watersportverenigingnannewijd.nl/*` (http and https) → `https://www.watersportverenigingnannewijd.nl/` 301 **without the path** (the query is kept: Cloudways' own www redirect, as inventiverepair). `/` → `/nl` 302. `robots.txt` `Allow: /`; **a sitemap** (`/sitemap.xml` 200, 520 URLs). Plan with every decision: `hwn8246/.ai/plans/2026-11-26-migrate-v8-to-v10-hwn.md`; inventory: `sites/hwn-inventory.md`; text pass: `hwn8246/.ai/plans/hwn-compare/`.
 
@@ -71,14 +71,15 @@ Deploy log (guided):
 - Step 11 (user, 2026-11-27): contact form sent, both mails on the dev mailer; the map (both harbours) and the livestream OK.
 - Step 12 (user, 2026-11-27): a page, a news item, a document and a photo album saved without errors; menus OK. Staging text pass afterwards: 63 identical, **De Welle "Algemeen" (3962, saved) different**: the v10 rich editor unwraps v8 `<div>` lines on save ("Mark PitTelefoon: …"). Affected: hwn pages 3959, 3962, 3967 (inventiverepair: 11 pages, 2 blogs). Fixed in the tooling (user, 2026-11-27: div → p at import): `937f493`, `39ddb63`, `d77e011` on `v8-migration` (`DivBlocks`: consecutive div lines one `<p>` with `<br />`, a spacer div ends it, left/justify do not split; fixture + tests, runbook step 8). `import-content`: 3 pages updated, second run unchanged, verify ok 33 / warning 2. Theme (`b5735d3` on `v10`): images in a paragraph inline, as v8 (preflight made them blocks: an empty line after the team photo; Geschiedenis too). Measured at 1440 px against live: team page "Mark Pit" at the same height, De Welle within 6 px, De Bron within 15 px; Geschiedenis 3506 vs live 3510 (was 3531). Text pass local vs live unchanged; LaraV8 173 passed. New `hwn10729.sql` (11:32); staging to update (Pull, dump, robots, caches).
 - Staging update 1 (user, 2026-11-27): Pull `v10` (`b5735d3`), `robots.txt` `Disallow: /` again. Checked from here: the new theme CSS `app-B_JFM5_1.css` 200, robots blocked. (No git on the Cloudways server: check a deploy by its asset hashes.)
+- Staging update 2 (user, 2026-11-27): `hwn10729.sql` (11:32) into `scfyvdesed`, caches. Checked from here: staging text pass 64 URLs identical to local; the three converted pages serve the joined lines; theme CSS as local.
 
 Checks:
 
-- [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
-- [ ] Every URL of the text pass (`hwn-compare/urls.txt`, 64 URLs) identical to `hwn10729`; assets and images of home, a sub page, news, downloads, a photo album and the contact form OK; Glide images 200; `/admin/login` 200; no local or `http://` references.
-- [ ] The sticky menu bar and its dropdowns; the mobile menu; the topbar links (Facebook, WhatsApp, "Mail ons").
-- [ ] Contact form: both mails (webmaster and confirmation) on the dev mailer; the map with Jachthaven De Welle and De Bron.
-- [ ] Admin: a page, a news item, a document and a photo album open and save. Edits on staging are lost at the switch.
+- [x] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
+- [x] Every URL of the text pass (`hwn-compare/urls.txt`, 64 URLs) identical to `hwn10729`; assets and images of home, a sub page, news, downloads, a photo album and the contact form OK; Glide images 200; `/admin/login` 200; no local or `http://` references.
+- [x] The sticky menu bar and its dropdowns; the mobile menu; the topbar links (Facebook, WhatsApp, "Mail ons").
+- [x] Contact form: both mails (webmaster and confirmation) on the dev mailer; the map with Jachthaven De Welle and De Bron.
+- [x] Admin: a page, a news item, a document and a photo album open and save. Edits on staging are lost at the switch.
 
 ## Content to settle before the freeze
 
