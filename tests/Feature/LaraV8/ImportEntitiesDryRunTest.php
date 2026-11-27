@@ -4,6 +4,7 @@ namespace Tests\Feature\LaraV8;
 
 use App\Console\Commands\LaraV8\Support\CoreCustomFields;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
+use App\Console\Commands\LaraV8\Support\SiteFields;
 use App\Console\Commands\LaraV8\Support\V8Map;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use Illuminate\Support\Str;
@@ -66,16 +67,21 @@ class ImportEntitiesDryRunTest extends TestCase
             }
 
             // a core content type keeps its v10 configuration; at most option values are added, the
-            // site's own v8 custom fields that v10 lacks (CoreCustomFields), and page views for the
-            // v8 page templates v10 lacks
+            // site's own v8 custom fields that v10 lacks (CoreCustomFields), the v8 columns the site
+            // gives their own field (SiteFields `field`, gain: page lead → intro), and page views for
+            // the v8 page templates v10 lacks
             $siteFields = collect((new CoreCustomFields($this->source))->candidates())
                 ->where('entity_key', $entity->entity_key)
                 ->map(fn (array $candidate): string => "Field '{$candidate['v8_field']->fieldname}' ")
                 ->all();
+            $columnFields = collect(SiteFields::columnFields($entity->entity_key))
+                ->map(fn (array $setting): string => "Field '{$setting['field']}' ")
+                ->values()
+                ->all();
 
             foreach ($report->where('entity', $entity->entity_key) as $line) {
                 $this->assertTrue(
-                    Str::startsWith($line['message'], ['Option field ', 'v8 custom field ', 'Page template ', ...$siteFields]),
+                    Str::startsWith($line['message'], ['Option field ', 'v8 custom field ', 'v8 column ', 'Page template ', ...$siteFields, ...$columnFields]),
                     "Core content type {$entity->entity_key} must keep its v10 configuration: {$line['message']}",
                 );
             }
