@@ -59,6 +59,9 @@ Deploy files (2026-11-27 10:42, verify ok 33, warning 2, 2 overrides, the 4 loca
 
 Deploy log (guided):
 
+- Step 1 (user, 2026-11-27): PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; Deployment via Git, `v10` pulled; `composer install --no-dev -o`. Checked: theme CSS and SVG 200, `/` → `/nl` 302 (Laravel). The placeholder `public/index.html` (not in the repo) still served: removed in step 2.
+- Step 2 (user, 2026-11-27): `.env` from `hwn-deploy/staging.env`, `key:generate`, placeholder `public/index.html` removed (`/index.html` now Laravel). Checked from here: `/nl` 200 with theme `hwn` and the `APP_NAME` suffix, `/admin/login` 200. **Database `scfyvdesed` and the media were already in place**: text pass staging vs local (`hwn-compare/compare_staging.py`, `staging-pass.md`) 64 URLs identical (status, title, headings, text); Glide gallery image 200; `fonts.css` 302 (not fetched yet). Origin to confirm with the user.
+
 Checks:
 
 - [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
