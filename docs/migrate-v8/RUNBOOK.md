@@ -691,3 +691,39 @@ v8.2.46 (`macgyv8246`, Bootstrap 5 "Silicon" theme `macgyver`) → Lara CMS 10.7
 - Cached menu widgets keep absolute URLs of the requesting host: clear the caches after the domain move (Deploy lessons).
 - `company_telephone_real` (a v8 setting) is not in the standard seed: the theme reads it with `?? ''`.
 - Base items for laracms10: the form submit spinner uses Font Awesome (`fas fa-spinner`), which v10 does not load (the user fixes it in base); `__templates/form` (above); date formatting `format('j F Y')` (English months, as doormode); an unpublished language stays routable.
+
+### watersportverenigingnannewijd.nl (sixth site, 2026-11)
+
+v8.2.46 (`hwn8246`, Bootstrap 5 theme `hwn2024`) → Lara CMS 10.7.29 (`hwn10729`, theme `hwn`). Site repository: `appdezign/watersportverenigingnannewijd-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since the afternoon of 2026-11-27 on the former staging app (v10.watersportverenigingnannewijd.nl, now removed); **no Cloudflare** (DNS at webhost.company), the www redirect is in the app. The club's mail domain `dehwn.nl` (Microsoft 365, on Cloudflare) is separate. Plan with every decision and detail: `hwn8246/.ai/plans/2026-11-26-migrate-v8-to-v10-hwn.md`; go-live list: `sites/hwn-go-live.md`; inventory: `sites/hwn-inventory.md`.
+
+**Time.** Setup, inventory, import and the theme on 2026-11-26 (production dump 19:23, site code and assets committed 21:39), staging on the morning of 2026-11-27 (with the div fix, below), the switch at midday (freeze ~12:30, live and checked ~13:00). The theme was a full port from `demo` (no earlier v10 theme).
+
+**Results.**
+
+- Content: 7 site content types (blog 289, event 29, gallery 86, video 2, doc 45, link 13, contactform 153) + the core ones (pages 83, sliders 17, widgets 5, CTAs 5); skipped: the 8 `app` types (bridge, charter, faq, impression, location, place, service, trip: 19 records of a separate HWN app) and classicform (11 entries, last 2019); 10 users (role `appmaster` kept, without abilities); 3 menus, 57 items; languages nl + de (German unpublished); 1859 Curator items, 1.1 GB of media.
+- `lara:v8:verify`: ok 33, warning 2 (two links that are dead on live too), before and after the final sync. Tests: LaraV8 173.
+- Compared with live: 64 URLs (every Dutch menu URL, published and unpublished, 8 news items, 4 documents, 3 albums, `/nl`, `/de/`, `/en/`, an unknown URL): 59 identical, the rest explained (go-live list); element positions at 1440 px within a few px. Staging and production: the same 64 URLs identical to local (production adds the reCAPTCHA hint); sitemap 513 URLs.
+
+**Tooling added for hwn** (each with tests):
+
+- The standard content types blog, doc and gallery are never skipped (`V8Map::STANDARD_ENTITIES`, step 3); a site whose v8 lacks one keeps the v10 demo version without records (`DemoStandardTypes`, step 4).
+- Menu items that link a skipped content type are left out with the items below them (step 3): an unpublished item without its entity broke every front page (core, below).
+- Plain v8 `<div>` lines become paragraphs (`DivBlocks`, step 8): the v10 rich editor unwraps them on the first save, so the lines ran together (found on staging when a page was saved). Consecutive lines become one `<p>` with `<br />` so the look stays as v8. inventiverepair (11 pages, 2 blogs) was already live and is left as it is.
+
+**Decisions** (see the plan for the reasoning):
+
+- Skip the 8 `app` types (v8 `menu_parent = 'app'`, never in the v8 admin menu) and classicform; build event, video and link (only behind unpublished menu items).
+- German dropped as on live (live had replaced it by the Dutch page `/nl/deutsch`): site override `de` → unpublished; the rows are imported, `config/laravellocalization.php` unchanged.
+- Blog 6144's dead link → the 2023 annual meeting document (override); the two other dead links (trashed page and doc) left.
+- The home CTA stays the unpublished "Welkom bij De HWN" (as live: the widget takes the first CTA of its hook).
+- Theme without the year suffix (`hwn`); images in text inline as v8 (preflight made them blocks: an empty line after an image with `<br>`).
+- Sitemap as v10 generates it (no expired news, no `/en/`); cookie banner `policy_url` `/nl/privacy`; production mail through AuthSMTP as v8, `MAIL_FROM_ADDRESS=info@dehwn.nl` / "De HWN"; `ANALYTICS_PROPERTY_ID` in the server `.env` (without it the dashboard shows only the versions widget).
+
+**Gotchas met on hwn** (the general ones are in Gotchas and Deploy lessons):
+
+- v8 `menu_parent = 'app'`: a menu group the v10 tooling did not know (no nav_group): the dry run failed until the types were skipped.
+- Saving a v8 page in the v10 admin can change it (divs unwrapped): save one page with old HTML on staging and compare it with the text pass.
+- 12 old news items (11 slugs with dots, and `2015`) cannot be opened, on live either: the `{slug}.html` route does not allow a dot in the slug (Symfony `[^/\.]++`); live shows the not-found text with 200, v10 a 404. Both sitemaps list them.
+- **No git on the Cloudways server**: check a deploy from here by its asset hashes or page markup; after a dashboard Pull restore `robots.txt` with `printf` while staging is blocked.
+- The user imported the database and media ahead of the guided steps: check what is already on the server before each step.
+- Core items for laracms10: `FrontMenuRepository::getMenuEntityRoutes()` reads `$item->entity->resource_slug` for every main menu item, also unpublished ones (a missing entity breaks every page: use `?->` and skip); base `object_gallery` checks `!empty($data->object->gallery())`, always true for a collection (empty gallery block on every page: `hasGallery()`); `MenuWidget` `showroot` works the other way round from v8.
