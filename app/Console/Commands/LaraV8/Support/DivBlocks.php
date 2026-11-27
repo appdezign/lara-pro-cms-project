@@ -8,9 +8,12 @@ namespace App\Console\Commands\LaraV8\Support;
  * unwraps the divs, so their lines run together (hwn 2026-11-27: "Mark PitTelefoon: …"). They become
  * paragraphs at import, so the first save keeps the lines (user decision 2026-11-27):
  *
- *   - a plain <div> (no class, id or data-* attribute) with inline content → <p> with the same
- *     attributes (e.g. `style="text-align: left;"`);
- *   - a plain <div> around block elements (p, div, lists, tables, headings, …) is unwrapped: a <p>
+ *   - consecutive plain divs (no class, id or data-* attribute) with inline content and the same
+ *     attributes become one <p> with those attributes, the lines joined by <br /> (v8 showed them
+ *     without a gap; a <p> per line would add the paragraph margin between them);
+ *   - a spacer div (only spaces, &nbsp; or <br>) right after such lines closes the paragraph and is
+ *     dropped (the paragraph margin takes its place); elsewhere it becomes <p>&nbsp;</p>;
+ *   - a plain div around block elements (p, div, lists, tables, headings, …) is unwrapped: a <p>
  *     cannot hold blocks, and the editor would drop the div anyway.
  *
  * Divs with a class, id or data-* attribute (the rich editor grids from ColumnShortcodes, embeds)
@@ -19,6 +22,8 @@ namespace App\Console\Commands\LaraV8\Support;
 class DivBlocks
 {
     private const BLOCKS = 'p|div|ul|ol|table|h[1-6]|blockquote|pre|figure|hr|section|article|form|iframe|address|dl';
+
+    private const EMPTY = '/^(?:\s|&nbsp;|\x{00A0}|<br\s*\/?>)*$/u';
 
     public static function has(?string $html): bool
     {
@@ -38,6 +43,8 @@ class DivBlocks
         $stack = [];
         /** @var array<int, array{0: int, 1: string}> $edits offset => [length, replacement] */
         $edits = [];
+        /** @var list<array{open: int, openLength: int, close: int, closeLength: int, attributes: string, spacer: bool}> $lines */
+        $lines = [];
         $changed = 0;
 
         foreach ($tags as $tag) {
@@ -72,14 +79,53 @@ class DivBlocks
                 continue;
             }
 
-            $edits[$open['offset']] = [$open['length'], $open['blocks'] ? '' : '<p'.$open['attributes'].'>'];
-            $edits[$offset] = [strlen($whole), $open['blocks'] ? '' : '</p>'];
             $changed++;
+
+            if ($open['blocks']) {
+                $edits[$open['offset']] = [$open['length'], ''];
+                $edits[$offset] = [strlen($whole), ''];
+
+                continue;
+            }
+
+            $inner = substr($html, $open['offset'] + $open['length'], $offset - $open['offset'] - $open['length']);
+            $lines[] = [
+                'open' => $open['offset'],
+                'openLength' => $open['length'],
+                'close' => $offset,
+                'closeLength' => strlen($whole),
+                'attributes' => $open['attributes'],
+                'spacer' => preg_match(self::EMPTY, $inner) === 1,
+            ];
         }
 
         if ($stack !== [] || $changed === 0) {
             // unbalanced divs: leave the HTML as it is
             return [$html, 0];
+        }
+
+        usort($lines, fn (array $a, array $b): int => $a['open'] <=> $b['open']);
+        $previous = null;
+
+        foreach ($lines as $line) {
+            $adjacent = $previous !== null
+                && trim(substr($html, $previous['close'] + $previous['closeLength'], $line['open'] - $previous['close'] - $previous['closeLength'])) === '';
+
+            if ($line['spacer'] && $adjacent && ! $previous['spacer']) {
+                // ends the paragraph of the lines before it
+                $edits[$line['open']] = [$line['close'] + $line['closeLength'] - $line['open'], ''];
+                $line['spacer'] = true;
+            } elseif (! $line['spacer'] && $adjacent && ! $previous['spacer'] && $previous['attributes'] === $line['attributes']) {
+                // the next line of the same paragraph
+                $edits[$previous['close']] = [$previous['closeLength'], '<br />'];
+                $edits[$line['open']] = [$line['openLength'], ''];
+                $edits[$line['close']] = [$line['closeLength'], '</p>'];
+            } else {
+                $edits[$line['open']] = [$line['openLength'], '<p'.$line['attributes'].'>'];
+                $edits[$line['close']] = [$line['closeLength'], '</p>'];
+            }
+
+            $previous = $line;
         }
 
         krsort($edits);

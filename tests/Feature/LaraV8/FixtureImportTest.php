@@ -918,7 +918,7 @@ class FixtureImportTest extends TestCase
     {
         $body = (string) DB::table('lara_content_pages')->where('id', 1127)->value('body');
 
-        $this->assertSame("<p>Tekst</p>\n<p><strong>Gastheer<br /></strong>Jan Pit</p>\n<p style=\"text-align: left;\">Telefoon: 06-12345678&nbsp;</p>\n<p>&nbsp;</p>", $body);
+        $this->assertSame("<p>Tekst</p>\n<p><strong>Gastheer<br /></strong>Jan Pit<br />\nTelefoon: 06-12345678&nbsp;</p>\n", $body);
         $this->assertStringContainsString('<div class="grid-layout"', (string) DB::table('lara_content_pages')->where('id', 19)->value('body'), 'The rich editor grids stay divs.');
 
         $this->assertTrue(collect(self::$contentReport)->contains(fn (array $line): bool => $line['entity'] === 'page' && $line['level'] === 'info' && str_contains($line['message'], 'v8 <div> blocks converted to paragraphs (row.column): 1127.body')));

@@ -7,21 +7,35 @@ use PHPUnit\Framework\TestCase;
 
 class DivBlocksTest extends TestCase
 {
-    public function test_plain_divs_with_inline_content_become_paragraphs(): void
+    public function test_consecutive_div_lines_become_one_paragraph_and_a_spacer_ends_it(): void
     {
-        $html = "<p>Intro<br />tekst</p>\n<div><strong>Gastheer<br /></strong>Mark Pit</div>\n<div>Telefoon: 06-27400694&nbsp;</div>\n<div>&nbsp;</div>";
+        $html = "<p>Intro<br />tekst</p>\n<div><strong>Gastheer<br /></strong>Mark Pit</div>\n<div>Telefoon: 06-27400694&nbsp;</div>\n<div>&nbsp;</div>\n<div>Volgende</div>";
 
         [$converted, $changed] = DivBlocks::convert($html);
 
-        $this->assertSame("<p>Intro<br />tekst</p>\n<p><strong>Gastheer<br /></strong>Mark Pit</p>\n<p>Telefoon: 06-27400694&nbsp;</p>\n<p>&nbsp;</p>", $converted);
-        $this->assertSame(3, $changed);
+        $this->assertSame("<p>Intro<br />tekst</p>\n<p><strong>Gastheer<br /></strong>Mark Pit<br />\nTelefoon: 06-27400694&nbsp;</p>\n\n<p>Volgende</p>", $converted);
+        $this->assertSame(4, $changed);
     }
 
-    public function test_a_paragraph_keeps_the_div_style(): void
+    public function test_a_spacer_that_follows_no_lines_stays_an_empty_paragraph(): void
     {
-        [$converted] = DivBlocks::convert('<div style="text-align: left;">Anouk Stulp</div>');
+        [$converted] = DivBlocks::convert("<p>Tekst</p>\n<div>&nbsp;</div>\n<p>Meer</p>");
 
-        $this->assertSame('<p style="text-align: left;">Anouk Stulp</p>', $converted);
+        $this->assertSame("<p>Tekst</p>\n<p>&nbsp;</p>\n<p>Meer</p>", $converted);
+    }
+
+    public function test_lines_keep_their_style_and_a_different_style_starts_a_new_paragraph(): void
+    {
+        [$converted] = DivBlocks::convert('<div style="text-align: left;">Mark Pit</div><div style="text-align: left;">Anouk Stulp</div><div>Telefoon</div>');
+
+        $this->assertSame('<p style="text-align: left;">Mark Pit<br />Anouk Stulp</p><p>Telefoon</p>', $converted);
+    }
+
+    public function test_lines_separated_by_other_content_are_separate_paragraphs(): void
+    {
+        [$converted] = DivBlocks::convert('<div>Een</div><p>Tussen</p><div>Twee</div>');
+
+        $this->assertSame('<p>Een</p><p>Tussen</p><p>Twee</p>', $converted);
     }
 
     public function test_a_plain_div_around_blocks_is_unwrapped(): void
