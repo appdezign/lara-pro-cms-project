@@ -95,7 +95,7 @@ Before the day:
 - [ ] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
 - [ ] reCAPTCHA keys: the v8 keys, live on `www.watersportverenigingnannewijd.nl`, in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch.
 - [ ] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
-- [ ] Cloudways backups of the v10 app (daily, plus a manual backup before the switch).
+- [x] Cloudways backups of the v10 app (daily, plus a manual backup before the switch). (User, 2026-11-27: daily on, manual backup taken.)
 
 The switch:
 
