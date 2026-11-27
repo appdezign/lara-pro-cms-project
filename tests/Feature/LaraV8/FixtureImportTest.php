@@ -914,6 +914,17 @@ class FixtureImportTest extends TestCase
         $this->assertTrue(collect(self::$contentRerun)->doesntContain(fn (array $line): bool => $line['entity'] === 'page' && $line['level'] === 'update'), 'A content rerun keeps the grids.');
     }
 
+    public function test_plain_v8_divs_become_paragraphs(): void
+    {
+        $body = (string) DB::table('lara_content_pages')->where('id', 1127)->value('body');
+
+        $this->assertSame("<p>Tekst</p>\n<p><strong>Gastheer<br /></strong>Jan Pit</p>\n<p style=\"text-align: left;\">Telefoon: 06-12345678&nbsp;</p>\n<p>&nbsp;</p>", $body);
+        $this->assertStringContainsString('<div class="grid-layout"', (string) DB::table('lara_content_pages')->where('id', 19)->value('body'), 'The rich editor grids stay divs.');
+
+        $this->assertTrue(collect(self::$contentReport)->contains(fn (array $line): bool => $line['entity'] === 'page' && $line['level'] === 'info' && str_contains($line['message'], 'v8 <div> blocks converted to paragraphs (row.column): 1127.body')));
+        $this->assertTrue(collect(self::$contentRerun)->doesntContain(fn (array $line): bool => $line['entity'] === 'page' && $line['level'] === 'update'), 'A content rerun keeps the paragraphs.');
+    }
+
     public function test_verify_finds_no_errors_after_the_import(): void
     {
         $report = (new Verifier(new V8Source))->run();

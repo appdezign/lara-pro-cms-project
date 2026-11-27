@@ -159,6 +159,7 @@ class ContentImporter
         $reassigned = 0;
         $defaultTemplates = 0;
         $shortcodeRows = [];
+        $divRows = [];
 
         foreach ($this->source->connection()->table($v8Table)->orderBy('id')->cursor() as $v8Row) {
             $row = [];
@@ -181,6 +182,12 @@ class ContentImporter
                 if (ColumnShortcodes::has($value)) {
                     [$value, $grids] = ColumnShortcodes::convert($value);
                     $shortcodeRows[] = "{$v8Row->id}.{$v10Column}".($grids === 0 ? ' (incomplete, removed)' : '');
+                }
+
+                // plain v8 <div> lines become paragraphs (the v10 rich editor unwraps them on save)
+                if (DivBlocks::has($value)) {
+                    [$value] = DivBlocks::convert($value);
+                    $divRows[] = "{$v8Row->id}.{$v10Column}";
                 }
 
                 if ($value === '' && in_array($v10Column, $customColumns, true)) {
@@ -220,6 +227,10 @@ class ContentImporter
 
         if ($shortcodeRows !== []) {
             $this->add('info', $key, 'v8 column shortcodes converted to rich editor grids (row.column): '.implode(', ', $shortcodeRows).'.');
+        }
+
+        if ($divRows !== []) {
+            $this->add('info', $key, 'v8 <div> blocks converted to paragraphs (row.column): '.implode(', ', $divRows).'.');
         }
 
         if ($reassigned > 0) {
