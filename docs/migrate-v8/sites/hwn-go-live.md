@@ -83,7 +83,7 @@ Checks:
 
 ## Content to settle before the freeze
 
-- [ ] Any content changed in v10 before go-live: record it in `v8-overrides.php`, or the final sync overwrites it.
+- [x] Any content changed in v10 before go-live (none: only the step-12 test saves, overwritten by the final import): record it in `v8-overrides.php`, or the final sync overwrites it.
 - [x] The German rows (6 pages, 1 blog, 3 docs, 1 widget; language unpublished) and the `en` demo leftovers: kept as imported; only the German menu links to them, nothing on the Dutch site does (live replaced German by `/nl/deutsch`).
 
 ## Switch
@@ -103,7 +103,7 @@ The switch:
 - [x] Final production dump from the v8 app with TablePlus into `hwn8246/.lara/production_switch/dbdump/` (user, 2026-11-27 12:34: `hwn-26112026-final.sql`; against yesterday's dump only system timestamps changed: a login, nightly cron and sync markers; no new content, no new media rows (2107 with files, max id 42314), so the media was not copied again) (before its domains move); production media with SFTP into `hwn8246/.lara/production_switch/media` (emptied first; `LARA_V8_MEDIA_PATH` points there).
 - [x] Backups first (2026-11-27 12:35): `v10_hwn` and `v8_hwn` into `hwn-deploy/backups/` (`*-before-final-sync.sql`).
 - [x] Locally (2026-11-27 12:36): reload `v8_hwn` from the fresh dump (63 tables, grant kept) (runbook 17; the grant stays), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `hwn10729.sql` and media archive (Python) in `hwn-deploy/`; remove local test hits from `seo_not_founds`. Result: sync dry run and sync without errors, only user 2 `updated_at` changed; verify ok 33, warning 2; 2 local test 404s removed; new `hwn10729.sql` (12:36, 53 tables); media unchanged (2057 files, none newer than the archive): no new archive.
-- [ ] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media if it changed; clear the sessions; caches.
+- [x] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media if it changed; clear the sessions; caches. (User, 2026-11-27: `hwn10729.sql` 12:36 into `scfyvdesed`, media unchanged, sessions, caches. Checked: staging text pass 64 URLs identical to local, `/admin/login` 200.)
 - [ ] Server: `robots.txt` back to the repo version (dashboard Pull).
 - [ ] Server `.env`: `APP_URL=https://www.watersportverenigingnannewijd.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; caches; the sitemap again.
 - [ ] v8 app: crons off, `MAIL_MAILER=log`, domains removed (Cloudways temporary URL). Before each command check which app the shell is in.
