@@ -55,6 +55,10 @@ On the server, guided one step at a time (runbook step 18: one command or settin
 11. Contact form (both mails on the dev mailer), the map with both harbours, the livestream page.
 12. Admin: open and save a page, a news item, a document and a photo album; the front URLs still identical afterwards.
 
+Deploy files (2026-11-27 10:42, verify ok 33, warning 2, 2 overrides, the 4 local test 404 hits removed): `hwn10729.sql` (1.4 MB, 53 tables, no `hwn10729.test`), `hwn10729-media.tgz` (1.1 GB, Python tarfile, 2057 files; 0 non-NFC, 0 `._*`, no `_fonts`), `staging.env` (secrets as `{...}` placeholders; `ANALYTICS_PROPERTY_ID=462017707` added: without it the dashboard shows only the versions widget).
+
+Deploy log (guided):
+
 Checks:
 
 - [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
