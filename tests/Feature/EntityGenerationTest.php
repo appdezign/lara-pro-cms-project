@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Filament\Actions\Testing\TestAction;
 use Filament\Facades\Filament;
+use Filament\Notifications\Notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
@@ -980,6 +981,25 @@ class EntityGenerationTest extends TestCase
         foreach ($this->generatedPaths() as $path) {
             $this->assertFileExists($path);
         }
+    }
+
+    /**
+     * The "base" entity has no table prefix: the refusal names the reason, not a missing config key.
+     */
+    public function test_the_base_entity_is_not_deleted_and_the_notification_says_why(): void
+    {
+        $entity = Entity::where('cgroup', 'base')->firstOrFail();
+
+        $this->assertFalse($this->builder()->deleteEntitySafely($entity));
+
+        $this->assertNotNull(Entity::find($entity->id));
+        Notification::assertNotified(
+            Notification::make()
+                ->title('The entity "'.$entity->title.'" cannot be deleted')
+                ->body(e('Entities of the group "base" are part of Lara itself and cannot be deleted.'))
+                ->danger()
+                ->persistent()
+        );
     }
 
     public function test_a_delete_that_fails_halfway_puts_the_files_and_table_back(): void
