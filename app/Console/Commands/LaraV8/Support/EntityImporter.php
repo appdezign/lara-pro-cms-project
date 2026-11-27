@@ -72,6 +72,7 @@ class EntityImporter
 
         $this->importCoreOptions($only, $dryRun);
         $this->importCoreFields($only, $dryRun, $update);
+        $this->importColumnFields($only, $dryRun, $update);
         $this->importPageTemplates($only, $dryRun);
         $this->reportSkipped($only);
 
@@ -111,7 +112,8 @@ class EntityImporter
         }
 
         $existing = EntityView::where('entity_id', $pages->id)->pluck('template')->filter()->all();
-        $hasLead = in_array('lead', $columns, true);
+        // a page lead imported into its own field (SiteFields) needs no extra body fields
+        $hasLead = in_array('lead', $columns, true) && SiteFields::columnTarget('page', 'lead') === null;
 
         $used = $this->source->connection()->table($table)
             ->whereNull('deleted_at')
@@ -423,6 +425,61 @@ class EntityImporter
             if ($attributes !== null) {
                 $this->add('info', $key, "v8 custom field '{$v8Field->fieldname}' of core entity '{$slug}' is used by {$candidate['live']} live record(s): added as a custom field.");
                 $this->importField($key, $candidate['entity'], $attributes, $dryRun, $update);
+            }
+        }
+    }
+
+    /**
+     * v8 content columns that become a v10 custom field (SiteFields `field`, v8-fields.php; gain:
+     * the page lead → intro), on a core or a site content type.
+     *
+     * @param  list<string>  $only
+     */
+    private function importColumnFields(array $only, bool $dryRun, bool $update): void
+    {
+        foreach ($this->source->contentEntities() as $v8) {
+            $key = $v8->entity_key;
+            $settings = SiteFields::columnFields($key);
+
+            if ($settings === [] || ($only !== [] && ! in_array($key, $only, true))) {
+                continue;
+            }
+
+            $table = $this->source->contentTable($key, $v8->group_key);
+            $columns = $table !== null && $this->source->hasTable($table) ? $this->source->columns($table) : [];
+            $entity = Entity::where('resource_slug', V8Map::resourceSlug($key))->first();
+
+            foreach ($settings as $column => $setting) {
+                $name = (string) $setting['field'];
+
+                if (! in_array($column, $columns, true)) {
+                    $this->add('error', $key, "v8 column '{$column}' (".basename(SiteFields::file()).') does not exist in v8; field not built.');
+
+                    continue;
+                }
+
+                if (($rejection = EntityFieldName::reject($name)) !== null) {
+                    $this->add('error', $key, "Field '{$name}' cannot be used in v10: {$rejection}");
+
+                    continue;
+                }
+
+                [$attributes, $problem] = SiteFields::columnFieldAttributes($setting);
+
+                if ($attributes === null) {
+                    $this->add('error', $key, "Field '{$name}': {$problem}; skipped.");
+
+                    continue;
+                }
+
+                if ($entity === null) {
+                    $this->add($dryRun ? 'create' : 'error', $key, "Field '{$name}' (v8 column {$column}) ".($dryRun ? 'would be created once the entity exists.' : 'not built: no v10 entity.'));
+
+                    continue;
+                }
+
+                $this->add('info', $key, "v8 column '{$column}' becomes the custom field '{$name}' ({$attributes['field_type']}, ".basename(SiteFields::file()).').');
+                $this->importField($key, $entity, $attributes, $dryRun, $update);
             }
         }
     }

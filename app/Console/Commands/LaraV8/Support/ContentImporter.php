@@ -140,7 +140,8 @@ class ContentImporter
         $map = [];
 
         foreach ($v8Columns as $column) {
-            $target = V8Map::contentColumn($key, $column, $hasGeolocation);
+            // a v8 column with its own v10 field (SiteFields `field`; gain: page lead → intro)
+            $target = SiteFields::columnTarget($key, $column) ?? V8Map::contentColumn($key, $column, $hasGeolocation);
 
             if ($target !== null && in_array($target, $v10Columns, true)) {
                 $map[$column] = $target;
@@ -307,8 +308,9 @@ class ContentImporter
     {
         $columns = $this->source->columns($v8Table);
 
-        // an older v8 pages table has no lead and no template column (inventiverepair)
-        if (! in_array('lead', $columns, true) || ! in_array('template', $columns, true)) {
+        // an older v8 pages table has no lead and no template column (inventiverepair); a lead
+        // with its own v10 field (SiteFields) is not in body2
+        if (! in_array('lead', $columns, true) || ! in_array('template', $columns, true) || SiteFields::columnTarget('page', 'lead') !== null) {
             return;
         }
 

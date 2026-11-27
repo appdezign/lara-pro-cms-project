@@ -15,7 +15,7 @@ class SiteFieldsTest extends TestCase
         parent::setUp();
 
         $this->file = sys_get_temp_dir().'/v8-fields-'.uniqid().'.php';
-        File::put($this->file, "<?php\n\nreturn [\n    'interview.paragraph1' => ['type' => 'richeditor'],\n    'interview.par1pos' => ['type' => 'select', 'options' => ['left', 'right']],\n    'interview.par1img' => ['type' => 'select', 'options' => ['get_record_images'], 'image' => true],\n    'interview.wrong' => ['type' => 'nosuchtype'],\n    'interview.nooptions' => ['type' => 'select'],\n    'docpro.secretkey' => ['skip' => true],\n];\n");
+        File::put($this->file, "<?php\n\nreturn [\n    'interview.paragraph1' => ['type' => 'richeditor'],\n    'interview.par1pos' => ['type' => 'select', 'options' => ['left', 'right']],\n    'interview.par1img' => ['type' => 'select', 'options' => ['get_record_images'], 'image' => true],\n    'interview.wrong' => ['type' => 'nosuchtype'],\n    'interview.nooptions' => ['type' => 'select'],\n    'docpro.secretkey' => ['skip' => true],\n    'page.lead' => ['field' => 'intro', 'type' => 'richeditor', 'hook' => 'after-slug'],\n];\n");
         config(['v8-migration.fields' => $this->file]);
         SiteFields::flush();
     }
@@ -60,8 +60,27 @@ class SiteFieldsTest extends TestCase
         $this->assertSame(['par1img'], SiteFields::imageFields('interview'));
         $this->assertSame([], SiteFields::imageFields('docpro'));
 
-        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions'], 'docpro' => []]);
+        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions'], 'docpro' => []], ['page' => ['title', 'lead']]);
         $this->assertCount(1, $problems);
         $this->assertStringContainsString("'docpro.secretkey' is not a v8 custom field", $problems[0]);
+
+        $problems = SiteFields::problems(['interview' => ['paragraph1', 'par1pos', 'par1img', 'wrong', 'nooptions'], 'docpro' => ['secretkey']], ['page' => ['title']]);
+        $this->assertCount(1, $problems);
+        $this->assertStringContainsString("'page.lead' is not a v8 content column", $problems[0]);
+    }
+
+    public function test_a_v8_column_with_a_field_setting_becomes_a_custom_field(): void
+    {
+        $this->assertSame('intro', SiteFields::columnTarget('page', 'lead'));
+        $this->assertNull(SiteFields::columnTarget('page', 'body'));
+        $this->assertNull(SiteFields::columnTarget('interview', 'paragraph1'), 'A custom field setting is no column setting.');
+        $this->assertSame(['lead'], array_keys(SiteFields::columnFields('page')));
+
+        [$attributes] = SiteFields::columnFieldAttributes(SiteFields::columnField('page', 'lead'));
+        $this->assertSame(['Intro', 'intro', 'richeditor', 'after-slug', null, 'enabled'], [$attributes['title'], $attributes['field_name'], $attributes['field_type'], $attributes['field_hook'], $attributes['field_options'], $attributes['rule_state']]);
+
+        [$attributes, $problem] = SiteFields::columnFieldAttributes(['field' => 'intro', 'hook' => 'nowhere']);
+        $this->assertNull($attributes);
+        $this->assertStringContainsString("'nowhere'", $problem);
     }
 }

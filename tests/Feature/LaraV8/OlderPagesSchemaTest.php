@@ -6,6 +6,7 @@ use App\Console\Commands\LaraV8\Support\ContentImporter;
 use App\Console\Commands\LaraV8\Support\CoreCustomFields;
 use App\Console\Commands\LaraV8\Support\EntityImporter;
 use App\Console\Commands\LaraV8\Support\MenuImporter;
+use App\Console\Commands\LaraV8\Support\SiteFields;
 use App\Console\Commands\LaraV8\Support\SiteOverrides;
 use App\Console\Commands\LaraV8\Support\V8Source;
 use Illuminate\Support\Facades\Artisan;
@@ -68,8 +69,10 @@ class OlderPagesSchemaTest extends TestCase
 
         // the site's own overrides (v8-overrides.php) never apply to the fixture
         self::$overridesPath ??= sys_get_temp_dir().'/lara-v8-overrides-'.uniqid().'.php';
-        config(['v8-migration.overrides' => self::$overridesPath, 'v8-migration.skip_entities' => ['v8fxleftover']]);
+        // nor the site's field settings (v8-fields.php): an absent file
+        config(['v8-migration.overrides' => self::$overridesPath, 'v8-migration.fields' => self::$overridesPath.'.fields', 'v8-migration.skip_entities' => ['v8fxleftover']]);
         SiteOverrides::flush();
+        SiteFields::flush();
 
         if (! self::$built) {
             self::$built = true;

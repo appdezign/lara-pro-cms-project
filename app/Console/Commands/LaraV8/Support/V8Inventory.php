@@ -185,8 +185,22 @@ class V8Inventory
         }
 
         $byEntity = $this->customFields()->groupBy('entity_key')->map(fn (Collection $fields): array => $fields->pluck('fieldname')->all())->all();
+        $columns = [];
 
-        foreach (SiteFields::problems($byEntity) as $problem) {
+        foreach ($this->source->contentEntities() as $v8) {
+            $columnSettings = SiteFields::columnFields($v8->entity_key);
+            $table = $columnSettings === [] ? null : $this->source->contentTable($v8->entity_key, $v8->group_key);
+
+            if ($table !== null && $this->source->hasTable($table)) {
+                $columns[$v8->entity_key] = $this->source->columns($table);
+
+                foreach ($columnSettings as $column => $setting) {
+                    $this->findings[] = 'Site field settings ('.basename(SiteFields::file())."): v8 column {$v8->entity_key}.{$column} becomes the custom field '{$setting['field']}' (".($setting['type'] ?? 'textarea').').';
+                }
+            }
+        }
+
+        foreach (SiteFields::problems($byEntity, $columns) as $problem) {
             $this->findings[] = $problem;
         }
 
