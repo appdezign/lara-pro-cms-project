@@ -65,6 +65,7 @@ Deploy log (guided):
 - Step 5 (user, 2026-11-27): media on the server 2057 files (= the archive), 0 `._*`; `storage:link`; `google-fonts:fetch` (incl. `roboto-hwn`, `source-sans-pro`); `migrate:status`: 0 pending. Checked from here: both `fonts.css` 200 from the staging host, font files 200, no local or `http://` references.
 - Step 6 (user, 2026-11-27): `optimize:clear`, `responsecache:clear`, `lara:route:cache`; staging text pass again: 64 URLs identical.
 - Step 7 (user, 2026-11-27): scheduler cron (Cloudways Cron Job Management, `schedule:run` every minute in `/home/1652362.cloudwaysapps.com/scfyvdesed/public_html`).
+- Step 8 (user, 2026-11-27): sitemap (`schedule:test --name=google-sitemap`). Checked from here: 513 URLs, all on `v10.watersportverenigingnannewijd.nl`, the same list as local; 485 answer 200, 16 folders and unpublished items 302, **12 news items 404**: 11 slugs with dots (`heerenveens-kanaal.`, `tijgerhaai-a.n.w.b.`, `…20.00-uur`, …) and `2015`. The show route `{slug}.html` compiles to `[^/\.]++` (Symfony: no separator in the slug), in v8 too: live shows them as the not-found page with status 200, v10 with 404. Not a regression; old news (2014–2021).
 
 Checks:
 
@@ -112,6 +113,7 @@ The switch:
 ## Known differences that stay
 
 - Unknown URLs answer 404 (live: 200 with the not-found text).
+- 12 old news items (11 slugs with dots, and `2015`) cannot be opened, as on live (v10: 404, live: the not-found text with 200); both sitemaps list them. Making them reachable would need a slug override (and redirects) or a core route constraint (`->where('slug', '[^/]+')`, laracms10).
 - `/de/` answers 404 (German unpublished; live: a redirect to `/nl/de/…`, the German pages were never reachable). `/en/` still serves the `[EN] homepage` (as live; core: an unpublished or missing language stays routable); nothing links to it.
 - Page titles end in " — Heerenveense Watersportvereniging Nannewijd"; news and document detail pages carry their own title.
 - `watersportverenigingnannewijd.nl/*` will redirect to the same path on www (v8: to the www home page).
