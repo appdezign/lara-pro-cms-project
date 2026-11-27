@@ -9,8 +9,10 @@ namespace App\Console\Commands\LaraV8\Support;
  * paragraphs at import, so the first save keeps the lines (user decision 2026-11-27):
  *
  *   - consecutive plain divs (no class, id or data-* attribute) with inline content and the same
- *     attributes become one <p> with those attributes, the lines joined by <br /> (v8 showed them
- *     without a gap; a <p> per line would add the paragraph margin between them);
+ *     attributes become one <p> with the first line's attributes, the lines joined by <br /> (v8
+ *     showed them without a gap; a <p> per line would add the paragraph margin between them).
+ *     `text-align: left` and `justify` count as no alignment here (the same for short lines; hwn
+ *     mixes them with plain divs); another alignment starts a new paragraph;
  *   - a spacer div (only spaces, &nbsp; or <br>) right after such lines closes the paragraph and is
  *     dropped (the paragraph margin takes its place); elsewhere it becomes <p>&nbsp;</p>;
  *   - a plain div around block elements (p, div, lists, tables, headings, …) is unwrapped: a <p>
@@ -115,7 +117,7 @@ class DivBlocks
                 // ends the paragraph of the lines before it
                 $edits[$line['open']] = [$line['close'] + $line['closeLength'] - $line['open'], ''];
                 $line['spacer'] = true;
-            } elseif (! $line['spacer'] && $adjacent && ! $previous['spacer'] && $previous['attributes'] === $line['attributes']) {
+            } elseif (! $line['spacer'] && $adjacent && ! $previous['spacer'] && self::key($previous['attributes']) === self::key($line['attributes'])) {
                 // the next line of the same paragraph
                 $edits[$previous['close']] = [$previous['closeLength'], '<br />'];
                 $edits[$line['open']] = [$line['openLength'], ''];
@@ -135,5 +137,13 @@ class DivBlocks
         }
 
         return [$html, $changed];
+    }
+
+    /** The attributes that decide whether two lines share a paragraph. */
+    private static function key(string $attributes): string
+    {
+        $key = preg_replace('/text-align:\s*(?:left|justify)\s*;?/i', '', $attributes);
+
+        return trim((string) preg_replace('/\sstyle\s*=\s*"\s*"/i', '', (string) $key));
     }
 }

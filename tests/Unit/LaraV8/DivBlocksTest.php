@@ -24,11 +24,11 @@ class DivBlocksTest extends TestCase
         $this->assertSame("<p>Tekst</p>\n<p>&nbsp;</p>\n<p>Meer</p>", $converted);
     }
 
-    public function test_lines_keep_their_style_and_a_different_style_starts_a_new_paragraph(): void
+    public function test_left_or_justified_lines_join_and_another_alignment_starts_a_new_paragraph(): void
     {
-        [$converted] = DivBlocks::convert('<div style="text-align: left;">Mark Pit</div><div style="text-align: left;">Anouk Stulp</div><div>Telefoon</div>');
+        [$converted] = DivBlocks::convert('<div><strong>Havenmeesters</strong></div><div style="text-align: justify;">Mark Pit</div><div style="text-align: left;">Anouk Stulp</div><div style="text-align: center;">Midden</div>');
 
-        $this->assertSame('<p style="text-align: left;">Mark Pit<br />Anouk Stulp</p><p>Telefoon</p>', $converted);
+        $this->assertSame('<p><strong>Havenmeesters</strong><br />Mark Pit<br />Anouk Stulp</p><p style="text-align: center;">Midden</p>', $converted, 'left and justify count as no alignment; center starts a new paragraph.');
     }
 
     public function test_lines_separated_by_other_content_are_separate_paragraphs(): void
