@@ -64,6 +64,7 @@ Deploy log (guided):
 - Steps 3–4 (user, 2026-11-27, done ahead of the guide): `hwn-deploy/hwn10729.sql` (10:42) imported into `scfyvdesed` with TablePlus; media archive uploaded and unpacked. Checked from here: the staging text pass above (64 URLs identical), Glide images 200. File count on the server: with step 5.
 - Step 5 (user, 2026-11-27): media on the server 2057 files (= the archive), 0 `._*`; `storage:link`; `google-fonts:fetch` (incl. `roboto-hwn`, `source-sans-pro`); `migrate:status`: 0 pending. Checked from here: both `fonts.css` 200 from the staging host, font files 200, no local or `http://` references.
 - Step 6 (user, 2026-11-27): `optimize:clear`, `responsecache:clear`, `lara:route:cache`; staging text pass again: 64 URLs identical.
+- Step 7 (user, 2026-11-27): scheduler cron (Cloudways Cron Job Management, `schedule:run` every minute in `/home/1652362.cloudwaysapps.com/scfyvdesed/public_html`).
 
 Checks:
 
