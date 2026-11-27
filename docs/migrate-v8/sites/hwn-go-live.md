@@ -66,6 +66,7 @@ Deploy log (guided):
 - Step 6 (user, 2026-11-27): `optimize:clear`, `responsecache:clear`, `lara:route:cache`; staging text pass again: 64 URLs identical.
 - Step 7 (user, 2026-11-27): scheduler cron (Cloudways Cron Job Management, `schedule:run` every minute in `/home/1652362.cloudwaysapps.com/scfyvdesed/public_html`).
 - Step 8 (user, 2026-11-27): sitemap (`schedule:test --name=google-sitemap`). Checked from here: 513 URLs, all on `v10.watersportverenigingnannewijd.nl`, the same list as local; 485 answer 200, 16 folders and unpublished items 302, **12 news items 404**: 11 slugs with dots (`heerenveens-kanaal.`, `tijgerhaai-a.n.w.b.`, `…20.00-uur`, …) and `2015`. The show route `{slug}.html` compiles to `[^/\.]++` (Symfony: no separator in the slug), in v8 too: live shows them as the not-found page with status 200, v10 with 404. Not a regression; old news (2014–2021).
+- Step 9 (user, 2026-11-27): `robots.txt` `Disallow: /` (checked from here; block again after every pull until the switch).
 
 Checks:
 
