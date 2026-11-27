@@ -93,7 +93,7 @@ Checks:
 Before the day:
 
 - [x] Production mail settings and sender decided (see Open before staging); active once `APP_ENV=production`.
-- [ ] reCAPTCHA keys: the v8 keys, live on `www.watersportverenigingnannewijd.nl`, in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch.
+- [x] reCAPTCHA keys: the v8 keys, live on `www.watersportverenigingnannewijd.nl`, in the v10 app's `.env`; the widget renders only with `APP_ENV=production`: check right after the switch.
 - [x] `.env`: `SESSION_DOMAIN=null`; `SESSION_DRIVER=file` (clearing the sessions: `rm -f storage/framework/sessions/*`).
 - [x] Cloudways backups of the v10 app (daily, plus a manual backup before the switch). (User, 2026-11-27: daily on, manual backup taken.)
 
@@ -108,7 +108,7 @@ The switch:
 - [x] Server `.env`: `APP_URL=https://www.watersportverenigingnannewijd.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; caches; the sitemap again. (User, 2026-11-27: AuthSMTP as v8, `MAIL_FROM` `info@dehwn.nl` / "De HWN"; fonts again, caches, sitemap 513 www URLs. Checked: `v10.…/nl/contact/contactformulier?x=1` → 301 to www with path and query (RedirectToCanonicalHost active); live still v8.)
 - [x] v8 app: crons off, `MAIL_MAILER=log` (user, 2026-11-27, `config:clear`), domains removed in step 5 (Cloudways temporary URL). Before each command check which app the shell is in.
 - [x] v10 app: primary domain `www.watersportverenigingnannewijd.nl`, alias `watersportverenigingnannewijd.nl`; staging domain removed; Let's Encrypt for both. **Clear the caches again after the move** (cached menu widgets keep the host of the request that filled them: macgyverbouw). (User, 2026-11-27: v8 domains removed, v10 primary www + alias, `v10.` removed, Let's Encrypt (both names, until 2027-02-25), caches again. Checked: `http://` → https and non-www → www with path and query (301), `/` → `/nl`, theme `hwn`, only the www host in the HTML, `robots.txt` allows, sitemap 513 www URLs, `/admin/login` 200, unknown URL 404. Text pass production vs local (`hwn-compare/production-pass.md`): 63 identical, the contact form adds the reCAPTCHA hint (production only; widget script loads).)
-- [ ] Check: http → https and non-www → www with path and query, home, every menu item, news, downloads and a document, photo albums, the livestream, the 404, every asset and image, the contact form with reCAPTCHA and both mails, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login and dashboard. Text pass production vs local.
+- [x] Check: http → https and non-www → www with path and query, home, every menu item, news, downloads and a document, photo albums, the livestream, the 404, every asset and image, the contact form with reCAPTCHA and both mails, the cookie consent, `robots.txt`, `sitemap.xml` (www URLs), the admin login and dashboard. Text pass production vs local. (User, 2026-11-27: contact form with reCAPTCHA sent, both mails arrived via AuthSMTP; admin dashboard with Analytics OK. From here: cookie banner with the `/nl/privacy` link, GA4 `G-0GSPCBY43J` in the consent config; redirects, assets, robots, sitemap and the production text pass under step 5.)
 - [ ] Search Console: resubmit the sitemap; watch 404s.
 - [ ] Git: `main`/`develop` from `v10`, tag `v1.0.0`, Cloudways deploys `main`; the site repo becomes the only remote; project tags and the tooling worktree removed once everything is pushed.
 
