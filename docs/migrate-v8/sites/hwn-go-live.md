@@ -99,10 +99,10 @@ Before the day:
 
 The switch:
 
-- [ ] Content freeze on the v8 admin (news and photo albums change often: the newest album is from 2026-11-25).
-- [ ] Final production dump from the v8 app with TablePlus into `hwn8246/.lara/production_switch/dbdump/` (before its domains move); production media with SFTP into `hwn8246/.lara/production_switch/media` (emptied first; `LARA_V8_MEDIA_PATH` points there).
-- [ ] Backups first: `v10_hwn` and `v8_hwn` into `hwn-deploy/backups/` (`*-before-final-sync.sql`).
-- [ ] Locally: reload `v8_hwn` from the fresh dump (runbook 17; the grant stays), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `hwn10729.sql` and media archive (Python) in `hwn-deploy/`; remove local test hits from `seo_not_founds`.
+- [x] Content freeze on the v8 admin (user, 2026-11-27 afternoon) (news and photo albums change often: the newest album is from 2026-11-25).
+- [x] Final production dump from the v8 app with TablePlus into `hwn8246/.lara/production_switch/dbdump/` (user, 2026-11-27 12:34: `hwn-26112026-final.sql`; against yesterday's dump only system timestamps changed: a login, nightly cron and sync markers; no new content, no new media rows (2107 with files, max id 42314), so the media was not copied again) (before its domains move); production media with SFTP into `hwn8246/.lara/production_switch/media` (emptied first; `LARA_V8_MEDIA_PATH` points there).
+- [x] Backups first (2026-11-27 12:35): `v10_hwn` and `v8_hwn` into `hwn-deploy/backups/` (`*-before-final-sync.sql`).
+- [x] Locally (2026-11-27 12:36): reload `v8_hwn` from the fresh dump (63 tables, grant kept) (runbook 17; the grant stays), `lara:v8:sync --dry-run`, `lara:v8:sync`, `lara:v8:verify -v`; a fresh `hwn10729.sql` and media archive (Python) in `hwn-deploy/`; remove local test hits from `seo_not_founds`. Result: sync dry run and sync without errors, only user 2 `updated_at` changed; verify ok 33, warning 2; 2 local test 404s removed; new `hwn10729.sql` (12:36, 53 tables); media unchanged (2057 files, none newer than the archive): no new archive.
 - [ ] Server (v10 app): the user imports the dump with TablePlus, uploads and unpacks the media if it changed; clear the sessions; caches.
 - [ ] Server: `robots.txt` back to the repo version (dashboard Pull).
 - [ ] Server `.env`: `APP_URL=https://www.watersportverenigingnannewijd.nl`, `APP_ENV=production`, production `MAIL_*`/`MAIL_FROM_*`; `rm -rf storage/app/public/_fonts && php artisan google-fonts:fetch`; caches; the sitemap again.
