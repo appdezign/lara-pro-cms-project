@@ -10,7 +10,8 @@
 /config/lara-*
 /mods/*
 /laracms/core/*
-/laracms/themes/*
+/laracms/themes/base/*
+/laracms/themes/demo/*
 /node_modules/
 /openspec/
 /public/assets/
