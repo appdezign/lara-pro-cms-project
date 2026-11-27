@@ -55,7 +55,7 @@ On the server, guided one step at a time (runbook step 18: one command or settin
 11. Contact form (both mails on the dev mailer), the map with both harbours, the livestream page.
 12. Admin: open and save a page, a news item, a document and a photo album; the front URLs still identical afterwards.
 
-Deploy files (2026-11-27 10:42, verify ok 33, warning 2, 2 overrides, the 4 local test 404 hits removed): `hwn10729.sql` (1.4 MB, 53 tables, no `hwn10729.test`), `hwn10729-media.tgz` (1.1 GB, Python tarfile, 2057 files; 0 non-NFC, 0 `._*`, no `_fonts`), `staging.env` (secrets as `{...}` placeholders; `ANALYTICS_PROPERTY_ID=462017707` added: without it the dashboard shows only the versions widget).
+Deploy files (2026-11-27 10:42; `hwn10729.sql` again at 11:32 after the div fix, verify ok 33, warning 2, 2 overrides, the 4 local test 404 hits removed): `hwn10729.sql` (1.4 MB, 53 tables, no `hwn10729.test`), `hwn10729-media.tgz` (1.1 GB, Python tarfile, 2057 files; 0 non-NFC, 0 `._*`, no `_fonts`), `staging.env` (secrets as `{...}` placeholders; `ANALYTICS_PROPERTY_ID=462017707` added: without it the dashboard shows only the versions widget).
 
 Deploy log (guided):
 
@@ -69,6 +69,7 @@ Deploy log (guided):
 - Step 9 (user, 2026-11-27): `robots.txt` `Disallow: /` (checked from here; block again after every pull until the switch).
 - Step 10 (user, 2026-11-27): GA service-account file uploaded to `storage/app/analytics/service-account-lara-dash.json`; the admin dashboard shows the Analytics charts (`ANALYTICS_PROPERTY_ID=462017707`). Checked from here: the contact page loads the Maps script with a key; `/nl/livestream` 200.
 - Step 11 (user, 2026-11-27): contact form sent, both mails on the dev mailer; the map (both harbours) and the livestream OK.
+- Step 12 (user, 2026-11-27): a page, a news item, a document and a photo album saved without errors; menus OK. Staging text pass afterwards: 63 identical, **De Welle "Algemeen" (3962, saved) different**: the v10 rich editor unwraps v8 `<div>` lines on save ("Mark PitTelefoon: …"). Affected: hwn pages 3959, 3962, 3967 (inventiverepair: 11 pages, 2 blogs). Fixed in the tooling (user, 2026-11-27: div → p at import): `937f493`, `39ddb63`, `d77e011` on `v8-migration` (`DivBlocks`: consecutive div lines one `<p>` with `<br />`, a spacer div ends it, left/justify do not split; fixture + tests, runbook step 8). `import-content`: 3 pages updated, second run unchanged, verify ok 33 / warning 2. Theme (`b5735d3` on `v10`): images in a paragraph inline, as v8 (preflight made them blocks: an empty line after the team photo; Geschiedenis too). Measured at 1440 px against live: team page "Mark Pit" at the same height, De Welle within 6 px, De Bron within 15 px; Geschiedenis 3506 vs live 3510 (was 3531). Text pass local vs live unchanged; LaraV8 173 passed. New `hwn10729.sql` (11:32); staging to update (Pull, dump, robots, caches).
 
 Checks:
 
