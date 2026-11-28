@@ -1,6 +1,6 @@
 # inventiverepair.nl: go-live checklist
 
-v8.2.46 (`invent8246`, production db `qbfnpgvjve`, theme `inventive`) → v10 (`invent10725`, Lara CMS 10.7.25, theme `inventive`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-24: site code on `appdezign/inventiverepair-nl` branch `v10`; staging next.
+v8.2.46 (`invent8246`, production db `qbfnpgvjve`, theme `inventive`) → v10 (`invent10725`, Lara CMS 10.7.33, theme `inventive`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-28: staging done on 10.7.33 (v10.inventiverepair.nl); live is still v8; switch next.
 
 Live: https://www.inventiverepair.nl on the Cloudways server at `95.179.176.155` (the same server as macgyverbouw and doormode), nginx, **not behind Cloudflare**. DNS at webhost.company (`ns1–3.webhost.company`); `www` (CNAME to the root) and the root both `95.179.176.155`; **`v10.inventiverepair.nl` already resolves** to the same address (2026-11-24). `http://www` → `https://www` 301 with the path; `inventiverepair.nl/*` (http and https) → `https://www.inventiverepair.nl/` 301 **without the path** (the query is kept: Cloudways' own www redirect, as macgyverbouw). `robots.txt` `Allow: /`; **a sitemap** (`/sitemap.xml` 200, 72 URLs). Plan with every decision: `invent8246/.ai/plans/2026-11-24-migrate-v8-to-v10-inventiverepair.md`; inventory: `sites/invent-inventory.md`; text pass: `invent8246/.ai/plans/inventive-compare/`.
 
@@ -66,6 +66,8 @@ Deploy log (guided):
 - Step 11 (user, 2026-11-24): contact form sent, both mails on the dev mailer; the map, the company film and the random partner box work.
 - Step 12 (2026-11-24): saving a page failed: v10's page form requires a template and every page had none (no v8 template column; the front accepts an empty one). Tooling `d647b17`: the import gives such pages `standard`; staging fixed by the user (`invent-deploy/pages-template-standard.sql` offered). Text pass staging vs local afterwards: 62 URLs identical. The earlier sites (empty templates too) fixed by the user.
 - Step 12 (user, 2026-11-24): a page, a news item and a partner open and save without errors; text pass staging vs local afterwards: 62 URLs identical.
+- Redeploy for **Lara CMS 10.7.33** (2026-11-28; the switch had not happened, tooling 57 commits further): Pull `v10`, `composer install --no-dev -o`, `robots.txt` blocked again; new `invent10725.sql` (div lines converted, every page template `standard`, the empty standard type Galleries) into `yrjbgurjmu`, 0 pending migrations, caches, sessions cleared, sitemap. Checked: new assets, text pass 62 identical, sitemap 70 staging URLs; the converted pages Contactgegevens and Routebeschrijving saved in the admin keep their lines (user).
+- **Core item (laracms10):** the admin's related modules repeater offers only menu items of type `entity`, so saving a page whose related module is the contact form (menu item 93, type `form`) drops it: home, Herstel aluminium structuurbeplating, Vlakke beplating, Contactgegevens. Seen on staging after the test save of Contactgegevens; the final sync restores it.
 
 Checks:
 
