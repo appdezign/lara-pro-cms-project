@@ -5,7 +5,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Lara\Admin\Enums\MenuItemType;
 use Lara\App\Models\Blog;
+use Lara\Common\Models\MenuItem;
 use Lara\Common\Models\Page;
 use Mcamara\LaravelLocalization\LaravelLocalization;
 use Tests\TestCase;
@@ -15,7 +17,9 @@ use Tests\TestCase;
  *  - only pages that a menu links are found, as v8: the comparison used 'page' while the pages
  *    entity is 'pages', so the error page ("Oops", slug 404) and module pages were listed too;
  *  - the text custom fields are searched along with title, lead and body (gain: a page lead in
- *    the custom field "intro" was not found).
+ *    the custom field "intro" was not found);
+ *  - a page result links to its menu url (searchurl): pages have no detail route, so the themes'
+ *    route($result->routename, ['slug' => ...]) gave "/nl?slug=..." (the home page).
  *
  * The routing locale is set before the application is created (see GoogleSitemapGeneratorTest),
  * so the writes stay inside the transaction.
@@ -70,6 +74,23 @@ class FrontSearchTest extends TestCase
 
         $this->assertContains($blog->id, $this->found('zzcustomsearchvalue', 'blogs'), "All results: the custom field {$field}.");
         $this->assertContains($blog->id, $this->found('zzcustomsearchvalue', 'blogs', 'blogs'), "One module's results: the custom field {$field}.");
+    }
+
+    public function test_a_page_result_links_to_its_menu_url(): void
+    {
+        $home = MenuItem::where('type', MenuItemType::Page->value)->where('language', 'nl')->where('is_home', 1)->first()
+            ?? $this->markTestSkipped('No Dutch home page in a menu in the test database.');
+        $page = Page::factory()->create(['language' => 'nl', 'publish' => 1, 'title' => 'Zzsearchlink page', 'menuroute' => 'zz-search-link']);
+        $item = $home->replicate();
+        $item->fill(['is_home' => 0, 'route' => 'zz-search-link', 'object_id' => $page->id, 'title' => 'Zz search link']);
+        $item->saveQuietly();
+
+        $response = $this->get('/nl/searchresult?keywords=Zzsearchlink');
+
+        $result = $response->viewData('data')->results->pages->objects->firstWhere('id', $page->id) ?? $this->fail('The page is not found.');
+        $this->assertSame(url('nl/zz-search-link'), $result->searchurl);
+        $response->assertSee('href="'.url('nl/zz-search-link').'"', false);
+        $response->assertDontSee('?slug='.$page->slug, false);
     }
 
     /**
