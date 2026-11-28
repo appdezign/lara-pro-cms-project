@@ -20,9 +20,17 @@ class LaraRouteCacheCommandTest extends TestCase
 
     private string $cacheDirectory;
 
+    /**
+     * The route cache path phpunit.xml sets, restored afterwards so later tests do not
+     * fall back to bootstrap/cache, which holds the routes of the development database.
+     */
+    private ?string $previousRoutesCachePath;
+
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->previousRoutesCachePath = $_SERVER['APP_ROUTES_CACHE'] ?? $_ENV['APP_ROUTES_CACHE'] ?? (getenv('APP_ROUTES_CACHE') ?: null);
 
         $this->cacheDirectory = storage_path('framework/testing/route-cache-'.getmypid());
         File::ensureDirectoryExists($this->cacheDirectory);
@@ -32,7 +40,7 @@ class LaraRouteCacheCommandTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->setRoutesCachePath(null);
+        $this->setRoutesCachePath($this->previousRoutesCachePath);
         File::deleteDirectory($this->cacheDirectory);
 
         parent::tearDown();
