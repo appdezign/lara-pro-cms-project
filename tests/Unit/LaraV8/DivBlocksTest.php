@@ -17,6 +17,16 @@ class DivBlocksTest extends TestCase
         $this->assertSame(4, $changed);
     }
 
+    public function test_a_line_that_ends_in_a_break_is_joined_without_another_break(): void
+    {
+        // inventiverepair Contactgegevens: v8 showed one empty line after the telephone, not two
+        $html = "<div>Haskerveen</div>\n<div><br /><strong>T: 0513 - 62 13 45<br /><br /></strong></div>\n<div>F: 0513 - 623322</div>";
+
+        [$converted] = DivBlocks::convert($html);
+
+        $this->assertSame("<p>Haskerveen<br />\n<br /><strong>T: 0513 - 62 13 45<br /><br /></strong>\nF: 0513 - 623322</p>", $converted);
+    }
+
     public function test_a_spacer_that_follows_no_lines_stays_an_empty_paragraph(): void
     {
         [$converted] = DivBlocks::convert("<p>Tekst</p>\n<div>&nbsp;</div>\n<p>Meer</p>");

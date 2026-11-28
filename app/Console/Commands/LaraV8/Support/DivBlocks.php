@@ -98,6 +98,9 @@ class DivBlocks
                 'closeLength' => strlen($whole),
                 'attributes' => $open['attributes'],
                 'spacer' => preg_match(self::EMPTY, $inner) === 1,
+                // a line that already ends in a break (before closing inline tags): v8 showed no
+                // empty line after it at the end of its div, so joining adds no second break
+                'endsWithBreak' => preg_match('/<br\s*\/?>\s*(?:<\/[a-z][a-z0-9]*>\s*)*$/i', $inner) === 1,
             ];
         }
 
@@ -119,7 +122,7 @@ class DivBlocks
                 $line['spacer'] = true;
             } elseif (! $line['spacer'] && $adjacent && ! $previous['spacer'] && self::key($previous['attributes']) === self::key($line['attributes'])) {
                 // the next line of the same paragraph
-                $edits[$previous['close']] = [$previous['closeLength'], '<br />'];
+                $edits[$previous['close']] = [$previous['closeLength'], $previous['endsWithBreak'] ? '' : '<br />'];
                 $edits[$line['open']] = [$line['openLength'], ''];
                 $edits[$line['close']] = [$line['closeLength'], '</p>'];
             } else {
