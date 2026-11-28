@@ -1,6 +1,6 @@
 # vereniginggain.nl: go-live checklist
 
-v8.2.46 (`gain8246`, production db `yrmfjkvtpn`, theme `gain`) → v10 (`gain10729`, Lara CMS 10.7.30, theme `gain`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-27: **staging to prepare** (plan task 16; staging database `ekbwfwgebg`).
+v8.2.46 (`gain8246`, production db `yrmfjkvtpn`, theme `gain`) → v10 (`gain10729`, Lara CMS 10.7.33, theme `gain`). General steps: runbook step 18 (with its Deploy lessons). Status 2026-11-28: **live on v10** (the former staging app, database `ekbwfwgebg`); the v8 app is the fallback.
 
 Live: https://www.vereniginggain.nl on the Cloudways server at `95.179.176.155` (the same server as hwn, macgyverbouw, doormode and inventiverepair), nginx, **not behind Cloudflare**. DNS at webhost.company (`ns1–3.webhost.company`); the root `95.179.176.155`, `www` a CNAME to the root; **`v10.vereniginggain.nl` already resolves** (CNAME to the root) and answers **403** (an app without an index yet, 2026-11-27). `http://www` → `https://www` 301 with the path; `vereniginggain.nl/*` (http and https) → `https://www.vereniginggain.nl/` 301 **without the path** (the query is kept: Cloudways' own www redirect, as hwn). `/` → `/nl` 302. `robots.txt` `Allow: /`; **no sitemap** on live (`/sitemap.xml` 302 to `/nl/sitemap.xml`, which serves the home page with 200). Plan with every decision: `gain8246/.ai/plans/2026-11-27-migrate-v8-to-v10-gain.md`; inventory: `sites/gain-inventory.md`; text pass: `gain8246/.ai/plans/gain-compare/`.
 
@@ -57,12 +57,14 @@ On the server, guided one step at a time (runbook step 18: one command or settin
 
 Checks:
 
-- [ ] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron.
-- [ ] Every URL of the text pass (`gain-compare/urls.txt`, 92 URLs) identical to `gain10729`; Glide images 200; `/admin/login` 200; no local or `http://` references.
-- [ ] The fixed header and full-screen menu; the sidebar menu (desktop and mobile); the home quote slider.
+- [x] Server: PHP 8.4 with `tmpfile`, `highlight_file`, `fpassthru`; GA service-account file, admin dashboard; scheduler cron (2026-11-27).
+- [x] Every URL of the text pass (`gain-compare/urls.txt`, 92 URLs) identical to `gain10729`; Glide images 200; `/admin/login` 200; no local or `http://` references.
+- [x] The fixed header and full-screen menu; the sidebar menu (desktop and mobile); the home quote slider.
 
 ## Switch
 
 (As hwn, runbook step 18 "Switch".) Final sync of the content changed on live since the dump (`lara:v8:sync` against a fresh production dump; backups first in `gain-deploy/backups/`), the new `gain10729.sql` via TablePlus, caches. In Cloudways move the domains `vereniginggain.nl` and `www.vereniginggain.nl` from the v8 app (`yrmfjkvtpn`) to the v10 app (no DNS change), with SSL; `.env`: `APP_ENV=production`, `APP_URL=https://www.vereniginggain.nl`, the AuthSMTP mailer and `MAIL_FROM_*`; caches, sitemap again; `robots.txt` from the repo (`Allow: /`). The v8 app stays as the fallback: no domains, crons off, `MAIL_MAILER=log`.
 
 After the switch: the www redirect with the path, `/` → `/nl`, a news item, an event popup, `/admin/login`, the sitemap on the live host, Search Console (user).
+
+**Done (2026-11-28, guided):** final dump `gain8246-final.sql` (16:08) compared per column with the snapshot: only `updated_at` of records opened in the v8 admin, a `last_login` and v8's media-sync timestamps, so **no final sync** (the staging database became production as it was; no media copied again). Content freeze; v10 `.env` production values (`APP_ENV=production`, `APP_URL` www, AuthSMTP with `MAIL_ENCRYPTION=null`); v8 app `MAIL_MAILER=log` + `config:clear`, crons removed, domains removed (temporary URL); v10 app: primary `www.vereniginggain.nl`, alias `vereniginggain.nl`, `v10.` removed; 500 from a `.env` without `APP_KEY` → `key:generate`; caches + `lara:route:cache`; Let's Encrypt for both names (until 2027-02-26); `rm -rf storage/app/public/_fonts && google-fonts:fetch`; `robots.txt` open (= repo); sitemap 437 www URLs. Checked from here: `http://` → https, non-www → www with path and query (301), `/` → `/nl`, SSL, production text pass 92 URLs identical to local (`gain-compare/production-pass.md`), no staging/local hosts, every media and asset URL 200, fonts from www. User: password-reset mail through AuthSMTP arrived, sitemap submitted in Search Console. **Left to the user:** watch the 404s in Search Console (the old slugs with spaces have no redirects); keep the v8 app (`yrmfjkvtpn`) a few weeks without domains, crons and mail.

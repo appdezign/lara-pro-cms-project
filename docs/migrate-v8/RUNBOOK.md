@@ -746,3 +746,45 @@ v8.2.46 (`hwn8246`, Bootstrap 5 theme `hwn2024`) → Lara CMS 10.7.29 (`hwn10729
 - **No git on the Cloudways server**: check a deploy from here by its asset hashes or page markup; after a dashboard Pull restore `robots.txt` with `printf` while staging is blocked.
 - The user imported the database and media ahead of the guided steps: check what is already on the server before each step.
 - Core items for laracms10: `FrontMenuRepository::getMenuEntityRoutes()` reads `$item->entity->resource_slug` for every main menu item, also unpublished ones (a missing entity breaks every page: use `?->` and skip); base `object_gallery` checks `!empty($data->object->gallery())`, always true for a collection (empty gallery block on every page: `hasGallery()`); `MenuWidget` `showroot` works the other way round from v8.
+
+### vereniginggain.nl (seventh site, 2026-11)
+
+v8.2.46 (`gain8246`, theme `gain`) → Lara CMS 10.7.33 (`gain10729`, theme `gain`). Site repository: `appdezign/vereniginggain-nl` (`main`/`develop`, tag `v1.0.0`; `v10` was the migration branch). Live since the evening of 2026-11-28 on the former staging app (v10.vereniginggain.nl, now removed); **no Cloudflare** (DNS at webhost.company), the www redirect is in the app. Plan with every decision and detail: `gain8246/.ai/plans/2026-11-27-migrate-v8-to-v10-gain.md`; go-live list: `sites/gain-go-live.md`; inventory: `sites/gain-inventory.md`.
+
+**Time.** Setup, inventory, import, the custom v8 code and the theme on 2026-11-27 (production dump 14:37), staging that evening; on 2026-11-28 the staging checks, the slug fix, three core releases (10.7.31–10.7.33, see below) and the switch in the evening. The theme was a full port from `demo` (no earlier v10 theme), starting from the v8 theme's own SCSS.
+
+**Results.**
+
+- Content: 15 site content types (blog 177, docpro 75, event 67, location 43, organizer 28, experience 23, faq 23, portfolio 17, doc 13, testimonial 12, step 11, activity 6, interview 5, video 3, gallery 1) + the core ones (pages 115, sliders 21, widgets 10, CTAs 2); skipped: classicform, contactform, member (the v8 members area), product, sponsor, team; 13 users (role `leden` kept, without abilities); 2 menus, 69 items; languages nl + en (English unpublished); 254 Curator items, 650 MB of media.
+- `lara:v8:verify`: ok 34, warning 18 (17 links that are dead on live too, and one published page fewer than v8: the override). Tests: LaraV8 + Site 194.
+- Compared with live: 92 URLs (every menu URL, published and unpublished, news, experiences, interviews, the album, videos, a search, page 2 of two lists, an unknown URL, `/en`); every difference explained (plan, task 13). Staging and production: the same 92 URLs identical to local; production: 0 staging/local hosts, every media and asset URL 200; sitemap 437 URLs.
+- Final sync: not needed. The final dump differed from the first only in `updated_at` of records opened in the v8 admin, a `last_login` and v8's media-sync timestamps (compared per column against the snapshot in a scratch database).
+
+**Tooling added for gain** (each with tests):
+
+- **Site field settings** (`v8-fields.php`, `SiteFields`, step 5 "Site field settings"): per v8 field a v10 type with options (`custom` fields become selects and rich editors instead of textareas), `skip` (a field left out: docpro `secretkey`), `image` (a v8 image id remapped to the record's own v10 media: interview `par{n}img`), `field` (a v8 content column imported into a custom field: the page lead as the rich-editor field `intro` after the slug, instead of `body2`) and `rule` (conditional fields, as v8's admin JavaScript: an interview paragraph shows a quote or an image).
+- The sitemap leaves out a page item whose page is in the trash.
+- `ImportEntitiesDryRunTest` allows a v8 column's own field on a core type.
+
+**Core (laracms10), released for gain:** 10.7.30 the dynamic select option `get_record_images` (the record's own images; interview photos); 10.7.32 the content-list terms column (first term + "..", all in the tooltip), the search (only pages a menu links, as v8: the error and module pages were listed; text custom fields searched), related pages linking to their menu url; 10.7.33 page search results linking to their menu url (they went to `/nl?slug=…`, the home page).
+
+**Decisions** (see the plan for the reasoning):
+
+- Skip the members area and the unused types (above); build location, organizer (event relations), portfolio (members' widgets), testimonial, video.
+- Port the v8 event duplicate to the v10 admin (site code, a row action): the copy is **unpublished** (v8 published it at once) and the end date moves by the signed number of days.
+- Interviews in full (selects, rich editors, image remap, field rules); docpro `secretkey` dropped (front authorization no longer used: all reports public).
+- Site overrides: the footer privacy link, English unpublished, the demo page Services and the test page Slider Test in the trash, and **clean slugs for 18 v8 slugs** with spaces or capitals plus the 4 links to them, **without redirects** (user).
+- Theme `gain` from the v8 SCSS compiled into `custom/gain-v8.css` (in `@layer components`) plus measured values; Font Awesome 5 from the v8 theme; the v8 full-screen search overlay.
+- Production mail through AuthSMTP as v8 (`MAIL_ENCRYPTION=null`: v10 defaults to `tls`), `info@vereniginggain.nl` / "Vereniging GAIN"; cookie banner `policy_url` `/nl/privacy`.
+
+**Gotchas met on gain** (the general ones are in Gotchas and Deploy lessons):
+
+- **daisyUI 5 component names clash with v8/Bootstrap markup** and beat `@layer components` (daisyUI puts them in the utilities layer): `navbar`, `footer`, `dropdown`, `collapse`, `table`, `input`, `btn`, `modal-box`, and `fab` (= Font Awesome brands, a floating button in daisyUI). Exclude them in the theme's `@plugin "daisyui" { exclude: … }`, reset them, or rename the v8 classes.
+- v10 shows an unpublished page that a menu item links (by design): to take one offline, put it in the trash (site override `deleted_at`), and it leaves the sitemap too.
+- **v8 slugs can be invalid** (spaces, capitals): check in the inventory (`slug REGEXP BINARY '[^a-z0-9-]'` per content table) and fix the data with overrides, not the code (the user's rule). MySQL matches slugs case-insensitively, so old capital URLs keep working; old URLs with spaces become 404 without redirects.
+- `storage:link` on a fresh app did not take on the first run: check `ls -l public/storage` from the output, not "link ok".
+- The `"version"` line in `composer.json` is the project's (`10.7.29`), not the Lara packages': "10." means the v10 app.
+- A config that is not cached reads `.env` at once: with `APP_ENV=production` the staging host redirected to www (still v8) before the domains moved. Harmless, but the staging checks end there.
+- A `.env` without `APP_KEY` (a local file uploaded at the switch) gives a 500 on every page whose log shows only the follow-up "headers already sent" error. `key:generate` fixed it; a new key only ends the sessions (no 2FA secrets).
+- Comparing two v8 dumps: load the new one into a scratch database and compare per column (MD5 per value); `mysql -B` here does not escape `\r` in text, so rows cannot be parsed line by line.
+- Core items left for laracms10: core logs "could not render the 404 page" for a URL in an unpublished language; the search excerpt cuts at 150 bytes including `\r` (v8 line endings differ from re-saved text).
